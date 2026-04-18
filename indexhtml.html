@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Threads Kidswear – Joyful Dailywear for Kids</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --red:#B71C1C;--red-dark:#7F0000;--red-light:#FFEBEE;--red-mid:#E53935;
+  --peach:#FFF3E0;--rose:#FCE4EC;--sage:#E8F5E9;--sky:#E3F2FD;--lemon:#FFFDE7;
+  --warm:#FFF8F5;--text:#2C1810;--muted:#7A5C50;--accent:#B71C1C;--mint:#66BB6A;
+  --gold:#FFD54F;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);overflow-x:hidden;}
+
+#anim-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;height:72px;box-shadow:0 2px 12px rgba(183,28,28,0.08);}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-img{width:52px;height:52px;object-fit:contain;border-radius:50%;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--red-dark);line-height:1.1;}
+.logo-text span{font-size:11px;font-weight:400;color:var(--muted);display:block;letter-spacing:1px;text-transform:uppercase;}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links li a{text-decoration:none;color:var(--muted);font-size:13.5px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all 0.2s;display:block;}
+.nav-links li a:hover,.nav-links li a.active{color:var(--red);background:var(--red-light);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.wa-btn{background:#25D366;color:white;border:none;padding:9px 18px;border-radius:25px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(37,211,102,0.35);}
+.wa-icon{width:18px;height:18px;fill:white;}
+
+/* BASKET NAV BUTTON */
+.basket-nav-btn{background:var(--red-light);color:var(--red);border:1.5px solid var(--red);padding:8px 16px;border-radius:25px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all 0.2s;position:relative;}
+.basket-nav-btn:hover{background:var(--red);color:white;}
+.basket-count-badge{background:var(--red);color:white;font-size:11px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;}
+.basket-nav-btn:hover .basket-count-badge{background:white;color:var(--red);}
+
+/* PAGES */
+.page{display:none;position:relative;z-index:1;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#FFF5F5 0%,#FFF8F0 45%,#F5F0FF 100%);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:center;}
+.hero-blob1{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:var(--red-light);border-radius:50%;opacity:0.25;}
+.hero-blob2{position:absolute;bottom:-80px;left:-80px;width:280px;height:280px;background:#E8F5E9;border-radius:50%;opacity:0.3;}
+.hero-content{position:relative;z-index:2;}
+.hero-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:12px;padding:5px 18px;border-radius:20px;margin-bottom:1.2rem;font-weight:600;letter-spacing:0.5px;}
+.hero-logo{width:120px;height:120px;object-fit:contain;border-radius:50%;box-shadow:0 8px 32px rgba(183,28,28,0.2);margin-bottom:1.2rem;animation:floatLogo 3s ease-in-out infinite;}
+@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.2;margin-bottom:1rem;}
+.hero h1 em{font-style:normal;color:var(--red);}
+.hero p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 2rem;line-height:1.75;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--red);color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(183,28,28,0.35);}
+.btn-wa{background:#25D366;color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.35);}
+.trust-badges{display:flex;gap:10px;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;}
+.trust-badge{background:white;border:1px solid #F0E0DC;border-radius:20px;padding:7px 16px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.badge-dot{width:7px;height:7px;border-radius:50%;}
+
+/* SECTIONS */
+.section{padding:3.5rem 2rem;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:0.4rem;color:var(--text);}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:2.5rem;}
+.section-title .red{color:var(--red);}
+
+/* CATEGORY CARDS */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+.cat-card{border-radius:22px;padding:2.5rem 2rem;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.28s,box-shadow 0.28s;}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(0,0,0,0.12);}
+.cat-card.boys{background:linear-gradient(145deg,#DAEEFF,#C5DFF8);}
+.cat-card.girls{background:linear-gradient(145deg,#FFE4EE,#FFB5C8);}
+.cat-card.babies{background:linear-gradient(145deg,#E8F5E9,#B5D5C5);}
+.cat-img-placeholder{width:100%;height:160px;border-radius:14px;background:rgba(255,255,255,0.45);border:2px dashed rgba(0,0,0,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:1.2rem;cursor:pointer;transition:background 0.2s;position:relative;overflow:hidden;}
+.cat-img-placeholder:hover{background:rgba(255,255,255,0.65);}
+.cat-img-placeholder .ph-icon{font-size:36px;margin-bottom:6px;}
+.cat-img-placeholder .ph-text{font-size:11px;color:rgba(0,0,0,0.45);text-align:center;}
+.cat-img-placeholder img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
+.cat-img-placeholder input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.cat-age{display:inline-block;background:rgba(255,255,255,0.65);backdrop-filter:blur(4px);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;margin-bottom:8px;letter-spacing:0.3px;}
+.cat-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.3rem;}
+.cat-card p{font-size:13px;opacity:0.72;margin-bottom:1.2rem;line-height:1.55;}
+.cat-btn{display:inline-flex;align-items:center;gap:6px;background:white;color:var(--text);border:none;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.cat-btn:hover{background:var(--red);color:white;}
+.cat-count{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,0.55);border-radius:10px;padding:4px 10px;font-size:11px;color:var(--muted);font-weight:500;}
+
+/* SUBCATEGORIES */
+.sub-section{background:white;padding:3.5rem 2rem;position:relative;z-index:1;}
+.sub-inner{max-width:1200px;margin:0 auto;}
+.sub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;}
+.sub-card{border-radius:16px;padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:all 0.22s;border:1.5px solid transparent;}
+.sub-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.09);border-color:rgba(183,28,28,0.25);}
+.sub-card.traditional{background:#FFF8F0;border-color:#F0E0C8;}
+.sub-card.summer{background:#FFFDE7;border-color:#FFE082;}
+.sub-card.winter{background:#E8EAF6;border-color:#C5CAE9;}
+.sub-card.night{background:#EDE7F6;border-color:#CE93D8;}
+.sub-card.under{background:#E8F5E9;border-color:#A5D6A7;}
+.sub-icon{font-size:30px;margin-bottom:8px;display:block;}
+.sub-card h4{font-size:13.5px;font-weight:600;margin-bottom:3px;}
+.sub-card p{font-size:11.5px;color:var(--muted);line-height:1.45;}
+
+/* PRODUCT CARDS */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:18px;}
+.prod-card{background:white;border-radius:18px;overflow:hidden;transition:transform 0.22s,box-shadow 0.22s;border:1px solid #F0E0DC;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,0.1);}
+.prod-img-wrap{position:relative;height:190px;}
+.prod-img-placeholder{width:100%;height:100%;background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;}
+.prod-img-placeholder:hover{background:#F5ECEC;}
+.prod-img-placeholder .ph-icon{font-size:40px;margin-bottom:6px;pointer-events:none;}
+.prod-img-placeholder .ph-text{font-size:10px;color:rgba(0,0,0,0.38);text-align:center;line-height:1.4;pointer-events:none;}
+.prod-img-placeholder input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.prod-img-placeholder img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.prod-badge{position:absolute;top:10px;left:10px;background:var(--red);color:white;font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;z-index:2;}
+.prod-info{padding:1rem;}
+.prod-name{font-size:13.5px;font-weight:600;margin-bottom:3px;color:var(--text);}
+.prod-desc{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.prod-price{font-size:15px;font-weight:700;color:var(--red);white-space:nowrap;}
+.prod-actions{display:flex;gap:5px;align-items:center;}
+
+/* ADD TO BASKET BUTTON */
+.add-basket-btn{background:var(--red);color:white;border:none;padding:6px 10px;border-radius:12px;font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.18s;white-space:nowrap;}
+.add-basket-btn:hover{background:var(--red-dark);transform:scale(1.06);}
+.add-basket-btn.added{background:#25D366;}
+.prod-wa-btn{background:transparent;color:#25D366;border:1.5px solid #25D366;padding:5px 8px;border-radius:12px;font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:3px;transition:all 0.18s;}
+.prod-wa-btn:hover{background:#25D366;color:white;}
+
+/* BREADCRUMB */
+.breadcrumb{background:white;padding:12px 2rem;border-bottom:1px solid #F0E0DC;font-size:13px;color:var(--muted);position:relative;z-index:1;}
+.breadcrumb a{color:var(--red);text-decoration:none;font-weight:500;}
+.breadcrumb span{margin:0 6px;color:#CCC;}
+
+/* CATEGORY PAGE HERO */
+.cat-hero{padding:3rem 2rem;text-align:center;position:relative;z-index:1;}
+.cat-hero-boys{background:linear-gradient(135deg,#DAEEFF,#C5DFF8);}
+.cat-hero-girls{background:linear-gradient(135deg,#FFE4EE,#FFD6E7);}
+.cat-hero-babies{background:linear-gradient(135deg,#E8F5E9,#D0EDDB);}
+.cat-hero h1{font-family:'Playfair Display',serif;font-size:2rem;margin:0.5rem 0;}
+.filter-bar{max-width:1200px;margin:0 auto;padding:1.2rem 2rem;display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:relative;z-index:1;}
+.filter-label{font-size:13px;color:var(--muted);font-weight:600;}
+.filter-btn{background:white;border:1.5px solid #E8DED4;border-radius:20px;padding:6px 15px;font-size:12px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;font-weight:500;}
+.filter-btn:hover,.filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
+
+/* NEWSLETTER */
+.newsletter{background:linear-gradient(135deg,#FFEBEE,#FFF8E1,#E8F5E9);padding:4rem 2rem;text-align:center;position:relative;z-index:1;}
+.newsletter-inner{max-width:520px;margin:0 auto;}
+.newsletter h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:0.5rem;}
+.newsletter p{color:var(--muted);font-size:14px;margin-bottom:1.5rem;line-height:1.65;}
+.nl-form{display:flex;gap:10px;max-width:420px;margin:0 auto 1rem;flex-wrap:wrap;}
+.nl-form input{flex:1;min-width:200px;padding:12px 18px;border:1.5px solid #E0D0CC;border-radius:25px;font-size:14px;outline:none;background:white;font-family:'DM Sans',sans-serif;}
+.nl-form input:focus{border-color:var(--red);}
+.nl-form button{background:var(--red);color:white;border:none;padding:12px 22px;border-radius:25px;cursor:pointer;font-size:14px;font-weight:500;}
+.wa-enquire-block{margin-top:1rem;}
+.wa-enquire-block p{font-size:13px;color:var(--muted);margin-bottom:0.6rem;}
+
+/* FOOTER */
+footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.footer-logo{width:48px;height:48px;object-fit:contain;border-radius:50%;border:2px solid rgba(255,255,255,0.2);}
+.footer-brand-text{font-family:'Playfair Display',serif;font-size:18px;color:white;font-weight:700;}
+.footer-brand-text span{font-size:11px;font-weight:400;color:#FFCDD2;display:block;letter-spacing:1px;}
+.footer-col h4{font-size:13px;font-weight:600;color:white;margin-bottom:1rem;letter-spacing:0.5px;text-transform:uppercase;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:7px;}
+.footer-col ul li a{color:#FFCDD2;text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-col ul li a:hover{color:white;}
+.footer-col p{font-size:13px;line-height:1.65;color:#FFCDD2;}
+.footer-wa-btn{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:500;margin-top:0.8rem;transition:transform 0.2s;}
+.footer-wa-btn:hover{transform:translateY(-2px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:1.5rem;text-align:center;font-size:12px;color:#FFCDD2;}
+.footer-bottom a{color:#FFD54F;text-decoration:none;}
+
+/* FLOATING WA BUTTON */
+.float-wa{position:fixed;bottom:24px;right:24px;z-index:9999;background:#25D366;color:white;border:none;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2s ease-in-out infinite;}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,0.5);}50%{box-shadow:0 4px 28px rgba(37,211,102,0.8);}}
+.float-wa svg{width:30px;height:30px;fill:white;}
+.float-wa-tooltip{position:fixed;bottom:92px;right:24px;z-index:9998;background:white;color:var(--text);font-size:12px;padding:8px 14px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);white-space:nowrap;font-weight:500;opacity:0;transition:opacity 0.2s;pointer-events:none;}
+.float-wa:hover + .float-wa-tooltip{opacity:1;}
+
+/* ===================== BASKET DRAWER ===================== */
+.basket-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:10000;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.basket-overlay.open{opacity:1;pointer-events:all;}
+.basket-drawer{position:fixed;top:0;right:-420px;width:min(420px,100vw);height:100%;background:white;z-index:10001;transition:right 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,0.15);}
+.basket-drawer.open{right:0;}
+.basket-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1.5px solid var(--red-light);background:var(--red-light);}
+.basket-header h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--red-dark);}
+.basket-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--red-dark);line-height:1;padding:4px;border-radius:6px;transition:background 0.2s;}
+.basket-close:hover{background:rgba(183,28,28,0.1);}
+.basket-body{flex:1;overflow-y:auto;padding:1rem 1.5rem;}
+.basket-empty{text-align:center;padding:3rem 1rem;color:var(--muted);}
+.basket-empty-icon{font-size:52px;display:block;margin-bottom:0.8rem;}
+.basket-empty p{font-size:14px;line-height:1.6;}
+.basket-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #F5ECEC;}
+.basket-item:last-child{border-bottom:none;}
+.basket-item-info{flex:1;}
+.basket-item-name{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.basket-item-desc{font-size:11.5px;color:var(--muted);margin-bottom:6px;}
+.basket-item-price{font-size:14px;font-weight:700;color:var(--red);}
+.basket-item-qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.qty-btn{background:var(--red-light);border:1px solid var(--red-light);color:var(--red);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:all 0.15s;line-height:1;}
+.qty-btn:hover{background:var(--red);color:white;}
+.qty-val{font-size:14px;font-weight:600;min-width:20px;text-align:center;}
+.basket-remove{background:none;border:none;color:#CCC;cursor:pointer;font-size:18px;padding:4px;border-radius:6px;transition:color 0.15s;line-height:1;flex-shrink:0;}
+.basket-remove:hover{color:var(--red);}
+.basket-footer{padding:1rem 1.5rem;border-top:1.5px solid var(--red-light);background:#FFFAFA;}
+.basket-summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;}
+.basket-total-label{font-size:14px;color:var(--muted);font-weight:500;}
+.basket-total-val{font-size:20px;font-weight:700;color:var(--red-dark);}
+.basket-item-count{font-size:12px;color:var(--muted);margin-bottom:1rem;text-align:center;}
+.checkout-wa-btn{width:100%;background:#25D366;color:white;border:none;padding:15px;border-radius:16px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.checkout-wa-btn:hover{background:#1da556;transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+.checkout-wa-btn:disabled{background:#CCC;cursor:not-allowed;transform:none;box-shadow:none;}
+.basket-continue-btn{width:100%;background:none;border:1.5px solid var(--red-light);color:var(--red);padding:10px;border-radius:12px;font-size:13px;font-weight:500;cursor:pointer;margin-top:8px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.basket-continue-btn:hover{background:var(--red-light);}
+
+/* TOAST NOTIFICATION */
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--red-dark);color:white;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;z-index:20000;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:700px){
+  nav .nav-links{display:none;}
+  .hero{padding:3rem 1.2rem 2.5rem;min-height:auto;}
+  .section{padding:2.5rem 1.2rem;}
+  .filter-bar{padding:1rem 1.2rem;}
+  .basket-nav-btn .btn-label{display:none;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="anim-canvas"></canvas>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BASKET OVERLAY + DRAWER -->
+<div class="basket-overlay" id="basket-overlay" onclick="closeBasket()"></div>
+<div class="basket-drawer" id="basket-drawer">
+  <div class="basket-header">
+    <h3>🛒 Your Basket</h3>
+    <button class="basket-close" onclick="closeBasket()">✕</button>
+  </div>
+  <div class="basket-body" id="basket-body">
+    <div class="basket-empty">
+      <span class="basket-empty-icon">🛍️</span>
+      <p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p>
+    </div>
+  </div>
+  <div class="basket-footer">
+    <div class="basket-summary">
+      <span class="basket-total-label">Total</span>
+      <span class="basket-total-val" id="basket-total">₹0</span>
+    </div>
+    <div class="basket-item-count" id="basket-item-count"></div>
+    <button class="checkout-wa-btn" id="checkout-btn" onclick="checkoutWhatsApp()" disabled>
+      <svg style="width:20px;height:20px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Checkout via WhatsApp
+    </button>
+    <button class="basket-continue-btn" onclick="closeBasket()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a class="float-wa" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20would%20like%20to%20enquire%20about%20your%20products." target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+<div class="float-wa-tooltip">Chat with us on WhatsApp</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-wrap" onclick="showPage('home')">
+    <img class="logo-img" src="1002019789.jpg" alt="Tiny Threads Kidswear Logo" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+    <div style="display:none;width:52px;height:52px;background:var(--red);border-radius:50%;align-items:center;justify-content:center;color:white;font-size:20px;">🧵</div>
+    <div class="logo-text">Tiny Threads <span>Kidswear</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" onclick="showPage('boys');return false;">Boys 3–13y</a></li>
+    <li><a href="#" onclick="showPage('girls');return false;">Girls 3–13y</a></li>
+    <li><a href="#" onclick="showPage('babies');return false;">Babies 0–3y</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="basket-nav-btn" onclick="openBasket()">
+      🛒 <span class="btn-label">Basket</span>
+      <span class="basket-count-badge" id="nav-basket-count">0</span>
+    </button>
+    <a class="wa-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20would%20like%20to%20enquire%20about%20your%20products." target="_blank" rel="noopener">
+      <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enquire on WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-blob1"></div>
+    <div class="hero-blob2"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✨ New Summer Collection 2025</div>
+      <img class="hero-logo" src="1002019789.jpg" alt="Tiny Threads Logo" onerror="this.style.display='none'">
+      <h1>Dress them in <em>joy</em>,<br>every single day.</h1>
+      <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Shop by Category</button>
+        <a class="btn-wa" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20am%20interested%20in%20your%20collection." target="_blank" rel="noopener">
+          <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat with Us
+        </a>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge"><span class="badge-dot" style="background:#66BB6A;"></span>100% Safe Fabrics</div>
+        <div class="trust-badge"><span class="badge-dot" style="background:#EC407A;"></span>Skin-Friendly Dyes</div>
+        <div class="trust-badge"><span class="badge-dot" style="background:#42A5F5;"></span>Durable & Washable</div>
+        <div class="trust-badge"><span class="badge-dot" style="background:#FFD54F;"></span>Affordable Pricing</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="categories">
+    <h2 class="section-title">Shop by <span class="red">Category</span></h2>
+    <p class="section-sub">Find the perfect look for every little one in your life</p>
+    <div class="cat-grid">
+
+      <div class="cat-card boys" onclick="showPage('boys')">
+        <span class="cat-count">5 sub-categories</span>
+        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
+          <span class="ph-icon">📸</span>
+          <span class="ph-text">Click to add Boys Category photo</span>
+          <input type="file" accept="image/*" onchange="loadImg(this)">
+        </div>
+        <span class="cat-age">Ages 3 – 13 Years</span>
+        <h3>Boys</h3>
+        <p>Bold, playful & built to last — from school to weekend adventures</p>
+        <button class="cat-btn">Browse Boys →</button>
+      </div>
+
+      <div class="cat-card girls" onclick="showPage('girls')">
+        <span class="cat-count">5 sub-categories</span>
+        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
+          <span class="ph-icon">📸</span>
+          <span class="ph-text">Click to add Girls Category photo</span>
+          <input type="file" accept="image/*" onchange="loadImg(this)">
+        </div>
+        <span class="cat-age">Ages 3 – 13 Years</span>
+        <h3>Girls</h3>
+        <p>Sweet, vibrant & comfortable — for every twirl, run & rainy-day cuddle</p>
+        <button class="cat-btn">Browse Girls →</button>
+      </div>
+
+      <div class="cat-card babies" onclick="showPage('babies')">
+        <span class="cat-count">5 sub-categories</span>
+        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
+          <span class="ph-icon">📸</span>
+          <span class="ph-text">Click to add Babies Category photo</span>
+          <input type="file" accept="image/*" onchange="loadImg(this)">
+        </div>
+        <span class="cat-age">Ages 0 – 3 Years</span>
+        <h3>Babies</h3>
+        <p>Impossibly soft, gentle on skin — because every cuddle deserves the best</p>
+        <button class="cat-btn">Browse Babies →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sub-section">
+    <div class="sub-inner">
+      <h2 class="section-title">Browse by <span class="red">Style</span></h2>
+      <p class="section-sub">Curated collections for every occasion and season</p>
+      <div class="sub-grid">
+        <div class="sub-card traditional"><span class="sub-icon">🧵</span><h4>Traditional</h4><p>Ethnic & festive wear for special moments</p></div>
+        <div class="sub-card summer"><span class="sub-icon">☀️</span><h4>Summer</h4><p>Light, breezy & perfect for hot days</p></div>
+        <div class="sub-card winter"><span class="sub-icon">🧥</span><h4>Winter</h4><p>Cosy, warm layers for chilly seasons</p></div>
+        <div class="sub-card night"><span class="sub-icon">🌙</span><h4>Nightwear</h4><p>Soft, comfy pyjamas for restful sleep</p></div>
+        <div class="sub-card under"><span class="sub-icon">🧸</span><h4>Undergarments</h4><p>Gentle on skin, everyday essentials</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Featured <span class="red">This Season</span></h2>
+    <p class="section-sub">Our most loved pieces — add to basket & checkout via WhatsApp</p>
+    <div class="prod-grid" id="featured-grid"></div>
+  </div>
+
+  <div class="newsletter">
+    <div class="newsletter-inner">
+      <h2>Stay in the loop 💌</h2>
+      <p>Get new arrivals, seasonal looks & exclusive deals. Or simply reach out to us directly on WhatsApp — we're always happy to help!</p>
+      <div class="nl-form">
+        <input type="email" placeholder="Your email address">
+        <button onclick="alert('Thank you! We will be in touch.')">Subscribe</button>
+      </div>
+      <div class="wa-enquire-block">
+        <p>Prefer to chat? Reach us directly:</p>
+        <a class="btn-wa" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20would%20like%20to%20know%20more%20about%20your%20latest%20collection." target="_blank" rel="noopener" style="display:inline-flex;">
+          <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp: +91 78799 76016
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logo" src="1002019789.jpg" alt="Tiny Threads" onerror="this.style.display='none'">
+            <div class="footer-brand-text">Tiny Threads <span>Kidswear</span></div>
+          </div>
+          <p style="font-size:13px;line-height:1.65;color:#FFCDD2;">Joyful, safe & beautiful kidswear for every little one. Made with love, worn with joy.</p>
+          <a class="footer-wa-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!" target="_blank" rel="noopener">
+            <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('boys');return false;">Boys 3–13y</a></li>
+            <li><a href="#" onclick="showPage('girls');return false;">Girls 3–13y</a></li>
+            <li><a href="#" onclick="showPage('babies');return false;">Babies 0–3y</a></li>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Festive Collection</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="#">Traditional Wear</a></li>
+            <li><a href="#">Summer Wear</a></li>
+            <li><a href="#">Winter Wear</a></li>
+            <li><a href="#">Nightwear</a></li>
+            <li><a href="#">Undergarments</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>WhatsApp / Call:<br><strong style="color:white;">+91 78799 76016</strong></p>
+          <p style="margin-top:0.8rem;">Website:<br><a href="https://mytinythreads.in" style="color:#FFD54F;">mytinythreads.in</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Tiny Threads Kidswear · <a href="https://mytinythreads.in">mytinythreads.in</a> · All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== BOYS PAGE ==================== -->
+<div id="page-boys" class="page">
+  <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Boys 3–13 Years</div>
+  <div class="cat-hero cat-hero-boys">
+    <div style="font-size:52px;margin-bottom:8px;">👦</div>
+    <h1>Boys Collection</h1>
+    <p style="color:#1a4a6a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Bold, playful & built for every adventure</p>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">🧵 Traditional</button>
+    <button class="filter-btn">☀️ Summer</button>
+    <button class="filter-btn">🧥 Winter</button>
+    <button class="filter-btn">🌙 Nightwear</button>
+    <button class="filter-btn">🧸 Undergarments</button>
+  </div>
+  <div class="section" style="padding-top:1rem;">
+    <div class="sub-grid" style="margin-bottom:2.5rem;">
+      <div class="sub-card traditional"><span class="sub-icon">🧵</span><h4>Traditional</h4><p>Kurtas, sherwanis & ethnic sets</p></div>
+      <div class="sub-card summer"><span class="sub-icon">☀️</span><h4>Summer</h4><p>T-shirts, shorts & cotton sets</p></div>
+      <div class="sub-card winter"><span class="sub-icon">🧥</span><h4>Winter</h4><p>Jackets, sweaters & thermals</p></div>
+      <div class="sub-card night"><span class="sub-icon">🌙</span><h4>Nightwear</h4><p>Pyjamas, sleep suits & robes</p></div>
+      <div class="sub-card under"><span class="sub-icon">🧸</span><h4>Undergarments</h4><p>Vests, briefs & cotton innerwear</p></div>
+    </div>
+    <h2 class="section-title">All Boys <span class="red">Picks</span></h2>
+    <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
+    <div class="prod-grid" id="boys-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== GIRLS PAGE ==================== -->
+<div id="page-girls" class="page">
+  <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Girls 3–13 Years</div>
+  <div class="cat-hero cat-hero-girls">
+    <div style="font-size:52px;margin-bottom:8px;">👧</div>
+    <h1>Girls Collection</h1>
+    <p style="color:#7a1a4a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Sweet, vibrant & effortlessly cute</p>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">🧵 Traditional</button>
+    <button class="filter-btn">☀️ Summer</button>
+    <button class="filter-btn">🧥 Winter</button>
+    <button class="filter-btn">🌙 Nightwear</button>
+    <button class="filter-btn">🧸 Undergarments</button>
+  </div>
+  <div class="section" style="padding-top:1rem;">
+    <div class="sub-grid" style="margin-bottom:2.5rem;">
+      <div class="sub-card traditional"><span class="sub-icon">🧵</span><h4>Traditional</h4><p>Lehengas, salwar sets & frocks</p></div>
+      <div class="sub-card summer"><span class="sub-icon">☀️</span><h4>Summer</h4><p>Floral dresses, skirts & tops</p></div>
+      <div class="sub-card winter"><span class="sub-icon">🧥</span><h4>Winter</h4><p>Cardigans, jackets & warm sets</p></div>
+      <div class="sub-card night"><span class="sub-icon">🌙</span><h4>Nightwear</h4><p>Soft nighty sets & sleep dresses</p></div>
+      <div class="sub-card under"><span class="sub-icon">🧸</span><h4>Undergarments</h4><p>Cotton camisoles & briefs</p></div>
+    </div>
+    <h2 class="section-title">All Girls <span class="red">Picks</span></h2>
+    <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
+    <div class="prod-grid" id="girls-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== BABIES PAGE ==================== -->
+<div id="page-babies" class="page">
+  <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Babies 0–3 Years</div>
+  <div class="cat-hero cat-hero-babies">
+    <div style="font-size:52px;margin-bottom:8px;">👶</div>
+    <h1>Baby Collection</h1>
+    <p style="color:#1a5a3a;font-size:14px;margin-top:4px;">Ages 0 to 3 Years · Impossibly soft, gentle & adorable</p>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">🧵 Traditional</button>
+    <button class="filter-btn">☀️ Summer</button>
+    <button class="filter-btn">🧥 Winter</button>
+    <button class="filter-btn">🌙 Nightwear</button>
+    <button class="filter-btn">🧸 Undergarments</button>
+  </div>
+  <div class="section" style="padding-top:1rem;">
+    <div class="sub-grid" style="margin-bottom:2.5rem;">
+      <div class="sub-card traditional"><span class="sub-icon">🧵</span><h4>Traditional</h4><p>Mini ethnic sets & jhablas</p></div>
+      <div class="sub-card summer"><span class="sub-icon">☀️</span><h4>Summer</h4><p>Rompers, bodysuits & cotton sets</p></div>
+      <div class="sub-card winter"><span class="sub-icon">🧥</span><h4>Winter</h4><p>Quilted suits, booties & mittens</p></div>
+      <div class="sub-card night"><span class="sub-icon">🌙</span><h4>Nightwear</h4><p>Sleep sacks, footed suits & gowns</p></div>
+      <div class="sub-card under"><span class="sub-icon">🧸</span><h4>Undergarments</h4><p>Onesies, vests & nappy covers</p></div>
+    </div>
+    <h2 class="section-title">All Baby <span class="red">Picks</span></h2>
+    <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
+    <div class="prod-grid" id="babies-grid"></div>
+  </div>
+</div>
+
+<script>
+const WA_NUMBER = '917879976016';
+
+// ==================== BASKET STATE ====================
+let basket = [];
+
+function getItemKey(name) {
+  return name.replace(/\s+/g, '_').toLowerCase();
+}
+
+function addToBasket(name, desc, price) {
+  const key = getItemKey(name);
+  const existing = basket.find(i => i.key === key);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    basket.push({ key, name, desc, price: parseInt(price), qty: 1 });
+  }
+  updateBasketUI();
+  showToast('Added ' + name + ' to basket 🛒');
+  // Flash the button
+  const btn = document.querySelector(`[data-basket-key="${key}"]`);
+  if (btn) {
+    btn.classList.add('added');
+    btn.textContent = '✓ Added!';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerHTML = '🛒 Add';
+    }, 1200);
+  }
+}
+
+function removeFromBasket(key) {
+  basket = basket.filter(i => i.key !== key);
+  updateBasketUI();
+}
+
+function changeQty(key, delta) {
+  const item = basket.find(i => i.key === key);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    basket = basket.filter(i => i.key !== key);
+  }
+  updateBasketUI();
+}
+
+function updateBasketUI() {
+  const totalItems = basket.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = basket.reduce((s, i) => s + i.qty * i.price, 0);
+
+  // Nav badge
+  const badge = document.getElementById('nav-basket-count');
+  badge.textContent = totalItems;
+  badge.style.background = totalItems > 0 ? 'var(--red)' : '#CCC';
+
+  // Totals
+  document.getElementById('basket-total').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+  const countEl = document.getElementById('basket-item-count');
+  countEl.textContent = totalItems > 0 ? totalItems + ' item' + (totalItems > 1 ? 's' : '') + ' in your basket' : '';
+
+  // Checkout button
+  document.getElementById('checkout-btn').disabled = basket.length === 0;
+
+  // Basket body
+  const body = document.getElementById('basket-body');
+  if (basket.length === 0) {
+    body.innerHTML = `<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`;
+    return;
+  }
+
+  body.innerHTML = basket.map(item => `
+    <div class="basket-item">
+      <div class="basket-item-info">
+        <div class="basket-item-name">${item.name}</div>
+        <div class="basket-item-desc">${item.desc}</div>
+        <div class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')} ${item.qty > 1 ? '<span style="font-size:11px;font-weight:400;color:var(--muted);">(₹' + item.price + ' × ' + item.qty + ')</span>' : ''}</div>
+        <div class="basket-item-qty">
+          <button class="qty-btn" onclick="changeQty('${item.key}', -1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.key}', 1)">+</button>
+        </div>
+      </div>
+      <button class="basket-remove" onclick="removeFromBasket('${item.key}')" title="Remove">✕</button>
+    </div>
+  `).join('');
+}
+
+function openBasket() {
+  document.getElementById('basket-drawer').classList.add('open');
+  document.getElementById('basket-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBasket() {
+  document.getElementById('basket-drawer').classList.remove('open');
+  document.getElementById('basket-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function checkoutWhatsApp() {
+  if (basket.length === 0) return;
+  const totalPrice = basket.reduce((s, i) => s + i.qty * i.price, 0);
+  let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order the following items:\n\n';
+  basket.forEach((item, idx) => {
+    msg += `${idx + 1}. *${item.name}* (${item.desc})\n   Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty * item.price).toLocaleString('en-IN')}\n\n`;
+  });
+  msg += `*Total: ₹${totalPrice.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ==================== TOAST ====================
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ==================== WA SINGLE ENQUIRY ====================
+function waEnquire(name, price) {
+  const msg = encodeURIComponent(`Hi Tiny Threads Kidswear! I am interested in the *${name}* (₹${price}). Please share more details.`);
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+
+// ==================== PRODUCT DATA ====================
+const products = {
+  featured: [
+    {name:'Cotton Kurta Set', desc:'Boys · Traditional · 5–10y', price:'599', bg:'#DAEEFF', badge:'New'},
+    {name:'Floral Summer Frock', desc:'Girls · Summer · 3–8y', price:'449', bg:'#FFE4EE', badge:'Bestseller'},
+    {name:'Baby Onesie 3-Pack', desc:'Babies · Undergarments · 0–12m', price:'349', bg:'#E8F5E9', badge:''},
+    {name:'Dinosaur Pyjama Set', desc:'Boys · Nightwear · 3–8y', price:'449', bg:'#EDE7F6', badge:'Cosy'},
+    {name:'Lehenga Choli Set', desc:'Girls · Traditional · 4–12y', price:'799', bg:'#FFF8F0', badge:''},
+    {name:'Fleece Sleep Suit', desc:'Babies · Winter · 0–3y', price:'449', bg:'#E8EAF6', badge:'Warm'},
+  ],
+  boys: [
+    {name:'Cotton Kurta Set', desc:'Traditional · 5–10y', price:'599', bg:'#DAEEFF', badge:'New'},
+    {name:'Linen Shorts + Tee', desc:'Summer · 4–9y', price:'399', bg:'#FFF3B0', badge:''},
+    {name:'Hooded Sweatshirt', desc:'Winter · 6–13y', price:'699', bg:'#E8EAF6', badge:'Warm'},
+    {name:'Dinosaur Pyjama Set', desc:'Nightwear · 3–8y', price:'449', bg:'#EDE7F6', badge:'Cosy'},
+    {name:'Cotton Vest Pack (3)', desc:'Undergarments · 4–12y', price:'299', bg:'#E8F5E9', badge:''},
+    {name:'Sherwani Set', desc:'Traditional · 5–13y', price:'899', bg:'#DAEEFF', badge:'Festive'},
+    {name:'Printed T-Shirt', desc:'Summer · 3–10y', price:'249', bg:'#FFF3B0', badge:''},
+    {name:'Quilted Jacket', desc:'Winter · 5–13y', price:'799', bg:'#E8EAF6', badge:'New'},
+  ],
+  girls: [
+    {name:'Floral Summer Frock', desc:'Summer · 3–8y', price:'449', bg:'#FFE4EE', badge:'Bestseller'},
+    {name:'Lehenga Choli Set', desc:'Traditional · 4–12y', price:'799', bg:'#FFF8F0', badge:''},
+    {name:'Knit Cardigan', desc:'Winter · 5–13y', price:'649', bg:'#E8EAF6', badge:'Cosy'},
+    {name:'Floral Night Dress', desc:'Nightwear · 3–10y', price:'399', bg:'#EDE7F6', badge:''},
+    {name:'Cotton Camisole Set', desc:'Undergarments · 4–13y', price:'249', bg:'#E8F5E9', badge:''},
+    {name:'Anarkali Kurta', desc:'Traditional · 6–13y', price:'699', bg:'#FFE4EE', badge:'Festive'},
+    {name:'Pleated Skirt + Top', desc:'Summer · 4–12y', price:'499', bg:'#FFF3B0', badge:'New'},
+    {name:'Winter Pyjama Set', desc:'Nightwear · 3–13y', price:'429', bg:'#EDE7F6', badge:''},
+  ],
+  babies: [
+    {name:'Baby Onesie 3-Pack', desc:'Undergarments · 0–12m', price:'349', bg:'#E8F5E9', badge:'Soft'},
+    {name:'Cotton Romper', desc:'Summer · 3–18m', price:'299', bg:'#FFF3B0', badge:''},
+    {name:'Silk Jhabla Set', desc:'Traditional · 0–2y', price:'499', bg:'#FFF8F0', badge:''},
+    {name:'Fleece Sleep Suit', desc:'Winter · 0–3y', price:'449', bg:'#E8EAF6', badge:'Warm'},
+    {name:'Footed Sleep Gown', desc:'Nightwear · 0–18m', price:'379', bg:'#EDE7F6', badge:''},
+    {name:'Cotton Vest Set', desc:'Undergarments · 0–2y', price:'249', bg:'#E8F5E9', badge:''},
+  ]
+};
+
+// WA SVG path (reused)
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z';
+
+function productCard(p, idx) {
+  const key = getItemKey(p.name);
+  const badgeHtml = p.badge ? `<div class="prod-badge">${p.badge}</div>` : '';
+  return `
+  <div class="prod-card">
+    <div class="prod-img-wrap">
+      <div class="prod-img-placeholder" style="background:${p.bg};">
+        ${badgeHtml}
+        <span class="ph-icon">📸</span>
+        <span class="ph-text">Click to add<br>${p.name}<br>photo</span>
+        <input type="file" accept="image/*" onchange="loadImg(this)">
+      </div>
+    </div>
+    <div class="prod-info">
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-desc">${p.desc}</div>
+      <div class="prod-footer">
+        <span class="prod-price">₹${p.price}</span>
+        <div class="prod-actions">
+          <button class="add-basket-btn" data-basket-key="${key}" onclick="addToBasket('${p.name.replace(/'/g,"\\'")}','${p.desc.replace(/'/g,"\\'")}','${p.price}')">🛒 Add</button>
+          <button class="prod-wa-btn" onclick="waEnquire('${p.name.replace(/'/g,"\\'")}','${p.price}')" title="Quick enquiry">
+            <svg style="width:13px;height:13px;fill:#25D366;" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderGrid(id, key) {
+  document.getElementById(id).innerHTML = products[key].map((p, i) => productCard(p, id + '-' + i)).join('');
+}
+renderGrid('featured-grid', 'featured');
+renderGrid('boys-grid', 'boys');
+renderGrid('girls-grid', 'girls');
+renderGrid('babies-grid', 'babies');
+
+// Initialize basket UI
+updateBasketUI();
+
+// ==================== IMAGE UPLOAD ====================
+function loadImg(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  const container = input.closest('.cat-img-placeholder, .prod-img-placeholder');
+  reader.onload = e => {
+    let img = container.querySelector('img');
+    if (!img) { img = document.createElement('img'); container.appendChild(img); }
+    img.src = e.target.result;
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px;z-index:1;';
+    const icon = container.querySelector('.ph-icon');
+    const text = container.querySelector('.ph-text');
+    if (icon) icon.style.display = 'none';
+    if (text) text.style.display = 'none';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ==================== PAGE NAV ====================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    const t = a.textContent.toLowerCase();
+    if (id === 'home' && t.includes('home')) a.classList.add('active');
+    if (id === 'boys' && t.includes('boys')) a.classList.add('active');
+    if (id === 'girls' && t.includes('girls')) a.classList.add('active');
+    if (id === 'babies' && t.includes('babies')) a.classList.add('active');
+  });
+}
+
+// ==================== FILTER BUTTONS ====================
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    this.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ==================== FLYING ANIMATION ====================
+const canvas = document.getElementById('anim-canvas');
+const ctx = canvas.getContext('2d');
+const ITEMS = ['🌸', '⭐', '🎀', '🧵', '✨', '🌟', '💛', '🌈', '🦋', '🎈', '🌺', '💖'];
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function spawnParticle() {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: canvas.height + 40,
+    emoji: ITEMS[Math.floor(Math.random() * ITEMS.length)],
+    size: 14 + Math.random() * 18,
+    speedY: 0.5 + Math.random() * 1.2,
+    speedX: (Math.random() - 0.5) * 0.8,
+    opacity: 0.55 + Math.random() * 0.35,
+    rotation: Math.random() * Math.PI * 2,
+    rotSpeed: (Math.random() - 0.5) * 0.04,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.02 + Math.random() * 0.02,
+    wobbleAmp: 20 + Math.random() * 30,
+  });
+}
+
+let spawnTimer = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  spawnTimer++;
+  if (spawnTimer % 55 === 0 && particles.length < 28) spawnParticle();
+  particles = particles.filter(p => p.y > -60);
+  for (const p of particles) {
+    p.y -= p.speedY;
+    p.wobble += p.wobbleSpeed;
+    p.x += p.speedX + Math.sin(p.wobble) * 0.6;
+    p.rotation += p.rotSpeed;
+    ctx.save();
+    ctx.globalAlpha = p.opacity;
+    ctx.translate(p.x + Math.sin(p.wobble) * p.wobbleAmp * 0.3, p.y);
+    ctx.rotate(p.rotation);
+    ctx.font = `${p.size}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(p.emoji, 0, 0);
+    ctx.restore();
+  }
+}
+for (let i = 0; i < 12; i++) {
+  spawnParticle();
+  particles[i].y = Math.random() * window.innerHeight;
+}
+animate();
+</script>
+</body>
+</html>
