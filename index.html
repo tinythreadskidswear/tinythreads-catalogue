@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tiny Threads Kidswear – Joyful Dailywear for Kids</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -74,12 +75,17 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .cat-card.boys{background:linear-gradient(145deg,#DAEEFF,#C5DFF8);}
 .cat-card.girls{background:linear-gradient(145deg,#FFE4EE,#FFB5C8);}
 .cat-card.babies{background:linear-gradient(145deg,#E8F5E9,#B5D5C5);}
-.cat-img-placeholder{width:100%;height:160px;border-radius:14px;background:rgba(255,255,255,0.45);border:2px dashed rgba(0,0,0,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:1.2rem;cursor:pointer;transition:background 0.2s;position:relative;overflow:hidden;}
-.cat-img-placeholder:hover{background:rgba(255,255,255,0.65);}
-.cat-img-placeholder .ph-icon{font-size:36px;margin-bottom:6px;}
-.cat-img-placeholder .ph-text{font-size:11px;color:rgba(0,0,0,0.45);text-align:center;}
-.cat-img-placeholder img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
-.cat-img-placeholder input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+
+/* CATEGORY CAROUSEL (on home page cat cards) */
+.cat-carousel-wrap{width:100%;height:160px;border-radius:14px;overflow:hidden;margin-bottom:1.2rem;position:relative;background:rgba(255,255,255,0.45);}
+.cat-carousel-wrap .swiper{width:100%;height:100%;}
+.cat-carousel-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;}
+.cat-carousel-wrap .swiper-slide.placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.45);border:2px dashed rgba(0,0,0,0.12);border-radius:14px;}
+.cat-carousel-wrap .swiper-slide.placeholder .ph-icon{font-size:36px;margin-bottom:6px;}
+.cat-carousel-wrap .swiper-slide.placeholder .ph-text{font-size:11px;color:rgba(0,0,0,0.45);text-align:center;}
+.cat-carousel-wrap .swiper-pagination-bullet{background:rgba(0,0,0,0.3);}
+.cat-carousel-wrap .swiper-pagination-bullet-active{background:var(--red);}
+
 .cat-age{display:inline-block;background:rgba(255,255,255,0.65);backdrop-filter:blur(4px);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;margin-bottom:8px;letter-spacing:0.3px;}
 .cat-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.3rem;}
 .cat-card p{font-size:13px;opacity:0.72;margin-bottom:1.2rem;line-height:1.55;}
@@ -102,26 +108,53 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .sub-card h4{font-size:13.5px;font-weight:600;margin-bottom:3px;}
 .sub-card p{font-size:11.5px;color:var(--muted);line-height:1.45;}
 
-/* PRODUCT CARDS */
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:18px;}
+/* ===================== PRODUCT CARDS WITH SWIPER ===================== */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
 .prod-card{background:white;border-radius:18px;overflow:hidden;transition:transform 0.22s,box-shadow 0.22s;border:1px solid #F0E0DC;}
 .prod-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,0.1);}
-.prod-img-wrap{position:relative;height:190px;}
-.prod-img-placeholder{width:100%;height:100%;background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;}
-.prod-img-placeholder:hover{background:#F5ECEC;}
-.prod-img-placeholder .ph-icon{font-size:40px;margin-bottom:6px;pointer-events:none;}
-.prod-img-placeholder .ph-text{font-size:10px;color:rgba(0,0,0,0.38);text-align:center;line-height:1.4;pointer-events:none;}
-.prod-img-placeholder input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.prod-img-placeholder img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.prod-badge{position:absolute;top:10px;left:10px;background:var(--red);color:white;font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;z-index:2;}
-.prod-info{padding:1rem;}
-.prod-name{font-size:13.5px;font-weight:600;margin-bottom:3px;color:var(--text);}
-.prod-desc{font-size:11px;color:var(--muted);margin-bottom:10px;}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;}
-.prod-price{font-size:15px;font-weight:700;color:var(--red);white-space:nowrap;}
-.prod-actions{display:flex;gap:5px;align-items:center;}
 
-/* ADD TO BASKET BUTTON */
+/* PRODUCT CAROUSEL */
+.prod-swiper-wrap{position:relative;height:210px;}
+.prod-swiper-wrap .swiper{width:100%;height:100%;}
+.prod-swiper-wrap .swiper-slide{background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.prod-swiper-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;}
+.prod-swiper-wrap .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none;}
+.prod-swiper-wrap .swiper-slide .slide-ph .ph-icon{font-size:38px;margin-bottom:6px;}
+.prod-swiper-wrap .swiper-slide .slide-ph .ph-text{font-size:10px;color:rgba(0,0,0,0.38);text-align:center;line-height:1.4;}
+.prod-swiper-wrap .swiper-button-next,.prod-swiper-wrap .swiper-button-prev{color:var(--red);width:28px;height:28px;background:white;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.15);top:50%;}
+.prod-swiper-wrap .swiper-button-next:after,.prod-swiper-wrap .swiper-button-prev:after{font-size:11px;font-weight:700;}
+.prod-swiper-wrap .swiper-pagination{bottom:6px;}
+.prod-swiper-wrap .swiper-pagination-bullet{width:5px;height:5px;background:rgba(0,0,0,0.3);}
+.prod-swiper-wrap .swiper-pagination-bullet-active{background:var(--red);}
+.prod-badge{position:absolute;top:10px;left:10px;background:var(--red);color:white;font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;z-index:10;}
+
+/* UPLOAD OVERLAY on carousel */
+.upload-overlay{position:absolute;top:8px;right:8px;z-index:10;background:white;border:1.5px solid var(--red-light);border-radius:8px;padding:4px 8px;font-size:10px;color:var(--red);font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;}
+.upload-overlay:hover{background:var(--red);color:white;}
+.upload-overlay input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+
+.prod-info{padding:1rem;}
+.prod-name{font-size:13.5px;font-weight:600;margin-bottom:2px;color:var(--text);}
+.prod-desc{font-size:11px;color:var(--muted);margin-bottom:8px;}
+
+/* SIZE SELECTOR */
+.size-label{font-size:10.5px;color:var(--muted);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.size-pills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.size-pill{background:var(--red-light);color:var(--red);border:1px solid transparent;border-radius:6px;padding:3px 7px;font-size:10px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
+.size-pill:hover,.size-pill.selected{background:var(--red);color:white;}
+
+/* COLOR DOTS */
+.color-row{display:flex;align-items:center;gap:5px;margin-bottom:10px;}
+.color-label{font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.color-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,0.1);cursor:pointer;transition:transform 0.15s;}
+.color-dot:hover{transform:scale(1.25);}
+
+/* FABRIC CHIP */
+.fabric-chip{display:inline-block;background:#F5F0EA;color:var(--muted);border-radius:6px;padding:2px 7px;font-size:10px;margin-bottom:8px;}
+
+.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.prod-price{font-size:16px;font-weight:700;color:var(--red);white-space:nowrap;}
+.prod-actions{display:flex;gap:5px;align-items:center;}
 .add-basket-btn{background:var(--red);color:white;border:none;padding:6px 10px;border-radius:12px;font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.18s;white-space:nowrap;}
 .add-basket-btn:hover{background:var(--red-dark);transform:scale(1.06);}
 .add-basket-btn.added{background:#25D366;}
@@ -218,16 +251,223 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 .basket-continue-btn{width:100%;background:none;border:1.5px solid var(--red-light);color:var(--red);padding:10px;border-radius:12px;font-size:13px;font-weight:500;cursor:pointer;margin-top:8px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
 .basket-continue-btn:hover{background:var(--red-light);}
 
-/* TOAST NOTIFICATION */
+/* TOAST */
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--red-dark);color:white;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;z-index:20000;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
+/* LOADING STATE */
+.loading-grid{text-align:center;padding:3rem;color:var(--muted);font-size:14px;}
+.loading-grid .spinner{width:32px;height:32px;border:3px solid var(--red-light);border-top-color:var(--red);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 1rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* CLOUDINARY INFO BOX */
+.cloudinary-info{background:linear-gradient(135deg,#E3F2FD,#E8F5E9);border:1px solid #B3DEF5;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:13px;color:#1a5276;display:flex;align-items:flex-start;gap:10px;}
+.cloudinary-info .ci-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.cloudinary-info a{color:var(--red);font-weight:600;}
+
+/* ===================== INSTAGRAM ===================== */
+.ig-btn{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border:none;padding:9px 18px;border-radius:25px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;}
+.ig-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(188,24,136,0.4);}
+.ig-icon{width:18px;height:18px;fill:white;flex-shrink:0;}
+
+/* OFFER BANNER */
+.ig-offer-banner{background:linear-gradient(135deg,#fdf0f8,#fff0e6,#fce4ec);border:2px solid rgba(220,39,67,0.15);border-radius:22px;padding:2.2rem 2rem;max-width:1200px;margin:0 auto 0;position:relative;overflow:hidden;z-index:1;}
+.ig-offer-banner::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:linear-gradient(45deg,rgba(240,148,51,0.12),rgba(188,24,136,0.12));border-radius:50%;}
+.ig-offer-inner{display:flex;align-items:center;gap:2rem;position:relative;z-index:2;flex-wrap:wrap;}
+.ig-offer-badge{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 24px rgba(188,24,136,0.3);}
+.ig-offer-badge svg{width:38px;height:38px;fill:white;}
+.ig-offer-text{flex:1;min-width:200px;}
+.ig-offer-tag{display:inline-block;background:linear-gradient(45deg,#f09433,#bc1888);color:white;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:8px;letter-spacing:0.5px;text-transform:uppercase;}
+.ig-offer-text h3{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:5px;color:var(--text);}
+.ig-offer-text h3 em{font-style:normal;background:linear-gradient(45deg,#e6683c,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ig-offer-text p{font-size:13px;color:var(--muted);line-height:1.55;}
+.ig-offer-cta{display:flex;flex-direction:column;gap:8px;align-items:center;}
+.ig-offer-cta .ig-btn{white-space:nowrap;padding:11px 22px;font-size:13.5px;font-weight:600;}
+.ig-offer-cta .ig-fine{font-size:10.5px;color:var(--muted);text-align:center;}
+.ig-cap-chip{background:white;border:1px solid #F0E0DC;border-radius:10px;padding:5px 12px;font-size:11px;color:var(--text);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
+
+/* IG FOLLOW SECTION (replaces newsletter WA block) */
+.ig-follow-section{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:4rem 2rem;text-align:center;position:relative;z-index:1;overflow:hidden;}
+.ig-follow-section::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(188,24,136,0.18) 0%,transparent 70%);pointer-events:none;}
+.ig-follow-inner{max-width:540px;margin:0 auto;position:relative;z-index:2;}
+.ig-follow-icon{width:64px;height:64px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 8px 32px rgba(188,24,136,0.4);}
+.ig-follow-icon svg{width:34px;height:34px;fill:white;}
+.ig-follow-section h2{font-family:'Playfair Display',serif;font-size:1.9rem;color:white;margin-bottom:0.5rem;}
+.ig-follow-section h2 em{font-style:normal;background:linear-gradient(45deg,#f09433,#e6683c,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ig-follow-section > .ig-follow-inner > p{color:rgba(255,255,255,0.7);font-size:14px;margin-bottom:1.4rem;line-height:1.7;}
+.ig-free-cap-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:8px 20px;font-size:13px;color:white;font-weight:500;margin-bottom:1.6rem;backdrop-filter:blur(4px);}
+.ig-free-cap-badge .cap-icon{font-size:18px;}
+.ig-free-cap-badge strong{color:#FFD54F;}
+.ig-follow-btn{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;font-family:'DM Sans',sans-serif;}
+.ig-follow-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(188,24,136,0.5);}
+.ig-follow-btn svg{width:20px;height:20px;fill:white;}
+.ig-steps{display:flex;justify-content:center;gap:1.5rem;margin-top:1.8rem;flex-wrap:wrap;}
+.ig-step{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.65);font-size:12px;}
+.ig-step-num{background:linear-gradient(45deg,#f09433,#bc1888);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;}
+.ig-wa-divider{display:flex;align-items:center;gap:12px;margin:1.6rem 0;color:rgba(255,255,255,0.35);font-size:12px;}
+.ig-wa-divider::before,.ig-wa-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.15);}
+.wa-follow-btn{background:#25D366;color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+.wa-follow-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.35);}
+
+/* FOOTER IG BUTTON */
+.footer-ig-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#bc1888);color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:500;margin-top:0.6rem;transition:transform 0.2s;}
+.footer-ig-btn:hover{transform:translateY(-2px);}
+
 @media(max-width:700px){
+  .ig-offer-banner{margin:0 1rem;padding:1.4rem 1.2rem;border-radius:16px;}
+  .ig-offer-inner{gap:1rem;}
+  .ig-offer-badge{width:52px;height:52px;border-radius:14px;}
+  .ig-offer-badge svg{width:28px;height:28px;}
+  .ig-offer-text h3{font-size:1.1rem;}
+  .ig-offer-cta{width:100%;}
+  .ig-offer-cta .ig-btn{width:100%;justify-content:center;}
+  .ig-follow-section{padding:2.8rem 1rem;}
+  .ig-follow-section h2{font-size:1.5rem;}
+  .ig-steps{gap:1rem;}
+}
+
+/* ===================== MOBILE NAV BOTTOM BAR ===================== */
+.mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:white;border-top:1.5px solid var(--red-light);box-shadow:0 -4px 20px rgba(183,28,28,0.10);padding:0;height:62px;padding-bottom:env(safe-area-inset-bottom);}
+.mobile-bottom-nav ul{display:flex;list-style:none;height:100%;margin:0;padding:0;}
+.mobile-bottom-nav ul li{flex:1;}
+.mobile-bottom-nav ul li a,.mobile-bottom-nav ul li button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:100%;height:100%;text-decoration:none;color:var(--muted);font-size:10px;font-weight:500;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;transition:color 0.18s;}
+.mobile-bottom-nav ul li a.active,.mobile-bottom-nav ul li a:active,.mobile-bottom-nav ul li button:active{color:var(--red);}
+.mobile-bottom-nav ul li a .mbn-icon,.mobile-bottom-nav ul li button .mbn-icon{font-size:20px;line-height:1;}
+.mbn-basket-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.mbn-badge{position:absolute;top:-4px;right:-8px;background:var(--red);color:white;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+
+/* ===================== MOBILE HAMBURGER MENU DRAWER ===================== */
+.mob-menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:3000;}
+.mob-menu-overlay.open{display:block;}
+.mob-menu-drawer{position:fixed;top:0;left:-100%;width:min(300px,85vw);height:100%;background:white;z-index:3001;transition:left 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,0.15);}
+.mob-menu-drawer.open{left:0;}
+.mob-menu-head{background:var(--red-dark);padding:1.4rem 1.2rem;display:flex;align-items:center;gap:12px;}
+.mob-menu-head img{width:44px;height:44px;border-radius:50%;object-fit:contain;border:2px solid rgba(255,255,255,0.3);}
+.mob-menu-head-text{font-family:'Playfair Display',serif;font-size:16px;color:white;font-weight:700;line-height:1.1;}
+.mob-menu-head-text span{font-size:10px;font-weight:400;color:#FFCDD2;display:block;letter-spacing:1px;}
+.mob-menu-close{margin-left:auto;background:none;border:none;color:white;font-size:22px;cursor:pointer;padding:4px;}
+.mob-menu-body{flex:1;overflow-y:auto;padding:1rem 0;}
+.mob-menu-body ul{list-style:none;}
+.mob-menu-body ul li a{display:flex;align-items:center;gap:14px;padding:14px 1.4rem;color:var(--text);text-decoration:none;font-size:15px;font-weight:500;border-bottom:1px solid #FFF0EE;transition:background 0.15s;}
+.mob-menu-body ul li a:active,.mob-menu-body ul li a.active{background:var(--red-light);color:var(--red);}
+.mob-menu-body ul li a .mn-icon{font-size:20px;width:28px;text-align:center;}
+.mob-menu-wa{padding:1.2rem;border-top:1px solid #F0E0DC;}
+.mob-menu-wa a{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:white;padding:13px;border-radius:14px;text-decoration:none;font-size:14px;font-weight:600;}
+
+/* ===================== MOBILE BASKET BOTTOM SHEET ===================== */
+@media(max-width:700px){
+  .basket-drawer{top:auto;bottom:-100%;right:0;left:0;width:100%;height:92vh;border-radius:22px 22px 0 0;transition:bottom 0.35s cubic-bezier(0.4,0,0.2,1);}
+  .basket-drawer.open{bottom:0;right:0;}
+  .basket-header{border-radius:22px 22px 0 0;padding-top:1rem;}
+  .basket-header::before{content:'';display:block;width:40px;height:4px;background:#DDD;border-radius:2px;margin:0 auto 0.8rem;}
+}
+
+/* ===================== MOBILE BREAKPOINT ===================== */
+@media(max-width:700px){
+  /* hide desktop nav links & WA btn, show hamburger */
+  nav{padding:0 1rem;height:60px;}
   nav .nav-links{display:none;}
-  .hero{padding:3rem 1.2rem 2.5rem;min-height:auto;}
-  .section{padding:2.5rem 1.2rem;}
-  .filter-bar{padding:1rem 1.2rem;}
-  .basket-nav-btn .btn-label{display:none;}
+  nav .wa-btn{display:none;}
+  nav .logo-img{width:40px;height:40px;}
+  nav .logo-text{font-size:15px;}
+
+  /* hamburger button in nav */
+  .mob-ham-btn{display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;color:var(--red);}
+  .mob-ham-btn svg{width:24px;height:24px;}
+
+  /* show mobile bottom nav */
+  .mobile-bottom-nav{display:block;}
+
+  /* add bottom padding so content isn't hidden behind bottom nav */
+  body{padding-bottom:62px;}
+
+  /* HERO */
+  .hero{padding:2.2rem 1rem 2rem;min-height:auto;}
+  .hero h1{font-size:1.75rem;}
+  .hero p{font-size:13.5px;margin-bottom:1.4rem;}
+  .hero-logo{width:80px;height:80px;margin-bottom:0.8rem;}
+  .hero-btns{gap:8px;}
+  .btn-primary,.btn-wa{padding:11px 20px;font-size:13px;}
+  .trust-badges{gap:6px;margin-top:1.6rem;}
+  .trust-badge{font-size:11px;padding:5px 12px;}
+  .hero-blob1{width:200px;height:200px;}
+  .hero-blob2{width:150px;height:150px;}
+
+  /* SECTIONS */
+  .section{padding:2rem 1rem;}
+  .section-title{font-size:1.4rem;}
+
+  /* CATEGORY CARDS — horizontal scroll on mobile */
+  .cat-grid{display:flex;overflow-x:auto;gap:14px;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+  .cat-grid::-webkit-scrollbar{display:none;}
+  .cat-card{min-width:240px;scroll-snap-align:start;flex-shrink:0;padding:1.4rem 1.2rem;}
+  .cat-carousel-wrap{height:130px;}
+
+  /* SUBCATEGORY STYLE CARDS — 2-col grid */
+  .sub-section{padding:2rem 1rem;}
+  .sub-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .sub-card{padding:1rem 0.8rem;}
+  .sub-icon{font-size:24px;}
+
+  /* PRODUCT GRID — 2 columns */
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .prod-swiper-wrap{height:180px;}
+  .prod-info{padding:0.75rem;}
+  .prod-name{font-size:12.5px;}
+  .prod-desc{font-size:10px;margin-bottom:6px;}
+  .fabric-chip{font-size:9.5px;padding:2px 6px;margin-bottom:6px;}
+  .size-label{font-size:9.5px;}
+  .size-pill{font-size:9.5px;padding:3px 6px;}
+  .color-dot{width:12px;height:12px;}
+  .prod-price{font-size:14px;}
+  .add-basket-btn{padding:6px 8px;font-size:10.5px;}
+  .prod-footer{flex-wrap:wrap;gap:4px;}
+
+  /* FILTER BAR — horizontal scroll */
+  .filter-bar{padding:0.7rem 1rem;gap:6px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+  .filter-bar::-webkit-scrollbar{display:none;}
+  .filter-btn{white-space:nowrap;flex-shrink:0;padding:6px 12px;font-size:11.5px;}
+
+  /* BREADCRUMB */
+  .breadcrumb{padding:10px 1rem;font-size:12px;}
+
+  /* CAT HERO */
+  .cat-hero{padding:1.8rem 1rem;}
+  .cat-hero h1{font-size:1.6rem;}
+
+  /* NEWSLETTER */
+  .newsletter{padding:2.5rem 1rem;}
+  .newsletter h2{font-size:1.5rem;}
+  .nl-form{flex-direction:column;gap:8px;}
+  .nl-form input,.nl-form button{width:100%;}
+
+  /* FOOTER */
+  footer{padding:2rem 1rem 1.5rem;}
+  .footer-grid{grid-template-columns:1fr;gap:1.4rem;}
+
+  /* FLOAT WA — shift up above bottom nav */
+  .float-wa{bottom:74px;width:50px;height:50px;}
+  .float-wa svg{width:26px;height:26px;}
+  .float-wa-tooltip{bottom:134px;}
+
+  /* TOAST — above bottom nav */
+  .toast{bottom:78px;}
+
+  /* BASKET DRAWER BODY: add bottom padding for safe area */
+  .basket-footer{padding-bottom:calc(1rem + env(safe-area-inset-bottom));}
+
+  /* QTY BUTTONS — bigger tap targets on mobile */
+  .qty-btn{width:32px;height:32px;font-size:18px;}
+  .basket-remove{font-size:22px;padding:6px;}
+}
+
+/* Hamburger button hidden on desktop */
+.mob-ham-btn{display:none;}
+
+/* Tablet tweaks */
+@media(min-width:701px) and (max-width:1024px){
+  .prod-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}
+  nav{padding:0 1.2rem;}
 }
 </style>
 </head>
@@ -274,7 +514,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 <!-- NAV -->
 <nav>
   <div class="logo-wrap" onclick="showPage('home')">
-    <img class="logo-img" src="https://res.cloudinary.com/dmehiuzml/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Kidswear Logo" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+    <img class="logo-img" src="1002019789.jpg" alt="Tiny Threads Kidswear Logo" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
     <div style="display:none;width:52px;height:52px;background:var(--red);border-radius:50%;align-items:center;justify-content:center;color:white;font-size:20px;">🧵</div>
     <div class="logo-text">Tiny Threads <span>Kidswear</span></div>
   </div>
@@ -289,21 +529,76 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       🛒 <span class="btn-label">Basket</span>
       <span class="basket-count-badge" id="nav-basket-count">0</span>
     </button>
-    <a class="wa-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20would%20like%20to%20enquire%20about%20your%20products." target="_blank" rel="noopener">
-      <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Enquire on WhatsApp
+    <a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+      <svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow us
+    </a>
+    <!-- Hamburger for mobile -->
+    <button class="mob-ham-btn" onclick="openMobMenu()" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="mob-menu-overlay" id="mob-menu-overlay" onclick="closeMobMenu()"></div>
+<div class="mob-menu-drawer" id="mob-menu-drawer">
+  <div class="mob-menu-head">
+    <img src="https://res.cloudinary.com/dmehiuzml/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Kidswear Logo" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+    <div class="mob-menu-head-text">Tiny Threads <span>Kidswear</span></div>
+    <button class="mob-menu-close" onclick="closeMobMenu()">✕</button>
+  </div>
+  <div class="mob-menu-body">
+    <ul>
+      <li><a href="#" onclick="showPage('home');closeMobMenu();return false;" class="active"><span class="mn-icon">🏠</span>Home</a></li>
+      <li><a href="#" onclick="showPage('boys');closeMobMenu();return false;"><span class="mn-icon">👦</span>Boys 3–13 Years</a></li>
+      <li><a href="#" onclick="showPage('girls');closeMobMenu();return false;"><span class="mn-icon">👧</span>Girls 3–13 Years</a></li>
+      <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon">👶</span>Babies 0–3 Years</a></li>
+      <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">🧵</span>Traditional Wear</a></li>
+      <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">☀️</span>Summer Collection</a></li>
+      <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">🧥</span>Winter Collection</a></li>
+      <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon">🛒</span>My Basket</a></li>
+      <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener" onclick="closeMobMenu()"><span class="mn-icon">📸</span>Follow on Instagram</a></li>
+    </ul>
+  </div>
+  <div class="mob-menu-wa" style="display:flex;flex-direction:column;gap:8px;">
+    <a href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:white;padding:12px;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600;">
+      <svg style="width:18px;height:18px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp · +91 78799 76016
+    </a>
+    <a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#bc1888);color:white;padding:12px;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600;">
+      <svg style="width:18px;height:18px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow @tinythreadskidswear 🧢 Free cap!
     </a>
   </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <ul>
+    <li><a href="#" onclick="showPage('home');setMobileNav(this);return false;" class="active"><span class="mbn-icon">🏠</span>Home</a></li>
+    <li><a href="#" onclick="showPage('boys');setMobileNav(this);return false;"><span class="mbn-icon">👦</span>Boys</a></li>
+    <li><a href="#" onclick="showPage('girls');setMobileNav(this);return false;"><span class="mbn-icon">👧</span>Girls</a></li>
+    <li><a href="#" onclick="showPage('babies');setMobileNav(this);return false;"><span class="mbn-icon">👶</span>Babies</a></li>
+    <li>
+      <button onclick="openBasket()">
+        <div class="mbn-basket-wrap">
+          <span class="mbn-icon">🛒</span>
+          <span class="mbn-badge" id="mbn-basket-count" style="display:none;">0</span>
+        </div>
+        Basket
+      </button>
+    </li>
+  </ul>
 </nav>
 
 <!-- ==================== HOME PAGE ==================== -->
 <div id="page-home" class="page active">
-
   <div class="hero">
     <div class="hero-blob1"></div>
     <div class="hero-blob2"></div>
     <div class="hero-content">
-      <div class="hero-tag">✨ New Summer Collection 2025</div>
+      <div class="hero-tag">✨ New Summer Collection 2026</div>
       <img class="hero-logo" src="1002019789.jpg" alt="Tiny Threads Logo" onerror="this.style.display='none'">
       <h1>Dress them in <em>joy</em>,<br>every single day.</h1>
       <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
@@ -323,17 +618,42 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     </div>
   </div>
 
+  <div class="section" style="padding-bottom:0;" id="ig-offer-wrap">
+    <div class="ig-offer-banner">
+      <div class="ig-offer-inner">
+        <div class="ig-offer-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="ig-offer-text">
+          <span class="ig-offer-tag">🎁 Limited Offer</span>
+          <h3>Follow us & get a <em>season cap absolutely free!</em></h3>
+          <p>Follow @tinythreadskidswear on Instagram, show us your follow & claim your free cap with your next order. Valid while stocks last.</p>
+        </div>
+        <div class="ig-offer-cta">
+          <a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+            <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Follow on Instagram
+          </a>
+          <span class="ig-cap-chip">🧢 Free season cap included</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="section" id="categories">
     <h2 class="section-title">Shop by <span class="red">Category</span></h2>
     <p class="section-sub">Find the perfect look for every little one in your life</p>
     <div class="cat-grid">
 
       <div class="cat-card boys" onclick="showPage('boys')">
-        <span class="cat-count">5 sub-categories</span>
-        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
-          <span class="ph-icon">📸</span>
-          <span class="ph-text">Click to add Boys Category photo</span>
-          <input type="file" accept="image/*" onchange="loadImg(this)">
+        <span class="cat-count">8 products</span>
+        <div class="cat-carousel-wrap" onclick="event.stopPropagation()">
+          <div class="swiper cat-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide placeholder"><span class="ph-icon">👦</span><span class="ph-text">Boys Collection</span></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <span class="cat-age">Ages 3 – 13 Years</span>
         <h3>Boys</h3>
@@ -342,11 +662,14 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       </div>
 
       <div class="cat-card girls" onclick="showPage('girls')">
-        <span class="cat-count">5 sub-categories</span>
-        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
-          <span class="ph-icon">📸</span>
-          <span class="ph-text">Click to add Girls Category photo</span>
-          <input type="file" accept="image/*" onchange="loadImg(this)">
+        <span class="cat-count">8 products</span>
+        <div class="cat-carousel-wrap" onclick="event.stopPropagation()">
+          <div class="swiper cat-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide placeholder"><span class="ph-icon">👧</span><span class="ph-text">Girls Collection</span></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <span class="cat-age">Ages 3 – 13 Years</span>
         <h3>Girls</h3>
@@ -355,11 +678,14 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       </div>
 
       <div class="cat-card babies" onclick="showPage('babies')">
-        <span class="cat-count">5 sub-categories</span>
-        <div class="cat-img-placeholder" onclick="event.stopPropagation()">
-          <span class="ph-icon">📸</span>
-          <span class="ph-text">Click to add Babies Category photo</span>
-          <input type="file" accept="image/*" onchange="loadImg(this)">
+        <span class="cat-count">6 products</span>
+        <div class="cat-carousel-wrap" onclick="event.stopPropagation()">
+          <div class="swiper cat-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide placeholder"><span class="ph-icon">👶</span><span class="ph-text">Baby Collection</span></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <span class="cat-age">Ages 0 – 3 Years</span>
         <h3>Babies</h3>
@@ -387,24 +713,35 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   <div class="section">
     <h2 class="section-title">Featured <span class="red">This Season</span></h2>
     <p class="section-sub">Our most loved pieces — add to basket & checkout via WhatsApp</p>
-    <div class="prod-grid" id="featured-grid"></div>
+    <div class="prod-grid" id="featured-grid"><div class="loading-grid"><div class="spinner"></div>Loading products…</div></div>
   </div>
 
-  <div class="newsletter">
-    <div class="newsletter-inner">
-      <h2>Stay in the loop 💌</h2>
-      <p>Get new arrivals, seasonal looks & exclusive deals. Or simply reach out to us directly on WhatsApp — we're always happy to help!</p>
-      <div class="nl-form">
-        <input type="email" placeholder="Your email address">
-        <button onclick="alert('Thank you! We will be in touch.')">Subscribe</button>
+  <div class="ig-follow-section">
+    <div class="ig-follow-inner">
+      <div class="ig-follow-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </div>
-      <div class="wa-enquire-block">
-        <p>Prefer to chat? Reach us directly:</p>
-        <a class="btn-wa" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20would%20like%20to%20know%20more%20about%20your%20latest%20collection." target="_blank" rel="noopener" style="display:inline-flex;">
-          <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp: +91 78799 76016
-        </a>
+      <h2>Follow us for <em>joy & freebies!</em></h2>
+      <p>Join our Instagram community for new arrivals, styling ideas, and exclusive offers. We post every new collection drop first on Instagram!</p>
+      <div class="ig-free-cap-badge">
+        <span class="cap-icon">🧢</span>
+        <span>Follow us &amp; get a <strong>season cap absolutely FREE</strong> with your next order!</span>
       </div>
+      <a class="ig-follow-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Follow @tinythreadskidswear
+      </a>
+      <div class="ig-steps">
+        <div class="ig-step"><span class="ig-step-num">1</span>Follow our page</div>
+        <div class="ig-step"><span class="ig-step-num">2</span>Place your order</div>
+        <div class="ig-step"><span class="ig-step-num">3</span>Show us your follow</div>
+        <div class="ig-step"><span class="ig-step-num">4</span>Get your free cap! 🧢</div>
+      </div>
+      <div class="ig-wa-divider">or reach us on WhatsApp</div>
+      <a class="wa-follow-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20follow%20you%20on%20Instagram%20and%20would%20like%20to%20claim%20my%20free%20cap!" target="_blank" rel="noopener">
+        <svg style="width:18px;height:18px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Claim free cap on WhatsApp
+      </a>
     </div>
   </div>
 
@@ -417,9 +754,13 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
             <div class="footer-brand-text">Tiny Threads <span>Kidswear</span></div>
           </div>
           <p style="font-size:13px;line-height:1.65;color:#FFCDD2;">Joyful, safe & beautiful kidswear for every little one. Made with love, worn with joy.</p>
-          <a class="footer-wa-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!" target="_blank" rel="noopener">
+          <a class="footer-wa-btn" href="https://wa.me/917879976016" target="_blank" rel="noopener">
             <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Chat on WhatsApp
+          </a>
+          <a class="footer-ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+            <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Follow on Instagram
           </a>
         </div>
         <div class="footer-col">
@@ -446,10 +787,11 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
           <h4>Contact</h4>
           <p>WhatsApp / Call:<br><strong style="color:white;">+91 78799 76016</strong></p>
           <p style="margin-top:0.8rem;">Website:<br><a href="https://mytinythreads.in" style="color:#FFD54F;">mytinythreads.in</a></p>
+          <p style="margin-top:0.8rem;">Instagram:<br><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener" style="color:#FFD54F;">@tinythreadskidswear</a></p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 Tiny Threads Kidswear · <a href="https://mytinythreads.in">mytinythreads.in</a> · All rights reserved</p>
+        <p>© 2025 Tiny Threads Kidswear · <a href="https://mytinythreads.in">mytinythreads.in</a> · <a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener" style="color:#FFD54F;">@tinythreadskidswear</a> · All rights reserved</p>
       </div>
     </div>
   </footer>
@@ -465,12 +807,12 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   </div>
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">🧵 Traditional</button>
-    <button class="filter-btn">☀️ Summer</button>
-    <button class="filter-btn">🧥 Winter</button>
-    <button class="filter-btn">🌙 Nightwear</button>
-    <button class="filter-btn">🧸 Undergarments</button>
+    <button class="filter-btn active" onclick="filterProducts('boys','all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('boys','traditional',this)">🧵 Traditional</button>
+    <button class="filter-btn" onclick="filterProducts('boys','summer',this)">☀️ Summer</button>
+    <button class="filter-btn" onclick="filterProducts('boys','winter',this)">🧥 Winter</button>
+    <button class="filter-btn" onclick="filterProducts('boys','nightwear',this)">🌙 Nightwear</button>
+    <button class="filter-btn" onclick="filterProducts('boys','undergarments',this)">🧸 Undergarments</button>
   </div>
   <div class="section" style="padding-top:1rem;">
     <div class="sub-grid" style="margin-bottom:2.5rem;">
@@ -482,7 +824,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     </div>
     <h2 class="section-title">All Boys <span class="red">Picks</span></h2>
     <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
-    <div class="prod-grid" id="boys-grid"></div>
+    <div class="prod-grid" id="boys-grid"><div class="loading-grid"><div class="spinner"></div>Loading products…</div></div>
   </div>
 </div>
 
@@ -496,12 +838,12 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   </div>
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">🧵 Traditional</button>
-    <button class="filter-btn">☀️ Summer</button>
-    <button class="filter-btn">🧥 Winter</button>
-    <button class="filter-btn">🌙 Nightwear</button>
-    <button class="filter-btn">🧸 Undergarments</button>
+    <button class="filter-btn active" onclick="filterProducts('girls','all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('girls','traditional',this)">🧵 Traditional</button>
+    <button class="filter-btn" onclick="filterProducts('girls','summer',this)">☀️ Summer</button>
+    <button class="filter-btn" onclick="filterProducts('girls','winter',this)">🧥 Winter</button>
+    <button class="filter-btn" onclick="filterProducts('girls','nightwear',this)">🌙 Nightwear</button>
+    <button class="filter-btn" onclick="filterProducts('girls','undergarments',this)">🧸 Undergarments</button>
   </div>
   <div class="section" style="padding-top:1rem;">
     <div class="sub-grid" style="margin-bottom:2.5rem;">
@@ -513,7 +855,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     </div>
     <h2 class="section-title">All Girls <span class="red">Picks</span></h2>
     <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
-    <div class="prod-grid" id="girls-grid"></div>
+    <div class="prod-grid" id="girls-grid"><div class="loading-grid"><div class="spinner"></div>Loading products…</div></div>
   </div>
 </div>
 
@@ -527,12 +869,12 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   </div>
   <div class="filter-bar">
     <span class="filter-label">Filter:</span>
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">🧵 Traditional</button>
-    <button class="filter-btn">☀️ Summer</button>
-    <button class="filter-btn">🧥 Winter</button>
-    <button class="filter-btn">🌙 Nightwear</button>
-    <button class="filter-btn">🧸 Undergarments</button>
+    <button class="filter-btn active" onclick="filterProducts('babies','all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('babies','traditional',this)">🧵 Traditional</button>
+    <button class="filter-btn" onclick="filterProducts('babies','summer',this)">☀️ Summer</button>
+    <button class="filter-btn" onclick="filterProducts('babies','winter',this)">🧥 Winter</button>
+    <button class="filter-btn" onclick="filterProducts('babies','nightwear',this)">🌙 Nightwear</button>
+    <button class="filter-btn" onclick="filterProducts('babies','undergarments',this)">🧸 Undergarments</button>
   </div>
   <div class="section" style="padding-top:1rem;">
     <div class="sub-grid" style="margin-bottom:2.5rem;">
@@ -544,39 +886,167 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     </div>
     <h2 class="section-title">All Baby <span class="red">Picks</span></h2>
     <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
-    <div class="prod-grid" id="babies-grid"></div>
+    <div class="prod-grid" id="babies-grid"><div class="loading-grid"><div class="spinner"></div>Loading products…</div></div>
   </div>
 </div>
 
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
 const WA_NUMBER = '917879976016';
-
-// ==================== BASKET STATE ====================
+let allProducts = [];
 let basket = [];
+const COLOR_MAP = {
+  'White':'#F5F5F5','Blue':'#1565C0','Cream':'#FFF8E1','Navy':'#0D47A1','Grey':'#9E9E9E',
+  'Olive':'#827717','Red':'#B71C1C','Pink':'#E91E63','Yellow':'#FDD835','Mint':'#80CBC4',
+  'Lilac':'#CE93D8','Gold':'#FFD600','Maroon':'#880E4F','Ivory':'#FFFDE7','Green':'#388E3C',
+  'Sky Blue':'#29B6F6','Orange':'#F57C00','Teal':'#00796B','Mustard':'#F9A825','Magenta':'#AD1457',
+  'Pastel Mix':'linear-gradient(135deg,#FFCDD2,#B3E5FC,#DCEDC8)','Peach':'#FFAB91','Lavender':'#CE93D8',
+  'Dusty Rose':'#F48FB1','Sage':'#A5D6A7','Blush':'#FFCDD2','Burgundy':'#4A148C','Pink Stars':'#F48FB1',
+  'Purple Hearts':'#CE93D8','White':'#FAFAFA','Blue Stars':'#90CAF9'
+};
 
-function getItemKey(name) {
-  return name.replace(/\s+/g, '_').toLowerCase();
+// ==================== FETCH products.json ====================
+async function loadProducts() {
+  try {
+    const res = await fetch('products.json');
+    if (!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    allProducts = data.products;
+  } catch(e) {
+    // Fallback: inline products if JSON file not found yet
+    allProducts = getFallbackProducts();
+  }
+  renderAllGrids();
+  initCatSwipers();
 }
 
-function addToBasket(name, desc, price) {
-  const key = getItemKey(name);
-  const existing = basket.find(i => i.key === key);
+// ==================== RENDER GRIDS ====================
+function renderAllGrids() {
+  renderGrid('featured-grid', allProducts.filter(p => p.featured));
+  renderGrid('boys-grid', allProducts.filter(p => p.category === 'boys'));
+  renderGrid('girls-grid', allProducts.filter(p => p.category === 'girls'));
+  renderGrid('babies-grid', allProducts.filter(p => p.category === 'babies'));
+}
+
+function filterProducts(category, subcategory, btn) {
+  btn.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const gridId = category + '-grid';
+  let filtered = allProducts.filter(p => p.category === category);
+  if (subcategory !== 'all') filtered = filtered.filter(p => p.subcategory === subcategory);
+  renderGrid(gridId, filtered);
+}
+
+function renderGrid(id, products) {
+  const grid = document.getElementById(id);
+  if (!grid) return;
+  if (products.length === 0) {
+    grid.innerHTML = '<div class="loading-grid" style="grid-column:1/-1;">No products found in this category.</div>';
+    return;
+  }
+  grid.innerHTML = products.map(p => productCard(p)).join('');
+  // Init swipers for each product card
+  grid.querySelectorAll('.prod-swiper').forEach((el, idx) => {
+    new Swiper(el, {
+      loop: el.querySelectorAll('.swiper-slide').length > 1,
+      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      navigation: {
+        nextEl: el.querySelector('.swiper-button-next'),
+        prevEl: el.querySelector('.swiper-button-prev'),
+      },
+    });
+  });
+}
+
+// ==================== PRODUCT CARD ====================
+function productCard(p) {
+  const key = p.id;
+  const badgeHtml = p.badge ? `<div class="prod-badge">${p.badge}</div>` : '';
+
+  // Build carousel slides — placeholder if no real images
+  const hasRealImages = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
+  let slidesHtml = '';
+  if (hasRealImages) {
+    slidesHtml = p.images.map(url =>
+      `<div class="swiper-slide"><img src="${url}" alt="${p.name}" loading="lazy"></div>`
+    ).join('');
+  } else {
+    // Up to 6 placeholder slides
+    const subIcons = {traditional:'🧵',summer:'☀️',winter:'🧥',nightwear:'🌙',undergarments:'🧸'};
+    const icon = subIcons[p.subcategory] || '📸';
+    slidesHtml = `<div class="swiper-slide"><div class="slide-ph"><span class="ph-icon">${icon}</span><span class="ph-text">${p.name}</span></div></div>`;
+  }
+
+  // Size pills
+  const sizesHtml = p.sizes ? p.sizes.map(s =>
+    `<button class="size-pill" onclick="selectSize(this,'${key}')">${s}</button>`
+  ).join('') : '';
+
+  // Color dots
+  const colorsHtml = p.colors ? p.colors.map(c => {
+    const bg = COLOR_MAP[c] || '#CCC';
+    const style = bg.startsWith('linear') ? `background:${bg}` : `background:${bg}`;
+    return `<span class="color-dot" title="${c}" style="${style}"></span>`;
+  }).join('') : '';
+
+  const subcatLabel = {traditional:'Traditional',summer:'Summer',winter:'Winter',nightwear:'Nightwear',undergarments:'Undergarments'}[p.subcategory] || p.subcategory;
+
+  return `
+  <div class="prod-card" id="card-${key}">
+    <div class="prod-swiper-wrap">
+      ${badgeHtml}
+      <div class="swiper prod-swiper">
+        <div class="swiper-wrapper">${slidesHtml}</div>
+        ${p.images && p.images.length > 1 ? '<div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div>' : ''}
+      </div>
+    </div>
+    <div class="prod-info">
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-desc">${subcatLabel} · ${p.description ? p.description.substring(0,55) + (p.description.length>55?'…':'') : ''}</div>
+      <span class="fabric-chip">🧶 ${p.fabric || 'Cotton'}</span>
+      ${p.colors && p.colors.length > 0 ? `<div class="color-row"><span class="color-label">Colors:</span>${colorsHtml}</div>` : ''}
+      ${p.sizes && p.sizes.length > 0 ? `<div class="size-label">Select Size:</div><div class="size-pills" id="sizes-${key}">${sizesHtml}</div>` : ''}
+      <div class="prod-footer">
+        <span class="prod-price">₹${p.price.toLocaleString('en-IN')}</span>
+        <div class="prod-actions">
+          <button class="add-basket-btn" id="abtn-${key}" onclick="addToBasket('${key}')">🛒 Add</button>
+          <button class="prod-wa-btn" onclick="waEnquire('${p.name}','${p.price}')" title="Quick enquiry on WhatsApp">
+            <svg style="width:13px;height:13px;fill:#25D366;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ==================== SIZE SELECTION ====================
+const selectedSizes = {};
+function selectSize(btn, key) {
+  btn.closest('.size-pills').querySelectorAll('.size-pill').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSizes[key] = btn.textContent;
+}
+
+// ==================== BASKET ====================
+function addToBasket(key) {
+  const p = allProducts.find(p => p.id === key);
+  if (!p) return;
+  const size = selectedSizes[key] || (p.sizes && p.sizes.length > 0 ? '(size not selected)' : '');
+  const existing = basket.find(i => i.key === key + '-' + size);
   if (existing) {
     existing.qty += 1;
   } else {
-    basket.push({ key, name, desc, price: parseInt(price), qty: 1 });
+    basket.push({ key: key + '-' + size, id: key, name: p.name, desc: `${p.subcategory} · Size: ${size || 'N/A'}`, price: p.price, qty: 1, size });
   }
   updateBasketUI();
-  showToast('Added ' + name + ' to basket 🛒');
-  // Flash the button
-  const btn = document.querySelector(`[data-basket-key="${key}"]`);
+  showToast(`Added ${p.name} to basket 🛒`);
+  const btn = document.getElementById('abtn-' + key);
   if (btn) {
     btn.classList.add('added');
     btn.textContent = '✓ Added!';
-    setTimeout(() => {
-      btn.classList.remove('added');
-      btn.innerHTML = '🛒 Add';
-    }, 1200);
+    setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = '🛒 Add'; }, 1400);
   }
 }
 
@@ -589,42 +1059,31 @@ function changeQty(key, delta) {
   const item = basket.find(i => i.key === key);
   if (!item) return;
   item.qty += delta;
-  if (item.qty <= 0) {
-    basket = basket.filter(i => i.key !== key);
-  }
+  if (item.qty <= 0) basket = basket.filter(i => i.key !== key);
   updateBasketUI();
 }
 
 function updateBasketUI() {
   const totalItems = basket.reduce((s, i) => s + i.qty, 0);
   const totalPrice = basket.reduce((s, i) => s + i.qty * i.price, 0);
-
-  // Nav badge
   const badge = document.getElementById('nav-basket-count');
   badge.textContent = totalItems;
   badge.style.background = totalItems > 0 ? 'var(--red)' : '#CCC';
-
-  // Totals
   document.getElementById('basket-total').textContent = '₹' + totalPrice.toLocaleString('en-IN');
   const countEl = document.getElementById('basket-item-count');
-  countEl.textContent = totalItems > 0 ? totalItems + ' item' + (totalItems > 1 ? 's' : '') + ' in your basket' : '';
-
-  // Checkout button
+  countEl.textContent = totalItems > 0 ? `${totalItems} item${totalItems > 1 ? 's' : ''} in your basket` : '';
   document.getElementById('checkout-btn').disabled = basket.length === 0;
-
-  // Basket body
   const body = document.getElementById('basket-body');
   if (basket.length === 0) {
     body.innerHTML = `<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`;
     return;
   }
-
   body.innerHTML = basket.map(item => `
     <div class="basket-item">
       <div class="basket-item-info">
         <div class="basket-item-name">${item.name}</div>
         <div class="basket-item-desc">${item.desc}</div>
-        <div class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')} ${item.qty > 1 ? '<span style="font-size:11px;font-weight:400;color:var(--muted);">(₹' + item.price + ' × ' + item.qty + ')</span>' : ''}</div>
+        <div class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')} ${item.qty > 1 ? `<span style="font-size:11px;font-weight:400;color:var(--muted);">(₹${item.price} × ${item.qty})</span>` : ''}</div>
         <div class="basket-item-qty">
           <button class="qty-btn" onclick="changeQty('${item.key}', -1)">−</button>
           <span class="qty-val">${item.qty}</span>
@@ -651,12 +1110,17 @@ function closeBasket() {
 function checkoutWhatsApp() {
   if (basket.length === 0) return;
   const totalPrice = basket.reduce((s, i) => s + i.qty * i.price, 0);
-  let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order the following items:\n\n';
+  let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order:\n\n';
   basket.forEach((item, idx) => {
-    msg += `${idx + 1}. *${item.name}* (${item.desc})\n   Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty * item.price).toLocaleString('en-IN')}\n\n`;
+    msg += `${idx + 1}. *${item.name}*\n   Size: ${item.size || 'N/A'} · Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty * item.price).toLocaleString('en-IN')}\n\n`;
   });
   msg += `*Total: ₹${totalPrice.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
   window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function waEnquire(name, price) {
+  const msg = encodeURIComponent(`Hi Tiny Threads Kidswear! I am interested in *${name}* (₹${price}). Please share more details.`);
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
 }
 
 // ==================== TOAST ====================
@@ -669,119 +1133,31 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ==================== WA SINGLE ENQUIRY ====================
-function waEnquire(name, price) {
-  const msg = encodeURIComponent(`Hi Tiny Threads Kidswear! I am interested in the *${name}* (₹${price}). Please share more details.`);
-  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
-}
-
-// ==================== PRODUCT DATA ====================
-const products = {
-  featured: [
-    {name:'Cotton Kurta Set', desc:'Boys · Traditional · 5–10y', price:'599', bg:'#DAEEFF', badge:'New'},
-    {name:'Floral Summer Frock', desc:'Girls · Summer · 3–8y', price:'449', bg:'#FFE4EE', badge:'Bestseller'},
-    {name:'Baby Onesie 3-Pack', desc:'Babies · Undergarments · 0–12m', price:'349', bg:'#E8F5E9', badge:''},
-    {name:'Dinosaur Pyjama Set', desc:'Boys · Nightwear · 3–8y', price:'449', bg:'#EDE7F6', badge:'Cosy'},
-    {name:'Lehenga Choli Set', desc:'Girls · Traditional · 4–12y', price:'799', bg:'#FFF8F0', badge:''},
-    {name:'Fleece Sleep Suit', desc:'Babies · Winter · 0–3y', price:'449', bg:'#E8EAF6', badge:'Warm'},
-  ],
-  boys: [
-    {name:'Cotton Kurta Set', desc:'Traditional · 5–10y', price:'599', bg:'#DAEEFF', badge:'New'},
-    {name:'Linen Shorts + Tee', desc:'Summer · 4–9y', price:'399', bg:'#FFF3B0', badge:''},
-    {name:'Hooded Sweatshirt', desc:'Winter · 6–13y', price:'699', bg:'#E8EAF6', badge:'Warm'},
-    {name:'Dinosaur Pyjama Set', desc:'Nightwear · 3–8y', price:'449', bg:'#EDE7F6', badge:'Cosy'},
-    {name:'Cotton Vest Pack (3)', desc:'Undergarments · 4–12y', price:'299', bg:'#E8F5E9', badge:''},
-    {name:'Sherwani Set', desc:'Traditional · 5–13y', price:'899', bg:'#DAEEFF', badge:'Festive'},
-    {name:'Printed T-Shirt', desc:'Summer · 3–10y', price:'249', bg:'#FFF3B0', badge:''},
-    {name:'Quilted Jacket', desc:'Winter · 5–13y', price:'799', bg:'#E8EAF6', badge:'New'},
-  ],
-  girls: [
-    {name:'Floral Summer Frock', desc:'Summer · 3–8y', price:'449', bg:'#FFE4EE', badge:'Bestseller'},
-    {name:'Lehenga Choli Set', desc:'Traditional · 4–12y', price:'799', bg:'#FFF8F0', badge:''},
-    {name:'Knit Cardigan', desc:'Winter · 5–13y', price:'649', bg:'#E8EAF6', badge:'Cosy'},
-    {name:'Floral Night Dress', desc:'Nightwear · 3–10y', price:'399', bg:'#EDE7F6', badge:''},
-    {name:'Cotton Camisole Set', desc:'Undergarments · 4–13y', price:'249', bg:'#E8F5E9', badge:''},
-    {name:'Anarkali Kurta', desc:'Traditional · 6–13y', price:'699', bg:'#FFE4EE', badge:'Festive'},
-    {name:'Pleated Skirt + Top', desc:'Summer · 4–12y', price:'499', bg:'#FFF3B0', badge:'New'},
-    {name:'Winter Pyjama Set', desc:'Nightwear · 3–13y', price:'429', bg:'#EDE7F6', badge:''},
-  ],
-  babies: [
-    {name:'Baby Onesie 3-Pack', desc:'Undergarments · 0–12m', price:'349', bg:'#E8F5E9', badge:'Soft'},
-    {name:'Cotton Romper', desc:'Summer · 3–18m', price:'299', bg:'#FFF3B0', badge:''},
-    {name:'Silk Jhabla Set', desc:'Traditional · 0–2y', price:'499', bg:'#FFF8F0', badge:''},
-    {name:'Fleece Sleep Suit', desc:'Winter · 0–3y', price:'449', bg:'#E8EAF6', badge:'Warm'},
-    {name:'Footed Sleep Gown', desc:'Nightwear · 0–18m', price:'379', bg:'#EDE7F6', badge:''},
-    {name:'Cotton Vest Set', desc:'Undergarments · 0–2y', price:'249', bg:'#E8F5E9', badge:''},
-  ]
-};
-
-// WA SVG path (reused)
-const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z';
-
-function productCard(p, idx) {
-  const key = getItemKey(p.name);
-  const badgeHtml = p.badge ? `<div class="prod-badge">${p.badge}</div>` : '';
-  return `
-  <div class="prod-card">
-    <div class="prod-img-wrap">
-      <div class="prod-img-placeholder" style="background:${p.bg};">
-        ${badgeHtml}
-        <span class="ph-icon">📸</span>
-        <span class="ph-text">Click to add<br>${p.name}<br>photo</span>
-        <input type="file" accept="image/*" onchange="loadImg(this)">
-      </div>
-    </div>
-    <div class="prod-info">
-      <div class="prod-name">${p.name}</div>
-      <div class="prod-desc">${p.desc}</div>
-      <div class="prod-footer">
-        <span class="prod-price">₹${p.price}</span>
-        <div class="prod-actions">
-          <button class="add-basket-btn" data-basket-key="${key}" onclick="addToBasket('${p.name.replace(/'/g,"\\'")}','${p.desc.replace(/'/g,"\\'")}','${p.price}')">🛒 Add</button>
-          <button class="prod-wa-btn" onclick="waEnquire('${p.name.replace(/'/g,"\\'")}','${p.price}')" title="Quick enquiry">
-            <svg style="width:13px;height:13px;fill:#25D366;" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function renderGrid(id, key) {
-  document.getElementById(id).innerHTML = products[key].map((p, i) => productCard(p, id + '-' + i)).join('');
-}
-renderGrid('featured-grid', 'featured');
-renderGrid('boys-grid', 'boys');
-renderGrid('girls-grid', 'girls');
-renderGrid('babies-grid', 'babies');
-
-// Initialize basket UI
-updateBasketUI();
-
-// ==================== IMAGE UPLOAD ====================
-function loadImg(input) {
-  if (!input.files || !input.files[0]) return;
-  const reader = new FileReader();
-  const container = input.closest('.cat-img-placeholder, .prod-img-placeholder');
-  reader.onload = e => {
-    let img = container.querySelector('img');
-    if (!img) { img = document.createElement('img'); container.appendChild(img); }
-    img.src = e.target.result;
-    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px;z-index:1;';
-    const icon = container.querySelector('.ph-icon');
-    const text = container.querySelector('.ph-text');
-    if (icon) icon.style.display = 'none';
-    if (text) text.style.display = 'none';
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
 // ==================== PAGE NAV ====================
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Desktop nav
   document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    const t = a.textContent.toLowerCase();
+    if (id === 'home' && t.includes('home')) a.classList.add('active');
+    if (id === 'boys' && t.includes('boys')) a.classList.add('active');
+    if (id === 'girls' && t.includes('girls')) a.classList.add('active');
+    if (id === 'babies' && t.includes('babies')) a.classList.add('active');
+  });
+  // Mobile bottom nav
+  document.querySelectorAll('.mobile-bottom-nav a').forEach(a => {
+    a.classList.remove('active');
+    const t = a.textContent.toLowerCase();
+    if (id === 'home' && t.includes('home')) a.classList.add('active');
+    if (id === 'boys' && t.includes('boys')) a.classList.add('active');
+    if (id === 'girls' && t.includes('girls')) a.classList.add('active');
+    if (id === 'babies' && t.includes('babies')) a.classList.add('active');
+  });
+  // Mobile drawer menu
+  document.querySelectorAll('.mob-menu-body a').forEach(a => {
     a.classList.remove('active');
     const t = a.textContent.toLowerCase();
     if (id === 'home' && t.includes('home')) a.classList.add('active');
@@ -791,72 +1167,104 @@ function showPage(id) {
   });
 }
 
-// ==================== FILTER BUTTONS ====================
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', function () {
-    this.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
+// ==================== CAT CARD SWIPERS ====================
+function initCatSwipers() {
+  document.querySelectorAll('.cat-swiper').forEach(el => {
+    new Swiper(el, {
+      loop: false,
+      autoplay: { delay: 2500, disableOnInteraction: false },
+      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+    });
   });
-});
+}
 
-// ==================== FLYING ANIMATION ====================
+// ==================== FALLBACK PRODUCTS (before JSON is set up) ====================
+function getFallbackProducts() {
+  return [
+    {id:'b001',name:'Cotton Kurta Set',category:'boys',subcategory:'traditional',description:'Soft breathable cotton kurta with matching pyjama.',price:599,sizes:['3-4Y','4-5Y','5-6Y','6-8Y','8-10Y'],badge:'New',images:[],colors:['White','Blue','Cream'],fabric:'100% Cotton',featured:true},
+    {id:'b002',name:'Linen Shorts + Tee',category:'boys',subcategory:'summer',description:'Lightweight linen shorts with matching graphic tee.',price:399,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['Yellow','Mint'],fabric:'Linen Blend',featured:false},
+    {id:'b003',name:'Hooded Sweatshirt',category:'boys',subcategory:'winter',description:'Warm fleece-lined hoodie for chilly mornings.',price:699,sizes:['5-6Y','6-8Y','8-10Y','10-12Y'],badge:'Warm',images:[],colors:['Navy','Grey'],fabric:'Fleece Cotton',featured:false},
+    {id:'b004',name:'Dinosaur Pyjama Set',category:'boys',subcategory:'nightwear',description:'Super soft all-over dino print pyjama set.',price:449,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'Cosy',images:[],colors:['Green','Blue'],fabric:'100% Cotton',featured:true},
+    {id:'b005',name:'Cotton Vest Pack (3)',category:'boys',subcategory:'undergarments',description:'Pack of 3 skin-friendly cotton vests.',price:299,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['White'],fabric:'100% Cotton',featured:false},
+    {id:'b006',name:'Sherwani Set',category:'boys',subcategory:'traditional',description:'Royal sherwani with churidar and dupatta.',price:899,sizes:['5-6Y','6-8Y','8-10Y','10-12Y'],badge:'Festive',images:[],colors:['Gold','Maroon'],fabric:'Silk Blend',featured:true},
+    {id:'b007',name:'Printed T-Shirt',category:'boys',subcategory:'summer',description:'Fun graphic print tees in bright colours.',price:249,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['Red','Blue','Orange'],fabric:'100% Cotton',featured:false},
+    {id:'b008',name:'Quilted Jacket',category:'boys',subcategory:'winter',description:'Lightweight quilted jacket, water-resistant.',price:799,sizes:['5-6Y','6-8Y','8-10Y','10-12Y'],badge:'New',images:[],colors:['Navy','Olive'],fabric:'Polyester Shell',featured:false},
+    {id:'g001',name:'Floral Summer Frock',category:'girls',subcategory:'summer',description:'Breezy floral cotton frock with smocked bodice.',price:449,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'Bestseller',images:[],colors:['Pink','Yellow','Lilac'],fabric:'100% Cotton',featured:true},
+    {id:'g002',name:'Lehenga Choli Set',category:'girls',subcategory:'traditional',description:'Embroidered lehenga choli with dupatta.',price:799,sizes:['4-5Y','5-6Y','6-8Y','8-10Y'],badge:'',images:[],colors:['Pink','Red'],fabric:'Georgette & Net',featured:true},
+    {id:'g003',name:'Knit Cardigan',category:'girls',subcategory:'winter',description:'Cosy button-down knit cardigan.',price:649,sizes:['5-6Y','6-8Y','8-10Y','10-12Y'],badge:'Cosy',images:[],colors:['Cream','Dusty Rose'],fabric:'Acrylic Blend',featured:false},
+    {id:'g004',name:'Floral Night Dress',category:'girls',subcategory:'nightwear',description:'Soft woven cotton night dress with floral print.',price:399,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['Pink','White'],fabric:'100% Cotton',featured:false},
+    {id:'g005',name:'Cotton Camisole Set',category:'girls',subcategory:'undergarments',description:'Pack of 2 soft cotton camisoles with briefs.',price:249,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['White','Blush'],fabric:'100% Cotton',featured:false},
+    {id:'g006',name:'Anarkali Kurta',category:'girls',subcategory:'traditional',description:'Flared anarkali kurta with block print.',price:699,sizes:['6-8Y','8-10Y','10-12Y'],badge:'Festive',images:[],colors:['Teal','Mustard'],fabric:'Georgette',featured:true},
+    {id:'g007',name:'Pleated Skirt + Top',category:'girls',subcategory:'summer',description:'Cheerful pleated skirt with matching top.',price:499,sizes:['4-5Y','5-6Y','6-8Y','8-10Y'],badge:'New',images:[],colors:['Blue','Red'],fabric:'Cotton Blend',featured:false},
+    {id:'g008',name:'Winter Pyjama Set',category:'girls',subcategory:'nightwear',description:'Warm flannel pyjama set with cute print.',price:429,sizes:['3-4Y','4-5Y','5-6Y','6-8Y'],badge:'',images:[],colors:['Pink Stars','Purple Hearts'],fabric:'Flannel Cotton',featured:false},
+    {id:'bb001',name:'Baby Onesie 3-Pack',category:'babies',subcategory:'undergarments',description:'Soft organic cotton onesies with snap closure.',price:349,sizes:['0-3M','3-6M','6-9M','9-12M'],badge:'Soft',images:[],colors:['White','Pastel Mix'],fabric:'Organic Cotton',featured:true},
+    {id:'bb002',name:'Cotton Romper',category:'babies',subcategory:'summer',description:'Adorable one-piece romper with ruffled collar.',price:299,sizes:['3-6M','6-9M','9-12M','12-18M'],badge:'',images:[],colors:['Yellow','Mint','Peach'],fabric:'100% Cotton',featured:false},
+    {id:'bb003',name:'Silk Jhabla Set',category:'babies',subcategory:'traditional',description:'Traditional jhabla kurta with matching bottoms.',price:499,sizes:['0-3M','3-6M','6-9M','9-12M'],badge:'',images:[],colors:['Ivory','Pink'],fabric:'Silk Cotton',featured:false},
+    {id:'bb004',name:'Fleece Sleep Suit',category:'babies',subcategory:'winter',description:'Full-body fleece sleep suit with fold-over cuffs.',price:449,sizes:['0-3M','3-6M','6-9M','9-12M'],badge:'Warm',images:[],colors:['Grey','Pink'],fabric:'Micro Fleece',featured:true},
+    {id:'bb005',name:'Footed Sleep Gown',category:'babies',subcategory:'nightwear',description:'Easy open-bottom sleep gown with footed cuffs.',price:379,sizes:['0-3M','3-6M','6-9M','9-12M'],badge:'',images:[],colors:['White','Lavender'],fabric:'100% Cotton',featured:false},
+    {id:'bb006',name:'Cotton Vest Set',category:'babies',subcategory:'undergarments',description:'Pack of 3 cotton vests with envelope neckline.',price:249,sizes:['0-3M','3-6M','6-9M','9-12M'],badge:'',images:[],colors:['White'],fabric:'100% Cotton',featured:false},
+  ];
+}
+
+// ==================== ANIMATION ====================
 const canvas = document.getElementById('anim-canvas');
 const ctx = canvas.getContext('2d');
-const ITEMS = ['🌸', '⭐', '🎀', '🧵', '✨', '🌟', '💛', '🌈', '🦋', '🎈', '🌺', '💖'];
+const ITEMS = ['🌸','⭐','🎀','🧵','✨','🌟','💛','🌈','🦋','🎈','🌺','💖'];
 let particles = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 resize();
 window.addEventListener('resize', resize);
-
 function spawnParticle() {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: canvas.height + 40,
-    emoji: ITEMS[Math.floor(Math.random() * ITEMS.length)],
-    size: 14 + Math.random() * 18,
-    speedY: 0.5 + Math.random() * 1.2,
-    speedX: (Math.random() - 0.5) * 0.8,
-    opacity: 0.55 + Math.random() * 0.35,
-    rotation: Math.random() * Math.PI * 2,
-    rotSpeed: (Math.random() - 0.5) * 0.04,
-    wobble: Math.random() * Math.PI * 2,
-    wobbleSpeed: 0.02 + Math.random() * 0.02,
-    wobbleAmp: 20 + Math.random() * 30,
-  });
+  particles.push({x:Math.random()*canvas.width,y:canvas.height+40,emoji:ITEMS[Math.floor(Math.random()*ITEMS.length)],size:14+Math.random()*18,speedY:0.5+Math.random()*1.2,speedX:(Math.random()-0.5)*0.8,opacity:0.55+Math.random()*0.35,rotation:Math.random()*Math.PI*2,rotSpeed:(Math.random()-0.5)*0.04,wobble:Math.random()*Math.PI*2,wobbleSpeed:0.02+Math.random()*0.02,wobbleAmp:20+Math.random()*30});
 }
-
 let spawnTimer = 0;
 function animate() {
   requestAnimationFrame(animate);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   spawnTimer++;
-  if (spawnTimer % 55 === 0 && particles.length < 28) spawnParticle();
-  particles = particles.filter(p => p.y > -60);
+  if (spawnTimer%55===0 && particles.length<28) spawnParticle();
+  particles = particles.filter(p=>p.y>-60);
   for (const p of particles) {
-    p.y -= p.speedY;
-    p.wobble += p.wobbleSpeed;
-    p.x += p.speedX + Math.sin(p.wobble) * 0.6;
-    p.rotation += p.rotSpeed;
-    ctx.save();
-    ctx.globalAlpha = p.opacity;
-    ctx.translate(p.x + Math.sin(p.wobble) * p.wobbleAmp * 0.3, p.y);
-    ctx.rotate(p.rotation);
-    ctx.font = `${p.size}px serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(p.emoji, 0, 0);
-    ctx.restore();
+    p.y-=p.speedY; p.wobble+=p.wobbleSpeed; p.x+=p.speedX+Math.sin(p.wobble)*0.6; p.rotation+=p.rotSpeed;
+    ctx.save(); ctx.globalAlpha=p.opacity; ctx.translate(p.x+Math.sin(p.wobble)*p.wobbleAmp*0.3,p.y); ctx.rotate(p.rotation); ctx.font=`${p.size}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.emoji,0,0); ctx.restore();
   }
 }
-for (let i = 0; i < 12; i++) {
-  spawnParticle();
-  particles[i].y = Math.random() * window.innerHeight;
-}
+for (let i=0;i<12;i++){spawnParticle();particles[i].y=Math.random()*window.innerHeight;}
 animate();
+
+// ==================== MOBILE MENU ====================
+function openMobMenu() {
+  document.getElementById('mob-menu-drawer').classList.add('open');
+  document.getElementById('mob-menu-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobMenu() {
+  document.getElementById('mob-menu-drawer').classList.remove('open');
+  document.getElementById('mob-menu-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ==================== MOBILE BOTTOM NAV ACTIVE STATE ====================
+function setMobileNav(el) {
+  document.querySelectorAll('.mobile-bottom-nav a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ==================== PATCH updateBasketUI TO ALSO UPDATE MOBILE BADGE ====================
+const _origUpdateBasketUI = updateBasketUI;
+updateBasketUI = function() {
+  _origUpdateBasketUI();
+  const totalItems = basket.reduce((s, i) => s + i.qty, 0);
+  const mbnBadge = document.getElementById('mbn-basket-count');
+  if (mbnBadge) {
+    mbnBadge.textContent = totalItems;
+    mbnBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+  }
+};
+
+// ==================== INIT ====================
+updateBasketUI();
+loadProducts();
 </script>
 </body>
 </html>
