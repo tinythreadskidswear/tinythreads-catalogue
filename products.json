@@ -12,14 +12,25 @@
       "subcategory": "traditional",
       "description": "Soft breathable cotton kurta with matching pyjama. Perfect for festive occasions.",
       "price": 599,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y"
+      ],
       "badge": "New",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White", "Blue", "Cream"],
+      "colors": [
+        "White",
+        "Blue",
+        "Cream"
+      ],
       "fabric": "100% Cotton",
       "featured": true
     },
@@ -30,13 +41,23 @@
       "subcategory": "summer",
       "description": "Lightweight linen-blend shorts with matching graphic tee. Cool and comfortable.",
       "price": 399,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Yellow", "Sky Blue", "Mint"],
+      "colors": [
+        "Yellow",
+        "Sky Blue",
+        "Mint"
+      ],
       "fabric": "Linen Blend",
       "featured": false
     },
@@ -47,13 +68,23 @@
       "subcategory": "winter",
       "description": "Warm fleece-lined hoodie for chilly mornings. Kangaroo pocket and adjustable drawstring.",
       "price": 699,
-      "sizes": ["5-6Y", "6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "Warm",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Navy", "Grey", "Olive"],
+      "colors": [
+        "Navy",
+        "Grey",
+        "Olive"
+      ],
       "fabric": "Fleece Cotton",
       "featured": false
     },
@@ -64,13 +95,21 @@
       "subcategory": "nightwear",
       "description": "Super soft all-over dino print pyjama set. Kids love the fun design!",
       "price": 449,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y"
+      ],
       "badge": "Cosy",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Green", "Blue"],
+      "colors": [
+        "Green",
+        "Blue"
+      ],
       "fabric": "100% Cotton",
       "featured": true
     },
@@ -78,15 +117,24 @@
       "id": "b005",
       "name": "Cotton Vest Pack (3)",
       "category": "boys",
-      "subcategory": "Tarun Test undergarments",
+      "subcategory": "undergarments",
       "description": "Pack of 3 skin-friendly cotton vests. Gentle elastic, tagless label.",
       "price": 299,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White"],
+      "colors": [
+        "White"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -97,14 +145,24 @@
       "subcategory": "traditional",
       "description": "Royal sherwani with churidar and dupatta. Complete festive look for weddings and celebrations.",
       "price": 899,
-      "sizes": ["5-6Y", "6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "Festive",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Gold", "Maroon", "Ivory"],
+      "colors": [
+        "Gold",
+        "Maroon",
+        "Ivory"
+      ],
       "fabric": "Silk Blend",
       "featured": true
     },
@@ -115,13 +173,24 @@
       "subcategory": "summer",
       "description": "Fun graphic print tees in bright colours. 100% cotton, pre-shrunk.",
       "price": 249,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Red", "Blue", "Orange", "Green"],
+      "colors": [
+        "Red",
+        "Blue",
+        "Orange",
+        "Green"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -132,31 +201,51 @@
       "subcategory": "winter",
       "description": "Lightweight quilted jacket with a water-resistant outer layer. Packable and warm.",
       "price": 799,
-      "sizes": ["5-6Y", "6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "New",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Navy", "Olive", "Burgundy"],
+      "colors": [
+        "Navy",
+        "Olive",
+        "Burgundy"
+      ],
       "fabric": "Polyester Shell",
       "featured": false
     },
     {
-      "id": "g001",
+      "id": "b009",
       "name": "Floral Summer Frock",
       "category": "girls",
       "subcategory": "summer",
       "description": "Breezy floral cotton frock with smocked bodice and flutter sleeves.",
       "price": 449,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
       "badge": "Bestseller",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Pink", "Yellow", "Lilac"],
+      "colors": [
+        "Pink",
+        "Yellow",
+        "Lilac"
+      ],
       "fabric": "100% Cotton",
       "featured": true
     },
@@ -167,14 +256,24 @@
       "subcategory": "traditional",
       "description": "Embroidered lehenga choli with dupatta. Stunning for weddings and festivals.",
       "price": 799,
-      "sizes": ["4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y"],
+      "sizes": [
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Pink", "Red", "Blue"],
+      "colors": [
+        "Pink",
+        "Red",
+        "Blue"
+      ],
       "fabric": "Georgette & Net",
       "featured": true
     },
@@ -185,13 +284,23 @@
       "subcategory": "winter",
       "description": "Cosy button-down knit cardigan. Perfect layering piece for winters.",
       "price": 649,
-      "sizes": ["5-6Y", "6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "Cosy",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Cream", "Dusty Rose", "Sage"],
+      "colors": [
+        "Cream",
+        "Dusty Rose",
+        "Sage"
+      ],
       "fabric": "Acrylic Blend",
       "featured": false
     },
@@ -202,13 +311,23 @@
       "subcategory": "nightwear",
       "description": "Soft woven cotton night dress with floral print. Loose comfortable fit.",
       "price": 399,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Pink", "White", "Peach"],
+      "colors": [
+        "Pink",
+        "White",
+        "Peach"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -219,12 +338,22 @@
       "subcategory": "undergarments",
       "description": "Pack of 2 soft cotton camisoles with matching briefs. Comfortable everyday wear.",
       "price": 249,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White", "Blush"],
+      "colors": [
+        "White",
+        "Blush"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -235,14 +364,23 @@
       "subcategory": "traditional",
       "description": "Flared anarkali kurta with intricate block print and contrast churidar.",
       "price": 699,
-      "sizes": ["6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "Festive",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Teal", "Mustard", "Magenta"],
+      "colors": [
+        "Teal",
+        "Mustard",
+        "Magenta"
+      ],
       "fabric": "Georgette",
       "featured": true
     },
@@ -253,13 +391,23 @@
       "subcategory": "summer",
       "description": "Cheerful pleated skirt with matching fitted top. Great for school and outings.",
       "price": 499,
-      "sizes": ["4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y"],
+      "sizes": [
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y"
+      ],
       "badge": "New",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Blue", "Red", "Yellow"],
+      "colors": [
+        "Blue",
+        "Red",
+        "Yellow"
+      ],
       "fabric": "Cotton Blend",
       "featured": false
     },
@@ -270,13 +418,24 @@
       "subcategory": "nightwear",
       "description": "Warm flannel pyjama set with cute print. Snug elastic waist for comfort.",
       "price": 429,
-      "sizes": ["3-4Y", "4-5Y", "5-6Y", "6-8Y", "8-10Y", "10-12Y", "12-13Y"],
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Pink Stars", "Purple Hearts"],
+      "colors": [
+        "Pink Stars",
+        "Purple Hearts"
+      ],
       "fabric": "Flannel Cotton",
       "featured": false
     },
@@ -287,13 +446,21 @@
       "subcategory": "undergarments",
       "description": "Soft organic cotton onesies with snap closure. Gentle on newborn skin.",
       "price": 349,
-      "sizes": ["0-3M", "3-6M", "6-9M", "9-12M"],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M"
+      ],
       "badge": "Soft",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White", "Pastel Mix"],
+      "colors": [
+        "White",
+        "Pastel Mix"
+      ],
       "fabric": "Organic Cotton",
       "featured": true
     },
@@ -304,14 +471,24 @@
       "subcategory": "summer",
       "description": "Adorable one-piece romper with ruffled collar. Easy snap-open legs for diaper changes.",
       "price": 299,
-      "sizes": ["3-6M", "6-9M", "9-12M", "12-18M", "18-24M"],
+      "sizes": [
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M",
+        "18-24M"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Yellow", "Mint", "Peach"],
+      "colors": [
+        "Yellow",
+        "Mint",
+        "Peach"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -322,13 +499,23 @@
       "subcategory": "traditional",
       "description": "Traditional jhabla kurta with matching bottoms. Great for first celebrations.",
       "price": 499,
-      "sizes": ["0-3M", "3-6M", "6-9M", "9-12M", "12-18M"],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Ivory", "Pink", "Blue"],
+      "colors": [
+        "Ivory",
+        "Pink",
+        "Blue"
+      ],
       "fabric": "Silk Cotton",
       "featured": false
     },
@@ -339,13 +526,25 @@
       "subcategory": "winter",
       "description": "Full-body fleece sleep suit with fold-over cuffs. Keeps baby warm all night.",
       "price": 449,
-      "sizes": ["0-3M", "3-6M", "6-9M", "9-12M", "12-18M", "18-24M", "2-3Y"],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M",
+        "18-24M",
+        "2-3Y"
+      ],
       "badge": "Warm",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["Grey", "Pink", "Blue Stars"],
+      "colors": [
+        "Grey",
+        "Pink",
+        "Blue Stars"
+      ],
       "fabric": "Micro Fleece",
       "featured": true
     },
@@ -356,13 +555,21 @@
       "subcategory": "nightwear",
       "description": "Easy open-bottom sleep gown with footed cuffs. Night feeds made simple.",
       "price": 379,
-      "sizes": ["0-3M", "3-6M", "6-9M", "9-12M"],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White", "Lavender"],
+      "colors": [
+        "White",
+        "Lavender"
+      ],
       "fabric": "100% Cotton",
       "featured": false
     },
@@ -373,13 +580,123 @@
       "subcategory": "undergarments",
       "description": "Pack of 3 cotton vests with envelope neckline. Effortless dressing for baby.",
       "price": 249,
-      "sizes": ["0-3M", "3-6M", "6-9M", "9-12M", "12-18M"],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M"
+      ],
       "badge": "",
       "images": [
         "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
-      "colors": ["White"],
+      "colors": [
+        "White"
+      ],
       "fabric": "100% Cotton",
+      "featured": false
+    },
+    {
+      "id": "b009",
+      "name": "Tinythreads Sport Cordsets",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "Motosports Design cordset",
+      "price": 699,
+      "sizes": [],
+      "badge": "",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776825423/tinythreads/IMG_20240504_112039_0118_wammjz.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854579/tinythreads/WhatsApp_Image_2026-02-18_at_10.02.10_AM_zcphis.jpg"
+      ],
+      "colors": [],
+      "fabric": "Canvas Cotton",
+      "featured": true
+    },
+    {
+      "id": "g009",
+      "name": "Crop Top and Lower Set",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "White Crop Top and Side Stripped Black Lower",
+      "price": 599,
+      "sizes": [
+        "4-5Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776825916/tinythreads/.trashed-1771831233-IMG_20260124_124444_eanug8.jpg"
+      ],
+      "colors": [
+        "White"
+      ],
+      "fabric": "bio wash cotton",
+      "featured": true
+    },
+    {
+      "id": "b010",
+      "name": "Kenzo Premium Tshirts",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "",
+      "price": 399,
+      "sizes": [
+        "2-3y",
+        "4-5y",
+        "5-6y",
+        "6-7y",
+        "7-8y",
+        "9-10y",
+        "10-11y",
+        "11-12y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854830/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.19_AM_nybw3e.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854831/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.20_AM_1_kgdzeq.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854831/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.20_AM_2_eyskai.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854832/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.21_AM_1_wic2fi.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854833/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.21_AM_2_bvqm9q.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854834/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.21_AM_3_fqcyqp.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854834/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.21_AM_htnn2k.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854835/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.22_AM_1_gmh7fw.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854836/tinythreads/WhatsApp_Image_2026-01-25_at_10.38.24_AM_2_yh2k1o.jpg"
+      ],
+      "colors": [
+        "Red",
+        "Blue",
+        "White",
+        "Grey",
+        "Black",
+        "Yellow"
+      ],
+      "fabric": "Cotton Premium Lycra",
+      "featured": false
+    },
+    {
+      "id": "b011",
+      "name": "Linen Safri Style Cordsets",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "Effortlessly cool and breezy, these Linen Safari Style Cordsets are the perfect blend of rugged adventure and sophisticated comfort for your little explorer.",
+      "price": 599,
+      "sizes": [
+        "2-3y",
+        "3-4y",
+        "5-6y",
+        "7-8y",
+        "9-10y"
+      ],
+      "badge": "Cosy",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776855114/tinythreads/1758080712686_dwvwnp.png"
+      ],
+      "colors": [
+        "Green",
+        "Yellow"
+      ],
+      "fabric": "Linen",
       "featured": false
     }
   ]
