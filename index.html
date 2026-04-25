@@ -29,7 +29,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .logo-svg-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 .logo-wrap:hover .logo-svg-wrap{transform:scale(1.09) rotate(-4deg);}
 /* Hero logo */
-.hero-logo-wrap{width:150px;height:150px;margin:0 auto 1.4rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 10px 30px rgba(183,28,28,0.42));animation:floatLogo 3s ease-in-out infinite;border:3px solid rgba(183,28,28,0.12);}
+.hero-logo-wrap{width:150px;height:150px;margin:0 auto 1.4rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 10px 30px rgba(183,28,28,0.42));animation:floatLogo 3s ease-in-out infinite;border:2px solid rgba(183,28,28,0.12);}
 .hero-logo-wrap::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 -8px 20px rgba(183,28,28,0.15),inset 0 8px 18px rgba(255,255,255,0.5);pointer-events:none;}
 .hero-logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 .logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--red-dark);line-height:1.1;}
@@ -60,14 +60,16 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .hero-content{position:relative;z-index:2;}
 .hero-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:12px;padding:5px 18px;border-radius:20px;margin-bottom:1.2rem;font-weight:600;letter-spacing:0.5px;}
 .hero-logo{width:120px;height:120px;object-fit:contain;border-radius:50%;box-shadow:0 8px 32px rgba(183,28,28,0.2);margin-bottom:1.2rem;animation:floatLogo 3s ease-in-out infinite;}
+@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.2;margin-bottom:1rem;}
 .hero h1 em{font-style:normal;color:var(--red);}
-.hero p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 1.1rem;line-height:1.75;}
+.hero p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 2rem;line-height:1.75;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .btn-primary{background:var(--red);color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(183,28,28,0.35);}
 .btn-wa{background:#25D366;color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.35);}
-.trust-badges{display:flex;gap:10px;justify-content:center;margin-top:1rem;flex-wrap:wrap;}
+.trust-badges{display:flex;gap:10px;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;}
 .trust-badge{background:white;border:1px solid #F0E0DC;border-radius:20px;padding:7px 16px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
 .badge-dot{width:7px;height:7px;border-radius:50%;}
 
@@ -106,17 +108,25 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 /* SUBCATEGORIES */
 .sub-section{background:white;padding:3.5rem 2rem;position:relative;z-index:1;}
 .sub-inner{max-width:1200px;margin:0 auto;}
-.sub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;}
-.sub-card{border-radius:16px;padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:all 0.22s;border:1.5px solid transparent;}
+.sub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+.sub-card{border-radius:16px;padding:1.2rem 0.95rem;text-align:center;cursor:pointer;transition:all 0.22s;border:1.5px solid transparent;}
 .sub-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.09);border-color:rgba(183,28,28,0.25);}
 .sub-card.traditional{background:#FFF8F0;border-color:#F0E0C8;}
 .sub-card.summer{background:#FFFDE7;border-color:#FFE082;}
 .sub-card.winter{background:#E8EAF6;border-color:#C5CAE9;}
 .sub-card.night{background:#EDE7F6;border-color:#CE93D8;}
 .sub-card.under{background:#E8F5E9;border-color:#A5D6A7;}
-.sub-icon{font-size:30px;margin-bottom:8px;display:block;}
-.sub-card h4{font-size:13.5px;font-weight:600;margin-bottom:3px;}
-.sub-card p{font-size:11.5px;color:var(--muted);line-height:1.45;}
+.sub-icon{font-size:28px;margin-bottom:8px;display:block;}
+.sub-card h4{font-size:13px;font-weight:600;margin-bottom:3px;}
+.sub-card p{font-size:11px;color:var(--muted);line-height:1.45;}
+
+@media(max-width:700px){
+  .sub-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .sub-card{padding:1rem 0.9rem;}
+  .sub-icon{font-size:26px;}
+  .sub-card h4{font-size:12.5px;}
+  .sub-card p{font-size:11px;line-height:1.4;}
+}
 
 /* ===================== PRODUCT CARDS WITH SWIPER ===================== */
 .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
@@ -262,6 +272,48 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 .basket-continue-btn{width:100%;background:none;border:1.5px solid var(--red-light);color:var(--red);padding:10px;border-radius:12px;font-size:13px;font-weight:500;cursor:pointer;margin-top:8px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
 .basket-continue-btn:hover{background:var(--red-light);}
 
+/* ===================== PROMO CODE ===================== */
+.promo-wrap{margin:0.8rem 0;}
+.promo-row{display:flex;gap:8px;}
+.promo-input{flex:1;padding:9px 14px;border:1.5px solid #E8DED4;border-radius:12px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;background:white;}
+.promo-input:focus{border-color:var(--red);}
+.promo-input.valid{border-color:#25D366;background:#F0FFF5;}
+.promo-input.invalid{border-color:#E53935;background:#FFF5F5;}
+.promo-apply-btn{background:var(--red);color:white;border:none;padding:9px 16px;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all 0.18s;}
+.promo-apply-btn:hover{background:var(--red-dark);}
+.promo-apply-btn.applied{background:#25D366;cursor:default;}
+.promo-msg{font-size:11.5px;margin-top:5px;padding:5px 10px;border-radius:8px;display:none;}
+.promo-msg.success{display:block;background:#F0FFF5;color:#1B5E20;border:1px solid #A5D6A7;}
+.promo-msg.error{display:block;background:#FFF5F5;color:#B71C1C;border:1px solid #EF9A9A;}
+.discount-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#25D366;font-weight:600;margin-bottom:0.4rem;padding:6px 10px;background:#F0FFF5;border-radius:10px;border:1px solid #A5D6A7;}
+.discount-remove{background:none;border:none;color:#999;cursor:pointer;font-size:14px;padding:0 2px;line-height:1;}
+.discount-remove:hover{color:var(--red);}
+.basket-divider{height:1px;background:#F5ECEC;margin:0.8rem 0;}
+
+/* ===================== OFFER FLYER ===================== */
+.offer-flyer{background:linear-gradient(135deg,#7F0000 0%,#B71C1C 45%,#C62828 100%);border-radius:20px;padding:1.4rem 1.8rem;max-width:1200px;margin:2rem auto 0;position:relative;overflow:hidden;z-index:1;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.offer-flyer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,255,255,0.06);border-radius:50%;}
+.offer-flyer::after{content:'';position:absolute;bottom:-50px;left:30%;width:160px;height:160px;background:rgba(255,213,79,0.08);border-radius:50%;}
+.offer-flyer-icon{font-size:36px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));position:relative;z-index:2;}
+.offer-flyer-body{flex:1;min-width:180px;position:relative;z-index:2;}
+.offer-flyer-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:5px;letter-spacing:0.5px;text-transform:uppercase;}
+.offer-flyer-body h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:white;margin-bottom:3px;line-height:1.25;}
+.offer-flyer-body h3 em{font-style:normal;color:var(--gold);}
+.offer-flyer-body p{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;}
+.offer-flyer-code{background:rgba(255,255,255,0.12);border:2px dashed rgba(255,213,79,0.6);border-radius:14px;padding:0.8rem 1.2rem;text-align:center;flex-shrink:0;position:relative;z-index:2;cursor:pointer;transition:all 0.2s;}
+.offer-flyer-code:hover{background:rgba(255,255,255,0.2);}
+.offer-flyer-code-label{font-size:10px;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px;}
+.offer-flyer-code-val{font-size:1.3rem;font-weight:700;color:var(--gold);letter-spacing:2px;font-family:'DM Sans',sans-serif;}
+.offer-flyer-code-copy{font-size:10px;color:rgba(255,255,255,0.55);margin-top:3px;}
+.offer-flyer-code.copied .offer-flyer-code-copy{color:#A5D6A7;}
+@media(max-width:700px){
+  .offer-flyer{margin:1.2rem 1rem 0;padding:1.1rem 1.2rem;gap:1rem;border-radius:16px;}
+  .offer-flyer-icon{font-size:28px;}
+  .offer-flyer-body h3{font-size:1rem;}
+  .offer-flyer-code{padding:0.6rem 1rem;}
+  .offer-flyer-code-val{font-size:1.1rem;}
+}
+
 /* TOAST */
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--red-dark);color:white;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;z-index:20000;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
@@ -317,7 +369,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 .t-author{display:flex;align-items:center;gap:12px;}
 .t-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid var(--red-light);flex-shrink:0;background:#FAF0EE;}
 .t-avatar-svg{width:46px;height:46px;border-radius:50%;flex-shrink:0;}
-.t-author-info{}
 .t-name{font-size:13.5px;font-weight:700;color:var(--text);}
 .t-location{font-size:11.5px;color:var(--muted);margin-top:1px;}
 .t-product-chip{display:inline-flex;align-items:center;gap:5px;background:var(--red-light);color:var(--red);border-radius:8px;padding:4px 10px;font-size:10.5px;font-weight:600;margin-top:1rem;}
@@ -425,7 +476,17 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .cat-carousel-wrap .swiper-slide.placeholder .ph-text{font-size:9px;}
   .cat-age{font-size:8.5px;padding:2px 7px;margin-bottom:4px;letter-spacing:0;}
   .cat-card h3{font-size:0.95rem;margin-bottom:2px;}
-  .cat-card p{font-size:9px;line-height:1.32;margin-bottom:0.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;opacity:0.68;}
+  .cat-card p{
+    font-size:0.56rem;
+    line-height:1.32;
+    margin-bottom:0.4rem;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    line-clamp:2;
+    overflow:hidden;
+    opacity:0.72;
+  }
   .cat-btn{font-size:9px;padding:5px 7px;border-radius:11px;gap:3px;}
   .cat-count{font-size:8.5px;padding:2px 6px;top:0.5rem;right:0.5rem;border-radius:6px;}
 
@@ -436,26 +497,18 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .sub-icon{font-size:24px;}
 
   /* PRODUCT GRID — 2 columns */
-  .prod-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-  .prod-card{border-radius:16px;}
-  .prod-swiper-wrap{aspect-ratio:3/4;}
-  .prod-info{padding:0.65rem;}
-  .prod-meta{gap:6px;margin-bottom:8px;}
-  .prod-name{font-size:12px;line-height:1.25;}
-  .prod-desc{font-size:9.5px;margin-bottom:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em;}
-  .fabric-chip{font-size:9px;padding:2px 6px;margin-bottom:0;justify-self:start;}
-  .size-label,.color-label{font-size:9px;letter-spacing:0.3px;}
-  .size-pills{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:0;}
-  .size-pills::-webkit-scrollbar{display:none;}
-  .size-pill{font-size:9px;padding:4px 7px;flex:0 0 auto;}
-  .color-row{gap:4px;margin-bottom:0;flex-wrap:wrap;}
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .prod-swiper-wrap{height:180px;}
+  .prod-info{padding:0.75rem;}
+  .prod-name{font-size:12.5px;}
+  .prod-desc{font-size:10px;margin-bottom:6px;}
+  .fabric-chip{font-size:9.5px;padding:2px 6px;margin-bottom:6px;}
+  .size-label{font-size:9.5px;}
+  .size-pill{font-size:9.5px;padding:3px 6px;}
   .color-dot{width:12px;height:12px;}
-  .prod-price{font-size:13px;}
-  .prod-footer{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px;}
-  .prod-actions{justify-content:flex-end;gap:4px;}
-  .add-basket-btn{padding:7px 8px;font-size:10px;min-height:34px;}
-  .prod-wa-btn{padding:0;width:34px;height:34px;justify-content:center;font-size:0;flex-shrink:0;}
-  .prod-wa-btn svg{width:15px;height:15px;}
+  .prod-price{font-size:14px;}
+  .add-basket-btn{padding:6px 8px;font-size:10.5px;}
+  .prod-footer{flex-wrap:wrap;gap:4px;}
 
   /* FILTER BAR */
   .filter-bar{padding:0.65rem 1rem;gap:6px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;position:sticky;top:60px;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-bottom:1px solid #F0E0DC;z-index:950;}
@@ -463,17 +516,8 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .filter-btn{white-space:nowrap;flex-shrink:0;padding:6px 12px;font-size:11.5px;}
 
   .breadcrumb{padding:10px 1rem;font-size:12px;}
-  .cat-hero{padding:1.25rem 1rem 1rem;}
-  .cat-hero h1{font-size:1.45rem;}
-  .cat-hero p{font-size:12px !important;}
-  .products-section{padding-top:0.85rem;}
-  .products-section .sub-grid{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(118px,1fr);grid-template-columns:none;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:4px;margin-bottom:1rem !important;}
-  .products-section .sub-grid::-webkit-scrollbar{display:none;}
-  .products-section .sub-card{padding:0.75rem 0.6rem;scroll-snap-align:start;border-radius:14px;}
-  .products-section .sub-card h4{font-size:12px;}
-  .products-section .sub-card p{font-size:10px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .products-section .section-title{font-size:1.2rem;margin-bottom:0.25rem;}
-  .products-section .section-sub{font-size:12px;margin-bottom:0.9rem;}
+  .cat-hero{padding:1.8rem 1rem;}
+  .cat-hero h1{font-size:1.6rem;}
   .newsletter{padding:2.5rem 1rem;}
   .newsletter h2{font-size:1.5rem;}
   .nl-form{flex-direction:column;gap:8px;}
@@ -494,6 +538,20 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 @media(min-width:701px) and (max-width:1024px){
   .prod-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}
   nav{padding:0 1.2rem;}
+}
+.tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--red-dark);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+.tagline span {
+  color: var(--red);
+  font-weight: 700;
+  font-style: normal;
 }
 </style>
 </head>
@@ -517,12 +575,33 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   </div>
   <div class="basket-footer">
     <div class="basket-summary">
-      <span class="basket-total-label">Total</span>
+      <span class="basket-total-label">Subtotal</span>
+      <span class="basket-total-val" id="basket-subtotal">₹0</span>
+    </div>
+    <!-- Promo code -->
+    <div class="promo-wrap">
+      <div class="promo-row">
+        <input class="promo-input" id="promo-input" type="text" placeholder="Enter promo code" maxlength="20" oninput="this.value=this.value.toUpperCase()">
+        <button class="promo-apply-btn" id="promo-apply-btn" onclick="applyPromo()">Apply</button>
+      </div>
+      <div class="promo-msg" id="promo-msg"></div>
+    </div>
+    <!-- Discount row (shown when code applied) -->
+    <div class="discount-row" id="discount-row" style="display:none;">
+      <span id="discount-label">WELCOME10 · 10% off</span>
+      <span style="display:flex;align-items:center;gap:6px;">
+        <span id="discount-amount" style="color:#25D366;font-weight:700;"></span>
+        <button class="discount-remove" onclick="removePromo()" title="Remove">✕</button>
+      </span>
+    </div>
+    <div class="basket-divider"></div>
+    <div class="basket-summary">
+      <span class="basket-total-label" style="font-weight:700;color:var(--text);">Total</span>
       <span class="basket-total-val" id="basket-total">₹0</span>
     </div>
     <div class="basket-item-count" id="basket-item-count"></div>
     <button class="checkout-wa-btn" id="checkout-btn" onclick="checkoutWhatsApp()" disabled>
-      <svg style="width:20px;height:20px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <svg style="width:20px;height:20px;fill:white;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.558.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Checkout via WhatsApp
     </button>
     <button class="basket-continue-btn" onclick="closeBasket()">Continue Shopping</button>
@@ -537,7 +616,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 
 <!-- NAV -->
 <nav>
-  <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showPage('home');}">
+   <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showPage('home');}">
     <div class="logo-svg-wrap">
       <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo">
     </div>
@@ -550,7 +629,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     <li><a href="#" onclick="showPage('babies');return false;">Babies 0–3y</a></li>
   </ul>
   <div class="nav-right">
-    <button type="button" class="basket-nav-btn" onclick="openBasket()" aria-label="Open basket">
+    <button class="basket-nav-btn" onclick="openBasket()">
       🛒 <span class="btn-label">Basket</span>
       <span class="basket-count-badge" id="nav-basket-count">0</span>
     </button>
@@ -558,7 +637,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       <svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       Follow us
     </a>
-    <button type="button" class="mob-ham-btn" onclick="openMobMenu()" aria-label="Open menu">
+    <button class="mob-ham-btn" onclick="openMobMenu()" aria-label="Open menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
@@ -626,13 +705,35 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       <div class="hero-logo-wrap">
         <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo">
       </div>
-      <h1>Dress them in <em>joy</em>,<br>every single day.</h1>
-      <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
+    <p class="sub-text">Tiny Threads Presents</p>
+    <div class="divider"></div>
+    <h1 class="tagline">
+      For the little birds in your nest: <br>
+      <span>threads of pure joy.</span>
+    </h1>
+    <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
       <div class="trust-badges">
         <div class="trust-badge"><span class="badge-dot" style="background:#66BB6A;"></span>100% Safe Fabrics</div>
         <div class="trust-badge"><span class="badge-dot" style="background:#EC407A;"></span>Skin-Friendly Dyes</div>
         <div class="trust-badge"><span class="badge-dot" style="background:#42A5F5;"></span>Durable & Washable</div>
         <div class="trust-badge"><span class="badge-dot" style="background:#FFD54F;"></span>Affordable Pricing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELCOME10 OFFER FLYER -->
+  <div class="section" style="padding-top:1.5rem;padding-bottom:0;">
+    <div class="offer-flyer" onclick="copyPromoCode(this)">
+      <div class="offer-flyer-icon">🎉</div>
+      <div class="offer-flyer-body">
+        <span class="offer-flyer-tag">✨ First Order Offer</span>
+        <h3>Get <em>10% off</em> your first order!</h3>
+        <p>Apply code at checkout · Valid on all products · No minimum order value</p>
+      </div>
+      <div class="offer-flyer-code" id="flyer-code-box">
+        <div class="offer-flyer-code-label">Use code</div>
+        <div class="offer-flyer-code-val">WELCOME10</div>
+        <div class="offer-flyer-code-copy">Tap to copy 📋</div>
       </div>
     </div>
   </div>
@@ -671,7 +772,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
         <span class="cat-age">Ages 3 – 13 Years</span>
         <h3>Boys</h3>
         <p>Bold, playful & built to last — from school to weekend adventures</p>
-        <span class="cat-btn" aria-hidden="true">Browse Boys →</span>
+        <button class="cat-btn">Browse Boys →</button>
       </div>
       <div class="cat-card girls" onclick="showPage('girls')">
         <span class="cat-count">8 products</span>
@@ -681,7 +782,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
         <span class="cat-age">Ages 3 – 13 Years</span>
         <h3>Girls</h3>
         <p>Sweet, vibrant & comfortable — for every twirl, run & rainy-day cuddle</p>
-        <span class="cat-btn" aria-hidden="true">Browse Girls →</span>
+        <button class="cat-btn">Browse Girls →</button>
       </div>
       <div class="cat-card babies" onclick="showPage('babies')">
         <span class="cat-count">6 products</span>
@@ -691,21 +792,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
         <span class="cat-age">Ages 0 – 3 Years</span>
         <h3>Babies</h3>
         <p>Impossibly soft, gentle on skin — because every cuddle deserves the best</p>
-        <span class="cat-btn" aria-hidden="true">Browse Babies →</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sub-section">
-    <div class="sub-inner">
-      <h2 class="section-title">Browse by <span class="red">Style</span></h2>
-      <p class="section-sub">Curated collections for every occasion and season</p>
-      <div class="sub-grid">
-        <div class="sub-card traditional"><span class="sub-icon">🧵</span><h4>Traditional</h4><p>Ethnic & festive wear for special moments</p></div>
-        <div class="sub-card summer"><span class="sub-icon">☀️</span><h4>Summer</h4><p>Light, breezy & perfect for hot days</p></div>
-        <div class="sub-card winter"><span class="sub-icon">🧥</span><h4>Winter</h4><p>Cosy, warm layers for chilly seasons</p></div>
-        <div class="sub-card night"><span class="sub-icon">🌙</span><h4>Nightwear</h4><p>Soft, comfy pyjamas for restful sleep</p></div>
-        <div class="sub-card under"><span class="sub-icon">🧸</span><h4>Undergarments</h4><p>Gentle on skin, everyday essentials</p></div>
+        <button class="cat-btn">Browse Babies →</button>
       </div>
     </div>
   </div>
@@ -828,7 +915,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
               <circle cx="23" cy="19" r="7" fill="#FF7043"/>
             </svg>
             <div class="t-author-info">
-              <div class="t-name">Arjun Mehta</div>
+              <div class="t-name">Arjun Agrawal</div>
               <div class="t-location">📍 Delhi, NCR</div>
             </div>
           </div>
@@ -996,6 +1083,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 const WA_NUMBER = '917879976016';
 let allProducts = [];
 let basket = [];
+// Promo code state
+const PROMO_CODES = { 'WELCOME10': { discount: 0.10, label: 'WELCOME10 · 10% off' } };
+let appliedPromo = null;
 const COLOR_MAP = {
   'White':'#F5F5F5','Blue':'#1565C0','Cream':'#FFF8E1','Navy':'#0D47A1','Grey':'#9E9E9E',
   'Olive':'#827717','Red':'#B71C1C','Pink':'#E91E63','Yellow':'#FDD835','Mint':'#80CBC4',
@@ -1012,13 +1102,7 @@ async function loadProducts() {
     if (!res.ok) throw new Error('Not found');
     const data = await res.json();
     allProducts = data.products;
-  } catch(e) {
-    if (window.__PRODUCTS_DATA__ && Array.isArray(window.__PRODUCTS_DATA__.products)) {
-      allProducts = window.__PRODUCTS_DATA__.products;
-    } else {
-      allProducts = getFallbackProducts();
-    }
-  }
+  } catch(e) { allProducts = getFallbackProducts(); }
   renderAllGrids();
   initCatSwipers();
 }
@@ -1125,14 +1209,30 @@ function changeQty(key, delta) {
 
 function updateBasketUI() {
   const totalItems = basket.reduce((s,i) => s+i.qty, 0);
-  const totalPrice = basket.reduce((s,i) => s+i.qty*i.price, 0);
+  const subtotal = basket.reduce((s,i) => s+i.qty*i.price, 0);
+  const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+  const total = subtotal - discountAmt;
+
   document.getElementById('nav-basket-count').textContent = totalItems;
   document.getElementById('nav-basket-count').style.background = totalItems > 0 ? 'var(--red)' : '#CCC';
-  document.getElementById('basket-total').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+  document.getElementById('basket-subtotal').textContent = '₹' + subtotal.toLocaleString('en-IN');
+  document.getElementById('basket-total').textContent = '₹' + total.toLocaleString('en-IN');
   document.getElementById('basket-item-count').textContent = totalItems > 0 ? `${totalItems} item${totalItems>1?'s':''} in your basket` : '';
   document.getElementById('checkout-btn').disabled = basket.length === 0;
+
+  // Discount row
+  const discRow = document.getElementById('discount-row');
+  if (appliedPromo && subtotal > 0) {
+    discRow.style.display = 'flex';
+    document.getElementById('discount-label').textContent = appliedPromo.label;
+    document.getElementById('discount-amount').textContent = '−₹' + discountAmt.toLocaleString('en-IN');
+  } else {
+    discRow.style.display = 'none';
+  }
+
   const mbnBadge = document.getElementById('mbn-basket-count');
   if (mbnBadge) { mbnBadge.textContent=totalItems; mbnBadge.style.display=totalItems>0?'flex':'none'; }
+
   const body = document.getElementById('basket-body');
   if (basket.length === 0) { body.innerHTML=`<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`; return; }
   body.innerHTML = basket.map(item => `
@@ -1156,11 +1256,79 @@ function closeBasket(){document.getElementById('basket-drawer').classList.remove
 
 function checkoutWhatsApp() {
   if (basket.length===0) return;
-  const totalPrice = basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const subtotal = basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+  const total = subtotal - discountAmt;
   let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order:\n\n';
   basket.forEach((item,idx)=>{ msg+=`${idx+1}. *${item.name}*\n   Size: ${item.size||'N/A'} · Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty*item.price).toLocaleString('en-IN')}\n\n`; });
-  msg += `*Total: ₹${totalPrice.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
+  msg += `Subtotal: ₹${subtotal.toLocaleString('en-IN')}\n`;
+  if (appliedPromo) msg += `Promo Code: *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) → −₹${discountAmt.toLocaleString('en-IN')}\n`;
+  msg += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ===================== PROMO CODE LOGIC =====================
+function applyPromo() {
+  const input = document.getElementById('promo-input');
+  const btn = document.getElementById('promo-apply-btn');
+  const msg = document.getElementById('promo-msg');
+  const code = input.value.trim().toUpperCase();
+  if (!code) { showPromoMsg('error', 'Please enter a promo code.'); return; }
+  if (PROMO_CODES[code]) {
+    appliedPromo = { ...PROMO_CODES[code], code };
+    input.classList.remove('invalid'); input.classList.add('valid');
+    input.disabled = true;
+    btn.textContent = '✓ Applied'; btn.classList.add('applied'); btn.disabled = true;
+    showPromoMsg('success', `🎉 "${code}" applied! You save ${Math.round(appliedPromo.discount*100)}% on your order.`);
+    updateBasketUI();
+    showToast(`Promo code ${code} applied! 🎉`);
+  } else {
+    input.classList.remove('valid'); input.classList.add('invalid');
+    showPromoMsg('error', '❌ Invalid code. Try WELCOME10 for 10% off!');
+  }
+}
+
+function removePromo() {
+  appliedPromo = null;
+  const input = document.getElementById('promo-input');
+  const btn = document.getElementById('promo-apply-btn');
+  const msg = document.getElementById('promo-msg');
+  input.value = ''; input.disabled = false;
+  input.classList.remove('valid','invalid');
+  btn.textContent = 'Apply'; btn.classList.remove('applied'); btn.disabled = false;
+  msg.className = 'promo-msg'; msg.style.display = 'none'; msg.textContent = '';
+  updateBasketUI();
+}
+
+function showPromoMsg(type, text) {
+  const msg = document.getElementById('promo-msg');
+  msg.className = 'promo-msg ' + type;
+  msg.textContent = text;
+}
+
+// Allow pressing Enter in promo input
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('promo-input');
+  if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') applyPromo(); });
+});
+
+// Copy promo code on flyer click
+function copyPromoCode(el) {
+  navigator.clipboard.writeText('WELCOME10').then(() => {
+    const box = document.getElementById('flyer-code-box');
+    box.classList.add('copied');
+    box.querySelector('.offer-flyer-code-copy').textContent = '✓ Copied!';
+    setTimeout(() => {
+      box.classList.remove('copied');
+      box.querySelector('.offer-flyer-code-copy').textContent = 'Tap to copy 📋';
+    }, 2000);
+    showToast('Code WELCOME10 copied! Apply in basket 🎉');
+    // Pre-fill the promo input if basket is open
+    const inp = document.getElementById('promo-input');
+    if (inp && !inp.disabled) inp.value = 'WELCOME10';
+  }).catch(() => {
+    showToast('Code: WELCOME10 · Apply at checkout!');
+  });
 }
 
 function waEnquire(name,price){window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(`Hi Tiny Threads Kidswear! I am interested in *${name}* (₹${price}). Please share more details.`),'_blank');}
