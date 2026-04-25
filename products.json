@@ -10,26 +10,23 @@
       "name": "Cotton Kurta Set",
       "category": "boys",
       "subcategory": "traditional",
-      "description": "Soft breathable cotton kurta with matching pyjama. Perfect for festive occasions.",
-      "price": 599,
+      "description": "Soft breathable cotton kurta with floral jacket and white pyjama. Perfect for festive occasions.",
+      "price": 899,
       "sizes": [
         "3-4Y",
         "4-5Y",
         "5-6Y",
         "6-8Y",
         "8-10Y",
-        "10-12Y"
+        "10-12Y",
+        "1-2Y"
       ],
-      "badge": "New",
+      "badge": "Festive",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128347/tinythreads/IMG-20250927-WA0043_ulau1j.jpg"
       ],
       "colors": [
-        "White",
-        "Blue",
-        "Cream"
+        "Blue"
       ],
       "fabric": "100% Cotton",
       "featured": true
@@ -50,8 +47,8 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Yellow",
@@ -67,49 +64,57 @@
       "category": "boys",
       "subcategory": "winter",
       "description": "Warm fleece-lined hoodie for chilly mornings. Kangaroo pocket and adjustable drawstring.",
-      "price": 699,
+      "price": 599,
       "sizes": [
         "5-6Y",
         "6-8Y",
         "8-10Y",
         "10-12Y",
-        "12-13Y"
+        "12-13y"
       ],
       "badge": "Warm",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127856/tinythreads/IMG-20251120-WA0023_blhv9f.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127857/tinythreads/IMG-20251119-WA0048_yun5gf.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127858/tinythreads/IMG-20251119-WA0055_qkfpym.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127860/tinythreads/IMG-20251119-WA0043_auw1uo.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127861/tinythreads/IMG-20251119-WA0057_vcgsmx.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127862/tinythreads/IMG-20251119-WA0051_r5yah1.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127864/tinythreads/IMG-20251119-WA0038_n6y6om.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127865/tinythreads/IMG-20251119-WA0056_gqwjoj.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127867/tinythreads/IMG-20251119-WA0049_jc6euq.jpg"
       ],
       "colors": [
         "Navy",
         "Grey",
-        "Olive"
+        "Olive",
+        "black",
+        "purple",
+        "musturd"
       ],
       "fabric": "Fleece Cotton",
       "featured": false
     },
     {
       "id": "b004",
-      "name": "Dinosaur Pyjama Set",
+      "name": "Animal Print Nighute Suits",
       "category": "boys",
       "subcategory": "nightwear",
-      "description": "Super soft all-over dino print pyjama set. Kids love the fun design!",
-      "price": 449,
+      "description": "Super soft all-over animal print pyjama set. Kids love the fun design!",
+      "price": 199,
       "sizes": [
         "3-4Y",
         "4-5Y",
         "5-6Y",
-        "6-8Y"
+        "6-8Y",
+        "9-10y"
       ],
       "badge": "Cosy",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128083/tinythreads/file_0000000024f471faa648930bb9c693f2_e4tnln.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128084/tinythreads/IMG-20251031-WA0021_zv59ih.jpg"
       ],
-      "colors": [
-        "Green",
-        "Blue"
-      ],
+      "colors": [],
       "fabric": "100% Cotton",
       "featured": true
     },
@@ -128,40 +133,46 @@
         "8-10Y",
         "10-12Y"
       ],
-      "badge": "",
+      "badge": "Soft",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128191/tinythreads/file_000000001c587208a47f75e5eba4618e_gfvjae.png"
       ],
       "colors": [
-        "White"
+        "ivory",
+        "navy blue",
+        "Neon Green",
+        "Red",
+        "yellow",
+        "skyblue",
+        "multicolor"
       ],
       "fabric": "100% Cotton",
-      "featured": false
+      "featured": true
     },
     {
       "id": "b006",
-      "name": "Sherwani Set",
+      "name": "Three piece Set",
       "category": "boys",
       "subcategory": "traditional",
-      "description": "Royal sherwani with churidar and dupatta. Complete festive look for weddings and celebrations.",
+      "description": "Royal jodhpuri style Suit and Silky Shirts inside with soft cotton pant. Complete festive look for weddings and celebrations.",
       "price": 899,
       "sizes": [
         "5-6Y",
         "6-8Y",
         "8-10Y",
         "10-12Y",
-        "12-13Y"
+        "12-13Y",
+        "2-3y",
+        "3-4y"
       ],
       "badge": "Festive",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128704/tinythreads/1763993284544_tweypo.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777128705/tinythreads/1763994275677_vikjds.png"
       ],
       "colors": [
-        "Gold",
-        "Maroon",
-        "Ivory"
+        "olive Green",
+        "Grey & White"
       ],
       "fabric": "Silk Blend",
       "featured": true
@@ -182,8 +193,8 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Red",
@@ -210,8 +221,8 @@
       ],
       "badge": "New",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Navy",
@@ -237,9 +248,9 @@
       ],
       "badge": "Bestseller",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Pink",
@@ -265,9 +276,9 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Pink",
@@ -293,8 +304,8 @@
       ],
       "badge": "Cosy",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Cream",
@@ -320,8 +331,8 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Pink",
@@ -348,7 +359,7 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "White",
@@ -372,9 +383,9 @@
       ],
       "badge": "Festive",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Teal",
@@ -400,8 +411,8 @@
       ],
       "badge": "New",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Blue",
@@ -429,8 +440,8 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Pink Stars",
@@ -454,8 +465,8 @@
       ],
       "badge": "Soft",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "White",
@@ -480,9 +491,9 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Yellow",
@@ -508,8 +519,8 @@
       ],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Ivory",
@@ -537,8 +548,8 @@
       ],
       "badge": "Warm",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
       ],
       "colors": [
         "Grey",
@@ -552,23 +563,28 @@
       "id": "bb005",
       "name": "Footed Sleep Gown",
       "category": "babies",
-      "subcategory": "nightwear",
+      "subcategory": "summer",
       "description": "Easy open-bottom sleep gown with footed cuffs. Night feeds made simple.",
       "price": 379,
       "sizes": [
         "0-3M",
         "3-6M",
         "6-9M",
-        "9-12M"
+        "9-12M",
+        "12-18M",
+        "18-24M"
       ],
-      "badge": "",
+      "badge": "Cosy",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg",
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127682/tinythreads/IMG-20250802-WA0038_tyyvgi.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127684/tinythreads/IMG-20250802-WA0045_hp0sey.jpg"
       ],
       "colors": [
         "White",
-        "Lavender"
+        "Lavender",
+        "pink",
+        "light Green",
+        "Sky Blue"
       ],
       "fabric": "100% Cotton",
       "featured": false
@@ -587,15 +603,20 @@
         "9-12M",
         "12-18M"
       ],
-      "badge": "",
+      "badge": "Soft",
       "images": [
-        "https://res.cloudinary.com/dmehiuzml/image/upload/v1776516706/IMG_20250930_090040_ka2484.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127471/tinythreads/IMG_20260304_080439_jeayjm.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777127476/tinythreads/IMG-20260303-WA0049_pyi4xy.jpg"
       ],
       "colors": [
-        "White"
+        "White",
+        "orange",
+        "Dinosaur",
+        "Fruits",
+        "multicolor"
       ],
       "fabric": "100% Cotton",
-      "featured": false
+      "featured": true
     },
     {
       "id": "b009",
