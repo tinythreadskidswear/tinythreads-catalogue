@@ -998,6 +998,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   </div>
 </div>
 
+<script src="products.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 const WA_NUMBER = '917879976016';
@@ -1019,7 +1020,13 @@ async function loadProducts() {
     if (!res.ok) throw new Error('Not found');
     const data = await res.json();
     allProducts = data.products;
-  } catch(e) { allProducts = getFallbackProducts(); }
+  } catch(e) {
+    if (window.__PRODUCTS_DATA__ && Array.isArray(window.__PRODUCTS_DATA__.products)) {
+      allProducts = window.__PRODUCTS_DATA__.products;
+    } else {
+      allProducts = getFallbackProducts();
+    }
+  }
   renderAllGrids();
   initCatSwipers();
 }
