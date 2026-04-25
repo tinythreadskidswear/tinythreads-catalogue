@@ -20,10 +20,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);o
 
 /* NAV */
 nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;height:72px;box-shadow:0 2px 12px rgba(183,28,28,0.08);}
-.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;}
-.logo-img{width:52px;height:52px;object-fit:contain;border-radius:50%;}
+.logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer;}
+/* Logo wrapper — nav */
+.logo-svg-wrap{width:56px;height:56px;flex-shrink:0;border-radius:50%;overflow:hidden;filter:drop-shadow(0 3px 10px rgba(183,28,28,0.38));transition:transform 0.25s;border:2px solid rgba(183,28,28,0.15);}
+.logo-svg-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
+.logo-wrap:hover .logo-svg-wrap{transform:scale(1.09) rotate(-4deg);}
+/* Hero logo */
+.hero-logo-wrap{width:150px;height:150px;margin:0 auto 1.4rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 10px 30px rgba(183,28,28,0.42));animation:floatLogo 3s ease-in-out infinite;border:3px solid rgba(183,28,28,0.12);}
+.hero-logo-wrap::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 -8px 20px rgba(183,28,28,0.15),inset 0 8px 18px rgba(255,255,255,0.5);pointer-events:none;}
+.hero-logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 .logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--red-dark);line-height:1.1;}
 .logo-text span{font-size:11px;font-weight:400;color:var(--muted);display:block;letter-spacing:1px;text-transform:uppercase;}
+@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 .nav-links{display:flex;gap:0;list-style:none;}
 .nav-links li a{text-decoration:none;color:var(--muted);font-size:13.5px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all 0.2s;display:block;}
 .nav-links li a:hover,.nav-links li a.active{color:var(--red);background:var(--red-light);}
@@ -49,7 +57,6 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .hero-content{position:relative;z-index:2;}
 .hero-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:12px;padding:5px 18px;border-radius:20px;margin-bottom:1.2rem;font-weight:600;letter-spacing:0.5px;}
 .hero-logo{width:120px;height:120px;object-fit:contain;border-radius:50%;box-shadow:0 8px 32px rgba(183,28,28,0.2);margin-bottom:1.2rem;animation:floatLogo 3s ease-in-out infinite;}
-@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.2;margin-bottom:1rem;}
 .hero h1 em{font-style:normal;color:var(--red);}
 .hero p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 2rem;line-height:1.75;}
@@ -79,7 +86,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 /* CATEGORY CAROUSEL (on home page cat cards) */
 .cat-carousel-wrap{width:100%;height:160px;border-radius:14px;overflow:hidden;margin-bottom:1.2rem;position:relative;background:rgba(255,255,255,0.45);}
 .cat-carousel-wrap .swiper{width:100%;height:100%;}
-.cat-carousel-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;}
+.cat-carousel-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 .cat-carousel-wrap .swiper-slide.placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.45);border:2px dashed rgba(0,0,0,0.12);border-radius:14px;}
 .cat-carousel-wrap .swiper-slide.placeholder .ph-icon{font-size:36px;margin-bottom:6px;}
 .cat-carousel-wrap .swiper-slide.placeholder .ph-text{font-size:11px;color:rgba(0,0,0,0.45);text-align:center;}
@@ -114,10 +121,10 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .prod-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,0.1);}
 
 /* PRODUCT CAROUSEL */
-.prod-swiper-wrap{position:relative;height:210px;}
+.prod-swiper-wrap{position:relative;aspect-ratio:3/4;width:100%;}
 .prod-swiper-wrap .swiper{width:100%;height:100%;}
 .prod-swiper-wrap .swiper-slide{background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.prod-swiper-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;}
+.prod-swiper-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 .prod-swiper-wrap .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none;}
 .prod-swiper-wrap .swiper-slide .slide-ph .ph-icon{font-size:38px;margin-bottom:6px;}
 .prod-swiper-wrap .swiper-slide .slide-ph .ph-text{font-size:10px;color:rgba(0,0,0,0.38);text-align:center;line-height:1.4;}
@@ -285,28 +292,42 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 .ig-offer-cta .ig-fine{font-size:10.5px;color:var(--muted);text-align:center;}
 .ig-cap-chip{background:white;border:1px solid #F0E0DC;border-radius:10px;padding:5px 12px;font-size:11px;color:var(--text);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
 
-/* IG FOLLOW SECTION */
-.ig-follow-section{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:4rem 2rem;text-align:center;position:relative;z-index:1;overflow:hidden;}
-.ig-follow-section::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(188,24,136,0.18) 0%,transparent 70%);pointer-events:none;}
-.ig-follow-inner{max-width:540px;margin:0 auto;position:relative;z-index:2;}
-.ig-follow-icon{width:64px;height:64px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 8px 32px rgba(188,24,136,0.4);}
-.ig-follow-icon svg{width:34px;height:34px;fill:white;}
-.ig-follow-section h2{font-family:'Playfair Display',serif;font-size:1.9rem;color:white;margin-bottom:0.5rem;}
-.ig-follow-section h2 em{font-style:normal;background:linear-gradient(45deg,#f09433,#e6683c,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.ig-follow-section > .ig-follow-inner > p{color:rgba(255,255,255,0.7);font-size:14px;margin-bottom:1.4rem;line-height:1.7;}
-.ig-free-cap-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:8px 20px;font-size:13px;color:white;font-weight:500;margin-bottom:1.6rem;backdrop-filter:blur(4px);}
-.ig-free-cap-badge .cap-icon{font-size:18px;}
-.ig-free-cap-badge strong{color:#FFD54F;}
-.ig-follow-btn{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;font-family:'DM Sans',sans-serif;}
-.ig-follow-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(188,24,136,0.5);}
-.ig-follow-btn svg{width:20px;height:20px;fill:white;}
-.ig-steps{display:flex;justify-content:center;gap:1.5rem;margin-top:1.8rem;flex-wrap:wrap;}
-.ig-step{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.65);font-size:12px;}
-.ig-step-num{background:linear-gradient(45deg,#f09433,#bc1888);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;}
-.ig-wa-divider{display:flex;align-items:center;gap:12px;margin:1.6rem 0;color:rgba(255,255,255,0.35);font-size:12px;}
-.ig-wa-divider::before,.ig-wa-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.15);}
-.wa-follow-btn{background:#25D366;color:white;border:none;padding:13px 28px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
-.wa-follow-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,0.35);}
+/* ===================== TESTIMONIALS ===================== */
+.testimonials-section{background:linear-gradient(160deg,#FFF9F5 0%,#FFF0F5 50%,#F5F5FF 100%);padding:5rem 2rem;position:relative;z-index:1;overflow:hidden;}
+.testimonials-section::before{content:'';position:absolute;top:-120px;right:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(183,28,28,0.06) 0%,transparent 70%);pointer-events:none;}
+.testimonials-section::after{content:'';position:absolute;bottom:-100px;left:-100px;width:320px;height:320px;background:radial-gradient(circle,rgba(255,193,7,0.08) 0%,transparent 70%);pointer-events:none;}
+.testimonials-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;}
+.testimonials-header{text-align:center;margin-bottom:3rem;}
+.testimonials-header .t-tag{display:inline-block;background:linear-gradient(135deg,var(--red-light),#FFF0E0);color:var(--red-dark);font-size:12px;font-weight:700;padding:5px 18px;border-radius:20px;margin-bottom:1rem;letter-spacing:0.5px;border:1px solid rgba(183,28,28,0.15);}
+.testimonials-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.2rem);margin-bottom:0.5rem;}
+.testimonials-header h2 em{font-style:normal;color:var(--red);}
+.testimonials-header p{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto;}
+.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+.t-card{background:white;border-radius:22px;padding:1.8rem;border:1.5px solid #F5EAE8;box-shadow:0 4px 24px rgba(183,28,28,0.06);transition:transform 0.25s,box-shadow 0.25s;position:relative;}
+.t-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(183,28,28,0.1);}
+.t-card::before{content:'\201C';font-family:'Playfair Display',serif;font-size:72px;color:var(--red-light);position:absolute;top:-8px;left:18px;line-height:1;}
+.t-stars{display:flex;gap:3px;margin-bottom:1rem;margin-top:0.5rem;}
+.t-star{color:#FFB300;font-size:16px;}
+.t-text{font-size:13.5px;color:var(--text);line-height:1.75;margin-bottom:1.4rem;font-style:italic;}
+.t-author{display:flex;align-items:center;gap:12px;}
+.t-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid var(--red-light);flex-shrink:0;background:#FAF0EE;}
+.t-avatar-svg{width:46px;height:46px;border-radius:50%;flex-shrink:0;}
+.t-author-info{}
+.t-name{font-size:13.5px;font-weight:700;color:var(--text);}
+.t-location{font-size:11.5px;color:var(--muted);margin-top:1px;}
+.t-product-chip{display:inline-flex;align-items:center;gap:5px;background:var(--red-light);color:var(--red);border-radius:8px;padding:4px 10px;font-size:10.5px;font-weight:600;margin-top:1rem;}
+.t-rating-summary{display:flex;align-items:center;justify-content:center;gap:1.5rem;background:white;border-radius:18px;padding:1.5rem 2rem;margin-top:2.5rem;box-shadow:0 4px 20px rgba(183,28,28,0.06);border:1.5px solid #F5EAE8;flex-wrap:wrap;}
+.t-stat{text-align:center;}
+.t-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--red-dark);display:block;}
+.t-stat-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.t-stat-divider{width:1px;height:40px;background:#F0E0DC;}
+@media(max-width:700px){
+  .testimonials-section{padding:3rem 1rem;}
+  .t-grid{grid-template-columns:1fr;gap:16px;}
+  .t-rating-summary{gap:1rem;padding:1.2rem;}
+  .t-stat-divider{display:none;}
+  .t-stat-num{font-size:1.6rem;}
+}
 
 /* FOOTER IG BUTTON */
 .footer-ig-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#bc1888);color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:500;margin-top:0.6rem;transition:transform 0.2s;}
@@ -320,9 +341,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .ig-offer-text h3{font-size:1.1rem;}
   .ig-offer-cta{width:100%;}
   .ig-offer-cta .ig-btn{width:100%;justify-content:center;}
-  .ig-follow-section{padding:2.8rem 1rem;}
-  .ig-follow-section h2{font-size:1.5rem;}
-  .ig-steps{gap:1rem;}
+  .testimonials-section{padding:3rem 1rem;}
 }
 
 /* ===================== MOBILE NAV BOTTOM BAR ===================== */
@@ -367,6 +386,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   nav .nav-links{display:none;}
   nav .wa-btn{display:none;}
   nav .logo-img{width:40px;height:40px;}
+  .logo-svg-wrap{width:44px;height:44px;}
   nav .logo-text{font-size:15px;}
   .mob-ham-btn{display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;color:var(--red);}
   .mob-ham-btn svg{width:24px;height:24px;}
@@ -378,6 +398,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .hero h1{font-size:1.75rem;}
   .hero p{font-size:13.5px;margin-bottom:1.4rem;}
   .hero-logo{width:80px;height:80px;margin-bottom:0.8rem;}
+  .hero-logo-wrap{width:110px;height:110px;margin-bottom:0.8rem;}
   .hero-btns{gap:8px;}
   .btn-primary,.btn-wa{padding:11px 20px;font-size:13px;}
   .trust-badges{gap:6px;margin-top:1.6rem;}
@@ -409,7 +430,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 
   /* PRODUCT GRID — 2 columns */
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-  .prod-swiper-wrap{height:180px;}
+  .prod-swiper-wrap{aspect-ratio:3/4;}
   .prod-info{padding:0.75rem;}
   .prod-name{font-size:12.5px;}
   .prod-desc{font-size:10px;margin-bottom:6px;}
@@ -493,8 +514,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 <!-- NAV -->
 <nav>
   <div class="logo-wrap" onclick="showPage('home')">
-    <img class="logo-img" src="https://res.cloudinary.com/dmehiuzml/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Kidswear Logo" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
-    <div style="display:none;width:52px;height:52px;background:var(--red);border-radius:50%;align-items:center;justify-content:center;color:white;font-size:20px;">🧵</div>
+    <div class="logo-svg-wrap">
+      <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo">
+    </div>
     <div class="logo-text">Tiny Threads <span>Kidswear</span></div>
   </div>
   <ul class="nav-links">
@@ -522,7 +544,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 <div class="mob-menu-overlay" id="mob-menu-overlay" onclick="closeMobMenu()"></div>
 <div class="mob-menu-drawer" id="mob-menu-drawer">
   <div class="mob-menu-head">
-    <img src="https://res.cloudinary.com/dmehiuzml/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Logo" onerror="this.style.display='none'">
+    <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);">
     <div class="mob-menu-head-text">Tiny Threads <span>Kidswear</span></div>
     <button class="mob-menu-close" onclick="closeMobMenu()">✕</button>
   </div>
@@ -577,7 +599,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     <div class="hero-blob2"></div>
     <div class="hero-content">
       <div class="hero-tag">✨ New Summer Collection 2026</div>
-      <img class="hero-logo" src="1002019789.jpg" alt="Tiny Threads Logo" onerror="this.style.display='none'">
+      <div class="hero-logo-wrap">
+        <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo">
+      </div>
       <h1>Dress them in <em>joy</em>,<br>every single day.</h1>
       <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
       <div class="hero-btns">
@@ -675,27 +699,150 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
     <div class="prod-grid" id="featured-grid"><div class="loading-grid"><div class="spinner"></div>Loading products…</div></div>
   </div>
 
-  <div class="ig-follow-section">
-    <div class="ig-follow-inner">
-      <div class="ig-follow-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-      <h2>Follow us for <em>joy & freebies!</em></h2>
-      <p>Join our Instagram community for new arrivals, styling ideas, and exclusive offers.</p>
-      <div class="ig-free-cap-badge"><span class="cap-icon">🧢</span><span>Follow us &amp; get a <strong>season cap absolutely FREE</strong> with your next order!</span></div>
-      <a class="ig-follow-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Follow @tinythreadskidswear
-      </a>
-      <div class="ig-steps">
-        <div class="ig-step"><span class="ig-step-num">1</span>Follow our page</div>
-        <div class="ig-step"><span class="ig-step-num">2</span>Place your order</div>
-        <div class="ig-step"><span class="ig-step-num">3</span>Show us your follow</div>
-        <div class="ig-step"><span class="ig-step-num">4</span>Get your free cap! 🧢</div>
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <div class="testimonials-section">
+    <div class="testimonials-inner">
+      <div class="testimonials-header">
+        <span class="t-tag">💬 Happy Families</span>
+        <h2>Loved by parents <em>across India</em></h2>
+        <p>Real stories from families who dress their little ones in Tiny Threads every day</p>
       </div>
-      <div class="ig-wa-divider">or reach us on WhatsApp</div>
-      <a class="wa-follow-btn" href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%20Kidswear!%20I%20follow%20you%20on%20Instagram%20and%20would%20like%20to%20claim%20my%20free%20cap!" target="_blank" rel="noopener">
-        <svg style="width:18px;height:18px;fill:white;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Claim free cap on WhatsApp
-      </a>
+
+      <div class="t-grid">
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"The Cotton Kurta Set for my son's Navratri was absolutely gorgeous. The fabric is so soft — he wore it all day without any fuss! Will definitely order the Sherwani next for his cousin's wedding."</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#FFEBEE"/>
+              <circle cx="23" cy="19" r="8" fill="#EF9A9A"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#EF9A9A"/>
+              <circle cx="23" cy="19" r="7" fill="#E57373"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Priya Sharma</div>
+              <div class="t-location">📍 Jaipur, Rajasthan</div>
+            </div>
+          </div>
+          <div class="t-product-chip">🧵 Cotton Kurta Set</div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"Ordered the Lehenga Choli for my daughter's school annual day. She looked like a little princess! The quality at this price is unbeatable. Packaging was neat and delivery was super fast."</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#E8F5E9"/>
+              <circle cx="23" cy="19" r="8" fill="#A5D6A7"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#A5D6A7"/>
+              <circle cx="23" cy="19" r="7" fill="#66BB6A"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Kavitha Menon</div>
+              <div class="t-location">📍 Kochi, Kerala</div>
+            </div>
+          </div>
+          <div class="t-product-chip">🧵 Lehenga Choli Set</div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"The Baby Onesie 3-Pack is a lifesaver! So gentle on my newborn's skin. I've already recommended Tiny Threads to all my friends in our moms' WhatsApp group. Will keep ordering!"</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#FFF3E0"/>
+              <circle cx="23" cy="19" r="8" fill="#FFCC80"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFCC80"/>
+              <circle cx="23" cy="19" r="7" fill="#FFA726"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Sunita Patel</div>
+              <div class="t-location">📍 Surat, Gujarat</div>
+            </div>
+          </div>
+          <div class="t-product-chip">👶 Baby Onesie 3-Pack</div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"My twins have been wearing Tiny Threads since they were 3. The Dinosaur Pyjama Set is their absolute favourite — they refuse to sleep in anything else! Great stitching, holds up wash after wash."</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#E3F2FD"/>
+              <circle cx="23" cy="19" r="8" fill="#90CAF9"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#90CAF9"/>
+              <circle cx="23" cy="19" r="7" fill="#42A5F5"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Rajesh Iyer</div>
+              <div class="t-location">📍 Chennai, Tamil Nadu</div>
+            </div>
+          </div>
+          <div class="t-product-chip">🌙 Dinosaur Pyjama Set</div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"Ordered the Anarkali Kurta for Diwali and I'm blown away. The colours are so vibrant in person — nothing like those washed-out photos you see on big marketplaces. Tiny Threads is now my go-to!"</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#F3E5F5"/>
+              <circle cx="23" cy="19" r="8" fill="#CE93D8"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#CE93D8"/>
+              <circle cx="23" cy="19" r="7" fill="#AB47BC"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Deepika Nair</div>
+              <div class="t-location">📍 Pune, Maharashtra</div>
+            </div>
+          </div>
+          <div class="t-product-chip">🧵 Anarkali Kurta</div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">⭐⭐⭐⭐⭐</div>
+          <p class="t-text">"The Fleece Sleep Suit kept my baby perfectly warm through the coldest nights this winter. Soft inside, no itching at all. The WhatsApp ordering is so easy — feels like chatting with a friend, not a store!"</p>
+          <div class="t-author">
+            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="23" cy="23" r="23" fill="#FBE9E7"/>
+              <circle cx="23" cy="19" r="8" fill="#FFAB91"/>
+              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFAB91"/>
+              <circle cx="23" cy="19" r="7" fill="#FF7043"/>
+            </svg>
+            <div class="t-author-info">
+              <div class="t-name">Arjun Mehta</div>
+              <div class="t-location">📍 Delhi, NCR</div>
+            </div>
+          </div>
+          <div class="t-product-chip">❄️ Fleece Sleep Suit</div>
+        </div>
+
+      </div>
+
+      <!-- Rating summary bar -->
+      <div class="t-rating-summary">
+        <div class="t-stat">
+          <span class="t-stat-num">4.9★</span>
+          <span class="t-stat-label">Avg. Rating</span>
+        </div>
+        <div class="t-stat-divider"></div>
+        <div class="t-stat">
+          <span class="t-stat-num">500+</span>
+          <span class="t-stat-label">Happy Families</span>
+        </div>
+        <div class="t-stat-divider"></div>
+        <div class="t-stat">
+          <span class="t-stat-num">98%</span>
+          <span class="t-stat-label">Repeat Orders</span>
+        </div>
+        <div class="t-stat-divider"></div>
+        <div class="t-stat">
+          <span class="t-stat-num">15+</span>
+          <span class="t-stat-label">Cities Served</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -704,7 +851,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
-            <img class="footer-logo" src="1002019789.jpg" alt="Tiny Threads" onerror="this.style.display='none'">
+            <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.25);">
             <div class="footer-brand-text">Tiny Threads <span>Kidswear</span></div>
           </div>
           <p style="font-size:13px;line-height:1.65;color:#FFCDD2;">Joyful, safe & beautiful kidswear for every little one. Made with love, worn with joy.</p>
@@ -887,7 +1034,14 @@ function productCard(p) {
   const hasRealImages = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
   let slidesHtml = '';
   if (hasRealImages) {
-    slidesHtml = p.images.map(url => `<div class="swiper-slide"><img src="${url}" alt="${p.name}" loading="lazy"></div>`).join('');
+    slidesHtml = p.images.map(url => {
+      // Try Cloudinary on-the-fly transform (3:4, anchored top so face is always visible).
+      // onerror falls back to the original URL in case strict transformations are off.
+      const transformed = url.includes('res.cloudinary.com')
+        ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_900,q_auto,f_auto/')
+        : url;
+      return `<div class="swiper-slide"><img src="${transformed}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';"></div>`;
+    }).join('');
   } else {
     const subIcons = {traditional:'🧵',summer:'☀️',winter:'🧥',nightwear:'🌙',undergarments:'🧸'};
     slidesHtml = `<div class="swiper-slide"><div class="slide-ph"><span class="ph-icon">${subIcons[p.subcategory]||'📸'}</span><span class="ph-text">${p.name}</span></div></div>`;
@@ -1004,7 +1158,30 @@ function showPage(id) {
   });
 }
 
-function initCatSwipers(){document.querySelectorAll('.cat-swiper').forEach(el=>{new Swiper(el,{loop:false,autoplay:{delay:2500,disableOnInteraction:false},pagination:{el:el.querySelector('.swiper-pagination'),clickable:true}});});}
+function initCatSwipers(){
+  const catCards = ['boys','girls','babies'];
+  const catSwipers = document.querySelectorAll('.cat-swiper');
+  catCards.forEach((cat, idx) => {
+    const el = catSwipers[idx];
+    if (!el) return;
+    const imgs = allProducts
+      .filter(p => p.category === cat && p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME'))
+      .slice(0, 6).map(p => p.images[0]);
+    if (imgs.length > 0) {
+      el.querySelector('.swiper-wrapper').innerHTML = imgs.map(url => {
+        const transformed = url.includes('res.cloudinary.com')
+          ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_600,q_auto,f_auto/')
+          : url;
+        return `<div class="swiper-slide"><img src="${transformed}" alt="${cat}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';"></div>`;
+      }).join('');
+    }
+    new Swiper(el, {
+      loop: imgs.length > 1,
+      autoplay: {delay: 2500, disableOnInteraction: false},
+      pagination: {el: el.querySelector('.swiper-pagination'), clickable: true}
+    });
+  });
+}
 function openMobMenu(){document.getElementById('mob-menu-drawer').classList.add('open');document.getElementById('mob-menu-overlay').classList.add('open');document.body.style.overflow='hidden';}
 function closeMobMenu(){document.getElementById('mob-menu-drawer').classList.remove('open');document.getElementById('mob-menu-overlay').classList.remove('open');document.body.style.overflow='';}
 function setMobileNav(el){document.querySelectorAll('.mobile-bottom-nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
