@@ -4,6 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tiny Threads Kidswear – Joyful Dailywear for Kids</title>
+
+<!-- ── SEO ── -->
+<meta name="description" content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹199.">
+<meta name="keywords" content="kidswear, kids clothes, boys clothes, girls clothes, baby clothes, traditional wear, kurta, lehenga, india, tiny threads">
+<link rel="canonical" href="https://mytinythreads.in/">
+
+<!-- ── Open Graph (WhatsApp, Facebook, LinkedIn) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Tiny Threads Kidswear">
+<meta property="og:url"         content="https://mytinythreads.in/">
+<meta property="og:title"       content="Tiny Threads Kidswear – Joyful Dailywear for Kids">
+<meta property="og:description" content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Traditional, summer, winter & nightwear. Starting ₹199. Order via WhatsApp!">
+<meta property="og:image"       content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"   content="Tiny Threads Kidswear logo">
+<meta property="og:locale"      content="en_IN">
+
+<!-- ── Twitter / X Card ── -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Tiny Threads Kidswear – Joyful Dailywear for Kids">
+<meta name="twitter:description" content="Playful, comfortable & beautiful kidswear. Starting ₹199. Order via WhatsApp!">
+<meta name="twitter:image"       content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
+
+<!-- ── WhatsApp prefers 300×200 minimum; 1200×630 is ideal ── -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
@@ -303,9 +328,34 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
 
 /* Gallery */
 .pdp-gallery{position:relative;}
-.pdp-gallery-swiper{border-radius:20px;overflow:hidden;background:#FAF5F5;}
-.pdp-gallery-swiper .swiper-slide img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;}
-.pdp-gallery-swiper .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;font-size:64px;}
+.pdp-gallery-swiper{
+  border-radius:20px;
+  overflow:hidden;
+  background:#FAF5F5;
+  width:100%;
+  height:520px;        /* explicit height — Swiper MUST have a concrete px value */
+}
+.pdp-gallery-swiper .swiper{width:100%;height:100%;}
+.pdp-gallery-swiper .swiper-wrapper{width:100%;height:100%;}
+.pdp-gallery-swiper .swiper-slide{
+  width:100% !important;  /* override Swiper's broken calculation */
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.pdp-gallery-swiper .swiper-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+}
+.pdp-gallery-swiper .swiper-slide .slide-ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;width:100%;height:100%;font-size:64px;
+}
 .pdp-gallery-swiper .swiper-button-next,.pdp-gallery-swiper .swiper-button-prev{color:var(--red);background:white;border-radius:50%;width:36px;height:36px;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
 .pdp-gallery-swiper .swiper-button-next:after,.pdp-gallery-swiper .swiper-button-prev:after{font-size:13px;font-weight:800;}
 .pdp-gallery-swiper .swiper-pagination-bullet{background:#ccc;opacity:1;}
@@ -317,7 +367,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
 .pdp-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 @media(max-width:760px){
   .pdp-gallery{border-radius:0;}
-  .pdp-gallery-swiper{border-radius:0;}
+  .pdp-gallery-swiper{border-radius:0;height:380px;}
+  .pdp-gallery-swiper .swiper-slide{width:100% !important;height:380px;}
+  .pdp-gallery-swiper .swiper-slide img{width:100%;height:380px;object-fit:cover;object-position:center top;}
   .pdp-thumbs{padding:10px 1rem 0;}
 }
 
@@ -1255,7 +1307,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
   </div>
 </div>
 
-<script src="products.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 const WA_NUMBER = '917879976016';
@@ -1276,15 +1327,21 @@ const COLOR_MAP = {
 
 async function loadProducts() {
   try {
-    const res = await fetch('products.json');
-    if (!res.ok) throw new Error('Not found');
+    // Use explicit relative path — works on local server and Netlify
+    const base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    const res = await fetch(base + 'products.json');
+    if (!res.ok) throw new Error('products.json not found: ' + res.status);
     const data = await res.json();
     allProducts = data.products;
-  } catch(e) { allProducts = getFallbackProducts(); }
+    console.log('✅ Loaded', allProducts.length, 'products from products.json');
+  } catch(e) {
+    console.warn('⚠️ Could not load products.json, using fallback:', e.message);
+    allProducts = getFallbackProducts();
+  }
   renderAllGrids();
   initCatSwipers();
   initTestimonialSwiper();
-  handleURLRouting(); // open product page if URL has ?product=id
+  handleURLRouting();
 }
 
 function renderAllGrids() {
@@ -1308,8 +1365,9 @@ function renderGrid(id, products) {
   if (products.length === 0) { grid.innerHTML = '<div class="loading-grid" style="grid-column:1/-1;">No products found.</div>'; return; }
   grid.innerHTML = products.map(p => productCard(p)).join('');
   grid.querySelectorAll('.prod-swiper').forEach(el => {
+    const count = el.querySelectorAll('.swiper-slide').length;
     new Swiper(el, {
-      loop: el.querySelectorAll('.swiper-slide').length > 1,
+      loop: count > 1,
       pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
       navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
     });
@@ -1437,14 +1495,35 @@ function closeBasket(){document.getElementById('basket-drawer').classList.remove
 
 function checkoutWhatsApp() {
   if (basket.length===0) return;
-  const subtotal = basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const subtotal  = basket.reduce((s,i)=>s+i.qty*i.price,0);
   const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
-  const total = subtotal - discountAmt;
-  let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order:\n\n';
-  basket.forEach((item,idx)=>{ msg+=`${idx+1}. *${item.name}*\n   Size: ${item.size||'N/A'} · Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty*item.price).toLocaleString('en-IN')}\n\n`; });
-  msg += `Subtotal: ₹${subtotal.toLocaleString('en-IN')}\n`;
-  if (appliedPromo) msg += `Promo Code: *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) → −₹${discountAmt.toLocaleString('en-IN')}\n`;
-  msg += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
+  const total     = subtotal - discountAmt;
+  const divider   = '─────────────────────────';
+
+  let msg = `🛍️ *New Order — Tiny Threads Kidswear*\n`;
+  msg    += `${divider}\n\n`;
+
+  basket.forEach((item, idx) => {
+    const lineTotal = (item.qty * item.price).toLocaleString('en-IN');
+    const productURL = getProductURL(item.id);
+    msg += `*${idx+1}. ${item.name}*\n`;
+    msg += `   📏 Size : ${item.size || 'N/A'}\n`;
+    msg += `   🔢 Qty  : ${item.qty} × ₹${item.price} = ₹${lineTotal}\n`;
+    msg += `   🔗 Link : ${productURL}\n`;
+    msg += `\n`;
+  });
+
+  msg += `${divider}\n`;
+  msg += `🧾 *Order Summary*\n`;
+  msg += `   Items    : ${basket.reduce((s,i)=>s+i.qty,0)}\n`;
+  msg += `   Subtotal : ₹${subtotal.toLocaleString('en-IN')}\n`;
+  if (appliedPromo) {
+    msg += `   Promo    : *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) −₹${discountAmt.toLocaleString('en-IN')}\n`;
+  }
+  msg += `   *Total   : ₹${total.toLocaleString('en-IN')}*\n`;
+  msg += `${divider}\n\n`;
+  msg += `Please confirm availability and share payment details. Thank you! 🙏`;
+
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -1521,7 +1600,7 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  ['nav-links a','.mobile-bottom-nav a','.mob-menu-body a'].forEach(sel=>{
+  ['.nav-links a','.mobile-bottom-nav a','.mob-menu-body a'].forEach(sel=>{
     document.querySelectorAll(sel).forEach(a=>{
       a.classList.remove('active');
       const t=a.textContent.toLowerCase();
@@ -1538,7 +1617,10 @@ let pdpPreviousPage = 'home';
 let pdpSwiperInstance = null;
 
 function getProductURL(id) {
-  return window.location.origin + window.location.pathname + '?product=' + id;
+  // Netlify serves /products/b001 → /products/b001.html automatically (Pretty URLs).
+  // This gives clean shareable links with full OG preview support on WhatsApp.
+  const base = 'https://mytinythreads.in';
+  return base + '/products/' + id;
 }
 
 function openPDP(id) {
@@ -1554,6 +1636,8 @@ function openPDP(id) {
 
   renderPDP(p);
   showPage('product');
+  // Update swiper after page is visible so it measures correctly
+  setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 80);
 }
 
 function closePDP() {
@@ -1577,7 +1661,7 @@ function renderPDP(p) {
   if (hasImages) {
     slidesEl.innerHTML = p.images.map(url => {
       const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_900,q_auto,f_auto/') : url;
-      return `<div class="swiper-slide"><img src="${t}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;"></div>`;
+      return `<div class="swiper-slide"><img src="${t}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>`;
     }).join('');
     thumbsEl.innerHTML = p.images.map((url,i) => {
       const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_1:1,w_200,q_auto,f_auto/') : url;
@@ -1590,8 +1674,11 @@ function renderPDP(p) {
 
   // Destroy old swiper if any
   if (pdpSwiperInstance) { try{pdpSwiperInstance.destroy(true,true);}catch(e){} pdpSwiperInstance=null; }
+  const slideCount = p.images ? p.images.length : 0;
   pdpSwiperInstance = new Swiper('.pdp-gallery-swiper', {
-    loop: p.images && p.images.length > 1,
+    loop: slideCount > 1,
+    slidesPerView: 1,
+    watchOverflow: true,
     pagination: { el: '.pdp-gallery-swiper .swiper-pagination', clickable: true },
     navigation: { nextEl: '.pdp-gallery-swiper .swiper-button-next', prevEl: '.pdp-gallery-swiper .swiper-button-prev' },
     on: {
@@ -1601,6 +1688,8 @@ function renderPDP(p) {
       }
     }
   });
+  // Force recalculate after DOM settles — fixes the 33M px wide slide bug
+  setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 50);
 
   // Info panel
   const colorsHtml = p.colors && p.colors.length > 0
@@ -1718,11 +1807,12 @@ function handleURLRouting() {
   if (pid && allProducts.length > 0) {
     const p = allProducts.find(x=>x.id===pid);
     if (p) {
-      pdpPreviousPage = p.category; // back goes to that category
+      pdpPreviousPage = p.category;
       renderPDP(p);
       document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
       document.getElementById('page-product').classList.add('active');
       window.scrollTo({top:0,behavior:'auto'});
+      setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 80);
     }
   }
 }
