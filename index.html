@@ -29,7 +29,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .logo-svg-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 .logo-wrap:hover .logo-svg-wrap{transform:scale(1.09) rotate(-4deg);}
 /* Hero logo */
-.hero-logo-wrap{width:150px;height:150px;margin:0 auto 1.4rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 10px 30px rgba(183,28,28,0.42));animation:floatLogo 3s ease-in-out infinite;border:2px solid rgba(183,28,28,0.12);}
+.hero-logo-wrap{width:200px;height:200px;margin:0 auto 1.6rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 14px 36px rgba(183,28,28,0.45));animation:floatLogo 3s ease-in-out infinite;border:3px solid rgba(183,28,28,0.15);}
 .hero-logo-wrap::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 -8px 20px rgba(183,28,28,0.15),inset 0 8px 18px rgba(255,255,255,0.5);pointer-events:none;}
 .hero-logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 .logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--red-dark);line-height:1.1;}
@@ -134,10 +134,29 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .prod-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,0.1);}
 
 /* PRODUCT CAROUSEL */
-.prod-swiper-wrap{position:relative;aspect-ratio:3/4;width:100%;}
-.prod-swiper-wrap .swiper{width:100%;height:100%;}
-.prod-swiper-wrap .swiper-slide{background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.prod-swiper-wrap .swiper-slide img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.prod-swiper-wrap{position:relative;width:100%;padding-top:133.33%;/* 3:4 ratio fallback for all browsers */}
+/* Modern browsers that support aspect-ratio get a cleaner version */
+@supports (aspect-ratio:3/4){
+  .prod-swiper-wrap{padding-top:0;aspect-ratio:3/4;}
+}
+.prod-swiper-wrap .swiper{position:absolute;top:0;left:0;width:100%;height:100%;}
+/* Fallback: when aspect-ratio not supported, swiper fills padded parent */
+@supports (aspect-ratio:3/4){
+  .prod-swiper-wrap .swiper{position:absolute;}
+}
+.prod-swiper-wrap .swiper-slide{background:#FAF5F5;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;width:100%;height:100%;}
+.prod-swiper-wrap .swiper-slide img{
+  display:block;
+  width:100%;
+  height:100%;
+  -o-object-fit:cover;
+  object-fit:cover;
+  -o-object-position:center top;
+  object-position:center top;
+  /* Prevent mobile browsers shrinking the image */
+  min-height:100%;
+  max-width:100%;
+}
 .prod-swiper-wrap .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none;}
 .prod-swiper-wrap .swiper-slide .slide-ph .ph-icon{font-size:38px;margin-bottom:6px;}
 .prod-swiper-wrap .swiper-slide .slide-ph .ph-text{font-size:10px;color:rgba(0,0,0,0.38);text-align:center;line-height:1.4;}
@@ -211,23 +230,62 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .wa-enquire-block p{font-size:13px;color:var(--muted);margin-bottom:0.6rem;}
 
 /* FOOTER */
-footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:relative;z-index:1;}
+footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;position:relative;z-index:1;}
 .footer-inner{max-width:1200px;margin:0 auto;}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:2rem;}
-.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
-.footer-logo{width:48px;height:48px;object-fit:contain;border-radius:50%;border:2px solid rgba(255,255,255,0.2);}
-.footer-brand-text{font-family:'Playfair Display',serif;font-size:18px;color:white;font-weight:700;}
-.footer-brand-text span{font-size:11px;font-weight:400;color:#FFCDD2;display:block;letter-spacing:1px;}
-.footer-col h4{font-size:13px;font-weight:600;color:white;margin-bottom:1rem;letter-spacing:0.5px;text-transform:uppercase;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-bottom:1.8rem;}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:0.9rem;}
+.footer-logo{width:44px;height:44px;object-fit:contain;border-radius:50%;border:2px solid rgba(255,255,255,0.2);}
+.footer-brand-text{font-family:'Playfair Display',serif;font-size:17px;color:white;font-weight:700;}
+.footer-brand-text span{font-size:10px;font-weight:400;color:#FFCDD2;display:block;letter-spacing:1px;}
+.footer-col h4{font-size:12px;font-weight:600;color:white;margin-bottom:0.8rem;letter-spacing:0.5px;text-transform:uppercase;}
 .footer-col ul{list-style:none;}
-.footer-col ul li{margin-bottom:7px;}
+.footer-col ul li{margin-bottom:6px;}
 .footer-col ul li a{color:#FFCDD2;text-decoration:none;font-size:13px;transition:color 0.2s;}
 .footer-col ul li a:hover{color:white;}
-.footer-col p{font-size:13px;line-height:1.65;color:#FFCDD2;}
-.footer-wa-btn{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:500;margin-top:0.8rem;transition:transform 0.2s;}
+.footer-col p{font-size:13px;line-height:1.6;color:#FFCDD2;}
+.footer-wa-btn{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:white;padding:9px 18px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:500;margin-top:0.8rem;transition:transform 0.2s;}
 .footer-wa-btn:hover{transform:translateY(-2px);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:1.5rem;text-align:center;font-size:12px;color:#FFCDD2;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:1.2rem;text-align:center;font-size:11.5px;color:#FFCDD2;}
 .footer-bottom a{color:#FFD54F;text-decoration:none;}
+
+/* ── Mobile footer: compact 2-col, hide verbose link columns ── */
+@media(max-width:700px){
+  footer{padding:1.6rem 1rem 1rem;}
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+    gap:1.2rem;
+    margin-bottom:1.2rem;
+  }
+  /* Brand column spans full width */
+  .footer-grid > div:first-child{
+    grid-column:1/-1;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  /* Brand + tagline inline */
+  .footer-brand{margin-bottom:0.5rem;}
+  .footer-grid > div:first-child > p{font-size:11.5px;line-height:1.5;margin-bottom:0.6rem;}
+  /* Action buttons side by side */
+  .footer-grid > div:first-child .footer-wa-btn,
+  .footer-grid > div:first-child .footer-ig-btn{
+    display:inline-flex;
+    margin-top:0;
+    margin-right:6px;
+    margin-bottom:0;
+    padding:8px 14px;
+    font-size:12px;
+    border-radius:16px;
+  }
+  /* Show Shop + Contact cols; hide Collections col on mobile (redundant) */
+  .footer-col:nth-child(3){display:none;}
+  .footer-col h4{font-size:11px;margin-bottom:0.6rem;}
+  .footer-col ul li{margin-bottom:5px;}
+  .footer-col ul li a{font-size:12px;}
+  .footer-col p{font-size:12px;line-height:1.5;}
+  .footer-bottom{font-size:10.5px;padding-top:0.9rem;}
+  .footer-bottom p{line-height:1.6;}
+}
 
 /* FLOATING WA BUTTON */
 .float-wa{position:fixed;bottom:24px;right:24px;z-index:9999;background:#25D366;color:white;border:none;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2s ease-in-out infinite;}
@@ -349,40 +407,65 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 .ig-offer-cta .ig-fine{font-size:10.5px;color:var(--muted);text-align:center;}
 .ig-cap-chip{background:white;border:1px solid #F0E0DC;border-radius:10px;padding:5px 12px;font-size:11px;color:var(--text);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
 
-/* ===================== TESTIMONIALS ===================== */
-.testimonials-section{background:linear-gradient(160deg,#FFF9F5 0%,#FFF0F5 50%,#F5F5FF 100%);padding:5rem 2rem;position:relative;z-index:1;overflow:hidden;}
+/* ===================== TESTIMONIALS CAROUSEL ===================== */
+.testimonials-section{background:linear-gradient(160deg,#FFF9F5 0%,#FFF0F5 50%,#F5F5FF 100%);padding:4rem 0 3.5rem;position:relative;z-index:1;overflow:hidden;}
 .testimonials-section::before{content:'';position:absolute;top:-120px;right:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(183,28,28,0.06) 0%,transparent 70%);pointer-events:none;}
 .testimonials-section::after{content:'';position:absolute;bottom:-100px;left:-100px;width:320px;height:320px;background:radial-gradient(circle,rgba(255,193,7,0.08) 0%,transparent 70%);pointer-events:none;}
 .testimonials-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;}
-.testimonials-header{text-align:center;margin-bottom:3rem;}
+.testimonials-header{text-align:center;margin-bottom:2.2rem;padding:0 2rem;}
 .testimonials-header .t-tag{display:inline-block;background:linear-gradient(135deg,var(--red-light),#FFF0E0);color:var(--red-dark);font-size:12px;font-weight:700;padding:5px 18px;border-radius:20px;margin-bottom:1rem;letter-spacing:0.5px;border:1px solid rgba(183,28,28,0.15);}
-.testimonials-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.2rem);margin-bottom:0.5rem;}
+.testimonials-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:0.4rem;}
 .testimonials-header h2 em{font-style:normal;color:var(--red);}
-.testimonials-header p{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto;}
-.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
-.t-card{background:white;border-radius:22px;padding:1.8rem;border:1.5px solid #F5EAE8;box-shadow:0 4px 24px rgba(183,28,28,0.06);transition:transform 0.25s,box-shadow 0.25s;position:relative;}
-.t-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(183,28,28,0.1);}
-.t-card::before{content:'\201C';font-family:'Playfair Display',serif;font-size:72px;color:var(--red-light);position:absolute;top:-8px;left:18px;line-height:1;}
-.t-stars{display:flex;gap:3px;margin-bottom:1rem;margin-top:0.5rem;}
-.t-star{color:#FFB300;font-size:16px;}
-.t-text{font-size:13.5px;color:var(--text);line-height:1.75;margin-bottom:1.4rem;font-style:italic;}
+.testimonials-header p{color:var(--muted);font-size:13.5px;max-width:440px;margin:0 auto;}
+
+/* Swiper wrapper — full bleed so peek effect works */
+.t-swiper-outer{position:relative;padding:0 0 3rem;}
+.t-swiper-outer .swiper{overflow:visible;padding:0 2rem;}/* visible so peeking cards show */
+.t-swiper-outer .swiper-wrapper{align-items:stretch;}
+.t-swiper-outer .swiper-slide{height:auto;}/* equal-height cards */
+
+.t-card{background:white;border-radius:22px;padding:1.6rem;border:1.5px solid #F5EAE8;box-shadow:0 4px 24px rgba(183,28,28,0.06);transition:transform 0.28s,box-shadow 0.28s,opacity 0.28s;position:relative;height:100%;box-sizing:border-box;opacity:0.55;transform:scale(0.96);}
+.t-card:hover{box-shadow:0 14px 40px rgba(183,28,28,0.1);}
+/* Active / centre slide gets full opacity + scale */
+.swiper-slide-active .t-card,.swiper-slide-visible .t-card{opacity:1;transform:scale(1);}
+.t-card::before{content:'\201C';font-family:'Playfair Display',serif;font-size:64px;color:var(--red-light);position:absolute;top:-6px;left:16px;line-height:1;}
+.t-stars{display:flex;gap:3px;margin-bottom:0.9rem;margin-top:0.4rem;}
+.t-text{font-size:13px;color:var(--text);line-height:1.72;margin-bottom:1.2rem;font-style:italic;}
 .t-author{display:flex;align-items:center;gap:12px;}
-.t-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid var(--red-light);flex-shrink:0;background:#FAF0EE;}
-.t-avatar-svg{width:46px;height:46px;border-radius:50%;flex-shrink:0;}
-.t-name{font-size:13.5px;font-weight:700;color:var(--text);}
-.t-location{font-size:11.5px;color:var(--muted);margin-top:1px;}
-.t-product-chip{display:inline-flex;align-items:center;gap:5px;background:var(--red-light);color:var(--red);border-radius:8px;padding:4px 10px;font-size:10.5px;font-weight:600;margin-top:1rem;}
-.t-rating-summary{display:flex;align-items:center;justify-content:center;gap:1.5rem;background:white;border-radius:18px;padding:1.5rem 2rem;margin-top:2.5rem;box-shadow:0 4px 20px rgba(183,28,28,0.06);border:1.5px solid #F5EAE8;flex-wrap:wrap;}
-.t-stat{text-align:center;}
-.t-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--red-dark);display:block;}
-.t-stat-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
-.t-stat-divider{width:1px;height:40px;background:#F0E0DC;}
+.t-avatar-svg{width:44px;height:44px;border-radius:50%;flex-shrink:0;}
+.t-name{font-size:13px;font-weight:700;color:var(--text);}
+.t-location{font-size:11px;color:var(--muted);margin-top:1px;}
+.t-product-chip{display:inline-flex;align-items:center;gap:5px;background:var(--red-light);color:var(--red);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:600;margin-top:0.9rem;}
+
+/* Pagination dots */
+.t-swiper-outer .swiper-pagination{bottom:0.6rem;}
+.t-swiper-outer .swiper-pagination-bullet{background:rgba(183,28,28,0.25);opacity:1;width:7px;height:7px;}
+.t-swiper-outer .swiper-pagination-bullet-active{background:var(--red);width:22px;border-radius:4px;}
+
+/* Nav arrows (desktop) */
+.t-swiper-outer .swiper-button-next,
+.t-swiper-outer .swiper-button-prev{color:var(--red);background:white;width:38px;height:38px;border-radius:50%;box-shadow:0 2px 12px rgba(183,28,28,0.18);top:45%;}
+.t-swiper-outer .swiper-button-next:after,
+.t-swiper-outer .swiper-button-prev:after{font-size:13px;font-weight:800;}
 @media(max-width:700px){
-  .testimonials-section{padding:3rem 1rem;}
-  .t-grid{grid-template-columns:1fr;gap:16px;}
-  .t-rating-summary{gap:1rem;padding:1.2rem;}
+  .t-swiper-outer .swiper-button-next,
+  .t-swiper-outer .swiper-button-prev{display:none;}
+  .t-swiper-outer .swiper{padding:0 1rem;}
+}
+
+/* Rating summary */
+.t-rating-summary{display:flex;align-items:center;justify-content:center;gap:1.5rem;background:white;border-radius:18px;padding:1.2rem 2rem;margin:0.5rem 2rem 0;box-shadow:0 4px 20px rgba(183,28,28,0.06);border:1.5px solid #F5EAE8;flex-wrap:wrap;}
+.t-stat{text-align:center;}
+.t-stat-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--red-dark);display:block;}
+.t-stat-label{font-size:10.5px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.t-stat-divider{width:1px;height:36px;background:#F0E0DC;}
+@media(max-width:700px){
+  .testimonials-section{padding:3rem 0 2.5rem;}
+  .testimonials-header{padding:0 1rem;margin-bottom:1.5rem;}
+  .t-rating-summary{gap:0.8rem;padding:1rem 1.2rem;margin:0.5rem 1rem 0;border-radius:14px;}
   .t-stat-divider{display:none;}
-  .t-stat-num{font-size:1.6rem;}
+  .t-stat-num{font-size:1.5rem;}
+  .t-stat-label{font-size:9.5px;}
 }
 
 /* FOOTER IG BUTTON */
@@ -397,7 +480,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .ig-offer-text h3{font-size:1.1rem;}
   .ig-offer-cta{width:100%;}
   .ig-offer-cta .ig-btn{width:100%;justify-content:center;}
-  .testimonials-section{padding:3rem 1rem;}
 }
 
 /* ===================== MOBILE NAV BOTTOM BAR ===================== */
@@ -454,8 +536,8 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .hero-tag{font-size:10px;padding:4px 12px;margin-bottom:0.75rem;}
   .hero h1{font-size:1.6rem;margin-bottom:0.65rem;}
   .hero p{font-size:12.5px;line-height:1.55;margin-bottom:0.65rem;max-width:320px;}
-  .hero-logo{width:72px;height:72px;margin-bottom:0.55rem;}
-  .hero-logo-wrap{width:96px;height:96px;margin-bottom:0.6rem;}
+  .hero-logo{width:96px;height:96px;margin-bottom:0.55rem;}
+  .hero-logo-wrap{width:140px;height:140px;margin-bottom:0.8rem;border-width:2px;}
   .btn-primary,.btn-wa{padding:9px 12px;font-size:12px;min-height:40px;justify-content:center;}
   .trust-badges{gap:6px;margin-top:0.85rem;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
   .trust-badges::-webkit-scrollbar{display:none;}
@@ -498,7 +580,36 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
 
   /* PRODUCT GRID — 2 columns */
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-  .prod-swiper-wrap{height:180px;}
+  /* Reset the desktop padding-top ratio trick and aspect-ratio for mobile;
+     use a fixed px height that works reliably across all mobile browsers */
+  .prod-swiper-wrap{
+    padding-top:0 !important;
+    aspect-ratio:unset !important;
+    height:210px;
+    position:relative;
+  }
+  .prod-swiper-wrap .swiper{
+    position:absolute !important;
+    top:0;left:0;
+    width:100%;
+    height:100% !important;
+  }
+  .prod-swiper-wrap .swiper-slide{
+    width:100% !important;
+    height:100% !important;
+    overflow:hidden;
+  }
+  .prod-swiper-wrap .swiper-slide img{
+    width:100% !important;
+    height:100% !important;
+    -webkit-object-fit:cover;
+    -o-object-fit:cover;
+    object-fit:cover !important;
+    -webkit-object-position:center top;
+    -o-object-position:center top;
+    object-position:center top !important;
+    display:block;
+  }
   .prod-info{padding:0.75rem;}
   .prod-name{font-size:12.5px;}
   .prod-desc{font-size:10px;margin-bottom:6px;}
@@ -522,8 +633,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
   .newsletter h2{font-size:1.5rem;}
   .nl-form{flex-direction:column;gap:8px;}
   .nl-form input,.nl-form button{width:100%;}
-  footer{padding:2rem 1rem 1.5rem;}
-  .footer-grid{grid-template-columns:1fr;gap:1.4rem;}
   .float-wa{bottom:74px;width:50px;height:50px;}
   .float-wa svg{width:26px;height:26px;}
   .float-wa-tooltip{bottom:134px;}
@@ -812,117 +921,88 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:3rem 2rem 2rem;position:
         <p>Real stories from families who dress their little ones in Tiny Threads every day</p>
       </div>
 
-      <div class="t-grid">
+      <div class="t-swiper-outer">
+        <div class="swiper t-swiper">
+          <div class="swiper-wrapper">
 
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"The Cotton Kurta Set for my son's Navratri was absolutely gorgeous. The fabric is so soft — he wore it all day without any fuss! Will definitely order the Sherwani next for his cousin's wedding."</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#FFEBEE"/>
-              <circle cx="23" cy="19" r="8" fill="#EF9A9A"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#EF9A9A"/>
-              <circle cx="23" cy="19" r="7" fill="#E57373"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Priya Sharma</div>
-              <div class="t-location">📍 Jaipur, Rajasthan</div>
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"The Cotton Kurta Set for my son's Navratri was absolutely gorgeous. The fabric is so soft — he wore it all day without any fuss! Will definitely order the Sherwani next for his cousin's wedding."</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#FFEBEE"/><circle cx="23" cy="19" r="8" fill="#EF9A9A"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#EF9A9A"/><circle cx="23" cy="19" r="7" fill="#E57373"/></svg>
+                <div><div class="t-name">Priya Sharma</div><div class="t-location">📍 Jaipur, Rajasthan</div></div>
+              </div>
+              <div class="t-product-chip">🧵 Cotton Kurta Set</div>
             </div>
-          </div>
-          <div class="t-product-chip">🧵 Cotton Kurta Set</div>
-        </div>
-
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"Ordered the Lehenga Choli for my daughter's school annual day. She looked like a little princess! The quality at this price is unbeatable. Packaging was neat and delivery was super fast."</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#E8F5E9"/>
-              <circle cx="23" cy="19" r="8" fill="#A5D6A7"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#A5D6A7"/>
-              <circle cx="23" cy="19" r="7" fill="#66BB6A"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Kavitha Menon</div>
-              <div class="t-location">📍 Kochi, Kerala</div>
             </div>
-          </div>
-          <div class="t-product-chip">🧵 Lehenga Choli Set</div>
-        </div>
 
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"The Baby Onesie 3-Pack is a lifesaver! So gentle on my newborn's skin. I've already recommended Tiny Threads to all my friends in our moms' WhatsApp group. Will keep ordering!"</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#FFF3E0"/>
-              <circle cx="23" cy="19" r="8" fill="#FFCC80"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFCC80"/>
-              <circle cx="23" cy="19" r="7" fill="#FFA726"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Sunita Patel</div>
-              <div class="t-location">📍 Surat, Gujarat</div>
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"Ordered the Lehenga Choli for my daughter's school annual day. She looked like a little princess! The quality at this price is unbeatable. Packaging was neat and delivery was super fast."</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#E8F5E9"/><circle cx="23" cy="19" r="8" fill="#A5D6A7"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#A5D6A7"/><circle cx="23" cy="19" r="7" fill="#66BB6A"/></svg>
+                <div><div class="t-name">Kavitha Menon</div><div class="t-location">📍 Kochi, Kerala</div></div>
+              </div>
+              <div class="t-product-chip">🧵 Lehenga Choli Set</div>
             </div>
-          </div>
-          <div class="t-product-chip">👶 Baby Onesie 3-Pack</div>
-        </div>
-
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"My twins have been wearing Tiny Threads since they were 3. The Dinosaur Pyjama Set is their absolute favourite — they refuse to sleep in anything else! Great stitching, holds up wash after wash."</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#E3F2FD"/>
-              <circle cx="23" cy="19" r="8" fill="#90CAF9"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#90CAF9"/>
-              <circle cx="23" cy="19" r="7" fill="#42A5F5"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Rajesh Iyer</div>
-              <div class="t-location">📍 Chennai, Tamil Nadu</div>
             </div>
-          </div>
-          <div class="t-product-chip">🌙 Dinosaur Pyjama Set</div>
-        </div>
 
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"Ordered the Anarkali Kurta for Diwali and I'm blown away. The colours are so vibrant in person — nothing like those washed-out photos you see on big marketplaces. Tiny Threads is now my go-to!"</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#F3E5F5"/>
-              <circle cx="23" cy="19" r="8" fill="#CE93D8"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#CE93D8"/>
-              <circle cx="23" cy="19" r="7" fill="#AB47BC"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Deepika Nair</div>
-              <div class="t-location">📍 Pune, Maharashtra</div>
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"The Baby Onesie 3-Pack is a lifesaver! So gentle on my newborn's skin. I've already recommended Tiny Threads to all my friends in our moms' WhatsApp group. Will keep ordering!"</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#FFF3E0"/><circle cx="23" cy="19" r="8" fill="#FFCC80"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFCC80"/><circle cx="23" cy="19" r="7" fill="#FFA726"/></svg>
+                <div><div class="t-name">Sunita Patel</div><div class="t-location">📍 Surat, Gujarat</div></div>
+              </div>
+              <div class="t-product-chip">👶 Baby Onesie 3-Pack</div>
             </div>
-          </div>
-          <div class="t-product-chip">🧵 Anarkali Kurta</div>
-        </div>
-
-        <div class="t-card">
-          <div class="t-stars">⭐⭐⭐⭐⭐</div>
-          <p class="t-text">"The Fleece Sleep Suit kept my baby perfectly warm through the coldest nights this winter. Soft inside, no itching at all. The WhatsApp ordering is so easy — feels like chatting with a friend, not a store!"</p>
-          <div class="t-author">
-            <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="23" cy="23" r="23" fill="#FBE9E7"/>
-              <circle cx="23" cy="19" r="8" fill="#FFAB91"/>
-              <ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFAB91"/>
-              <circle cx="23" cy="19" r="7" fill="#FF7043"/>
-            </svg>
-            <div class="t-author-info">
-              <div class="t-name">Arjun Agrawal</div>
-              <div class="t-location">📍 Delhi, NCR</div>
             </div>
-          </div>
-          <div class="t-product-chip">❄️ Fleece Sleep Suit</div>
-        </div>
 
-      </div>
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"My twins have been wearing Tiny Threads since they were 3. The Dinosaur Pyjama Set is their absolute favourite — they refuse to sleep in anything else! Great stitching, holds up wash after wash."</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#E3F2FD"/><circle cx="23" cy="19" r="8" fill="#90CAF9"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#90CAF9"/><circle cx="23" cy="19" r="7" fill="#42A5F5"/></svg>
+                <div><div class="t-name">Rajesh Iyer</div><div class="t-location">📍 Chennai, Tamil Nadu</div></div>
+              </div>
+              <div class="t-product-chip">🌙 Pyjama Set</div>
+            </div>
+            </div>
+
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"Ordered the Anarkali Kurta for Diwali and I'm blown away. The colours are so vibrant in person — nothing like those washed-out photos you see on big marketplaces. Tiny Threads is now my go-to!"</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#F3E5F5"/><circle cx="23" cy="19" r="8" fill="#CE93D8"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#CE93D8"/><circle cx="23" cy="19" r="7" fill="#AB47BC"/></svg>
+                <div><div class="t-name">Deepika Nair</div><div class="t-location">📍 Pune, Maharashtra</div></div>
+              </div>
+              <div class="t-product-chip">🧵 Anarkali Kurta</div>
+            </div>
+            </div>
+
+            <div class="swiper-slide">
+            <div class="t-card">
+              <div class="t-stars">⭐⭐⭐⭐⭐</div>
+              <p class="t-text">"The Fleece Sleep Suit kept my baby perfectly warm through the coldest nights this winter. Soft inside, no itching at all. The WhatsApp ordering is so easy — feels like chatting with a friend, not a store!"</p>
+              <div class="t-author">
+                <svg class="t-avatar-svg" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="23" r="23" fill="#FBE9E7"/><circle cx="23" cy="19" r="8" fill="#FFAB91"/><ellipse cx="23" cy="38" rx="13" ry="10" fill="#FFAB91"/><circle cx="23" cy="19" r="7" fill="#FF7043"/></svg>
+                <div><div class="t-name">Arjun Agrawal</div><div class="t-location">📍 Delhi, NCR</div></div>
+              </div>
+              <div class="t-product-chip">❄️ Fleece Sleep Suit</div>
+            </div>
+            </div>
+
+          </div><!-- /swiper-wrapper -->
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div><!-- /t-swiper -->
+      </div><!-- /t-swiper-outer -->
 
       <!-- Rating summary bar -->
       <div class="t-rating-summary">
@@ -1081,6 +1161,7 @@ async function loadProducts() {
   } catch(e) { allProducts = getFallbackProducts(); }
   renderAllGrids();
   initCatSwipers();
+  initTestimonialSwiper();
 }
 
 function renderAllGrids() {
@@ -1119,10 +1200,10 @@ function productCard(p) {
   let slidesHtml = '';
   if (hasRealImages) {
     slidesHtml = p.images.map(url => {
-      // Try Cloudinary on-the-fly transform (3:4, anchored top so face is always visible).
-      // onerror falls back to the original URL in case strict transformations are off.
+      // Cloudinary transform: fill 3:4, anchor top (faces/subjects visible), auto quality & format.
+      // Use w_600 for a good balance of quality vs. file-size on mobile-sized cards.
       const transformed = url.includes('res.cloudinary.com')
-        ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_900,q_auto,f_auto/')
+        ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_600,q_auto,f_auto/')
         : url;
       return `<div class="swiper-slide"><img src="${transformed}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';"></div>`;
     }).join('');
@@ -1328,6 +1409,24 @@ function showPage(id) {
   });
 }
 
+function initTestimonialSwiper(){
+  new Swiper('.t-swiper',{
+    slidesPerView:1,
+    spaceBetween:20,
+    centeredSlides:true,
+    loop:true,
+    grabCursor:true,
+    watchSlidesProgress:true,
+    autoplay:{delay:4500,disableOnInteraction:true,pauseOnMouseEnter:true},
+    pagination:{el:'.t-swiper-outer .swiper-pagination',clickable:true,dynamicBullets:false},
+    navigation:{nextEl:'.t-swiper-outer .swiper-button-next',prevEl:'.t-swiper-outer .swiper-button-prev'},
+    breakpoints:{
+      640:{slidesPerView:1.3,spaceBetween:24},
+      900:{slidesPerView:2.2,spaceBetween:28,centeredSlides:false},
+      1200:{slidesPerView:3,spaceBetween:28,centeredSlides:false}
+    }
+  });
+}
 function initCatSwipers(){
   const catCards = ['boys','girls','babies'];
   const catSwipers = document.querySelectorAll('.cat-swiper');
