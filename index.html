@@ -263,20 +263,23 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
     flex-direction:column;
     gap:0;
   }
-  /* Brand + tagline inline */
+  /* Brand + tagline */
   .footer-brand{margin-bottom:0.5rem;}
-  .footer-grid > div:first-child > p{font-size:11.5px;line-height:1.5;margin-bottom:0.6rem;}
-  /* Action buttons side by side */
+  .footer-grid > div:first-child > p{font-size:11.5px;line-height:1.5;margin-bottom:0.75rem;}
+  /* Action buttons — full width stacked, no overlap */
   .footer-grid > div:first-child .footer-wa-btn,
   .footer-grid > div:first-child .footer-ig-btn{
-    display:inline-flex;
-    margin-top:0;
-    margin-right:6px;
-    margin-bottom:0;
-    padding:8px 14px;
-    font-size:12px;
-    border-radius:16px;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    margin:0 0 8px 0;
+    padding:11px 16px;
+    font-size:13px;
+    font-weight:600;
+    border-radius:14px;
+    box-sizing:border-box;
   }
+  .footer-grid > div:first-child .footer-ig-btn{margin-bottom:0;}
   /* Show Shop + Contact cols; hide Collections col on mobile (redundant) */
   .footer-col:nth-child(3){display:none;}
   .footer-col h4{font-size:11px;margin-bottom:0.6rem;}
@@ -532,16 +535,33 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
   body{padding-bottom:62px;}
 
   /* HERO */
-  .hero{padding:1.5rem 1rem 1.35rem;min-height:auto;}
+  .hero{padding:2rem 1.25rem 1.75rem;min-height:auto;}
+  .hero-content{width:100%;max-width:100%;padding:0 0.25rem;box-sizing:border-box;}
   .hero-tag{font-size:10px;padding:4px 12px;margin-bottom:0.75rem;}
-  .hero h1{font-size:1.6rem;margin-bottom:0.65rem;}
-  .hero p{font-size:12.5px;line-height:1.55;margin-bottom:0.65rem;max-width:320px;}
+  .hero h1{font-size:1.55rem;margin-bottom:0.6rem;padding:0;word-break:break-word;}
+  .hero p{font-size:13px;line-height:1.6;margin-bottom:0.75rem;max-width:100%;padding:0;}
   .hero-logo{width:96px;height:96px;margin-bottom:0.55rem;}
   .hero-logo-wrap{width:140px;height:140px;margin-bottom:0.8rem;border-width:2px;}
-  .btn-primary,.btn-wa{padding:9px 12px;font-size:12px;min-height:40px;justify-content:center;}
-  .trust-badges{gap:6px;margin-top:0.85rem;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
-  .trust-badges::-webkit-scrollbar{display:none;}
-  .trust-badge{font-size:10px;padding:5px 10px;white-space:nowrap;flex:0 0 auto;}
+  .btn-primary,.btn-wa{padding:10px 14px;font-size:12.5px;min-height:42px;justify-content:center;}
+  /* Trust badges: 2×2 grid — all 4 visible, no horizontal scroll */
+  .trust-badges{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:1rem;
+    overflow:visible;
+    justify-content:unset;
+  }
+  .trust-badge{
+    font-size:11px;
+    padding:7px 10px;
+    white-space:normal;
+    flex:unset;
+    width:100%;
+    justify-content:center;
+    text-align:center;
+    border-radius:14px;
+  }
   .hero-blob1{width:200px;height:200px;}
   .hero-blob2{width:150px;height:150px;}
 
