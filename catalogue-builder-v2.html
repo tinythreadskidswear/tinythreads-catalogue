@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Threads · Catalogue Builder v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0f0e0d;--surface:#1a1917;--surface2:#222120;--surface3:#2a2927;
+  --border:#2e2c2a;--border2:#3d3b38;
+  --accent:#e8a838;--accent2:#c4531e;
+  --green:#2eb87a;--red:#e05252;--blue:#5b9cf6;--purple:#a78bfa;
+  --text:#f0ede8;--muted:#8a8580;--muted2:#5a5652;
+  --radius:10px;--font:'Syne',sans-serif;--mono:'DM Mono',monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* ── HEADER ── */
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:200;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.logo-text{font-size:15px;font-weight:800;letter-spacing:-0.3px;}
+.logo-text span{color:var(--accent);}
+.logo-sub{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.header-actions{display:flex;align-items:center;gap:8px;}
+.status-chip{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-family:var(--mono);color:var(--muted);}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* ── MODE TABS ── */
+.mode-bar{display:flex;gap:0;background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;}
+.mode-tab{padding:12px 20px;font-size:13px;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);transition:all 0.2s;display:flex;align-items:center;gap:7px;user-select:none;}
+.mode-tab:hover{color:var(--text);}
+.mode-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.mode-tab .tab-badge{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:1px 7px;font-size:10px;font-family:var(--mono);}
+.mode-tab.active .tab-badge{background:rgba(232,168,56,0.15);border-color:rgba(232,168,56,0.3);color:var(--accent);}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:1fr 380px;min-height:calc(100vh - 109px);}
+.main-panel{padding:24px 28px;overflow-y:auto;max-height:calc(100vh - 109px);}
+.side-panel{border-left:1px solid var(--border);background:var(--surface);overflow-y:auto;max-height:calc(100vh - 109px);}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:var(--radius);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;white-space:nowrap;}
+.btn-sm{padding:6px 12px;font-size:12px;}
+.btn-primary{background:var(--accent);color:#000;}
+.btn-primary:hover{background:#f0b840;transform:translateY(-1px);}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--text);color:var(--text);}
+.btn-danger{background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.3);color:var(--red);}
+.btn-danger:hover{background:rgba(224,82,82,0.2);}
+.btn-success{background:rgba(46,184,122,0.12);border:1px solid rgba(46,184,122,0.35);color:var(--green);}
+.btn-blue{background:rgba(91,156,246,0.12);border:1px solid rgba(91,156,246,0.35);color:var(--blue);}
+.btn-row{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;align-items:center;}
+
+/* ── STEPS ── */
+.steps{display:flex;gap:0;margin-bottom:22px;}
+.step{flex:1;padding:10px 14px;border:1px solid var(--border);background:var(--surface2);cursor:default;transition:all 0.2s;position:relative;}
+.step:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+.step:last-child{border-radius:0 var(--radius) var(--radius) 0;}
+.step:not(:last-child){border-right:none;}
+.step.active{background:var(--accent);border-color:var(--accent);color:#000;}
+.step.done{background:rgba(46,184,122,0.1);border-color:var(--green);color:var(--green);}
+.step-num{font-size:10px;font-family:var(--mono);opacity:0.7;margin-bottom:1px;}
+.step-label{font-size:12px;font-weight:700;}
+
+/* ── DROP ZONE ── */
+.drop-zone{border:2px dashed var(--border2);border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;transition:all 0.25s;background:var(--surface2);position:relative;overflow:hidden;}
+.drop-zone::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(232,168,56,0.05),transparent 70%);pointer-events:none;}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:rgba(232,168,56,0.05);}
+.drop-zone.has-files{border-color:var(--green);border-style:solid;}
+.drop-icon{font-size:36px;margin-bottom:10px;display:block;}
+.drop-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.drop-sub{font-size:12px;color:var(--muted);line-height:1.6;}
+.drop-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+
+/* ── IMAGE GRID WITH DRAG REORDER ── */
+.image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:14px;}
+.img-thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--surface2);border:2px solid var(--border);aspect-ratio:1;cursor:grab;transition:all 0.2s;user-select:none;}
+.img-thumb:active{cursor:grabbing;}
+.img-thumb.dragging{opacity:0.4;transform:scale(0.95);border-color:var(--accent);}
+.img-thumb.drag-over-target{border-color:var(--accent);border-style:dashed;transform:scale(1.03);}
+.img-thumb img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
+.img-thumb .img-order{position:absolute;top:5px;left:5px;background:rgba(0,0,0,0.8);color:var(--accent);font-size:10px;font-family:var(--mono);font-weight:700;width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;}
+.img-thumb .img-name{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);font-size:8px;font-family:var(--mono);padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#bbb;}
+.img-thumb .img-remove{position:absolute;top:4px;right:4px;background:rgba(224,82,82,0.9);border:none;width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:10px;color:white;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s;}
+.img-thumb:hover .img-remove{opacity:1;}
+.img-thumb .img-drag-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.6);border-radius:4px;padding:2px 6px;font-size:9px;color:var(--muted);opacity:0;transition:opacity 0.15s;white-space:nowrap;}
+.img-thumb:hover .img-drag-hint{opacity:1;}
+.img-upload-status{position:absolute;inset:0;background:rgba(0,0,0,0.72);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;font-size:10px;font-family:var(--mono);}
+.img-upload-status.uploading{color:var(--accent);}
+.img-upload-status.done{color:var(--green);}
+.drag-hint-bar{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);margin-top:8px;padding:6px 10px;background:var(--surface2);border-radius:7px;border:1px solid var(--border);}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+input,select,textarea{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:9px 12px;font-family:var(--font);font-size:13px;transition:border-color 0.2s;width:100%;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);}
+textarea{resize:vertical;min-height:72px;line-height:1.6;}
+select option{background:var(--surface2);}
+.tag-input-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;cursor:text;transition:border-color 0.2s;min-height:40px;}
+.tag-input-wrap:focus-within{border-color:var(--accent);}
+.tag{background:rgba(232,168,56,0.12);border:1px solid rgba(232,168,56,0.28);color:var(--accent);border-radius:20px;padding:2px 9px;font-size:11px;display:flex;align-items:center;gap:4px;font-family:var(--mono);}
+.tag-remove{background:none;border:none;color:var(--accent);cursor:pointer;font-size:13px;line-height:1;padding:0;opacity:0.7;}
+.tag-remove:hover{opacity:1;}
+.tag-field{border:none;background:transparent;color:var(--text);font-family:var(--font);font-size:12px;outline:none;min-width:70px;flex:1;padding:2px 3px;}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.toggle{width:40px;height:22px;background:var(--border2);border-radius:11px;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;border:none;}
+.toggle.on{background:var(--accent);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:white;border-radius:50%;transition:transform 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.3);}
+.toggle.on::after{transform:translateX(18px);}
+
+/* ── AI BUTTON ── */
+.ai-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(232,168,56,0.12),rgba(196,83,30,0.12));border:1px solid rgba(232,168,56,0.3);color:var(--accent);padding:8px 14px;border-radius:var(--radius);font-size:12px;font-family:var(--font);font-weight:700;cursor:pointer;transition:all 0.2s;width:100%;justify-content:center;margin-top:3px;}
+.ai-btn:hover{background:rgba(232,168,56,0.22);border-color:var(--accent);}
+.ai-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.spinner{width:13px;height:13px;border:2px solid rgba(232,168,56,0.25);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── SECTION HEAD ── */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-head h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);}
+.pill{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:2px 9px;font-size:10px;font-family:var(--mono);color:var(--accent);}
+
+/* ── PROGRESS ── */
+.progress-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:20px;overflow:hidden;height:7px;margin:10px 0;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 0.35s ease;border-radius:20px;}
+
+/* ── LOG ── */
+.log{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;font-family:var(--mono);font-size:11px;line-height:1.8;max-height:180px;overflow-y:auto;}
+.log-line.info{color:var(--muted);}
+.log-line.success{color:var(--green);}
+.log-line.error{color:var(--red);}
+.log-line.warn{color:var(--accent);}
+
+/* ── SIDE PANEL ── */
+.side-panel-head{padding:16px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:10;}
+.side-panel-head h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.json-preview{padding:14px 18px;font-family:var(--mono);font-size:11px;line-height:1.7;color:#a8d8c8;overflow-x:auto;white-space:pre;}
+.json-key{color:#7dcfb0;}
+.json-str{color:#f0c070;}
+.json-num{color:#79b8ff;}
+.json-bool{color:#f78c6c;}
+
+/* ── PRODUCT LIST (side) ── */
+.product-list{padding:0 14px 16px;}
+.product-item{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;background:var(--surface2);transition:border-color 0.2s;}
+.product-item:hover{border-color:var(--border2);}
+.product-item-img{width:40px;height:40px;border-radius:7px;background:var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.product-item-img img{width:100%;height:100%;object-fit:cover;}
+.product-item-info{flex:1;min-width:0;}
+.product-item-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.product-item-meta{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:1px;}
+.product-item-id{font-family:var(--mono);font-size:10px;color:var(--accent);background:rgba(232,168,56,0.1);padding:2px 6px;border-radius:8px;flex-shrink:0;}
+.product-item-actions{display:flex;gap:4px;flex-shrink:0;}
+.item-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-size:10px;cursor:pointer;color:var(--muted);transition:all 0.15s;font-family:var(--font);}
+.item-btn:hover{border-color:var(--accent);color:var(--accent);}
+.item-btn.del:hover{border-color:var(--red);color:var(--red);}
+
+/* ── MANAGE MODE ── */
+.manage-search{display:flex;gap:8px;margin-bottom:14px;}
+.manage-search input{flex:1;}
+.manage-table{width:100%;border-collapse:collapse;}
+.manage-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;}
+.manage-table td{padding:10px 10px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle;}
+.manage-table tr:hover td{background:var(--surface2);}
+.manage-table .prod-thumb{width:36px;height:36px;border-radius:7px;object-fit:cover;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;flex-shrink:0;}
+.manage-table .prod-thumb img{width:100%;height:100%;object-fit:cover;}
+.manage-table .actions-cell{display:flex;gap:5px;}
+.badge-chip{display:inline-block;font-size:9px;font-family:var(--mono);padding:2px 7px;border-radius:10px;background:rgba(232,168,56,0.12);color:var(--accent);border:1px solid rgba(232,168,56,0.2);}
+
+/* ── BULK IMPORT ── */
+.bulk-drop{border:2px dashed var(--border2);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.25s;background:var(--surface2);position:relative;}
+.bulk-drop:hover,.bulk-drop.drag-over{border-color:var(--blue);background:rgba(91,156,246,0.05);}
+.bulk-drop.has-data{border-color:var(--green);border-style:solid;}
+.bulk-queue{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.bulk-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;}
+.bulk-item.done{border-color:var(--green);}
+.bulk-item.error{border-color:var(--red);}
+.bulk-item.active{border-color:var(--accent);}
+.bulk-item-imgs{display:flex;gap:4px;}
+.bulk-img-mini{width:32px;height:32px;border-radius:5px;object-fit:cover;background:var(--border);flex-shrink:0;}
+.bulk-item-info{flex:1;min-width:0;}
+.bulk-item-name{font-size:12px;font-weight:700;}
+.bulk-item-count{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.bulk-item-status{font-size:10px;font-family:var(--mono);flex-shrink:0;}
+.bulk-item-status.done{color:var(--green);}
+.bulk-item-status.error{color:var(--red);}
+.bulk-item-status.active{color:var(--accent);}
+.bulk-item-remove{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:14px;padding:2px 5px;border-radius:4px;transition:color 0.15s;}
+.bulk-item-remove:hover{color:var(--red);}
+
+/* ── BULK MINI FORM ── */
+.bulk-mini-form{background:var(--surface3);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:6px;display:none;}
+.bulk-mini-form.open{display:block;}
+.bulk-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bulk-mini-grid .form-group{gap:4px;}
+.bulk-mini-grid label{font-size:9px;}
+.bulk-mini-grid input,.bulk-mini-grid select{font-size:12px;padding:7px 10px;}
+
+/* ── EDIT MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:20px;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:780px;max-width:100%;max-height:90vh;display:flex;flex-direction:column;}
+.modal-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.modal-head h2{font-size:18px;font-weight:800;}
+.modal-close{background:none;border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.modal-close:hover{border-color:var(--text);color:var(--text);}
+.modal-body{padding:20px 24px;overflow-y:auto;flex:1;}
+.modal-foot{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0;}
+
+/* ── SETUP MODAL ── */
+#setup-modal .modal{width:480px;}
+.note-box{background:rgba(232,168,56,0.06);border:1px solid rgba(232,168,56,0.18);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.note-box strong{color:var(--accent);}
+
+/* ── CONFIRM MODAL ── */
+#confirm-modal .modal{width:380px;}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:18px 0;}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:6px;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(0,0,0,0.45);animation:slideIn 0.3s ease;max-width:320px;}
+@keyframes slideIn{from{transform:translateX(80px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.toast.success{border-color:rgba(46,184,122,0.35);}
+.toast.error{border-color:rgba(224,82,82,0.35);}
+.toast.warn{border-color:rgba(232,168,56,0.35);}
+
+/* ── SCROLL ── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted);}
+.empty-state .empty-icon{font-size:36px;margin-bottom:10px;}
+.empty-state p{font-size:13px;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<!-- ═══ SETUP MODAL ═══════════════════════════════════════ -->
+<div class="modal-overlay" id="setup-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:28px;">🧵</span>
+        <div><h2>Catalogue Builder Setup</h2><div style="font-size:12px;color:var(--muted);margin-top:2px;">One-time configuration · saved in browser</div></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="note-box"><strong>Cloudinary Free Tier:</strong> 25GB storage & bandwidth/month. Get credentials from <strong>cloudinary.com → Settings → API Keys</strong>. Create an <em>unsigned</em> upload preset under Settings → Upload Presets.</div>
+      <div class="form-group" style="margin-bottom:12px;"><label>Cloudinary Cloud Name</label><input id="cfg-cloud" placeholder="e.g. dmehiuzml"/></div>
+      <div class="form-group" style="margin-bottom:12px;"><label>Upload Preset (unsigned)</label><input id="cfg-preset" placeholder="e.g. tinythreads_upload"/></div>
+      <div class="form-group" style="margin-bottom:12px;"><label>AI API Key (Claude or OpenAI — optional)</label><input id="cfg-aikey" type="password" placeholder="sk-ant-... or sk-..."/></div>
+      <div class="form-group" style="margin-bottom:0;"><label>AI Provider</label>
+        <select id="cfg-aiprovider">
+          <option value="claude">Claude (Anthropic) — claude-haiku-4-5</option>
+          <option value="openai">OpenAI — gpt-4o-mini</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-primary" onclick="saveConfig()">Save & Start Building →</button></div>
+  </div>
+</div>
+
+<!-- ═══ EDIT MODAL ════════════════════════════════════════ -->
+<div class="modal-overlay" id="edit-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>✏ Edit Product <span id="edit-modal-id" style="color:var(--accent);font-size:14px;font-family:var(--mono);"></span></h2>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Image reorder section -->
+      <div style="margin-bottom:18px;">
+        <div class="section-head" style="margin-bottom:10px;"><h2>Images — drag to reorder</h2></div>
+        <div class="image-grid" id="edit-image-grid"></div>
+        <div class="drag-hint-bar" style="margin-top:8px;"><span>⠿</span> Drag thumbnails to reorder carousel sequence · Click ✕ to remove</div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+          <label class="btn btn-blue btn-sm" style="cursor:pointer;">+ Add More Images<input type="file" multiple accept="image/*" style="display:none;" onchange="editAddImages(this.files)"></label>
+          <span style="font-size:11px;color:var(--muted);">New images will be uploaded to Cloudinary on save</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <!-- Edit form -->
+      <div class="form-grid">
+        <div class="form-group"><label>Name *</label><input id="ef-name" oninput="editLivePreview()"></div>
+        <div class="form-group"><label>Price (₹) *</label><input id="ef-price" type="number" oninput="editLivePreview()"></div>
+        <div class="form-group"><label>Category *</label>
+          <select id="ef-category" onchange="editLivePreview()">
+            <option value="boys">Boys</option><option value="girls">Girls</option><option value="babies">Babies</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Subcategory</label>
+          <select id="ef-subcategory" onchange="editLivePreview()">
+            <option value="traditional">Traditional</option><option value="summer">Summer</option>
+            <option value="winter">Winter</option><option value="nightwear">Nightwear</option>
+            <option value="undergarments">Undergarments</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Fabric</label><input id="ef-fabric" oninput="editLivePreview()"></div>
+        <div class="form-group"><label>Badge</label>
+          <select id="ef-badge" onchange="editLivePreview()">
+            <option value="">None</option><option value="New">New</option><option value="Bestseller">Bestseller</option>
+            <option value="Festive">Festive</option><option value="Warm">Warm</option><option value="Cosy">Cosy</option><option value="Soft">Soft</option>
+          </select>
+        </div>
+        <div class="form-group full"><label>Description</label>
+          <textarea id="ef-description" rows="3" oninput="editLivePreview()"></textarea>
+          <button class="ai-btn" id="edit-ai-btn" onclick="generateDescriptionFor('edit')"><span id="edit-ai-icon">✦</span> Regenerate AI Description</button>
+        </div>
+        <div class="form-group full"><label>Sizes</label>
+          <div class="tag-input-wrap" id="edit-sizes-wrap" onclick="document.getElementById('edit-sizes-field').focus()">
+            <input class="tag-field" id="edit-sizes-field" placeholder="Type size + Enter" onkeydown="tagKeydown(event,'edit-sizes')">
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Presets:
+            <span style="color:var(--accent);cursor:pointer;" onclick="setTagsFor('edit-sizes',['0-3M','3-6M','6-9M','9-12M','12-18M'])">Baby</span> ·
+            <span style="color:var(--accent);cursor:pointer;" onclick="setTagsFor('edit-sizes',['3-4Y','4-5Y','5-6Y','6-8Y','8-10Y','10-12Y'])">Kids</span>
+          </div>
+        </div>
+        <div class="form-group full"><label>Colors</label>
+          <div class="tag-input-wrap" id="edit-colors-wrap" onclick="document.getElementById('edit-colors-field').focus()">
+            <input class="tag-field" id="edit-colors-field" placeholder="Type color + Enter" onkeydown="tagKeydown(event,'edit-colors')">
+          </div>
+        </div>
+        <div class="form-group full">
+          <div class="toggle-row">
+            <div><label>Featured Product</label><div style="font-size:11px;color:var(--muted);margin-top:1px;">Show on homepage featured section</div></div>
+            <button class="toggle" id="ef-featured" onclick="toggleEditFeatured()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-primary" id="edit-save-btn" onclick="saveEditProduct()">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONFIRM DELETE MODAL ════════════════════════════ -->
+<div class="modal-overlay" id="confirm-modal" style="display:none;">
+  <div class="modal" style="width:380px;">
+    <div class="modal-head"><h2 style="font-size:16px;">🗑 Delete Product</h2><button class="modal-close" onclick="closeConfirm()">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:14px;line-height:1.7;">Are you sure you want to delete <strong id="confirm-product-name"></strong>?</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px;">This removes it from local storage. Your products.json file won't change until you export.</p>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeConfirm()">Cancel</button><button class="btn btn-danger" id="confirm-delete-btn" onclick="confirmDelete()">Delete</button></div>
+  </div>
+</div>
+
+<!-- ═══ HEADER ════════════════════════════════════════════ -->
+<header>
+  <div class="logo">
+    <div class="logo-mark">🧵</div>
+    <div><div class="logo-text">Tiny Threads <span>Builder</span></div><div class="logo-sub">v2.0 · catalogue management</div></div>
+  </div>
+  <div class="header-actions">
+    <div class="status-chip"><span class="status-dot"></span><span id="header-count">0 products</span></div>
+    <button class="btn btn-ghost btn-sm" onclick="openConfig()">⚙ Config</button>
+    <button class="btn btn-ghost btn-sm" onclick="loadLocalJson()">⟳ Load JSON</button>
+    <button class="btn btn-primary btn-sm" onclick="exportFullJson()">⬇ Export JSON</button>
+  </div>
+</header>
+
+<!-- ═══ MODE TABS ══════════════════════════════════════════ -->
+<div class="mode-bar">
+  <div class="mode-tab active" id="tab-add" onclick="switchMode('add')">➕ Add Product</div>
+  <div class="mode-tab" id="tab-manage" onclick="switchMode('manage')">📋 Manage <span class="tab-badge" id="manage-badge">0</span></div>
+  <div class="mode-tab" id="tab-bulk" onclick="switchMode('bulk')">📦 Bulk Import <span class="tab-badge" id="bulk-badge">0</span></div>
+</div>
+
+<!-- ═══ APP ════════════════════════════════════════════════ -->
+<div class="app">
+  <div class="main-panel">
+
+    <!-- ════ ADD MODE ════ -->
+    <div id="mode-add">
+      <div class="steps">
+        <div class="step active" id="step-1"><div class="step-num">01</div><div class="step-label">Drop Images</div></div>
+        <div class="step" id="step-2"><div class="step-num">02</div><div class="step-label">Product Details</div></div>
+        <div class="step" id="step-3"><div class="step-num">03</div><div class="step-label">Upload & Save</div></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div id="panel-1">
+        <div class="section-head"><h2>Product Images</h2><span class="pill" id="img-count-pill">0 images</span></div>
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" class="drop-input" id="file-input" multiple accept="image/*" onchange="handleFiles(this.files)">
+          <span class="drop-icon">📁</span>
+          <div class="drop-title">Drop product images here</div>
+          <div class="drop-sub">or click to browse · JPG, PNG, WEBP<br>Drag thumbs below to reorder carousel sequence</div>
+        </div>
+        <div class="image-grid" id="add-image-grid"></div>
+        <div class="drag-hint-bar" id="drag-hint" style="display:none;"><span>⠿</span> Drag thumbnails to reorder · First image = main catalogue photo</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="next-to-2" onclick="goToStep(2)" disabled>Next: Product Details →</button>
+          <button class="btn btn-ghost" onclick="clearImages()">✕ Clear</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="panel-2" style="display:none;">
+        <div class="section-head"><h2>Product Details</h2><span class="pill" id="product-id-pill">ID: auto</span></div>
+        <div class="form-grid">
+          <div class="form-group"><label>Product Name *</label><input id="f-name" placeholder="e.g. Linen Shorts + Tee" oninput="livePreview()"></div>
+          <div class="form-group"><label>Price (₹) *</label><input id="f-price" type="number" placeholder="399" oninput="livePreview()"></div>
+          <div class="form-group"><label>Category *</label>
+            <select id="f-category" onchange="livePreview()">
+              <option value="">Select…</option><option value="boys">Boys</option><option value="girls">Girls</option><option value="babies">Babies</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Subcategory *</label>
+            <select id="f-subcategory" onchange="livePreview()">
+              <option value="">Select…</option><option value="traditional">Traditional</option><option value="summer">Summer</option>
+              <option value="winter">Winter</option><option value="nightwear">Nightwear</option><option value="undergarments">Undergarments</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Fabric</label><input id="f-fabric" placeholder="e.g. 100% Cotton" oninput="livePreview()"></div>
+          <div class="form-group"><label>Badge</label>
+            <select id="f-badge" onchange="livePreview()">
+              <option value="">None</option><option value="New">New</option><option value="Bestseller">Bestseller</option>
+              <option value="Festive">Festive</option><option value="Warm">Warm</option><option value="Cosy">Cosy</option><option value="Soft">Soft</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Description</label>
+            <textarea id="f-description" placeholder="Product description…" rows="3" oninput="livePreview()"></textarea>
+            <button class="ai-btn" id="ai-btn" onclick="generateDescriptionFor('add')"><span id="ai-icon">✦</span> Generate AI Description</button>
+          </div>
+          <div class="form-group full"><label>Sizes (Enter or comma)</label>
+            <div class="tag-input-wrap" id="add-sizes-wrap" onclick="document.getElementById('add-sizes-field').focus()">
+              <input class="tag-field" id="add-sizes-field" placeholder="e.g. 3-4Y" onkeydown="tagKeydown(event,'add-sizes')">
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Presets:
+              <span style="color:var(--accent);cursor:pointer;" onclick="setTagsFor('add-sizes',['0-3M','3-6M','6-9M','9-12M','12-18M'])">Baby</span> ·
+              <span style="color:var(--accent);cursor:pointer;" onclick="setTagsFor('add-sizes',['3-4Y','4-5Y','5-6Y','6-8Y','8-10Y','10-12Y'])">Kids</span> ·
+              <span style="color:var(--accent);cursor:pointer;" onclick="setTagsFor('add-sizes',['3-4Y','4-5Y','5-6Y','6-8Y','8-10Y','10-12Y','12-13Y'])">Kids+</span>
+            </div>
+          </div>
+          <div class="form-group full"><label>Colors (Enter or comma)</label>
+            <div class="tag-input-wrap" id="add-colors-wrap" onclick="document.getElementById('add-colors-field').focus()">
+              <input class="tag-field" id="add-colors-field" placeholder="e.g. Red" onkeydown="tagKeydown(event,'add-colors')">
+            </div>
+          </div>
+          <div class="form-group full">
+            <div class="toggle-row">
+              <div><label>Featured Product</label><div style="font-size:11px;color:var(--muted);margin-top:1px;">Shows on homepage featured section</div></div>
+              <button class="toggle" id="f-featured" onclick="toggleFeatured('f-featured')"></button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="goToStep(3)">Next: Upload & Save →</button>
+          <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="panel-3" style="display:none;">
+        <div class="section-head"><h2>Upload & Save</h2><span class="pill" id="upload-status-pill">Ready</span></div>
+        <div class="note-box" id="upload-summary-box">Preparing…</div>
+        <div class="progress-wrap" id="progress-wrap" style="display:none;"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+        <div class="log" id="upload-log"><div class="log-line info">⏳ Ready to upload. Hit the button below.</div></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="upload-btn" onclick="startUpload()">☁ Upload to Cloudinary & Save</button>
+          <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
+          <button class="btn btn-success" id="new-product-btn" onclick="resetAll()" style="display:none;">+ Add Another Product</button>
+        </div>
+        <div class="divider"></div>
+        <div class="section-head" style="margin-bottom:8px;"><h2>JSON Output</h2></div>
+        <div class="note-box"><strong>Copy below</strong> and paste into your <code style="font-family:var(--mono);color:var(--accent);">products.json</code> — or use <strong>Export JSON</strong> to download the full file.</div>
+        <div class="log" id="manual-json-out" style="max-height:260px;color:#a8d8c8;white-space:pre;overflow-x:auto;">Upload to see JSON output here.</div>
+        <div class="btn-row">
+          <button class="btn btn-ghost btn-sm" onclick="copyManualJson()">📋 Copy Entry</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportFullJson()">⬇ Download Full JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ MANAGE MODE ════ -->
+    <div id="mode-manage" style="display:none;">
+      <div class="section-head">
+        <h2>All Products</h2>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-danger btn-sm" onclick="deleteAllConfirm()">🗑 Delete All</button>
+        </div>
+      </div>
+      <div class="manage-search">
+        <input id="manage-search" placeholder="🔍 Search by name, ID, category…" oninput="renderManageTable()">
+        <select id="manage-filter-cat" onchange="renderManageTable()" style="width:160px;">
+          <option value="">All categories</option>
+          <option value="boys">Boys</option><option value="girls">Girls</option><option value="babies">Babies</option>
+        </select>
+      </div>
+      <div id="manage-table-wrap"></div>
+    </div>
+
+    <!-- ════ BULK MODE ════ -->
+    <div id="mode-bulk" style="display:none;">
+      <div class="section-head"><h2>Bulk Import</h2><span class="pill" id="bulk-count-pill">0 queued</span></div>
+      <div class="note-box">
+        <strong>How it works:</strong> Drop a folder of images for each product one by one → fill its quick details → repeat for all products → hit <strong>Upload All</strong> to process the entire queue in one go.
+      </div>
+      <div class="bulk-drop" id="bulk-drop-zone">
+        <input type="file" class="drop-input" id="bulk-file-input" multiple accept="image/*" onchange="bulkAddImages(this.files)">
+        <span style="font-size:32px;display:block;margin-bottom:10px;">📦</span>
+        <div class="drop-title">Drop images for next product</div>
+        <div class="drop-sub">Select all images for one product at a time<br>Fill details below, then repeat for next product</div>
+      </div>
+
+      <!-- Staging area for current batch -->
+      <div id="bulk-staging" style="display:none;margin-top:14px;">
+        <div class="section-head" style="margin-bottom:10px;"><h2>Current Batch — drag to reorder</h2><button class="btn btn-ghost btn-sm" onclick="clearBulkStaging()">✕ Clear</button></div>
+        <div class="image-grid" id="bulk-staging-grid"></div>
+        <div class="drag-hint-bar" style="margin-top:8px;"><span>⠿</span> Drag to set carousel order</div>
+        <div style="margin-top:12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div class="bulk-mini-grid">
+            <div class="form-group"><label>Name *</label><input id="bk-name" placeholder="Product name"></div>
+            <div class="form-group"><label>Price (₹) *</label><input id="bk-price" type="number" placeholder="499"></div>
+            <div class="form-group"><label>Category</label>
+              <select id="bk-category">
+                <option value="boys">Boys</option><option value="girls">Girls</option><option value="babies">Babies</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Subcategory</label>
+              <select id="bk-subcategory">
+                <option value="traditional">Traditional</option><option value="summer">Summer</option>
+                <option value="winter">Winter</option><option value="nightwear">Nightwear</option><option value="undergarments">Undergarments</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Fabric</label><input id="bk-fabric" placeholder="100% Cotton"></div>
+            <div class="form-group"><label>Badge</label>
+              <select id="bk-badge"><option value="">None</option><option value="New">New</option><option value="Bestseller">Bestseller</option><option value="Festive">Festive</option><option value="Warm">Warm</option><option value="Cosy">Cosy</option></select>
+            </div>
+            <div class="form-group" style="grid-column:1/-1;"><label>Sizes (comma-separated)</label><input id="bk-sizes" placeholder="3-4Y, 4-5Y, 5-6Y, 6-8Y"></div>
+            <div class="form-group" style="grid-column:1/-1;"><label>Colors (comma-separated)</label><input id="bk-colors" placeholder="Red, Blue, Green"></div>
+          </div>
+          <div class="btn-row" style="margin-top:10px;">
+            <button class="btn btn-primary btn-sm" onclick="addToBulkQueue()">+ Add to Queue →</button>
+            <button class="btn btn-blue btn-sm" onclick="generateDescriptionFor('bulk')"><span id="bulk-ai-icon">✦</span> AI Desc</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk Queue -->
+      <div id="bulk-queue-wrap" style="margin-top:16px;display:none;">
+        <div class="section-head" style="margin-bottom:10px;"><h2>Upload Queue</h2><span class="pill" id="queue-count">0</span></div>
+        <div class="bulk-queue" id="bulk-queue"></div>
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn btn-primary" id="bulk-upload-all-btn" onclick="startBulkUpload()">☁ Upload All to Cloudinary & Save</button>
+          <button class="btn btn-danger btn-sm" onclick="clearBulkQueue()">🗑 Clear Queue</button>
+        </div>
+        <div class="progress-wrap" id="bulk-progress-wrap" style="display:none;"><div class="progress-bar" id="bulk-progress-bar" style="width:0%"></div></div>
+        <div class="log" id="bulk-log" style="display:none;margin-top:10px;"><div class="log-line info">Ready to process queue.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════ SIDE PANEL ════ -->
+  <div class="side-panel">
+    <div class="side-panel-head">
+      <h3>JSON Preview</h3>
+      <span class="pill" id="side-mode-label">add</span>
+    </div>
+    <div class="json-preview" id="json-preview">// Fill the form to preview…</div>
+    <div style="padding:0 14px;"><div class="divider" style="margin:10px 0;"></div></div>
+    <div class="side-panel-head" style="position:relative;top:unset;background:transparent;padding-top:0;">
+      <h3>Products <span class="pill" id="saved-count">0</span></h3>
+      <button class="btn btn-ghost btn-sm" style="padding:4px 8px;font-size:10px;" onclick="loadLocalJson()">⟳ Load</button>
+    </div>
+    <div class="product-list" id="product-list">
+      <div class="empty-state"><div class="empty-icon">🗂</div><p>No products yet.<br>Add your first!</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let config = { cloudName:'', uploadPreset:'', aiKey:'', aiProvider:'claude' };
+let products = [];
+let selectedFiles = [];   // [{file, objectUrl}]
+let tagStore = { 'add-sizes':[], 'add-colors':[], 'edit-sizes':[], 'edit-colors':[] };
+let isFeatured = false;
+let editProductIndex = -1;
+let editProductImages = [];   // [{url:string, file:File|null}]
+let editIsFeatured = false;
+let deleteTargetIndex = -1;
+let bulkStagingFiles = [];    // [{file, objectUrl}]
+let bulkQueue = [];           // [{files, name, price, category, subcategory, fabric, badge, sizes, colors, status}]
+let currentMode = 'add';
+
+// ══════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════
+function loadConfig() {
+  const sc = localStorage.getItem('tt_config');
+  if (sc) { config = {...config, ...JSON.parse(sc)}; }
+  const sp = localStorage.getItem('tt_products');
+  if (sp) { try { products = JSON.parse(sp); } catch(e) { products=[]; } }
+  document.getElementById('cfg-cloud').value = config.cloudName||'';
+  document.getElementById('cfg-preset').value = config.uploadPreset||'';
+  document.getElementById('cfg-aikey').value = config.aiKey||'';
+  document.getElementById('cfg-aiprovider').value = config.aiProvider||'claude';
+  updateAll();
+  if (!config.cloudName) document.getElementById('setup-modal').style.display='flex';
+  else document.getElementById('setup-modal').style.display='none';
+}
+function saveConfig() {
+  config.cloudName = document.getElementById('cfg-cloud').value.trim();
+  config.uploadPreset = document.getElementById('cfg-preset').value.trim();
+  config.aiKey = document.getElementById('cfg-aikey').value.trim();
+  config.aiProvider = document.getElementById('cfg-aiprovider').value;
+  localStorage.setItem('tt_config', JSON.stringify(config));
+  document.getElementById('setup-modal').style.display='none';
+  toast('✅ Config saved', 'success');
+}
+function openConfig() { document.getElementById('setup-modal').style.display='flex'; }
+
+// ══════════════════════════════════════════════════
+// MODE SWITCHING
+// ══════════════════════════════════════════════════
+function switchMode(mode) {
+  currentMode = mode;
+  ['add','manage','bulk'].forEach(m => {
+    document.getElementById('mode-'+m).style.display = m===mode ? 'block' : 'none';
+    document.getElementById('tab-'+m).classList.toggle('active', m===mode);
+  });
+  document.getElementById('side-mode-label').textContent = mode;
+  if (mode === 'manage') renderManageTable();
+  if (mode === 'bulk') renderBulkQueue();
+  livePreview();
+}
+
+// ══════════════════════════════════════════════════
+// STEP NAV
+// ══════════════════════════════════════════════════
+function goToStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('panel-'+i).style.display = i===n ? 'block' : 'none';
+    const el = document.getElementById('step-'+i);
+    el.classList.remove('active','done');
+    if (i<n) el.classList.add('done');
+    if (i===n) el.classList.add('active');
+  });
+  if (n===3) buildUploadSummary();
+}
+
+// ══════════════════════════════════════════════════
+// DRAG-TO-REORDER (shared)
+// ══════════════════════════════════════════════════
+let dragSrcIndex = -1;
+let dragContext = null; // 'add' | 'edit' | 'bulk'
+
+function makeDraggable(grid, context) {
+  grid.querySelectorAll('.img-thumb').forEach((el, i) => {
+    el.draggable = true;
+    el.addEventListener('dragstart', e => {
+      dragSrcIndex = i; dragContext = context;
+      el.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over-target'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over-target'));
+    el.addEventListener('drop', e => {
+      e.preventDefault();
+      el.classList.remove('drag-over-target');
+      const to = i;
+      if (dragSrcIndex === to || dragContext !== context) return;
+      if (context === 'add') {
+        const moved = selectedFiles.splice(dragSrcIndex, 1)[0];
+        selectedFiles.splice(to, 0, moved);
+        renderAddGrid();
+      } else if (context === 'edit') {
+        const moved = editProductImages.splice(dragSrcIndex, 1)[0];
+        editProductImages.splice(to, 0, moved);
+        renderEditImageGrid();
+      } else if (context === 'bulk') {
+        const moved = bulkStagingFiles.splice(dragSrcIndex, 1)[0];
+        bulkStagingFiles.splice(to, 0, moved);
+        renderBulkStagingGrid();
+      }
+    });
+  });
+}
+
+// ══════════════════════════════════════════════════
+// ADD MODE — IMAGES
+// ══════════════════════════════════════════════════
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+
+function handleFiles(files) {
+  Array.from(files).forEach(f => { if (f.type.startsWith('image/')) selectedFiles.push({file:f, objectUrl:URL.createObjectURL(f)}); });
+  renderAddGrid();
+  updateImgPill();
+  document.getElementById('next-to-2').disabled = selectedFiles.length === 0;
+  if (selectedFiles.length > 0) { dropZone.classList.add('has-files'); document.getElementById('drag-hint').style.display='flex'; }
+}
+
+function renderAddGrid() {
+  const grid = document.getElementById('add-image-grid');
+  grid.innerHTML = selectedFiles.map((f, i) => `
+    <div class="img-thumb" id="athumb-${i}">
+      <img src="${f.objectUrl}" alt="">
+      <div class="img-order">${i+1}</div>
+      <div class="img-name">${f.file.name}</div>
+      <button class="img-remove" onclick="removeAddImage(${i})">✕</button>
+      <div class="img-drag-hint">drag to reorder</div>
+    </div>`).join('');
+  makeDraggable(grid, 'add');
+  livePreview();
+}
+
+function removeAddImage(i) {
+  URL.revokeObjectURL(selectedFiles[i].objectUrl);
+  selectedFiles.splice(i, 1);
+  renderAddGrid();
+  updateImgPill();
+  if (selectedFiles.length===0) { dropZone.classList.remove('has-files'); document.getElementById('next-to-2').disabled=true; document.getElementById('drag-hint').style.display='none'; }
+}
+
+function clearImages() { selectedFiles.forEach(f=>URL.revokeObjectURL(f.objectUrl)); selectedFiles=[]; renderAddGrid(); updateImgPill(); dropZone.classList.remove('has-files'); document.getElementById('next-to-2').disabled=true; document.getElementById('drag-hint').style.display='none'; }
+function updateImgPill() { document.getElementById('img-count-pill').textContent = selectedFiles.length + ' image' + (selectedFiles.length!==1?'s':''); }
+
+// ══════════════════════════════════════════════════
+// TAG INPUTS — unified
+// ══════════════════════════════════════════════════
+function tagKeydown(e, storeKey) {
+  if (e.key==='Enter'||e.key===',') {
+    e.preventDefault();
+    const val = e.target.value.trim().replace(/,/g,'');
+    if (val) { if(!tagStore[storeKey]) tagStore[storeKey]=[]; if(!tagStore[storeKey].includes(val)) tagStore[storeKey].push(val); renderTagWrap(storeKey); }
+    e.target.value='';
+  } else if (e.key==='Backspace' && e.target.value==='') {
+    if (tagStore[storeKey]?.length) { tagStore[storeKey].pop(); renderTagWrap(storeKey); }
+  }
+  livePreview();
+}
+
+function renderTagWrap(storeKey) {
+  const wrap = document.getElementById(storeKey+'-wrap');
+  const field = document.getElementById(storeKey+'-field');
+  if (!wrap||!field) return;
+  wrap.querySelectorAll('.tag').forEach(t=>t.remove());
+  (tagStore[storeKey]||[]).forEach((t,i) => {
+    const tag = document.createElement('span');
+    tag.className='tag';
+    tag.innerHTML=`${t}<button class="tag-remove" onclick="removeTag('${storeKey}',${i})">×</button>`;
+    wrap.insertBefore(tag, field);
+  });
+}
+
+function removeTag(storeKey, i) { tagStore[storeKey].splice(i,1); renderTagWrap(storeKey); livePreview(); }
+function setTagsFor(storeKey, arr) { tagStore[storeKey]=[...arr]; renderTagWrap(storeKey); livePreview(); }
+
+// ══════════════════════════════════════════════════
+// FEATURED TOGGLE
+// ══════════════════════════════════════════════════
+function toggleFeatured(id) {
+  const el = document.getElementById(id);
+  if (id==='f-featured') isFeatured=!isFeatured, el.classList.toggle('on',isFeatured);
+  else if (id==='ef-featured') editIsFeatured=!editIsFeatured, el.classList.toggle('on',editIsFeatured);
+  livePreview();
+}
+function toggleEditFeatured() { toggleFeatured('ef-featured'); }
+
+// ══════════════════════════════════════════════════
+// ID GENERATION
+// ══════════════════════════════════════════════════
+function generateId(category) {
+  const prefix = {boys:'b',girls:'g',babies:'bb'}[category]||'p';
+  const n = products.filter(p=>p.category===category).length + 1;
+  return prefix + String(n).padStart(3,'0');
+}
+
+// ══════════════════════════════════════════════════
+// LIVE PREVIEW
+// ══════════════════════════════════════════════════
+function buildProductObject(imageUrls) {
+  const category = document.getElementById('f-category')?.value||'';
+  return {
+    id: generateId(category),
+    name: document.getElementById('f-name')?.value||'',
+    category,
+    subcategory: document.getElementById('f-subcategory')?.value||'',
+    description: document.getElementById('f-description')?.value||'',
+    price: parseFloat(document.getElementById('f-price')?.value)||0,
+    sizes: [...(tagStore['add-sizes']||[])],
+    badge: document.getElementById('f-badge')?.value||'',
+    images: imageUrls || selectedFiles.map(()=>'[pending]'),
+    colors: [...(tagStore['add-colors']||[])],
+    fabric: document.getElementById('f-fabric')?.value||'',
+    featured: isFeatured
+  };
+}
+
+function livePreview() {
+  let obj;
+  if (currentMode==='add') obj = buildProductObject();
+  else if (currentMode==='manage'||currentMode==='bulk') { document.getElementById('json-preview').innerHTML='// Switch to Add mode to see preview'; return; }
+  if (obj) document.getElementById('json-preview').innerHTML = syntaxHighlight(JSON.stringify(obj,null,2));
+  document.getElementById('product-id-pill').textContent='ID: '+(obj?.id||'auto');
+}
+
+function syntaxHighlight(json) {
+  return json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"([^"]+)":/g,'<span class="json-key">"$1"</span>:')
+    .replace(/: "([^"]*)"/g,': <span class="json-str">"$1"</span>')
+    .replace(/: (\d+\.?\d*)/g,': <span class="json-num">$1</span>')
+    .replace(/: (true|false)/g,': <span class="json-bool">$1</span>');
+}
+
+// ══════════════════════════════════════════════════
+// AI DESCRIPTION
+// ══════════════════════════════════════════════════
+async function generateDescriptionFor(context) {
+  if (!config.aiKey) { toast('⚠ No AI key in Config', 'warn'); return; }
+  let name,category,subcategory,fabric,colors,sizes,targetEl,btnEl,iconEl;
+  if (context==='add') {
+    name=document.getElementById('f-name').value; category=document.getElementById('f-category').value;
+    subcategory=document.getElementById('f-subcategory').value; fabric=document.getElementById('f-fabric').value;
+    colors=tagStore['add-colors']?.join(', ')||''; sizes=tagStore['add-sizes']?.join(', ')||'';
+    targetEl=document.getElementById('f-description'); btnEl=document.getElementById('ai-btn'); iconEl=document.getElementById('ai-icon');
+  } else if (context==='edit') {
+    name=document.getElementById('ef-name').value; category=document.getElementById('ef-category').value;
+    subcategory=document.getElementById('ef-subcategory').value; fabric=document.getElementById('ef-fabric').value;
+    colors=tagStore['edit-colors']?.join(', ')||''; sizes=tagStore['edit-sizes']?.join(', ')||'';
+    targetEl=document.getElementById('ef-description'); btnEl=document.getElementById('edit-ai-btn'); iconEl=document.getElementById('edit-ai-icon');
+  } else {
+    name=document.getElementById('bk-name').value; category=document.getElementById('bk-category').value;
+    subcategory=document.getElementById('bk-subcategory').value; fabric=document.getElementById('bk-fabric').value;
+    colors=document.getElementById('bk-colors').value; sizes=document.getElementById('bk-sizes').value;
+    btnEl=document.getElementById('bulk-upload-all-btn'); iconEl=document.getElementById('bulk-ai-icon');
+    targetEl=null;
+  }
+  if (!name||!category) { toast('⚠ Fill Name & Category first', 'warn'); return; }
+  btnEl.disabled=true; iconEl.innerHTML='<span class="spinner"></span>';
+  const prompt=`Write a short, appealing product description (1-2 sentences, max 120 chars) for a kids clothing item:
+Name: ${name}, Category: ${category} ${subcategory}, Fabric: ${fabric||'cotton'}, Colors: ${colors||'assorted'}, Sizes: ${sizes||'various'}
+Style: warm, parent-focused. No emoji. No price.`;
+  try {
+    let desc='';
+    if (config.aiProvider==='claude') {
+      const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':config.aiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,messages:[{role:'user',content:prompt}]})});
+      const data=await res.json(); if(data.error) throw new Error(data.error.message); desc=data.content[0].text.trim();
+    } else {
+      const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+config.aiKey},body:JSON.stringify({model:'gpt-4o-mini',max_tokens:100,messages:[{role:'user',content:prompt}]})});
+      const data=await res.json(); if(data.error) throw new Error(data.error.message); desc=data.choices[0].message.content.trim();
+    }
+    if (targetEl) { targetEl.value=desc; livePreview(); }
+    else toast('AI: '+desc,'success');
+    toast('✦ AI description generated!','success');
+  } catch(err) { toast('✕ AI: '+err.message,'error'); }
+  btnEl.disabled=false; iconEl.innerHTML=context==='bulk'?'✦ AI Desc':'✦';
+}
+
+// ══════════════════════════════════════════════════
+// UPLOAD (Add mode)
+// ══════════════════════════════════════════════════
+function buildUploadSummary() {
+  const name=document.getElementById('f-name').value||'(unnamed)';
+  const price=document.getElementById('f-price').value;
+  const cat=document.getElementById('f-category').value;
+  const sub=document.getElementById('f-subcategory').value;
+  document.getElementById('upload-summary-box').innerHTML=`<strong>${name}</strong> · ₹${price} · ${cat}/${sub} · ${selectedFiles.length} image(s) · ${tagStore['add-sizes']?.length||0} sizes`;
+}
+
+function log(msg,type='info') {
+  const c=document.getElementById('upload-log');
+  const d=document.createElement('div'); d.className='log-line '+type; d.textContent=msg;
+  c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+
+async function uploadImage(file) {
+  const fd=new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', config.uploadPreset);
+  fd.append('folder','tinythreads');
+  const res=await fetch(`https://api.cloudinary.com/v1_1/${config.cloudName}/image/upload`,{method:'POST',body:fd});
+  const data=await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.secure_url;
+}
+
+async function startUpload() {
+  if (!config.cloudName||!config.uploadPreset) { toast('⚠ Configure Cloudinary first','warn'); return; }
+  if (!document.getElementById('f-name').value||!document.getElementById('f-category').value) { toast('⚠ Name & Category required','warn'); goToStep(2); return; }
+  const btn=document.getElementById('upload-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Uploading…';
+  document.getElementById('progress-wrap').style.display='block';
+  document.getElementById('upload-status-pill').textContent='Uploading…';
+  document.getElementById('upload-log').innerHTML='';
+  const urls=[]; const total=selectedFiles.length;
+  try {
+    for (let i=0;i<total;i++) {
+      log(`⬆ Uploading ${selectedFiles[i].file.name} (${i+1}/${total})…`,'warn');
+      const url=await uploadImage(selectedFiles[i].file);
+      urls.push(url);
+      log('✓ '+url.split('/').pop(),'success');
+      document.getElementById('progress-bar').style.width=Math.round(((i+1)/total)*85)+'%';
+    }
+    log('📦 Saving product…','info');
+    const p=buildProductObject(urls);
+    products.push(p);
+    persist();
+    document.getElementById('progress-bar').style.width='100%';
+    document.getElementById('upload-status-pill').textContent='✓ Saved';
+    log('✓ Saved: '+p.name,'success');
+    document.getElementById('manual-json-out').textContent=JSON.stringify(p,null,2);
+    document.getElementById('new-product-btn').style.display='flex';
+    btn.innerHTML='✓ Done!'; btn.classList.remove('btn-primary'); btn.classList.add('btn-success');
+    updateAll(); toast('🎉 '+p.name+' saved!','success');
+  } catch(err) {
+    log('✕ '+err.message,'error'); toast('✕ Upload failed: '+err.message,'error');
+    btn.disabled=false; btn.innerHTML='☁ Retry Upload';
+    document.getElementById('upload-status-pill').textContent='Error';
+  }
+}
+
+// ══════════════════════════════════════════════════
+// MANAGE MODE
+// ══════════════════════════════════════════════════
+const CAT_EMOJI={boys:'👦',girls:'👧',babies:'👶'};
+
+function renderManageTable() {
+  const q=(document.getElementById('manage-search')?.value||'').toLowerCase();
+  const catF=document.getElementById('manage-filter-cat')?.value||'';
+  let filtered=products.filter((p,i)=>{
+    const matchQ=!q||p.name.toLowerCase().includes(q)||p.id.includes(q)||p.category.includes(q)||p.subcategory.includes(q);
+    const matchC=!catF||p.category===catF;
+    return matchQ&&matchC;
+  });
+  const wrap=document.getElementById('manage-table-wrap');
+  if (!filtered.length) { wrap.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><p>No products match your search.</p></div>'; return; }
+  wrap.innerHTML=`<table class="manage-table"><thead><tr>
+    <th></th><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Images</th><th>Featured</th><th>Actions</th>
+  </tr></thead><tbody>
+  ${filtered.map(p=>{
+    const realIdx=products.indexOf(p);
+    const thumb=p.images?.[0]?`<img src="${p.images[0]}" style="width:36px;height:36px;border-radius:7px;object-fit:cover;">`:`<div style="width:36px;height:36px;border-radius:7px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;">${CAT_EMOJI[p.category]||'🏷'}</div>`;
+    return `<tr>
+      <td>${thumb}</td>
+      <td><span class="badge-chip">${p.id}</span></td>
+      <td style="font-weight:700;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</td>
+      <td style="font-size:12px;color:var(--muted);">${p.category} / ${p.subcategory}</td>
+      <td style="font-family:var(--mono);color:var(--accent);">₹${p.price}</td>
+      <td style="font-family:var(--mono);color:var(--muted);font-size:12px;">${(p.images||[]).length}</td>
+      <td style="text-align:center;">${p.featured?'⭐':'—'}</td>
+      <td><div class="actions-cell">
+        <button class="item-btn" onclick="openEditModal(${realIdx})">✏ Edit</button>
+        <button class="item-btn del" onclick="openDeleteConfirm(${realIdx})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('')}
+  </tbody></table>`;
+}
+
+// ── EDIT MODAL ──
+function openEditModal(idx) {
+  editProductIndex=idx;
+  const p=products[idx];
+  document.getElementById('edit-modal-id').textContent=p.id;
+  document.getElementById('ef-name').value=p.name||'';
+  document.getElementById('ef-price').value=p.price||'';
+  document.getElementById('ef-category').value=p.category||'boys';
+  document.getElementById('ef-subcategory').value=p.subcategory||'summer';
+  document.getElementById('ef-fabric').value=p.fabric||'';
+  document.getElementById('ef-badge').value=p.badge||'';
+  document.getElementById('ef-description').value=p.description||'';
+  editIsFeatured=p.featured||false;
+  document.getElementById('ef-featured').classList.toggle('on',editIsFeatured);
+  tagStore['edit-sizes']=[...(p.sizes||[])];
+  tagStore['edit-colors']=[...(p.colors||[])];
+  renderTagWrap('edit-sizes'); renderTagWrap('edit-colors');
+  // Build image list
+  editProductImages=(p.images||[]).map(url=>({url, file:null}));
+  renderEditImageGrid();
+  document.getElementById('edit-modal').style.display='flex';
+}
+
+function closeEditModal() { document.getElementById('edit-modal').style.display='none'; editProductImages=[]; editProductIndex=-1; }
+
+function renderEditImageGrid() {
+  const grid=document.getElementById('edit-image-grid');
+  grid.innerHTML=editProductImages.map((img,i)=>`
+    <div class="img-thumb" id="ethumb-${i}">
+      <img src="${img.file ? URL.createObjectURL(img.file) : img.url}" alt="">
+      <div class="img-order">${i+1}</div>
+      ${img.file?'<div class="img-name" style="background:rgba(91,156,246,0.7);color:white;">NEW</div>':''}
+      <button class="img-remove" onclick="removeEditImage(${i})">✕</button>
+      <div class="img-drag-hint">drag to reorder</div>
+    </div>`).join('');
+  makeDraggable(grid,'edit');
+}
+
+function removeEditImage(i) { editProductImages.splice(i,1); renderEditImageGrid(); }
+
+function editAddImages(files) {
+  Array.from(files).forEach(f => { if(f.type.startsWith('image/')) editProductImages.push({url:'',file:f}); });
+  renderEditImageGrid();
+}
+
+async function saveEditProduct() {
+  const btn=document.getElementById('edit-save-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Saving…';
+  try {
+    // Upload any new files
+    const finalImages=[];
+    for (const img of editProductImages) {
+      if (img.file) {
+        if (!config.cloudName||!config.uploadPreset) { toast('⚠ Cloudinary not configured — new images skipped','warn'); }
+        else { const url=await uploadImage(img.file); finalImages.push(url); }
+      } else { finalImages.push(img.url); }
+    }
+    const p=products[editProductIndex];
+    p.name=document.getElementById('ef-name').value;
+    p.price=parseFloat(document.getElementById('ef-price').value)||0;
+    p.category=document.getElementById('ef-category').value;
+    p.subcategory=document.getElementById('ef-subcategory').value;
+    p.fabric=document.getElementById('ef-fabric').value;
+    p.badge=document.getElementById('ef-badge').value;
+    p.description=document.getElementById('ef-description').value;
+    p.featured=editIsFeatured;
+    p.sizes=[...(tagStore['edit-sizes']||[])];
+    p.colors=[...(tagStore['edit-colors']||[])];
+    p.images=finalImages;
+    persist(); updateAll(); closeEditModal();
+    toast('✅ '+p.name+' updated!','success');
+    if (currentMode==='manage') renderManageTable();
+  } catch(err) { toast('✕ Save failed: '+err.message,'error'); }
+  btn.disabled=false; btn.innerHTML='💾 Save Changes';
+}
+
+// ── DELETE ──
+function openDeleteConfirm(idx) {
+  deleteTargetIndex=idx;
+  document.getElementById('confirm-product-name').textContent='"'+products[idx].name+'"';
+  document.getElementById('confirm-modal').style.display='flex';
+}
+function closeConfirm() { document.getElementById('confirm-modal').style.display='none'; deleteTargetIndex=-1; }
+function confirmDelete() {
+  if (deleteTargetIndex<0) return;
+  const name=products[deleteTargetIndex].name;
+  products.splice(deleteTargetIndex,1);
+  persist(); updateAll(); closeConfirm();
+  if (currentMode==='manage') renderManageTable();
+  toast('🗑 Deleted: '+name,'warn');
+}
+function deleteAllConfirm() {
+  if (!products.length) { toast('Nothing to delete','warn'); return; }
+  if (confirm(`Delete ALL ${products.length} products? This cannot be undone.`)) {
+    products=[]; persist(); updateAll(); renderManageTable(); toast('🗑 All products cleared','warn');
+  }
+}
+
+// ══════════════════════════════════════════════════
+// BULK IMPORT
+// ══════════════════════════════════════════════════
+const bulkDropZone=document.getElementById('bulk-drop-zone');
+bulkDropZone.addEventListener('dragover',e=>{e.preventDefault();bulkDropZone.classList.add('drag-over');});
+bulkDropZone.addEventListener('dragleave',()=>bulkDropZone.classList.remove('drag-over'));
+bulkDropZone.addEventListener('drop',e=>{e.preventDefault();bulkDropZone.classList.remove('drag-over');bulkAddImages(e.dataTransfer.files);});
+
+function bulkAddImages(files) {
+  bulkStagingFiles=[];
+  Array.from(files).forEach(f=>{ if(f.type.startsWith('image/')) bulkStagingFiles.push({file:f,objectUrl:URL.createObjectURL(f)}); });
+  if (!bulkStagingFiles.length) return;
+  document.getElementById('bulk-staging').style.display='block';
+  bulkDropZone.classList.add('has-data');
+  renderBulkStagingGrid();
+}
+
+function renderBulkStagingGrid() {
+  const grid=document.getElementById('bulk-staging-grid');
+  grid.innerHTML=bulkStagingFiles.map((f,i)=>`
+    <div class="img-thumb" id="bsthumb-${i}">
+      <img src="${f.objectUrl}" alt="">
+      <div class="img-order">${i+1}</div>
+      <div class="img-name">${f.file.name}</div>
+      <button class="img-remove" onclick="removeBulkStagingImg(${i})">✕</button>
+      <div class="img-drag-hint">drag to reorder</div>
+    </div>`).join('');
+  makeDraggable(grid,'bulk');
+}
+
+function removeBulkStagingImg(i) { URL.revokeObjectURL(bulkStagingFiles[i].objectUrl); bulkStagingFiles.splice(i,1); renderBulkStagingGrid(); }
+function clearBulkStaging() { bulkStagingFiles.forEach(f=>URL.revokeObjectURL(f.objectUrl)); bulkStagingFiles=[]; document.getElementById('bulk-staging').style.display='none'; bulkDropZone.classList.remove('has-data'); }
+
+function addToBulkQueue() {
+  const name=document.getElementById('bk-name').value.trim();
+  const price=document.getElementById('bk-price').value;
+  if (!name||!price) { toast('⚠ Name & Price required','warn'); return; }
+  if (!bulkStagingFiles.length) { toast('⚠ No images staged','warn'); return; }
+  const item={
+    files:[...bulkStagingFiles],
+    name, price:parseFloat(price)||0,
+    category:document.getElementById('bk-category').value,
+    subcategory:document.getElementById('bk-subcategory').value,
+    fabric:document.getElementById('bk-fabric').value,
+    badge:document.getElementById('bk-badge').value,
+    sizes:document.getElementById('bk-sizes').value.split(',').map(s=>s.trim()).filter(Boolean),
+    colors:document.getElementById('bk-colors').value.split(',').map(c=>c.trim()).filter(Boolean),
+    status:'queued'
+  };
+  bulkQueue.push(item);
+  renderBulkQueue();
+  clearBulkStaging();
+  // Reset mini form
+  ['bk-name','bk-price','bk-fabric','bk-sizes','bk-colors'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('bulk-queue-wrap').style.display='block';
+  document.getElementById('bulk-badge').textContent=bulkQueue.length;
+  document.getElementById('bulk-count-pill').textContent=bulkQueue.length+' queued';
+  toast('➕ Added to queue: '+name,'success');
+}
+
+function renderBulkQueue() {
+  const container=document.getElementById('bulk-queue');
+  document.getElementById('queue-count').textContent=bulkQueue.length;
+  if (!bulkQueue.length) { container.innerHTML='<div class="empty-state" style="padding:20px;"><p>Queue is empty. Drop images and fill details to add products.</p></div>'; return; }
+  container.innerHTML=bulkQueue.map((item,i)=>`
+    <div class="bulk-item ${item.status}" id="bqi-${i}">
+      <div class="bulk-item-imgs">${item.files.slice(0,3).map(f=>`<img class="bulk-img-mini" src="${f.objectUrl}">`).join('')}${item.files.length>3?`<div class="bulk-img-mini" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);">+${item.files.length-3}</div>`:''}</div>
+      <div class="bulk-item-info">
+        <div class="bulk-item-name">${item.name}</div>
+        <div class="bulk-item-count">₹${item.price} · ${item.category}/${item.subcategory} · ${item.files.length} img</div>
+      </div>
+      <span class="bulk-item-status ${item.status}">${{queued:'⏳ Queued',uploading:'⬆ Uploading…',done:'✓ Done',error:'✕ Error'}[item.status]||item.status}</span>
+      ${item.status==='queued'?`<button class="bulk-item-remove" onclick="removeBulkQueueItem(${i})">✕</button>`:''}
+    </div>`).join('');
+}
+
+function removeBulkQueueItem(i) { bulkQueue.splice(i,1); renderBulkQueue(); document.getElementById('bulk-badge').textContent=bulkQueue.filter(q=>q.status==='queued').length; }
+function clearBulkQueue() { bulkQueue=[]; renderBulkQueue(); document.getElementById('bulk-queue-wrap').style.display='none'; document.getElementById('bulk-badge').textContent=0; }
+
+function bulkLog(msg,type='info') {
+  const c=document.getElementById('bulk-log');
+  const d=document.createElement('div'); d.className='log-line '+type; d.textContent=msg;
+  c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+
+async function startBulkUpload() {
+  if (!config.cloudName||!config.uploadPreset) { toast('⚠ Configure Cloudinary first','warn'); return; }
+  const queued=bulkQueue.filter(q=>q.status==='queued');
+  if (!queued.length) { toast('⚠ Nothing to upload','warn'); return; }
+  const btn=document.getElementById('bulk-upload-all-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Uploading…';
+  document.getElementById('bulk-progress-wrap').style.display='block';
+  document.getElementById('bulk-log').style.display='block';
+  document.getElementById('bulk-log').innerHTML='';
+  let processed=0; const total=queued.length;
+  for (const item of queued) {
+    item.status='uploading'; renderBulkQueue();
+    try {
+      bulkLog(`📦 Uploading ${item.name} (${item.files.length} images)…`,'warn');
+      const urls=[];
+      for (const f of item.files) { const url=await uploadImage(f.file); urls.push(url); bulkLog('  ✓ '+f.file.name,'success'); }
+      const p={ id:generateId(item.category), name:item.name, category:item.category, subcategory:item.subcategory, description:'', price:item.price, sizes:item.sizes, badge:item.badge, images:urls, colors:item.colors, fabric:item.fabric, featured:false };
+      products.push(p); persist();
+      item.status='done'; processed++;
+      document.getElementById('bulk-progress-bar').style.width=Math.round((processed/total)*100)+'%';
+      bulkLog('✓ Saved: '+p.name,'success');
+    } catch(err) { item.status='error'; bulkLog('✕ '+item.name+': '+err.message,'error'); }
+    renderBulkQueue();
+  }
+  updateAll();
+  btn.disabled=false; btn.innerHTML='☁ Upload All to Cloudinary & Save';
+  toast(`✅ Bulk done! ${processed}/${total} products saved`,'success');
+}
+
+// ══════════════════════════════════════════════════
+// EXPORT / COPY
+// ══════════════════════════════════════════════════
+function exportFullJson() {
+  const out={store:{name:"Tiny Threads Kidswear",whatsapp:"917879976016",website:"mytinythreads.in"},products};
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='products.json'; a.click();
+  toast('⬇ products.json downloaded!','success');
+}
+function copyManualJson() {
+  const t=document.getElementById('manual-json-out').textContent;
+  if (!t||t==='Upload to see JSON output here.') { toast('⚠ Nothing to copy yet','warn'); return; }
+  navigator.clipboard.writeText(t).then(()=>toast('📋 Copied!','success'));
+}
+function loadLocalJson() {
+  const input=document.createElement('input'); input.type='file'; input.accept='.json';
+  input.onchange=e=>{
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      try {
+        const data=JSON.parse(ev.target.result);
+        products=data.products||data||[];
+        persist(); updateAll(); toast('✓ Loaded '+products.length+' products','success');
+        if(currentMode==='manage') renderManageTable();
+      } catch { toast('✕ Invalid JSON','error'); }
+    };
+    r.readAsText(f);
+  };
+  input.click();
+}
+
+// ══════════════════════════════════════════════════
+// PERSIST & UI UPDATE
+// ══════════════════════════════════════════════════
+function persist() { localStorage.setItem('tt_products',JSON.stringify(products)); }
+
+function updateAll() {
+  const n=products.length;
+  document.getElementById('header-count').textContent=n+' product'+(n!==1?'s':'');
+  document.getElementById('saved-count').textContent=n;
+  document.getElementById('manage-badge').textContent=n;
+  updateSideProductList();
+}
+
+function updateSideProductList() {
+  const list=document.getElementById('product-list');
+  if (!products.length) { list.innerHTML='<div class="empty-state"><div class="empty-icon">🗂</div><p>No products yet.<br>Add your first!</p></div>'; return; }
+  list.innerHTML=[...products].reverse().map((p,ri)=>{
+    const realIdx=products.indexOf(p);
+    const thumb=p.images?.[0]?`<img src="${p.images[0]}" alt="" style="width:100%;height:100%;object-fit:cover;">`:(CAT_EMOJI[p.category]||'🏷');
+    return `<div class="product-item">
+      <div class="product-item-img">${thumb}</div>
+      <div class="product-item-info">
+        <div class="product-item-name">${p.name}</div>
+        <div class="product-item-meta">₹${p.price} · ${p.category}/${p.subcategory}</div>
+      </div>
+      <span class="product-item-id">${p.id}</span>
+      <div class="product-item-actions">
+        <button class="item-btn" onclick="openEditModal(${realIdx});switchMode('manage')">✏</button>
+        <button class="item-btn del" onclick="openDeleteConfirm(${realIdx})">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════
+// RESET (Add mode)
+// ══════════════════════════════════════════════════
+function resetAll() {
+  clearImages();
+  tagStore['add-sizes']=[]; tagStore['add-colors']=[];
+  renderTagWrap('add-sizes'); renderTagWrap('add-colors');
+  isFeatured=false;
+  ['f-name','f-price','f-fabric','f-description'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  ['f-category','f-subcategory','f-badge'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('f-featured').classList.remove('on');
+  document.getElementById('upload-log').innerHTML='<div class="log-line info">⏳ Ready to upload.</div>';
+  document.getElementById('manual-json-out').textContent='Upload to see JSON output here.';
+  document.getElementById('progress-bar').style.width='0%';
+  document.getElementById('progress-wrap').style.display='none';
+  document.getElementById('upload-status-pill').textContent='Ready';
+  const ubtn=document.getElementById('upload-btn');
+  ubtn.disabled=false; ubtn.className='btn btn-primary'; ubtn.innerHTML='☁ Upload to Cloudinary & Save';
+  document.getElementById('new-product-btn').style.display='none';
+  document.getElementById('json-preview').innerHTML='// Fill the form to preview…';
+  document.getElementById('product-id-pill').textContent='ID: auto';
+  goToStep(1);
+}
+
+// ══════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════
+function toast(msg,type='info') {
+  const icons={success:'✅',error:'❌',warn:'⚠️',info:'ℹ️'};
+  const wrap=document.getElementById('toast-wrap');
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML=`<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  wrap.appendChild(t);
+  setTimeout(()=>t.remove(),4000);
+}
+
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+loadConfig();
+livePreview();
+</script>
+</body>
+</html>
