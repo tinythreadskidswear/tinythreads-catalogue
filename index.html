@@ -290,7 +290,84 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
   .footer-bottom p{line-height:1.6;}
 }
 
-/* FLOATING WA BUTTON */
+/* ===================== PRODUCT DETAIL PAGE ===================== */
+#page-product{background:var(--warm);}
+.pdp-back{display:flex;align-items:center;gap:8px;padding:14px 1.5rem;background:white;border-bottom:1px solid #F0E0DC;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--red);position:sticky;top:72px;z-index:100;}
+.pdp-back svg{width:18px;height:18px;flex-shrink:0;}
+.pdp-back:hover{background:var(--red-light);}
+.pdp-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:2.5rem 2rem 4rem;}
+@media(max-width:760px){
+  .pdp-wrap{grid-template-columns:1fr;gap:0;padding:0 0 5rem;}
+  .pdp-back{top:60px;padding:12px 1rem;}
+}
+
+/* Gallery */
+.pdp-gallery{position:relative;}
+.pdp-gallery-swiper{border-radius:20px;overflow:hidden;background:#FAF5F5;}
+.pdp-gallery-swiper .swiper-slide img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;}
+.pdp-gallery-swiper .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;font-size:64px;}
+.pdp-gallery-swiper .swiper-button-next,.pdp-gallery-swiper .swiper-button-prev{color:var(--red);background:white;border-radius:50%;width:36px;height:36px;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
+.pdp-gallery-swiper .swiper-button-next:after,.pdp-gallery-swiper .swiper-button-prev:after{font-size:13px;font-weight:800;}
+.pdp-gallery-swiper .swiper-pagination-bullet{background:#ccc;opacity:1;}
+.pdp-gallery-swiper .swiper-pagination-bullet-active{background:var(--red);}
+.pdp-thumbs{margin-top:12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;}
+.pdp-thumbs::-webkit-scrollbar{display:none;}
+.pdp-thumb{width:64px;height:64px;border-radius:10px;overflow:hidden;flex-shrink:0;border:2px solid transparent;cursor:pointer;transition:border-color 0.2s;}
+.pdp-thumb.active{border-color:var(--red);}
+.pdp-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+@media(max-width:760px){
+  .pdp-gallery{border-radius:0;}
+  .pdp-gallery-swiper{border-radius:0;}
+  .pdp-thumbs{padding:10px 1rem 0;}
+}
+
+/* Info panel */
+.pdp-info{display:flex;flex-direction:column;gap:0;}
+@media(max-width:760px){.pdp-info{padding:1.2rem 1rem 0;}}
+.pdp-category-tag{display:inline-flex;align-items:center;gap:6px;background:var(--red-light);color:var(--red);border-radius:20px;padding:4px 14px;font-size:11.5px;font-weight:600;margin-bottom:0.8rem;width:fit-content;}
+.pdp-name{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text);line-height:1.2;margin-bottom:0.5rem;}
+.pdp-badge{display:inline-block;background:var(--red);color:white;font-size:11px;padding:3px 12px;border-radius:10px;font-weight:600;margin-bottom:0.8rem;}
+.pdp-price{font-size:2rem;font-weight:800;color:var(--red);margin-bottom:1.2rem;font-family:'Playfair Display',serif;}
+.pdp-price span{font-size:14px;font-weight:400;color:var(--muted);margin-left:4px;}
+.pdp-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:1.4rem;padding-bottom:1.4rem;border-bottom:1px solid #F0E0DC;}
+.pdp-section-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
+.pdp-fabric-chip{display:inline-flex;align-items:center;gap:6px;background:#F5F0EA;color:var(--muted);border-radius:8px;padding:5px 12px;font-size:12.5px;margin-bottom:1.4rem;}
+
+/* Size selector on PDP */
+.pdp-sizes{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.4rem;}
+.pdp-size-btn{background:white;border:1.5px solid #E0D0CC;border-radius:10px;padding:7px 14px;font-size:12.5px;font-weight:500;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;color:var(--text);}
+.pdp-size-btn:hover{border-color:var(--red);color:var(--red);}
+.pdp-size-btn.active{background:var(--red);color:white;border-color:var(--red);}
+
+/* Color selector on PDP */
+.pdp-colors{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.6rem;align-items:center;}
+.pdp-color-btn{width:28px;height:28px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:all 0.15s;outline:2px solid transparent;outline-offset:2px;}
+.pdp-color-btn:hover,.pdp-color-btn.active{outline-color:var(--red);}
+.pdp-color-name{font-size:12px;color:var(--muted);margin-left:4px;}
+
+/* PDP Action buttons */
+.pdp-actions{display:flex;flex-direction:column;gap:10px;margin-top:0.4rem;}
+.pdp-add-btn{background:var(--red);color:white;border:none;padding:15px;border-radius:16px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.pdp-add-btn:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(183,28,28,0.3);}
+.pdp-add-btn.added{background:#25D366;}
+.pdp-wa-btn{background:white;color:#25D366;border:2px solid #25D366;padding:13px;border-radius:16px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;font-family:'DM Sans',sans-serif;text-decoration:none;}
+.pdp-wa-btn:hover{background:#25D366;color:white;}
+.pdp-share-row{display:flex;gap:8px;}
+.pdp-share-btn{flex:1;background:white;color:var(--muted);border:1.5px solid #E0D0CC;padding:11px;border-radius:14px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.pdp-share-btn:hover{border-color:var(--red);color:var(--red);}
+.pdp-share-wa-btn{flex:1;background:#E8F5E9;color:#1B5E20;border:1.5px solid #A5D6A7;padding:11px;border-radius:14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.pdp-share-wa-btn:hover{background:#25D366;color:white;border-color:#25D366;}
+
+/* Share button on product card */
+.prod-share-btn{background:transparent;color:var(--muted);border:1.5px solid #E0D0CC;padding:5px 7px;border-radius:10px;font-size:10px;cursor:pointer;display:flex;align-items:center;gap:3px;transition:all 0.18s;line-height:1;}
+.prod-share-btn:hover{border-color:var(--red);color:var(--red);}
+.prod-share-btn svg{width:12px;height:12px;flex-shrink:0;}
+
+/* Share toast special */
+.share-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:#1B5E20;color:white;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;z-index:20000;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
+.share-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ===================== FLOATING WA BUTTON ===================== */
 .float-wa{position:fixed;bottom:24px;right:24px;z-index:9999;background:#25D366;color:white;border:none;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(37,211,102,0.5);text-decoration:none;animation:waPulse 2s ease-in-out infinite;}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 18px rgba(37,211,102,0.5);}50%{box-shadow:0 4px 28px rgba(37,211,102,0.8);}}
 .float-wa svg{width:30px;height:30px;fill:white;}
@@ -688,6 +765,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
 
 <canvas id="anim-canvas"></canvas>
 <div class="toast" id="toast"></div>
+<div class="share-toast" id="share-toast"></div>
 
 <!-- BASKET OVERLAY + DRAWER -->
 <div class="basket-overlay" id="basket-overlay" onclick="closeBasket()"></div>
@@ -1153,6 +1231,30 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
   </div>
 </div>
 
+<!-- ==================== PRODUCT DETAIL PAGE ==================== -->
+<div id="page-product" class="page">
+  <div class="pdp-back" onclick="closePDP()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span id="pdp-back-label">Back</span>
+  </div>
+  <div class="pdp-wrap">
+    <!-- Gallery -->
+    <div class="pdp-gallery">
+      <div class="swiper pdp-gallery-swiper" id="pdp-main-swiper">
+        <div class="swiper-wrapper" id="pdp-slides"></div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+      <div class="pdp-thumbs" id="pdp-thumbs"></div>
+    </div>
+    <!-- Info -->
+    <div class="pdp-info" id="pdp-info">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
 <script src="products.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
@@ -1182,6 +1284,7 @@ async function loadProducts() {
   renderAllGrids();
   initCatSwipers();
   initTestimonialSwiper();
+  handleURLRouting(); // open product page if URL has ?product=id
 }
 
 function renderAllGrids() {
@@ -1235,9 +1338,9 @@ function productCard(p) {
   const colorsHtml = p.colors ? p.colors.map(c => { const bg = COLOR_MAP[c]||'#CCC'; return `<span class="color-dot" title="${c}" style="background:${bg}"></span>`; }).join('') : '';
   const subcatLabel = {traditional:'Traditional',summer:'Summer',winter:'Winter',nightwear:'Nightwear',undergarments:'Undergarments'}[p.subcategory]||p.subcategory;
   return `<div class="prod-card" id="card-${key}">
-    <div class="prod-swiper-wrap">${badgeHtml}<div class="swiper prod-swiper"><div class="swiper-wrapper">${slidesHtml}</div>${p.images&&p.images.length>1?'<div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div>':''}</div></div>
+    <div class="prod-swiper-wrap" style="cursor:pointer;" onclick="openPDP('${key}')">${badgeHtml}<div class="swiper prod-swiper"><div class="swiper-wrapper">${slidesHtml}</div>${p.images&&p.images.length>1?'<div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div>':''}</div></div>
     <div class="prod-info">
-      <div class="prod-name">${p.name}</div>
+      <div class="prod-name" style="cursor:pointer;" onclick="openPDP('${key}')">${p.name}</div>
       <div class="prod-meta">
         <div class="prod-desc">${subcatLabel} · ${p.description?p.description.substring(0,55)+(p.description.length>55?'…':''):''}</div>
         <span class="fabric-chip">🧶 ${p.fabric||'Cotton'}</span>
@@ -1247,6 +1350,7 @@ function productCard(p) {
       <div class="prod-footer">
         <span class="prod-price">₹${p.price.toLocaleString('en-IN')}</span>
         <div class="prod-actions">
+          <button type="button" class="prod-share-btn" onclick="shareProduct('${key}')" aria-label="Share ${p.name}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
           <button type="button" class="add-basket-btn" id="abtn-${key}" onclick="addToBasket('${key}')">🛒 Add</button>
           <button type="button" class="prod-wa-btn" onclick="waEnquire('${p.name}','${p.price}')" aria-label="Enquire about ${p.name} on WhatsApp"><svg style="width:13px;height:13px;fill:#25D366;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
         </div>
@@ -1428,6 +1532,212 @@ function showPage(id) {
     });
   });
 }
+
+// ===================== PRODUCT DETAIL PAGE =====================
+let pdpPreviousPage = 'home';
+let pdpSwiperInstance = null;
+
+function getProductURL(id) {
+  return window.location.origin + window.location.pathname + '?product=' + id;
+}
+
+function openPDP(id) {
+  const p = allProducts.find(x => x.id === id);
+  if (!p) return;
+
+  // Remember which page we came from
+  const activePage = document.querySelector('.page.active');
+  pdpPreviousPage = activePage ? activePage.id.replace('page-','') : 'home';
+
+  // Update URL without reload
+  history.pushState({product: id, prev: pdpPreviousPage}, '', '?product=' + id);
+
+  renderPDP(p);
+  showPage('product');
+}
+
+function closePDP() {
+  history.pushState({}, '', window.location.pathname);
+  showPage(pdpPreviousPage);
+  window.scrollTo({top:0,behavior:'auto'});
+}
+
+function renderPDP(p) {
+  const subIcons = {traditional:'🧵',summer:'☀️',winter:'🧥',nightwear:'🌙',undergarments:'🧸'};
+  const subcatLabel = {traditional:'Traditional',summer:'Summer',winter:'Winter',nightwear:'Nightwear',undergarments:'Undergarments'}[p.subcategory]||p.subcategory;
+  const catLabel = {boys:'👦 Boys',girls:'👧 Girls',babies:'👶 Babies'}[p.category]||p.category;
+  const hasImages = p.images && p.images.length > 0;
+
+  // Back label
+  document.getElementById('pdp-back-label').textContent = 'Back to ' + ({boys:'Boys',girls:'Girls',babies:'Babies',home:'Home'}[pdpPreviousPage]||'Home');
+
+  // Gallery slides
+  const slidesEl = document.getElementById('pdp-slides');
+  const thumbsEl = document.getElementById('pdp-thumbs');
+  if (hasImages) {
+    slidesEl.innerHTML = p.images.map(url => {
+      const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_900,q_auto,f_auto/') : url;
+      return `<div class="swiper-slide"><img src="${t}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;"></div>`;
+    }).join('');
+    thumbsEl.innerHTML = p.images.map((url,i) => {
+      const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_1:1,w_200,q_auto,f_auto/') : url;
+      return `<div class="pdp-thumb ${i===0?'active':''}" onclick="pdpGoTo(${i})" data-idx="${i}"><img src="${t}" alt="${p.name} ${i+1}" onerror="if(this.src!=='${url}')this.src='${url}';"></div>`;
+    }).join('');
+  } else {
+    slidesEl.innerHTML = `<div class="swiper-slide"><div class="slide-ph" style="display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;font-size:80px;">${subIcons[p.subcategory]||'📸'}</div></div>`;
+    thumbsEl.innerHTML = '';
+  }
+
+  // Destroy old swiper if any
+  if (pdpSwiperInstance) { try{pdpSwiperInstance.destroy(true,true);}catch(e){} pdpSwiperInstance=null; }
+  pdpSwiperInstance = new Swiper('.pdp-gallery-swiper', {
+    loop: p.images && p.images.length > 1,
+    pagination: { el: '.pdp-gallery-swiper .swiper-pagination', clickable: true },
+    navigation: { nextEl: '.pdp-gallery-swiper .swiper-button-next', prevEl: '.pdp-gallery-swiper .swiper-button-prev' },
+    on: {
+      slideChange() {
+        const idx = this.realIndex;
+        document.querySelectorAll('.pdp-thumb').forEach((t,i) => t.classList.toggle('active', i===idx));
+      }
+    }
+  });
+
+  // Info panel
+  const colorsHtml = p.colors && p.colors.length > 0
+    ? `<div class="pdp-section-label">Colours</div>
+       <div class="pdp-colors">${p.colors.map(c=>{const bg=COLOR_MAP[c]||'#CCC';return `<span class="pdp-color-btn" style="background:${bg}" title="${c}" onclick="pdpSelectColor(this,'${c}')"></span>`;}).join('')}
+       <span class="pdp-color-name" id="pdp-color-name"></span></div>`
+    : '';
+  const sizesHtml = p.sizes && p.sizes.length > 0
+    ? `<div class="pdp-section-label">Select Size</div>
+       <div class="pdp-sizes">${p.sizes.map(s=>`<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${p.id}')">${s}</button>`).join('')}</div>`
+    : '';
+
+  document.getElementById('pdp-info').innerHTML = `
+    <div class="pdp-category-tag">${catLabel} · ${subIcons[p.subcategory]||''} ${subcatLabel}</div>
+    <div class="pdp-name">${p.name}</div>
+    ${p.badge ? `<div class="pdp-badge">${p.badge}</div>` : ''}
+    <div class="pdp-price">₹${p.price.toLocaleString('en-IN')} <span>incl. of all taxes</span></div>
+    <div class="pdp-desc">${p.description || 'Beautiful, comfortable kidswear made with care.'}</div>
+    <div class="pdp-section-label">Fabric</div>
+    <div class="pdp-fabric-chip">🧶 ${p.fabric||'Cotton'}</div>
+    ${colorsHtml}
+    ${sizesHtml}
+    <div class="pdp-actions">
+      <button type="button" class="pdp-add-btn" id="pdp-add-btn" onclick="pdpAddToBasket('${p.id}')">🛒 Add to Basket</button>
+      <a class="pdp-wa-btn" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi Tiny Threads Kidswear! 👋 I\'m interested in *'+p.name+'* (₹'+p.price+'). Could you please share more details and availability?\n\nProduct link: '+getProductURL(p.id))}" target="_blank" rel="noopener">
+        <svg style="width:18px;height:18px;fill:#25D366;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enquire on WhatsApp
+      </a>
+      <div class="pdp-share-row">
+        <button type="button" class="pdp-share-btn" onclick="shareProduct('${p.id}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Copy Link
+        </button>
+        <button type="button" class="pdp-share-wa-btn" onclick="shareProductWA('${p.id}')">
+          <svg style="width:16px;height:16px;fill:#25D366;flex-shrink:0;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Share on WhatsApp
+        </button>
+      </div>
+    </div>`;
+}
+
+function pdpGoTo(idx) {
+  if (pdpSwiperInstance) pdpSwiperInstance.slideToLoop ? pdpSwiperInstance.slideToLoop(idx) : pdpSwiperInstance.slideTo(idx);
+  document.querySelectorAll('.pdp-thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+
+const pdpSelectedSize = {};
+const pdpSelectedColor = {};
+function pdpSelectSize(btn, id) {
+  btn.closest('.pdp-sizes').querySelectorAll('.pdp-size-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  pdpSelectedSize[id] = btn.textContent;
+}
+function pdpSelectColor(el, name) {
+  el.closest('.pdp-colors').querySelectorAll('.pdp-color-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const nameEl = document.getElementById('pdp-color-name');
+  if (nameEl) nameEl.textContent = name;
+}
+
+function pdpAddToBasket(id) {
+  const p = allProducts.find(x=>x.id===id);
+  if (!p) return;
+  const size = pdpSelectedSize[id] || (p.sizes&&p.sizes.length>0 ? '(size not selected)' : '');
+  const existing = basket.find(i=>i.key===id+'-'+size);
+  if (existing) { existing.qty+=1; }
+  else { basket.push({key:id+'-'+size,id,name:p.name,desc:`${p.subcategory} · Size: ${size||'N/A'}`,price:p.price,qty:1,size}); }
+  updateBasketUI();
+  showToast(`${p.name} added to basket 🛒`);
+  const btn = document.getElementById('pdp-add-btn');
+  if (btn) { btn.classList.add('added'); btn.textContent='✓ Added to Basket!'; setTimeout(()=>{btn.classList.remove('added');btn.innerHTML='🛒 Add to Basket';},1600); }
+}
+
+// ===================== SHARE FUNCTIONS =====================
+function shareProduct(id) {
+  const p = allProducts.find(x=>x.id===id);
+  if (!p) return;
+  const url = getProductURL(id);
+  const text = `✨ ${p.name} — ₹${p.price}\n\nCheck out this from Tiny Threads Kidswear!\n${url}`;
+  // Try native share (mobile)
+  if (navigator.share) {
+    navigator.share({ title: p.name, text: `${p.name} — ₹${p.price} · Tiny Threads Kidswear`, url })
+      .catch(()=>{});
+  } else {
+    // Clipboard fallback
+    navigator.clipboard.writeText(url).then(()=>{
+      showShareToast('🔗 Product link copied to clipboard!');
+    }).catch(()=>{
+      // final fallback — prompt
+      prompt('Copy this link:', url);
+    });
+  }
+}
+
+function shareProductWA(id) {
+  const p = allProducts.find(x=>x.id===id);
+  if (!p) return;
+  const url = getProductURL(id);
+  const msg = `🛍️ *${p.name}*\n💰 ₹${p.price.toLocaleString('en-IN')}\n\n${p.description||''}\n\n👉 View product: ${url}\n\n_Tiny Threads Kidswear · mytinythreads.in_`;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+let shareToastTimer;
+function showShareToast(msg){
+  const t=document.getElementById('share-toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(shareToastTimer);
+  shareToastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// ===================== URL ROUTING =====================
+function handleURLRouting() {
+  const params = new URLSearchParams(window.location.search);
+  const pid = params.get('product');
+  if (pid && allProducts.length > 0) {
+    const p = allProducts.find(x=>x.id===pid);
+    if (p) {
+      pdpPreviousPage = p.category; // back goes to that category
+      renderPDP(p);
+      document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
+      document.getElementById('page-product').classList.add('active');
+      window.scrollTo({top:0,behavior:'auto'});
+    }
+  }
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate', (e) => {
+  const params = new URLSearchParams(window.location.search);
+  const pid = params.get('product');
+  if (pid) {
+    const p = allProducts.find(x=>x.id===pid);
+    if (p) { renderPDP(p); showPage('product'); }
+  } else {
+    showPage(e.state?.prev || 'home');
+  }
+});
 
 function initTestimonialSwiper(){
   new Swiper('.t-swiper',{
