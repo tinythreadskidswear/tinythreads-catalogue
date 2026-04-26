@@ -244,7 +244,7 @@
       "featured": false
     },
     {
-      "id": "b009",
+      "id": "g001",
       "name": "Peach Floral Summer Frock",
       "category": "girls",
       "subcategory": "summer",
@@ -511,13 +511,12 @@
       "name": "Tinythreads Sport Cordsets",
       "category": "boys",
       "subcategory": "summer",
-      "description": "Motosports Design cordset",
+      "description": "A matching two-piece \"cordset\" (coordinated set) that offers a modern, street-style aesthetic.",
       "price": 699,
       "sizes": [],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/tinythreads/image/upload/v1776825423/tinythreads/IMG_20240504_112039_0118_wammjz.jpg",
-        "https://res.cloudinary.com/tinythreads/image/upload/v1776854579/tinythreads/WhatsApp_Image_2026-02-18_at_10.02.10_AM_zcphis.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776825423/tinythreads/IMG_20240504_112039_0118_wammjz.jpg"
       ],
       "colors": [],
       "fabric": "Canvas Cotton",

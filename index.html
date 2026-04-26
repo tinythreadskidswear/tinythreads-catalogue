@@ -328,9 +328,34 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
 
 /* Gallery */
 .pdp-gallery{position:relative;}
-.pdp-gallery-swiper{border-radius:20px;overflow:hidden;background:#FAF5F5;}
-.pdp-gallery-swiper .swiper-slide img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;}
-.pdp-gallery-swiper .swiper-slide .slide-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;font-size:64px;}
+.pdp-gallery-swiper{
+  border-radius:20px;
+  overflow:hidden;
+  background:#FAF5F5;
+  width:100%;
+  height:520px;        /* explicit height — Swiper MUST have a concrete px value */
+}
+.pdp-gallery-swiper .swiper{width:100%;height:100%;}
+.pdp-gallery-swiper .swiper-wrapper{width:100%;height:100%;}
+.pdp-gallery-swiper .swiper-slide{
+  width:100% !important;  /* override Swiper's broken calculation */
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.pdp-gallery-swiper .swiper-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+}
+.pdp-gallery-swiper .swiper-slide .slide-ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;width:100%;height:100%;font-size:64px;
+}
 .pdp-gallery-swiper .swiper-button-next,.pdp-gallery-swiper .swiper-button-prev{color:var(--red);background:white;border-radius:50%;width:36px;height:36px;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
 .pdp-gallery-swiper .swiper-button-next:after,.pdp-gallery-swiper .swiper-button-prev:after{font-size:13px;font-weight:800;}
 .pdp-gallery-swiper .swiper-pagination-bullet{background:#ccc;opacity:1;}
@@ -342,7 +367,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
 .pdp-thumb img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 @media(max-width:760px){
   .pdp-gallery{border-radius:0;}
-  .pdp-gallery-swiper{border-radius:0;}
+  .pdp-gallery-swiper{border-radius:0;height:380px;}
+  .pdp-gallery-swiper .swiper-slide{width:100% !important;height:380px;}
+  .pdp-gallery-swiper .swiper-slide img{width:100%;height:380px;object-fit:cover;object-position:center top;}
   .pdp-thumbs{padding:10px 1rem 0;}
 }
 
@@ -1280,7 +1307,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;posit
   </div>
 </div>
 
-<script src="products.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 const WA_NUMBER = '917879976016';
@@ -1301,15 +1327,21 @@ const COLOR_MAP = {
 
 async function loadProducts() {
   try {
-    const res = await fetch('products.json');
-    if (!res.ok) throw new Error('Not found');
+    // Use explicit relative path — works on local server and Netlify
+    const base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    const res = await fetch(base + 'products.json');
+    if (!res.ok) throw new Error('products.json not found: ' + res.status);
     const data = await res.json();
     allProducts = data.products;
-  } catch(e) { allProducts = getFallbackProducts(); }
+    console.log('✅ Loaded', allProducts.length, 'products from products.json');
+  } catch(e) {
+    console.warn('⚠️ Could not load products.json, using fallback:', e.message);
+    allProducts = getFallbackProducts();
+  }
   renderAllGrids();
   initCatSwipers();
   initTestimonialSwiper();
-  handleURLRouting(); // open product page if URL has ?product=id
+  handleURLRouting();
 }
 
 function renderAllGrids() {
@@ -1333,8 +1365,9 @@ function renderGrid(id, products) {
   if (products.length === 0) { grid.innerHTML = '<div class="loading-grid" style="grid-column:1/-1;">No products found.</div>'; return; }
   grid.innerHTML = products.map(p => productCard(p)).join('');
   grid.querySelectorAll('.prod-swiper').forEach(el => {
+    const count = el.querySelectorAll('.swiper-slide').length;
     new Swiper(el, {
-      loop: el.querySelectorAll('.swiper-slide').length > 1,
+      loop: count > 1,
       pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
       navigation: { nextEl: el.querySelector('.swiper-button-next'), prevEl: el.querySelector('.swiper-button-prev') },
     });
@@ -1582,6 +1615,8 @@ function openPDP(id) {
 
   renderPDP(p);
   showPage('product');
+  // Update swiper after page is visible so it measures correctly
+  setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 80);
 }
 
 function closePDP() {
@@ -1605,7 +1640,7 @@ function renderPDP(p) {
   if (hasImages) {
     slidesEl.innerHTML = p.images.map(url => {
       const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_900,q_auto,f_auto/') : url;
-      return `<div class="swiper-slide"><img src="${t}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;"></div>`;
+      return `<div class="swiper-slide"><img src="${t}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></div>`;
     }).join('');
     thumbsEl.innerHTML = p.images.map((url,i) => {
       const t = url.includes('res.cloudinary.com') ? url.replace('/upload/', '/upload/c_fill,ar_1:1,w_200,q_auto,f_auto/') : url;
@@ -1618,8 +1653,11 @@ function renderPDP(p) {
 
   // Destroy old swiper if any
   if (pdpSwiperInstance) { try{pdpSwiperInstance.destroy(true,true);}catch(e){} pdpSwiperInstance=null; }
+  const slideCount = p.images ? p.images.length : 0;
   pdpSwiperInstance = new Swiper('.pdp-gallery-swiper', {
-    loop: p.images && p.images.length > 1,
+    loop: slideCount > 1,
+    slidesPerView: 1,
+    watchOverflow: true,
     pagination: { el: '.pdp-gallery-swiper .swiper-pagination', clickable: true },
     navigation: { nextEl: '.pdp-gallery-swiper .swiper-button-next', prevEl: '.pdp-gallery-swiper .swiper-button-prev' },
     on: {
@@ -1629,6 +1667,8 @@ function renderPDP(p) {
       }
     }
   });
+  // Force recalculate after DOM settles — fixes the 33M px wide slide bug
+  setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 50);
 
   // Info panel
   const colorsHtml = p.colors && p.colors.length > 0
@@ -1751,6 +1791,7 @@ function handleURLRouting() {
       document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
       document.getElementById('page-product').classList.add('active');
       window.scrollTo({top:0,behavior:'auto'});
+      setTimeout(() => { if(pdpSwiperInstance) pdpSwiperInstance.update(); }, 80);
     }
   }
 }
