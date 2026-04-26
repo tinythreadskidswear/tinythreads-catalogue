@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────
+#  Tiny Threads Kidswear – Netlify Configuration
+#  mytinythreads.in
+# ─────────────────────────────────────────────────────────────────
+
+[build]
+  publish = "."          # root of your repo is the publish directory
+  # If you have a build step, set it here. For a static site: none needed.
+  # command = ""
+
+# ── Pretty product URLs ───────────────────────────────────────────
+# Allows sharing https://mytinythreads.in/products/b001
+# (without .html) — Netlify serves the .html file automatically
+# when "Pretty URLs" is on (it is by default).
+
+# ── Redirect rules ────────────────────────────────────────────────
+# Old ?product= query-string links still work after the migration
+[[redirects]]
+  from   = "/?product=:id"
+  to     = "/products/:id.html"
+  status = 301           # permanent redirect — good for SEO
+
+# Catch-all SPA fallback — keeps direct navigation working
+# (only fires if no file matches the path)
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── HTTP Headers ──────────────────────────────────────────────────
+# Product OG pages: allow WhatsApp / Facebook bot to cache for 1 hour
+[[headers]]
+  for = "/products/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+    X-Robots-Tag  = "index, follow"
+
+# Main page: cache aggressively, bust on deploy
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Static assets: long cache
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Security headers (good practice) ─────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"

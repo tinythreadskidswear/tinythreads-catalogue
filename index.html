@@ -4,6 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tiny Threads Kidswear – Joyful Dailywear for Kids</title>
+
+<!-- ── SEO ── -->
+<meta name="description" content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹199.">
+<meta name="keywords" content="kidswear, kids clothes, boys clothes, girls clothes, baby clothes, traditional wear, kurta, lehenga, india, tiny threads">
+<link rel="canonical" href="https://mytinythreads.in/">
+
+<!-- ── Open Graph (WhatsApp, Facebook, LinkedIn) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Tiny Threads Kidswear">
+<meta property="og:url"         content="https://mytinythreads.in/">
+<meta property="og:title"       content="Tiny Threads Kidswear – Joyful Dailywear for Kids">
+<meta property="og:description" content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Traditional, summer, winter & nightwear. Starting ₹199. Order via WhatsApp!">
+<meta property="og:image"       content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"   content="Tiny Threads Kidswear logo">
+<meta property="og:locale"      content="en_IN">
+
+<!-- ── Twitter / X Card ── -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Tiny Threads Kidswear – Joyful Dailywear for Kids">
+<meta name="twitter:description" content="Playful, comfortable & beautiful kidswear. Starting ₹199. Order via WhatsApp!">
+<meta name="twitter:image"       content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
+
+<!-- ── WhatsApp prefers 300×200 minimum; 1200×630 is ideal ── -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
@@ -1538,7 +1563,10 @@ let pdpPreviousPage = 'home';
 let pdpSwiperInstance = null;
 
 function getProductURL(id) {
-  return window.location.origin + window.location.pathname + '?product=' + id;
+  // Netlify serves /products/b001 → /products/b001.html automatically (Pretty URLs).
+  // This gives clean shareable links with full OG preview support on WhatsApp.
+  const base = 'https://mytinythreads.in';
+  return base + '/products/' + id;
 }
 
 function openPDP(id) {
@@ -1718,7 +1746,7 @@ function handleURLRouting() {
   if (pid && allProducts.length > 0) {
     const p = allProducts.find(x=>x.id===pid);
     if (p) {
-      pdpPreviousPage = p.category; // back goes to that category
+      pdpPreviousPage = p.category;
       renderPDP(p);
       document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
       document.getElementById('page-product').classList.add('active');
