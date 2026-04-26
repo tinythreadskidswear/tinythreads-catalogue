@@ -1495,14 +1495,35 @@ function closeBasket(){document.getElementById('basket-drawer').classList.remove
 
 function checkoutWhatsApp() {
   if (basket.length===0) return;
-  const subtotal = basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const subtotal  = basket.reduce((s,i)=>s+i.qty*i.price,0);
   const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
-  const total = subtotal - discountAmt;
-  let msg = 'Hi Tiny Threads Kidswear! 🛍️ I would like to order:\n\n';
-  basket.forEach((item,idx)=>{ msg+=`${idx+1}. *${item.name}*\n   Size: ${item.size||'N/A'} · Qty: ${item.qty} × ₹${item.price} = ₹${(item.qty*item.price).toLocaleString('en-IN')}\n\n`; });
-  msg += `Subtotal: ₹${subtotal.toLocaleString('en-IN')}\n`;
-  if (appliedPromo) msg += `Promo Code: *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) → −₹${discountAmt.toLocaleString('en-IN')}\n`;
-  msg += `*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
+  const total     = subtotal - discountAmt;
+  const divider   = '─────────────────────────';
+
+  let msg = `🛍️ *New Order — Tiny Threads Kidswear*\n`;
+  msg    += `${divider}\n\n`;
+
+  basket.forEach((item, idx) => {
+    const lineTotal = (item.qty * item.price).toLocaleString('en-IN');
+    const productURL = getProductURL(item.id);
+    msg += `*${idx+1}. ${item.name}*\n`;
+    msg += `   📏 Size : ${item.size || 'N/A'}\n`;
+    msg += `   🔢 Qty  : ${item.qty} × ₹${item.price} = ₹${lineTotal}\n`;
+    msg += `   🔗 Link : ${productURL}\n`;
+    msg += `\n`;
+  });
+
+  msg += `${divider}\n`;
+  msg += `🧾 *Order Summary*\n`;
+  msg += `   Items    : ${basket.reduce((s,i)=>s+i.qty,0)}\n`;
+  msg += `   Subtotal : ₹${subtotal.toLocaleString('en-IN')}\n`;
+  if (appliedPromo) {
+    msg += `   Promo    : *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) −₹${discountAmt.toLocaleString('en-IN')}\n`;
+  }
+  msg += `   *Total   : ₹${total.toLocaleString('en-IN')}*\n`;
+  msg += `${divider}\n\n`;
+  msg += `Please confirm availability and share payment details. Thank you! 🙏`;
+
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -1579,7 +1600,7 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  ['nav-links a','.mobile-bottom-nav a','.mob-menu-body a'].forEach(sel=>{
+  ['.nav-links a','.mobile-bottom-nav a','.mob-menu-body a'].forEach(sel=>{
     document.querySelectorAll(sel).forEach(a=>{
       a.classList.remove('active');
       const t=a.textContent.toLowerCase();
