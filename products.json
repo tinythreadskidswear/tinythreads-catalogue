@@ -609,7 +609,7 @@
       "featured": false
     },
     {
-      "id": "bb005",
+      "id": "bb105",
       "name": "Polka Dot Combo Set - Handwoven Cotton",
       "category": "babies",
       "subcategory": "summer",
@@ -704,7 +704,7 @@
       "featured": false
     },
     {
-      "id": "bb006",
+      "id": "bb106",
       "name": "Woven Cotton Pink Patyala Suit",
       "category": "babies",
       "subcategory": "traditional",
@@ -725,7 +725,7 @@
       "featured": false
     },
     {
-      "id": "b012",
+      "id": "b112",
       "name": "Premium Moschino-Inspired Striped Summer Co-ord Set",
       "category": "boys",
       "subcategory": "summer",
@@ -781,7 +781,7 @@
       "featured": true
     },
     {
-      "id": "g010",
+      "id": "g110",
       "name": "Vibrant Multi-Color Floral Summer Frock",
       "category": "girls",
       "subcategory": "summer",
@@ -805,7 +805,7 @@
       "featured": true
     },
     {
-      "id": "g011",
+      "id": "g111",
       "name": "\"Sweet Summer\" Peach Floral Frock",
       "category": "girls",
       "subcategory": "summer",
@@ -947,6 +947,280 @@
       ],
       "fabric": "Premium Lycra - Cotton",
       "featured": true
+    },
+    {
+      "id": "g014",
+      "name": "Floral Printed Sharara Set with Gota Patti Work",
+      "category": "girls",
+      "subcategory": "traditional",
+      "description": "\"Floral Printed Sharara Set with Gota Patti Work\"\n* A Floral printed short Kurti.\n* Matching tiered Sharara pants.\n* A coordinating Dupatta (lightweight scarf) with lace borders.",
+      "price": 999,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y",
+        "1-2Y",
+        "2-3Y"
+      ],
+      "badge": "Festive",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272488/tinythreads/IMG-20260117-WA0008_ds6761.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272489/tinythreads/IMG-20260130-WA0042_wqgjwx.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272490/tinythreads/IMG-20260130-WA0043_vqlzqg.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272492/tinythreads/IMG-20260130-WA0044_vkcpts.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272493/tinythreads/IMG-20260130-WA0045_gxz7hj.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272495/tinythreads/IMG-20260130-WA0046_knwug8.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272496/tinythreads/IMG-20260130-WA0047_uibluf.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272497/tinythreads/IMG-20260130-WA0048_spakbc.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272498/tinythreads/IMG-20260130-WA0049_chkvsk.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272499/tinythreads/IMG-20260130-WA0050_mgrdua.jpg"
+      ],
+      "colors": [
+        "Vibrant Red",
+        "Deep Navy"
+      ],
+      "fabric": "Jaipur Cotton 60/60",
+      "featured": true
+    },
+    {
+      "id": "g015",
+      "name": "Vibrant Tropical Floral Cordset\" or \"Orange & Pink Geometric Print Co-ord Set\"",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "A matching Co-ord Set consisting of a full-sleeved top and coordinated trousers.",
+      "price": 499,
+      "sizes": [
+        "1-2Y",
+        "2-3Y",
+        "3-4Y"
+      ],
+      "badge": "Soft",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272633/tinythreads/IMG-20250328-WA0037_lodzes.jpg"
+      ],
+      "colors": [],
+      "fabric": "Jaipur Cotton",
+      "featured": false
+    },
+    {
+      "id": "bb007",
+      "name": "Natkhat Baby Cordsets",
+      "category": "babies",
+      "subcategory": "summer",
+      "description": "A matching 2-Piece Baby Cordset featuring a long-sleeved sweatshirt-style top and coordinating joggers.",
+      "price": 349,
+      "sizes": [
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777272867/tinythreads/1763424743529_k8suua.png"
+      ],
+      "colors": [
+        "Red",
+        "Black"
+      ],
+      "fabric": "Cotton Hosiery",
+      "featured": false
+    },
+    {
+      "id": "bb008",
+      "name": "Nathkhat Baby Set",
+      "category": "babies",
+      "subcategory": "summer",
+      "description": "Both sets feature a subtle, all-over star and crescent moon print.\nThe tops are finished with a classic crew neck and comfortable ribbed cuffs at the wrists and ankles to ensure a snug fit for active babies.",
+      "price": 349,
+      "sizes": [
+        "9-12M",
+        "12-18M",
+        "18-24M",
+        "24-36M"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273058/tinythreads/1763425079563_dvryry.png"
+      ],
+      "colors": [],
+      "fabric": "Soft Hosiery Cotton",
+      "featured": false
+    },
+    {
+      "id": "g016",
+      "name": "Girls' 'Inspirational' Graphic Joggers",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "High-waisted Casual Joggers / Track Pants with an elasticated waistband and ribbed ankle cuffs.",
+      "price": 399,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273391/tinythreads/IMG-20251103-WA0016_hiaeub.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273392/tinythreads/IMG-20251103-WA0017_chdbub.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273392/tinythreads/IMG-20251103-WA0018_fwahdo.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273393/tinythreads/IMG-20251103-WA0019_f5izvj.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273394/tinythreads/IMG-20251103-WA0020_w6a6po.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273395/tinythreads/IMG-20251103-WA0022_n9m7eu.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273395/tinythreads/IMG-20251103-WA0023_ubmktx.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273396/tinythreads/IMG-20251103-WA0026_aizc7k.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273397/tinythreads/IMG-20251103-WA0027_bw13zi.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273398/tinythreads/IMG-20251103-WA0028_nuctvh.jpg"
+      ],
+      "colors": [
+        "Peach",
+        "Pink",
+        "Green",
+        "Navy Blue",
+        "Black",
+        "Rose"
+      ],
+      "fabric": "Loop Knit - Bio wash",
+      "featured": false
+    },
+    {
+      "id": "bb009",
+      "name": "Premium Anti-Slip Luxury Baby Sock Collection (Imported)",
+      "category": "babies",
+      "subcategory": "summer",
+      "description": "A variety of playful patterns including classic stripes, polka dots, whimsical animal characters, and floral accents. Crafted from a high-quality cotton blend that is gentle on delicate skin while ensuring a snug, stay-on fit.",
+      "price": 0,
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-9M",
+        "9-12M",
+        "12-18M",
+        "2-3Y",
+        "4-5Y",
+        "5-6Y"
+      ],
+      "badge": "Cosy",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273607/tinythreads/1763606110881_ohij3a.png"
+      ],
+      "colors": [],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g017",
+      "name": "Doreme one-piece Floral jumpsuits",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "A seamless, sleeveless silhouette that is easy to wear and provides a trendy, modern fit for growing girls.",
+      "price": 520,
+      "sizes": [
+        "7-8Y",
+        "5-6Y"
+      ],
+      "badge": "Cosy",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777273821/tinythreads/Copilot_20260426_152344_dxqhmg.png"
+      ],
+      "colors": [
+        "Sunny White",
+        "Midnight Navy"
+      ],
+      "fabric": "Premium Lycra",
+      "featured": false
+    },
+    {
+      "id": "acc001",
+      "name": "Sample Accessory",
+      "category": "accessories",
+      "subcategory": "accessories",
+      "description": "Hairbands, clips, belts and more.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
+    },
+    {
+      "id": "toy001",
+      "name": "Sample Toy",
+      "category": "toys",
+      "subcategory": "toys",
+      "description": "Fun educational and play toys.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
+    },
+    {
+      "id": "twin001",
+      "name": "Sample Twinning Set",
+      "category": "twinning",
+      "subcategory": "twinning",
+      "description": "Parent-child matching twinning sets.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
+    },
+    {
+      "id": "care001",
+      "name": "Sample Kids Care",
+      "category": "kidscare",
+      "subcategory": "kidscare",
+      "description": "Gentle skincare and grooming for kids.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
+    },
+    {
+      "id": "sch001",
+      "name": "Sample School Item",
+      "category": "school",
+      "subcategory": "school",
+      "description": "Bags, stationery and school essentials.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
+    },
+    {
+      "id": "learn001",
+      "name": "Sample Learning Product",
+      "category": "learning",
+      "subcategory": "learning",
+      "description": "Books, puzzles and learning kits.",
+      "price": 0,
+      "sizes": [],
+      "badge": "New",
+      "images": [],
+      "colors": [],
+      "fabric": "",
+      "featured": false
     }
   ]
 }
