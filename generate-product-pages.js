@@ -42,7 +42,9 @@ function esc(str) {
     .replace(/>/g, '&gt;');
 }
 
-const CAT_LABELS = { boys: 'Boys', girls: 'Girls', babies: 'Babies' };
+const CAT_LABELS = { boys: 'Boys', girls: 'Girls', babies: 'Babies',
+  accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning',
+  kidscare: 'Kids Care', school: 'School', learning: 'Learning' };
 
 function makePage(p) {
   const pid     = p.id;
