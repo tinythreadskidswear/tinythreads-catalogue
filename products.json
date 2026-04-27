@@ -244,7 +244,7 @@
       "featured": false
     },
     {
-      "id": "g001",
+      "id": "b009",
       "name": "Peach Floral Summer Frock",
       "category": "girls",
       "subcategory": "summer",
@@ -511,12 +511,13 @@
       "name": "Tinythreads Sport Cordsets",
       "category": "boys",
       "subcategory": "summer",
-      "description": "A matching two-piece \"cordset\" (coordinated set) that offers a modern, street-style aesthetic.",
+      "description": "Motosports Design cordset",
       "price": 699,
       "sizes": [],
       "badge": "",
       "images": [
-        "https://res.cloudinary.com/tinythreads/image/upload/v1776825423/tinythreads/IMG_20240504_112039_0118_wammjz.jpg"
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776825423/tinythreads/IMG_20240504_112039_0118_wammjz.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1776854579/tinythreads/WhatsApp_Image_2026-02-18_at_10.02.10_AM_zcphis.jpg"
       ],
       "colors": [],
       "fabric": "Canvas Cotton",
@@ -605,6 +606,122 @@
         "Yellow"
       ],
       "fabric": "Linen",
+      "featured": false
+    },
+    {
+      "id": "bb005",
+      "name": "Polka Dot Combo Set - Handwoven Cotton",
+      "category": "babies",
+      "subcategory": "summer",
+      "description": "Add a playful pop to their wardrobe with this high-contrast Polka Dot Combo Set. Designed for ultimate flexibility, this set features a vibrant dot-print top and matching harem-style bottoms. Whether worn as a coordinated Cordset for a bold statement or mismatched with solids for a casual vibe, this set is as practical as it is stylish.",
+      "price": 649,
+      "sizes": [
+        "2-3y"
+      ],
+      "badge": "Cosy",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201920/tinythreads/IMG-20240409-WA0025_gaqztv.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201921/tinythreads/IMG-20240409-WA0023_lgvhty.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201923/tinythreads/IMG-20240409-WA0026_fcbn17.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201924/tinythreads/IMG-20240409-WA0029_pihiip.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201925/tinythreads/IMG-20240409-WA0027_hhbwu3.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201925/tinythreads/IMG-20240409-WA0031_yotnto.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201926/tinythreads/IMG-20240409-WA0030_mgwz43.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201927/tinythreads/IMG-20240409-WA0032_rigfrr.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201928/tinythreads/IMG-20240409-WA0033_zvaqo3.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201929/tinythreads/IMG-20240409-WA0035_dsigiu.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201930/tinythreads/IMG-20240409-WA0036_ijjcjl.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777201931/tinythreads/IMG-20240409-WA0037_eaxxgd.jpg"
+      ],
+      "colors": [
+        "Pink",
+        "Blue"
+      ],
+      "fabric": "100% Khadi Cotton",
+      "featured": true
+    },
+    {
+      "id": "b011",
+      "name": "Ultimate 3-Piece Stylish Shirt Combo Set",
+      "category": "boys",
+      "subcategory": "traditional",
+      "description": "Get three versatile looks in one with this premium Stylish Shirt Combo Set. This curated collection features a sophisticated Cotton Blended Shirt for formal flair, a soft Cotton Hosiery T-shirt for casual comfort, and a pair of classic Black Jeans to tie it all together. Perfect for parents who want a complete, ready-to-wear outfit for any occasion.",
+      "price": 999,
+      "sizes": [
+        "7-8y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777202300/tinythreads/IMG_20250921_171314_vbdh98.jpg"
+      ],
+      "colors": [
+        "Olive Green"
+      ],
+      "fabric": "Cotton blended Shirt, Cotton Hosiery  Tshirts , Black Jeans",
+      "featured": true
+    },
+    {
+      "id": "g008",
+      "name": "Linen Stylish Cordset",
+      "category": "girls",
+      "subcategory": "traditional",
+      "description": "Elevate her festive wardrobe with this Elegant Girls' Cordset. Blending traditional charm with modern sophistication, this beautiful two-piece set features a smartly tailored top and matching coordinated bottoms. Crafted from premium 100% cotton, it offers a crisp, stylish look while ensuring she stays completely comfortable and free to play during long celebrations and family gatherings.",
+      "price": 899,
+      "sizes": [
+        "11-12Y"
+      ],
+      "badge": "Festive",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777202481/tinythreads/1760074891343_qxoht8.png"
+      ],
+      "colors": [
+        "Rama Green"
+      ],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g009",
+      "name": "Trendy Printed Casual Trousers",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "Add a fun pop of pattern to her everyday wardrobe with these stylish casual trousers. Designed for both comfort and play, these statement pants feature eye-catching textured prints—showcased in playful pink and chic brown patterns. With a relaxed fit and an easy-wear waist, they are the perfect bottom wear to pair with her favorite crop tops, basic tees, or summer vests.",
+      "price": 0,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y"
+      ],
+      "badge": "Soft",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777202653/tinythreads/51a2386dc41c4c0296bd676a881a9aef_oqrdlo.jpg"
+      ],
+      "colors": [
+        "Army Green",
+        "Peach"
+      ],
+      "fabric": "100% Cotton",
+      "featured": false
+    },
+    {
+      "id": "bb006",
+      "name": "Woven Cotton Pink Patyala Suit",
+      "category": "babies",
+      "subcategory": "traditional",
+      "description": "Super soft hand woven cotton cordset for cute baby girl.",
+      "price": 649,
+      "sizes": [
+        "2-3Y",
+        "3-4Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777236252/tinythreads/IMG-20240409-WA0011_kqo8yc.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777236254/tinythreads/IMG-20240409-WA0013_j3iplk.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777236254/tinythreads/IMG-20240409-WA0014_ao3l7j.jpg"
+      ],
+      "colors": [],
+      "fabric": "Hand Woven Khadi Cotton",
       "featured": false
     }
   ]
