@@ -723,6 +723,230 @@
       "colors": [],
       "fabric": "Hand Woven Khadi Cotton",
       "featured": false
+    },
+    {
+      "id": "b012",
+      "name": "Premium Moschino-Inspired Striped Summer Co-ord Set",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "A vibrant white and yellow vertical-striped two-piece set featuring premium cotton fabric and a trendy \"MOSCHINO\" print for a stylish summer look.",
+      "price": 0,
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "13-14y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266199/tinythreads/file_000000009f24720b86828c3defd236b3_p1uvlr.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266200/tinythreads/IMG-20260405-WA0048_uzcie0.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266201/tinythreads/IMG-20260405-WA0059_sungra.jpg"
+      ],
+      "colors": [
+        "Creame"
+      ],
+      "fabric": "bio-wash Loop Knit Cotton",
+      "featured": true
+    },
+    {
+      "id": "b013",
+      "name": "US Fly - Premium Ribbed Summer Cordsets",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "Elevate your little one's wardrobe with these ultra-soft, stylish co-ord sets designed for maximum comfort and effortless cool.",
+      "price": 499,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "2-3Y"
+      ],
+      "badge": "Cosy",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266402/tinythreads/file_00000000f8d0720896225db033d52ca6_gevwqj.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266404/tinythreads/file_00000000498c720892079871e848a4a7_tpv94r.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266405/tinythreads/file_000000000344720899bcdeb6538120f7_uaoy0v.png"
+      ],
+      "colors": [
+        "Red",
+        "Green",
+        "Blue"
+      ],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g010",
+      "name": "Vibrant Multi-Color Floral Summer Frock",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "A charming sleeveless dress featuring a bold, colorful floral pattern and a classic flared silhouette, perfect for sunny garden parties and summer outings.",
+      "price": 499,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266885/tinythreads/IMG-20260318-WA0096_1_f2fmip.jpg"
+      ],
+      "colors": [
+        "white"
+      ],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g011",
+      "name": "\"Sweet Summer\" Peach Floral Frock",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "An effortlessly stylish summer essential featuring a vibrant botanical pattern and a premium finish for your little fashionista.",
+      "price": 499,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777266995/tinythreads/IMG-20260318-WA0098_k5vnsr.jpg"
+      ],
+      "colors": [
+        "Peach"
+      ],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g012",
+      "name": "Rainbow Candy Striped Summer Frock",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "A bright and cheerful sleeveless dress featuring multi-colored vertical stripes and a soft cotton blend for a stylish, breezy summer look.",
+      "price": 499,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267133/tinythreads/IMG-20260318-WA0095_rrwcfk.jpg"
+      ],
+      "colors": [],
+      "fabric": "100% Cotton",
+      "featured": true
+    },
+    {
+      "id": "g013",
+      "name": "Designer Georgette Floral Tiered Frock",
+      "category": "girls",
+      "subcategory": "summer",
+      "description": "A stylish sleeveless dress featuring a playful mix of pink, grey, and white stripes with a bow-accented waist for a perfect party look.",
+      "price": 599,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y",
+        "8-10Y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267316/tinythreads/1773835328475_e1a5lf.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267317/tinythreads/1773835244737_binxnu.png",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267318/tinythreads/1773834928959_omcjbg.png"
+      ],
+      "colors": [
+        "pink",
+        "purple"
+      ],
+      "fabric": "Georgette",
+      "featured": true
+    },
+    {
+      "id": "b014",
+      "name": "Tinythreads Signature Navy Plaid Casual Shirt",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "An essential wardrobe staple featuring a premium button-down collar and a breathable weave for effortless style.",
+      "price": 499,
+      "sizes": [
+        "3-4Y",
+        "4-5Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267443/tinythreads/file_000000001e1871fa92bc138665ba292f_ddul5t.png"
+      ],
+      "colors": [
+        "Navy Blue"
+      ],
+      "fabric": "Oxford Cotton",
+      "featured": true
+    },
+    {
+      "id": "b015",
+      "name": "Urban Street-Style Distressed Denim Jeans",
+      "category": "boys",
+      "subcategory": "traditional",
+      "description": "Trendy washed denim featuring stylish distressed detailing and a comfortable jogger-style fit for the ultimate cool-kid look.",
+      "price": 449,
+      "sizes": [
+        "3-4Y",
+        "4-5Y",
+        "5-6Y",
+        "6-8Y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267549/tinythreads/1772341664345_zujohf.png"
+      ],
+      "colors": [
+        "blue",
+        "black"
+      ],
+      "fabric": "Denim Soft",
+      "featured": true
+    },
+    {
+      "id": "b016",
+      "name": "\"Active-Ready\" Premium Ribbed Summer Cordset",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "A versatile and stylish two-piece set featuring high-stretch ribbed fabric and a bold graphic print, designed for all-day comfort and play.",
+      "price": 899,
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
+      "badge": "New",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1777267700/tinythreads/IMG-20260405-WA0051_kehitm.jpg"
+      ],
+      "colors": [
+        "Blue",
+        "Cream",
+        "Green"
+      ],
+      "fabric": "Premium Lycra - Cotton",
+      "featured": true
     }
   ]
 }
