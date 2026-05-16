@@ -1221,6 +1221,36 @@
       "colors": [],
       "fabric": "",
       "featured": false
+    },
+    {
+      "id": "b017",
+      "name": "Premium Cargo Shorts",
+      "category": "boys",
+      "subcategory": "summer",
+      "description": "Keep your boy cool in soft 100% cotton cargo shorts. Durable comfort for all his summer adventures.",
+      "price": 599,
+      "sizes": [
+        "4-5Y",
+        "5-6Y",
+        "6-8Y"
+      ],
+      "badge": "Bestseller",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778962313/tinythreads/IMG-20260309-WA0105_zyxczc.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778962314/tinythreads/IMG-20260309-WA0108_wo2mpr.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778962315/tinythreads/IMG-20260309-WA0109_syz3ui.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778962316/tinythreads/IMG-20260309-WA0110_ptkf1u.jpg",
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778962317/tinythreads/IMG-20260309-WA0107_scu216.jpg"
+      ],
+      "colors": [
+        "Blue",
+        "Ivory",
+        "Cream",
+        "Brown",
+        "Black"
+      ],
+      "fabric": "100% Cotton Cargo",
+      "featured": true
     }
   ]
 }
