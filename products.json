@@ -1221,6 +1221,30 @@
       "colors": [],
       "fabric": "",
       "featured": false
+    },
+    {
+      "id": "g018",
+      "name": "GAP Premium Embroidary Cordsets",
+      "category": "girls",
+      "subcategory": "traditional",
+      "description": "Dress your girl in soft GAP premium rayon cordsets. Beautiful embroidery meets traditional style for her comfort.",
+      "price": 599,
+      "sizes": [
+        "5-6Y",
+        "6-8Y",
+        "8-10Y",
+        "10-12Y",
+        "12-13Y"
+      ],
+      "badge": "Festive",
+      "images": [
+        "https://res.cloudinary.com/tinythreads/image/upload/v1778723950/tinythreads/1764391274988_wdzzyk.png"
+      ],
+      "colors": [
+        "white"
+      ],
+      "fabric": "Premium Rayon",
+      "featured": false
     }
   ]
 }
