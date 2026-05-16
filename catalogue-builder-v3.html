@@ -259,12 +259,13 @@ select option{background:var(--surface2);}
       <div class="note-box"><strong>Cloudinary Free Tier:</strong> 25GB storage & bandwidth/month. Get credentials from <strong>cloudinary.com → Settings → API Keys</strong>. Create an <em>unsigned</em> upload preset under Settings → Upload Presets.</div>
       <div class="form-group" style="margin-bottom:12px;"><label>Cloudinary Cloud Name</label><input id="cfg-cloud" placeholder="e.g. dmehiuzml"/></div>
       <div class="form-group" style="margin-bottom:12px;"><label>Upload Preset (unsigned)</label><input id="cfg-preset" placeholder="e.g. tinythreads_upload"/></div>
-      <div class="form-group" style="margin-bottom:12px;"><label>AI API Key (Claude or OpenAI — optional)</label><input id="cfg-aikey" type="password" placeholder="sk-ant-... or sk-..."/></div>
+      <div class="form-group" style="margin-bottom:12px;"><label>AI API Key (Claude,Gemini or OpenAI — optional)</label><input id="cfg-aikey" type="password" placeholder="sk-ant-... or sk-..."/></div>
       <div class="form-group" style="margin-bottom:0;"><label>AI Provider</label>
-        <select id="cfg-aiprovider">
-          <option value="claude">Claude (Anthropic) — claude-haiku-4-5</option>
-          <option value="openai">OpenAI — gpt-4o-mini</option>
-        </select>
+        <select id="aiProvider">
+			<option value="openai">OpenAI — gpt-4o-mini</option>
+			<option value="claude">Claude (Anthropic) — claude-haiku-4-5</option>
+			<option value="gemini">Gemini (Google) — gemini-1.5-pro</option>
+		</select>
       </div>
     </div>
     <div class="modal-foot"><button class="btn btn-primary" onclick="saveConfig()">Save & Start Building →</button></div>
@@ -695,7 +696,7 @@ function saveConfig() {
   config.cloudName = document.getElementById('cfg-cloud').value.trim();
   config.uploadPreset = document.getElementById('cfg-preset').value.trim();
   config.aiKey = document.getElementById('cfg-aikey').value.trim();
-  config.aiProvider = document.getElementById('cfg-aiprovider').value;
+  config.aiProvider = document.getElementById('aiProvider').value;
   localStorage.setItem('tt_config', JSON.stringify(config));
   document.getElementById('setup-modal').style.display='none';
   toast('✅ Config saved', 'success');
@@ -928,15 +929,41 @@ async function generateDescriptionFor(context) {
   }
   if (!name||!category) { toast('⚠ Fill Name & Category first', 'warn'); return; }
   btnEl.disabled=true; iconEl.innerHTML='<span class="spinner"></span>';
-  const prompt=`Write a short, appealing product description (1-2 sentences, max 120 chars) for a kids clothing item:
+const prompt=`Write a short, appealing product description (1-2 sentences, max 120 chars) for a kids clothing item:
 Name: ${name}, Category: ${category} ${subcategory}, Fabric: ${fabric||'cotton'}, Colors: ${colors||'assorted'}, Sizes: ${sizes||'various'}
-Style: warm, parent-focused. No emoji. No price.`;
+Style: warm, parent-focused. Ensure you accurately classify items like cordsets and jumpsuits. No emoji. No price.`;
+
   try {
     let desc='';
-    if (config.aiProvider==='claude') {
+    if (config.aiProvider ==='claude') {
       const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':config.aiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:150,messages:[{role:'user',content:prompt}]})});
       const data=await res.json(); if(data.error) throw new Error(data.error.message); desc=data.content[0].text.trim();
-    } else {
+    } else if (config.aiProvider ==='gemini') {
+    try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' , 'X-goog-api-key' : 'AIzaSyBZCWK6nTbjzxyZ4qR0h50UqCW7WcQnrGc'},
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ 
+                        text: prompt 
+                    }]
+                }]
+            })
+        });
+
+        if (!response.ok) throw new Error("Gemini API error");
+        
+        const data = await response.json();
+        desc = data.candidates[0].content.parts[0].text.trim();      
+        
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        alert("Failed to generate description with Gemini. Check your API key.");
+    }
+}
+	else {
       const res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+config.aiKey},body:JSON.stringify({model:'gpt-4o-mini',max_tokens:100,messages:[{role:'user',content:prompt}]})});
       const data=await res.json(); if(data.error) throw new Error(data.error.message); desc=data.choices[0].message.content.trim();
     }
