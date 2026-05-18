@@ -19,6 +19,8 @@
 <meta name="twitter:title" content="Tiny Threads Kidswear – Joyful Dailywear for Kids">
 <meta name="twitter:description" content="Playful, comfortable & beautiful kidswear. Starting ₹199. Order via WhatsApp!">
 <meta name="twitter:image" content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
@@ -710,6 +712,9 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 </head>
 <body>
 
+<!-- BUG-004 fix: canvas for floating emoji animation -->
+<canvas id="anim-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+
 <!-- SPLASH SCREEN -->
 <div id="splash-screen" aria-modal="true" role="dialog" aria-label="Welcome to Tiny Threads">
   <div class="splash-backdrop"></div>
@@ -1179,18 +1184,30 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
     var screen=document.getElementById('splash-screen');
     if(!screen||screen.style.display==='none') return;
     if(splashTimer){clearInterval(splashTimer);splashTimer=null;}
+    sessionStorage.setItem('tt_splash_seen','1'); // BUG-003 fix
     screen.classList.add('splash-exit'); document.body.classList.remove('splash-active');
     setTimeout(function(){screen.style.display='none';screen.setAttribute('aria-hidden','true');},600);
   }
   // Expose immediately so inline onclick handlers work regardless of timing
   window.splashGoTo=splashGoTo; window.enterSite=enterSite;
   function initSplash(){
+    // BUG-003 fix: skip splash if already seen this session
+    if(sessionStorage.getItem('tt_splash_seen')){
+      var screen=document.getElementById('splash-screen');
+      if(screen){screen.style.display='none';screen.setAttribute('aria-hidden','true');}
+      document.body.classList.remove('splash-active');
+      return;
+    }
     slides=document.querySelectorAll('.splash-slide'); dots=document.querySelectorAll('.spdot');
     if(!slides.length) return;
     document.body.classList.add('splash-active'); startSplashTimer();
     document.addEventListener('keydown',function(e){
       var screen=document.getElementById('splash-screen');
       if(!screen||screen.style.display==='none') return;
+      // BUG-002 fix: don't intercept keys when lightbox or size guide is open
+      var lbx=document.getElementById('lbx-overlay');
+      var sg=document.getElementById('sg-overlay');
+      if((lbx&&lbx.classList.contains('open'))||(sg&&sg.classList.contains('open'))) return;
       if(e.key==='Escape'||e.key==='Enter') enterSite();
       if(e.key==='ArrowRight'){splashNext();startSplashTimer();}
       if(e.key==='ArrowLeft'){splashGoTo((currentSlide-1+SLIDE_COUNT)%SLIDE_COUNT);startSplashTimer();}
@@ -1523,7 +1540,11 @@ function openPDP(key){
     </div>`;
   trackRecentlyViewed(key);
   renderSimilarItems(key);
+  // BUG-016 fix: update page title for browser tab
+  document.title = p.name + ' · Tiny Threads Kidswear';
   showPage('product'); window.scrollTo(0,0);
+  // BUG-010 fix: swiper needs to re-measure after page becomes visible
+  setTimeout(function(){ if(pdpMainSwiper) pdpMainSwiper.update(); }, 80);
 }
 
 function pdpSelectSize(btn,key){btn.closest('.pdp-sizes').querySelectorAll('.pdp-size-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedSizes[key]=btn.textContent;}
@@ -1531,7 +1552,10 @@ function pdpSelectColor(btn,color){btn.closest('.pdp-colors').querySelectorAll('
 function pdpGoTo(idx){if(pdpMainSwiper)pdpMainSwiper.slideTo(idx);}
 function pdpAddToBasket(key){addToBasket(key);const btn=document.getElementById('pdp-abtn-'+key);if(btn){btn.classList.add('added');btn.textContent='✓ Added to Basket!';setTimeout(()=>{btn.classList.remove('added');btn.innerHTML='🛒 Add to Basket';},1600);}}
 function shareOnWhatsApp(key){const p=allProducts.find(p=>p.id===key);if(!p)return;const url=getProductURL(key);const msg=`✨ Check out this from *Tiny Threads Kidswear*!\n\n👕 *${p.name}*\n💰 ₹${p.price}\n\n🔗 ${url}\n\nOrder via WhatsApp: +91 78799 76016`;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}
-function closePDP(){showPage(currentPDPCategory);window.scrollTo(0,72);}
+function closePDP(){
+  document.title='Tiny Threads Kidswear – Joyful Dailywear for Kids'; // BUG-016
+  showPage(currentPDPCategory); window.scrollTo(0,72);
+}
 
 // Page routing
 let currentPage='home';
