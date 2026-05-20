@@ -407,6 +407,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .pdp-back svg{width:18px;height:18px;}
 .pdp-back:hover{background:var(--red-light);}
 .pdp-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:2.5rem 2rem 4rem;}
+.pdp-gallery{overflow:hidden;width:100%;min-width:0;}
 .pdp-gallery-swiper{border-radius:20px;overflow:hidden;background:#FFF8F5;height:min(82vh,680px);}
 .pdp-gallery-swiper .swiper{width:100%;height:100%;}
 .pdp-gallery-swiper .swiper-slide{width:100%!important;height:100%;display:flex;align-items:center;justify-content:center;background:#FFF8F5;}
@@ -414,7 +415,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .pdp-gallery-swiper .swiper-button-next,.pdp-gallery-swiper .swiper-button-prev{color:var(--red);background:white;border-radius:50%;width:36px;height:36px;box-shadow:0 2px 10px rgba(0,0,0,.12);}
 .pdp-gallery-swiper .swiper-button-next:after,.pdp-gallery-swiper .swiper-button-prev:after{font-size:13px;font-weight:800;}
 .pdp-gallery-swiper .swiper-pagination-bullet-active{background:var(--red);}
-.pdp-thumbs{margin-top:10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(183,28,28,.25) transparent;max-height:76px;padding-bottom:2px;flex-shrink:0;}
+.pdp-thumbs{margin-top:10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(183,28,28,.25) transparent;max-height:76px;padding:2px 12px 4px;flex-shrink:0;width:100%;box-sizing:border-box;}
 .pdp-thumbs::-webkit-scrollbar{height:3px;}
 .pdp-thumbs::-webkit-scrollbar-thumb{background:rgba(183,28,28,.25);border-radius:2px;}
 .pdp-thumb{width:60px;height:60px;min-width:60px;border-radius:9px;overflow:hidden;flex-shrink:0;border:2px solid transparent;cursor:pointer;transition:border-color .2s;background:#FFF8F5;}
@@ -537,8 +538,8 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 /* Canvas area */
 #lbx-viewport{position:relative;width:100%;height:100%;overflow:hidden;cursor:grab;}
 #lbx-viewport.grabbing{cursor:grabbing;}
-#lbx-img-wrap{position:absolute;top:50%;left:50%;transform-origin:center center;will-change:transform;user-select:none;-webkit-user-select:none;}
-#lbx-img-wrap img{display:block;max-width:100vw;max-height:100vh;width:auto;height:auto;object-fit:contain;pointer-events:none;-webkit-user-drag:none;border-radius:2px;}
+#lbx-img-wrap{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;transform-origin:center center;will-change:transform;user-select:none;-webkit-user-select:none;}
+#lbx-img-wrap img{display:block;max-width:92%;max-height:92%;width:auto;height:auto;object-fit:contain;pointer-events:none;-webkit-user-drag:none;border-radius:2px;}
 /* Prev / Next arrows */
 .lbx-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .2s;-webkit-tap-highlight-color:transparent;}
 .lbx-arrow:hover{background:rgba(255,255,255,0.28);}
@@ -668,6 +669,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .cat-hero h1{font-size:1.5rem;}
   .pdp-back{top:60px;padding:11px 1rem;}
   .pdp-wrap{grid-template-columns:1fr;gap:0;padding:0 0 5rem;}
+  .pdp-gallery{overflow:hidden;width:100vw;max-width:100vw;}
   .pdp-gallery-swiper{border-radius:0;height:min(78vw,520px);}
   .pdp-gallery-swiper .swiper-slide img{padding:6px;}
   .pdp-info{padding:1rem 1.1rem 0;}
@@ -1836,22 +1838,20 @@ function clearRecentlyViewed() {
   }
 
   function applyTransform(){
-    // Center the image in viewport, then apply scale + pan
+    // imgWrap fills 100%x100% of viewport with flexbox centering the img.
+    // We just scale from center and offset pan in screen pixels.
     var vw = viewport.offsetWidth, vh = viewport.offsetHeight;
-    var iw = img.naturalWidth||img.offsetWidth||vw;
-    var ih = img.naturalHeight||img.offsetHeight||vh;
-    // Fit image to viewport at scale=1, never upscale
-    var fitScale = Math.min(vw/Math.max(iw,1), vh/Math.max(ih,1), 1);
-    var dispW = iw * fitScale * scale;
-    var dispH = ih * fitScale * scale;
-    // Clamp pan so image edges don't leave the viewport center axis
-    var maxPanX = Math.max(0,(dispW - vw)/2);
-    var maxPanY = Math.max(0,(dispH - vh)/2);
+    // Clamp pan: at current scale, how far can the image move before edge crosses center?
+    var imgW = img.offsetWidth || vw * 0.9;
+    var imgH = img.offsetHeight || vh * 0.9;
+    var scaledW = imgW * scale;
+    var scaledH = imgH * scale;
+    var maxPanX = Math.max(0, (scaledW - vw) / 2);
+    var maxPanY = Math.max(0, (scaledH - vh) / 2);
     panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
     panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
-    // translate(-50%,-50%) moves the top-left anchor to screen center,
-    // then we translate by panX/panY in screen pixels
-    imgWrap.style.transform = 'translate(calc(-50% + '+panX+'px), calc(-50% + '+panY+'px)) scale('+(fitScale*scale)+')';
+    // scale() from transform-origin:center keeps image centered; translate pans it
+    imgWrap.style.transform = 'scale('+scale+') translate('+panX/scale+'px,'+panY/scale+'px)';
     badge.textContent = Math.round(scale*100)+'%';
     resetBtn.classList.toggle('visible', scale>1.05);
   }
