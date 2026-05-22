@@ -157,7 +157,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 
 /* ── CATEGORY GRID ── */
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
-.cat-card{border-radius:22px;padding:2rem 1.8rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .28s,box-shadow .28s;}
+.cat-card{border-radius:22px;padding:2rem 1.8rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .28s,box-shadow .28s;-webkit-tap-highlight-color:rgba(0,0,0,.06);user-select:none;-webkit-user-select:none;}
 .cat-card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(0,0,0,.12);}
 .cat-card.boys{background:linear-gradient(145deg,#DAEEFF,#C5DFF8);}
 .cat-card.girls{background:linear-gradient(145deg,#FFE4EE,#FFB5C8);}
@@ -168,18 +168,12 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .cat-card.kidscare{background:linear-gradient(145deg,#E0F7FA,#80DEEA);}
 .cat-card.school{background:linear-gradient(145deg,#E8F5E9,#A5D6A7);}
 .cat-card.learning{background:linear-gradient(145deg,#FFF3E0,#FFCC80);}
-.cat-carousel-wrap{width:100%;height:220px;border-radius:14px;overflow:hidden;margin-bottom:1.2rem;position:relative;background:rgba(255,255,255,.45);}
-.cat-carousel-wrap .swiper{width:100%;height:100%;}
-.cat-carousel-wrap .swiper-slide{display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.38);}
-.cat-carousel-wrap .swiper-slide img{width:72%;height:72%;object-fit:contain;object-position:center;border-radius:10px;box-shadow:0 6px 18px rgba(44,24,16,.08);}
-.cat-carousel-wrap .swiper-slide.placeholder{flex-direction:column;}
-.cat-carousel-wrap .swiper-slide.placeholder .ph-icon{font-size:36px;margin-bottom:6px;}
-.cat-carousel-wrap .swiper-slide.placeholder .ph-text{font-size:11px;color:rgba(0,0,0,.45);text-align:center;}
+.cat-icon-wrap{width:100%;height:100px;border-radius:14px;margin-bottom:1rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.5);}
+.cat-icon-wrap .cat-big-icon{font-size:52px;line-height:1;display:block;}
 .cat-age{display:inline-block;background:rgba(255,255,255,.65);backdrop-filter:blur(4px);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;margin-bottom:8px;letter-spacing:.3px;}
 .cat-card h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.3rem;}
 .cat-card p{font-size:13px;opacity:.72;margin-bottom:1.2rem;line-height:1.55;}
-.cat-btn{display:inline-flex;align-items:center;gap:6px;background:white;color:var(--text);border:none;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.08);}
-.cat-btn:hover{background:var(--red);color:white;}
+
 .cat-count{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.55);border-radius:10px;padding:4px 10px;font-size:11px;color:var(--muted);font-weight:500;}
 
 /* ── SUBCATEGORY ── */
@@ -622,12 +616,12 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .section-title{font-size:1.3rem;}
   .section-sub{font-size:12.5px;margin-bottom:1.1rem;}
   .cat-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
-  .cat-card{padding:.8rem .6rem;border-radius:14px;}
-  .cat-carousel-wrap{height:76px;border-radius:10px;margin-bottom:.55rem;}
+  .cat-card{padding:.6rem .5rem;border-radius:14px;}
+  .cat-icon-wrap{height:62px;border-radius:10px;margin-bottom:.45rem;}
+  .cat-icon-wrap .cat-big-icon{font-size:34px;}
   .cat-age{font-size:8px;padding:2px 6px;}
   .cat-card h3{font-size:.88rem;}
-  .cat-card p{font-size:.62rem;line-height:1.3;margin-bottom:.4rem;}
-  .cat-btn{font-size:8.5px;padding:4px 7px;}
+  .cat-card p{display:none;}
   .cat-count{font-size:8px;padding:2px 5px;top:.45rem;right:.45rem;}
   .sub-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
   .sub-card{padding:.95rem .85rem;}
@@ -1050,15 +1044,15 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
     <h2 class="section-title">Shop by <span class="red">Category</span></h2>
     <p class="section-sub">Find the perfect look for every little one in your life</p>
     <div class="cat-grid">
-      <div class="cat-card boys" onclick="showPage('boys')"><span class="cat-count" id="cnt-boys">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">👦</span><span class="ph-text">Boys</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">Ages 3–13 Years</span><h3>Boys</h3><p>Bold, playful & built to last</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card girls" onclick="showPage('girls')"><span class="cat-count" id="cnt-girls">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">👧</span><span class="ph-text">Girls</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">Ages 3–13 Years</span><h3>Girls</h3><p>Sweet, vibrant & comfortable</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card babies" onclick="showPage('babies')"><span class="cat-count" id="cnt-babies">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">👶</span><span class="ph-text">Babies</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">Ages 0–3 Years</span><h3>Babies</h3><p>Impossibly soft, gentle on skin</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card accessories" onclick="showPage('accessories')"><span class="cat-count" id="cnt-accessories">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">💎</span><span class="ph-text">Accessories</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">All Ages</span><h3>Accessories</h3><p>Hairbands, clips & belts</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card toys" onclick="showPage('toys')"><span class="cat-count" id="cnt-toys">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">🧸</span><span class="ph-text">Toys</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">All Ages</span><h3>Toys</h3><p>Fun educational play toys</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card twinning" onclick="showPage('twinning')"><span class="cat-count" id="cnt-twinning">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">👨‍👧</span><span class="ph-text">Twinning</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">Parent & Child</span><h3>Twinning</h3><p>Matching parent-child sets</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card kidscare" onclick="showPage('kidscare')"><span class="cat-count" id="cnt-kidscare">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">🧴</span><span class="ph-text">Kids Care</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">All Ages</span><h3>Kids Care</h3><p>Gentle skincare & grooming</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card school" onclick="showPage('school')"><span class="cat-count" id="cnt-school">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">🎒</span><span class="ph-text">School</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">3–13 Years</span><h3>School</h3><p>Bags, stationery & essentials</p><button class="cat-btn">Browse →</button></div>
-      <div class="cat-card learning" onclick="showPage('learning')"><span class="cat-count" id="cnt-learning">0 products</span><div class="cat-carousel-wrap" onclick="event.stopPropagation()"><div class="swiper cat-swiper"><div class="swiper-wrapper"><div class="swiper-slide placeholder"><span class="ph-icon">📚</span><span class="ph-text">Learning</span></div></div><div class="swiper-pagination"></div></div></div><span class="cat-age">All Ages</span><h3>Learning</h3><p>Books, puzzles & kits</p><button class="cat-btn">Browse →</button></div>
+      <div class="cat-card boys" onclick="showPage('boys')"><span class="cat-count" id="cnt-boys">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">👦</span></div><span class="cat-age">Ages 3–13 Years</span><h3>Boys</h3><p>Bold, playful & built to last</p></div>
+      <div class="cat-card girls" onclick="showPage('girls')"><span class="cat-count" id="cnt-girls">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">👧</span></div><span class="cat-age">Ages 3–13 Years</span><h3>Girls</h3><p>Sweet, vibrant & comfortable</p></div>
+      <div class="cat-card babies" onclick="showPage('babies')"><span class="cat-count" id="cnt-babies">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">👶</span></div><span class="cat-age">Ages 0–3 Years</span><h3>Babies</h3><p>Impossibly soft, gentle on skin</p></div>
+      <div class="cat-card accessories" onclick="showPage('accessories')"><span class="cat-count" id="cnt-accessories">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">💎</span></div><span class="cat-age">All Ages</span><h3>Accessories</h3><p>Hairbands, clips & belts</p></div>
+      <div class="cat-card toys" onclick="showPage('toys')"><span class="cat-count" id="cnt-toys">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">🧸</span></div><span class="cat-age">All Ages</span><h3>Toys</h3><p>Fun educational play toys</p></div>
+      <div class="cat-card twinning" onclick="showPage('twinning')"><span class="cat-count" id="cnt-twinning">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">👨‍👧</span></div><span class="cat-age">Parent & Child</span><h3>Twinning</h3><p>Matching parent-child sets</p></div>
+      <div class="cat-card kidscare" onclick="showPage('kidscare')"><span class="cat-count" id="cnt-kidscare">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">🧴</span></div><span class="cat-age">All Ages</span><h3>Kids Care</h3><p>Gentle skincare & grooming</p></div>
+      <div class="cat-card school" onclick="showPage('school')"><span class="cat-count" id="cnt-school">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">🎒</span></div><span class="cat-age">3–13 Years</span><h3>School</h3><p>Bags, stationery & essentials</p></div>
+      <div class="cat-card learning" onclick="showPage('learning')"><span class="cat-count" id="cnt-learning">0 products</span><div class="cat-icon-wrap"><span class="cat-big-icon">📚</span></div><span class="cat-age">All Ages</span><h3>Learning</h3><p>Books, puzzles & kits</p></div>
     </div>
   </div>
 
@@ -1234,6 +1228,15 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
       if ((lbx && lbx.classList.contains('open')) || (sg && sg.classList.contains('open'))) return;
       if (e.key === 'Escape' || e.key === 'Enter') enterSite();
     });
+
+    // Tap anywhere on splash (outside button) also enters site
+    var card = document.getElementById('splash-card');
+    if (card) {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest && e.target.closest('.splash-explore-btn')) return;
+        enterSite();
+      });
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSplash);
@@ -1298,7 +1301,7 @@ async function loadProducts(){
     console.warn('Could not load products.json, using fallback:',e.message);
     allProducts=getFallbackProducts();
   }
-  renderAllGrids(); initCatSwipers(); initTestimonialSwiper(); handleURLRouting();
+  renderAllGrids(); initTestimonialSwiper(); handleURLRouting();
 }
 
 function renderAllGrids(){
@@ -1373,7 +1376,7 @@ function productCard(p){
       <div class="prod-meta">
         <div class="prod-desc">${subcatLabel}${p.description?' · '+p.description.substring(0,55)+(p.description.length>55?'…':''):''}</div>
         <span class="fabric-chip">🧶 ${p.fabric||'Cotton'}</span>
-        ${p.colors&&p.colors.length>0?`<div class="color-row"><span class="color-label">Colors:</span>${colorsHtml}</div>`:''}
+        <!-- Color swatches removed from product tile — visible on PDP only -->
         ${p.sizes&&p.sizes.length>0?`<div class="size-label">Select Size:</div><div class="size-pills" id="sizes-${key}">${sizesHtml}</div>`:''}
       </div>
       <div class="prod-footer">
