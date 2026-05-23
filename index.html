@@ -27,7 +27,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--red:#B71C1C;--red-dark:#7F0000;--red-light:#FFEBEE;--red-mid:#E53935;--warm:#FFF8F5;--text:#2C1810;--muted:#7A5C50;--gold:#FFD54F;}
 html{overflow-x:hidden;width:100%;}
-body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);overflow-x:hidden;width:100%;max-width:100vw;}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);overflow-x:hidden;width:100%;max-width:100vw;padding-top:108px;}
 a,button{-webkit-tap-highlight-color:transparent;}
 button{font:inherit;}
 
@@ -38,6 +38,9 @@ body.splash-active .page{visibility:hidden;pointer-events:none;}
 body.splash-active nav{visibility:hidden;pointer-events:none;}
 body.splash-active .float-wa{visibility:hidden;pointer-events:none;}
 body.splash-active .mobile-bottom-nav{visibility:hidden;pointer-events:none;}
+body.splash-active .promo-ticker-strip{display:none;}
+body.splash-active .ig-ticker-strip{display:none;}
+body.splash-active .promo-popup-overlay{display:none;}
 body.splash-active #anim-canvas{display:none;}
 /* Splash screen itself — full-bleed, always on top */
 #splash-screen{position:fixed;inset:0;z-index:99999;background:#0a0604;}
@@ -80,7 +83,7 @@ body.splash-active #anim-canvas{display:none;}
 }
 
 /* ── NAV ── */
-nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;height:72px;box-shadow:0 2px 12px rgba(183,28,28,.08);width:100%;max-width:100vw;overflow:hidden;}
+nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;position:fixed;top:36px;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;height:72px;box-shadow:0 2px 12px rgba(183,28,28,.08);width:100%;max-width:100vw;overflow:hidden;}
 .logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer;}
 .logo-svg-wrap{width:52px;height:52px;flex-shrink:0;border-radius:50%;overflow:hidden;filter:drop-shadow(0 3px 10px rgba(183,28,28,.38));transition:transform .25s;border:2px solid rgba(183,28,28,.15);}
 .logo-svg-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
@@ -128,32 +131,46 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .section-sub{color:var(--muted);font-size:14px;margin-bottom:2.5rem;}
 .section-title .red{color:var(--red);}
 
-/* ── OFFER BANNER ── */
-.offer-flyer{background:linear-gradient(135deg,#7F0000,#B71C1C,#C62828);border-radius:20px;padding:1.4rem 1.8rem;position:relative;overflow:hidden;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;cursor:pointer;}
-.offer-flyer-icon{font-size:36px;flex-shrink:0;position:relative;z-index:2;}
-.offer-flyer-body{flex:1;min-width:180px;position:relative;z-index:2;}
-.offer-flyer-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:5px;text-transform:uppercase;}
-.offer-flyer-body h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:white;margin-bottom:3px;}
-.offer-flyer-body h3 em{font-style:normal;color:var(--gold);}
-.offer-flyer-body p{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5;}
-.offer-flyer-code{background:rgba(255,255,255,.12);border:2px dashed rgba(255,213,79,.6);border-radius:14px;padding:.8rem 1.2rem;text-align:center;flex-shrink:0;position:relative;z-index:2;transition:all .2s;}
-.offer-flyer-code:hover{background:rgba(255,255,255,.2);}
-.offer-flyer-code-label{font-size:10px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;}
-.offer-flyer-code-val{font-size:1.3rem;font-weight:700;color:var(--gold);letter-spacing:2px;}
-.offer-flyer-code-copy{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;}
+/* ── PROMO TICKER STRIP ── */
+.promo-ticker-strip{background:linear-gradient(90deg,#7F0000,#B71C1C,#C62828,#B71C1C,#7F0000);background-size:300% 100%;animation:tickerShift 6s linear infinite;height:36px;overflow:hidden;cursor:pointer;position:fixed;top:0;left:0;right:0;z-index:1001;width:100%;display:flex;align-items:center;-webkit-tap-highlight-color:rgba(255,255,255,.1);}
+@keyframes tickerShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.promo-ticker-track{display:flex;align-items:center;white-space:nowrap;animation:tickerScroll 22s linear infinite;will-change:transform;}
+.promo-ticker-strip:hover .promo-ticker-track{animation-play-state:paused;}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.promo-ticker-item{display:inline-flex;align-items:center;gap:10px;padding:0 2rem;color:white;font-size:13px;font-weight:600;letter-spacing:.3px;}
+.promo-ticker-item .tk-code{background:var(--gold);color:#5D4037;font-size:11px;font-weight:800;padding:2px 9px;border-radius:8px;letter-spacing:1.5px;margin:0 4px;}
+.promo-ticker-item .tk-tap{font-size:11px;color:rgba(255,255,255,.75);font-weight:400;}
+.promo-ticker-strip:hover .tk-tap{color:white;}
 
-/* ── INSTAGRAM OFFER ── */
-.ig-offer-banner{background:linear-gradient(135deg,#fdf0f8,#fff0e6,#fce4ec);border:2px solid rgba(220,39,67,.15);border-radius:22px;padding:2rem 2rem;position:relative;overflow:hidden;}
-.ig-offer-inner{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
-.ig-offer-badge{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 24px rgba(188,24,136,.3);}
-.ig-offer-badge svg{width:38px;height:38px;fill:white;}
-.ig-offer-text{flex:1;min-width:200px;}
-.ig-offer-tag{display:inline-block;background:linear-gradient(45deg,#f09433,#bc1888);color:white;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;}
-.ig-offer-text h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:5px;}
-.ig-offer-text h3 em{font-style:normal;background:linear-gradient(45deg,#e6683c,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.ig-offer-text p{font-size:13px;color:var(--muted);line-height:1.55;}
-.ig-offer-cta{display:flex;flex-direction:column;gap:8px;align-items:center;}
-.ig-cap-chip{background:white;border:1px solid #F0E0DC;border-radius:10px;padding:5px 12px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:5px;}
+/* ── INSTAGRAM TICKER STRIP ── */
+.ig-ticker-strip{background:linear-gradient(90deg,#833ab4,#fd1d1d,#fcb045,#fd1d1d,#833ab4);background-size:300% 100%;animation:igTickerShift 7s linear infinite;height:36px;overflow:hidden;cursor:pointer;width:100%;display:flex;align-items:center;-webkit-tap-highlight-color:rgba(255,255,255,.1);transition:filter .2s;}
+.ig-ticker-strip:hover{filter:brightness(1.1);}
+@keyframes igTickerShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.ig-ticker-track{display:flex;align-items:center;white-space:nowrap;animation:tickerScroll 26s linear infinite;will-change:transform;}
+.ig-ticker-strip:hover .ig-ticker-track{animation-play-state:paused;}
+.ig-ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 2rem;color:white;font-size:12.5px;font-weight:500;letter-spacing:.2px;}
+.ig-ticker-item strong{font-weight:700;}
+.ig-tk-badge{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:white;font-size:11px;font-weight:700;padding:2px 9px;border-radius:8px;margin:0 3px;}
+.promo-popup-overlay{position:fixed;inset:0;background:rgba(20,10,8,.55);z-index:50000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease;padding:1.5rem;}
+.promo-popup-overlay.open{opacity:1;pointer-events:all;}
+.promo-popup{background:linear-gradient(145deg,#7F0000,#B71C1C 50%,#C62828);border-radius:24px;padding:2rem 1.8rem 1.6rem;max-width:360px;width:100%;position:relative;transform:scale(.9) translateY(16px);transition:transform .3s cubic-bezier(.22,1,.36,1);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.4);}
+.promo-popup-overlay.open .promo-popup{transform:scale(1) translateY(0);}
+.promo-popup-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.15);border:none;color:white;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .2s;}
+.promo-popup-close:hover{background:rgba(255,255,255,.28);}
+.promo-popup-emoji{font-size:40px;margin-bottom:.6rem;display:block;}
+.promo-popup-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:10px;font-weight:700;padding:3px 12px;border-radius:10px;margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.5px;}
+.promo-popup h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:white;margin-bottom:.4rem;line-height:1.25;}
+.promo-popup h3 em{font-style:normal;color:var(--gold);}
+.promo-popup p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55;margin-bottom:1.2rem;}
+.promo-code-box{background:rgba(0,0,0,.25);border:2px dashed rgba(255,213,79,.55);border-radius:16px;padding:1rem 1.2rem;margin-bottom:1rem;cursor:pointer;transition:background .2s;}
+.promo-code-box:hover{background:rgba(0,0,0,.38);}
+.promo-code-label{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.promo-code-val{font-size:1.8rem;font-weight:800;color:var(--gold);letter-spacing:3px;font-family:'Playfair Display',serif;}
+.promo-code-hint{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;}
+.promo-copy-btn{width:100%;background:var(--gold);color:#5D4037;border:none;padding:13px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:.5px;}
+.promo-copy-btn:hover{background:#FFE082;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,213,79,.4);}
+.promo-copy-btn.copied{background:#25D366;color:white;}
+
 
 /* ── CATEGORY GRID ── */
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
@@ -574,9 +591,14 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:2000;background:white;border-top:1.5px solid var(--red-light);box-shadow:0 -4px 20px rgba(183,28,28,.10);height:62px;padding-bottom:env(safe-area-inset-bottom);}
 .mobile-bottom-nav ul{display:flex;list-style:none;height:100%;margin:0;padding:0;}
 .mobile-bottom-nav ul li{flex:1;}
-.mobile-bottom-nav ul li a,.mobile-bottom-nav ul li button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:100%;height:100%;text-decoration:none;color:var(--muted);font-size:10px;font-weight:500;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;transition:color .18s;}
-.mobile-bottom-nav ul li a.active,.mobile-bottom-nav ul li a:active,.mobile-bottom-nav ul li button:active{color:var(--red);}
-.mobile-bottom-nav ul li a .mbn-icon,.mobile-bottom-nav ul li button .mbn-icon{font-size:20px;line-height:1;}
+.mobile-bottom-nav ul li a,.mobile-bottom-nav ul li button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;text-decoration:none;color:var(--muted);font-size:10px;font-weight:500;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 2px 2px;transition:color .15s;position:relative;-webkit-tap-highlight-color:rgba(183,28,28,.12);}
+.mobile-bottom-nav ul li a .mbn-icon,.mobile-bottom-nav ul li button .mbn-icon{font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;width:36px;height:28px;border-radius:10px;transition:background .15s,transform .15s;}
+/* ── ACTIVE STATE — persistent highlight after tap ── */
+.mobile-bottom-nav ul li a.active,.mobile-bottom-nav ul li button.active{color:var(--red);font-weight:700;}
+.mobile-bottom-nav ul li a.active .mbn-icon,.mobile-bottom-nav ul li button.active .mbn-icon{background:var(--red-light);transform:scale(1.08);}
+/* ── PRESS STATE — instant feedback while finger is down ── */
+.mobile-bottom-nav ul li a:active .mbn-icon,.mobile-bottom-nav ul li button:active .mbn-icon{background:var(--red-light);transform:scale(.93);}
+.mobile-bottom-nav ul li a:active,.mobile-bottom-nav ul li button:active{color:var(--red);}
 .mbn-basket-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .mbn-badge{position:absolute;top:-4px;right:-8px;background:var(--red);color:white;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
 .mob-menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:3000;}
@@ -598,7 +620,8 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:700px){
-  nav{padding:0 1rem;height:60px;}
+  nav{padding:0 1rem;height:60px;top:36px;position:fixed;left:0;right:0;}
+  body{padding-top:96px;}
   .nav-links,.wa-btn{display:none;}
   .logo-svg-wrap{width:42px;height:42px;}
   .logo-text{font-size:14px;}
@@ -640,7 +663,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .add-basket-btn{padding:7px 6px;font-size:10.5px;justify-content:center;border-radius:10px;white-space:nowrap;}
   .prod-wa-btn{padding:0;width:34px;height:34px;justify-content:center;flex-shrink:0;border-radius:10px;}
   .prod-share-btn{display:none;}
-  .filter-bar{padding:.6rem 1rem;overflow-x:auto;flex-wrap:nowrap;position:sticky;top:60px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid #F0E0DC;z-index:950;}
+  .filter-bar{padding:.6rem 1rem;overflow-x:auto;flex-wrap:nowrap;position:sticky;top:96px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid #F0E0DC;z-index:950;}
   .filter-btn{white-space:nowrap;flex-shrink:0;font-size:11px;}
   .breadcrumb{padding:9px 1.1rem;font-size:12px;}
   .cat-hero{padding:1.5rem 1.1rem 1.2rem;}
@@ -658,18 +681,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .t-stat-divider{display:none;}
   .t-rating-summary{gap:.8rem;padding:1rem 1.2rem;margin:.5rem 1rem 0;border-radius:14px;}
   .t-stat-num{font-size:1.5rem;}
-  .offer-flyer{margin:0;padding:1.1rem 1.2rem;border-radius:16px;gap:1rem;}
-  .offer-flyer-icon{font-size:28px;}
-  .offer-flyer-body h3{font-size:1rem;}
-  .offer-flyer-code{padding:.6rem 1rem;}
-  .offer-flyer-code-val{font-size:1.1rem;}
-  .ig-offer-banner{padding:.5rem .7rem;border-radius:14px;}
-  .ig-offer-inner{flex-wrap:nowrap;gap:6px;}
-  .ig-offer-badge,.ig-offer-tag,.ig-offer-text p,.ig-cap-chip{display:none;}
-  .ig-offer-text h3{font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1;font-weight:600;}
-  .ig-offer-cta{width:auto;flex-direction:row;gap:4px;}
-  .ig-offer-cta .ig-btn{padding:5px 8px;font-size:10.5px;border-radius:16px;}
-  .ig-offer-cta .ig-btn svg{width:13px;height:13px;}
   .newsletter{padding:1.6rem 1.25rem;}
   .newsletter h2{font-size:1.2rem;}
   .nl-form{flex-direction:column;gap:8px;}
@@ -697,6 +708,38 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 
 <!-- BUG-004 fix: canvas for floating emoji animation -->
 <canvas id="anim-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+
+<!-- ── PROMO TICKER STRIP ── -->
+<div class="promo-ticker-strip" onclick="openPromoPopup()" role="button" aria-label="First order 10% off - tap to copy code WELCOME10" title="Tap to get your discount code">
+  <div class="promo-ticker-track" id="promo-ticker-track">
+    <span class="promo-ticker-item">🎉 First Order Offer — Use code <span class="tk-code">WELCOME10</span> for 10% off! <span class="tk-tap">· Tap to copy 📋</span></span>
+    <span class="promo-ticker-item">✨ No minimum order &nbsp;·&nbsp; Valid on all products &nbsp;·&nbsp; Apply at checkout</span>
+    <span class="promo-ticker-item">🛍️ New customer? Save 10% with <span class="tk-code">WELCOME10</span> <span class="tk-tap">· Tap for code 📋</span></span>
+    <span class="promo-ticker-item">👶 Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>
+    <!-- duplicate set for seamless loop -->
+    <span class="promo-ticker-item">🎉 First Order Offer — Use code <span class="tk-code">WELCOME10</span> for 10% off! <span class="tk-tap">· Tap to copy 📋</span></span>
+    <span class="promo-ticker-item">✨ No minimum order &nbsp;·&nbsp; Valid on all products &nbsp;·&nbsp; Apply at checkout</span>
+    <span class="promo-ticker-item">🛍️ New customer? Save 10% with <span class="tk-code">WELCOME10</span> <span class="tk-tap">· Tap for code 📋</span></span>
+    <span class="promo-ticker-item">👶 Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>
+  </div>
+</div>
+
+<!-- ── PROMO POPUP TILE ── -->
+<div class="promo-popup-overlay" id="promo-popup-overlay" onclick="closePromoOnOverlay(event)">
+  <div class="promo-popup" role="dialog" aria-modal="true" aria-label="Discount Code">
+    <button class="promo-popup-close" onclick="closePromoPopup()" aria-label="Close">✕</button>
+    <span class="promo-popup-emoji">🎉</span>
+    <span class="promo-popup-tag">✨ First Order Offer</span>
+    <h3>Get <em>10% off</em> your first order!</h3>
+    <p>Apply at checkout · Valid on all products · No minimum order value</p>
+    <div class="promo-code-box" onclick="copyPromoCodePopup()" title="Tap to copy">
+      <div class="promo-code-label">Your discount code</div>
+      <div class="promo-code-val" id="popup-code-val">WELCOME10</div>
+      <div class="promo-code-hint" id="popup-code-hint">Tap to copy 📋</div>
+    </div>
+    <button class="promo-copy-btn" id="promo-copy-btn" onclick="copyPromoCodePopup()">📋 Copy Code — WELCOME10</button>
+  </div>
+</div>
 
 <!-- SPLASH SCREEN -->
 <!--
@@ -1007,36 +1050,20 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
     </div>
   </div>
 
-  <div class="section" style="padding-top:1.5rem;padding-bottom:0;">
-    <div class="offer-flyer" onclick="copyPromoCode(this)">
-      <div class="offer-flyer-icon">🎉</div>
-      <div class="offer-flyer-body">
-        <span class="offer-flyer-tag">✨ First Order Offer</span>
-        <h3>Get <em>10% off</em> your first order!</h3>
-        <p>Apply at checkout · Valid on all products · No minimum order</p>
-      </div>
-      <div class="offer-flyer-code" id="flyer-code-box">
-        <div class="offer-flyer-code-label">Use code</div>
-        <div class="offer-flyer-code-val">WELCOME10</div>
-        <div class="offer-flyer-code-copy">Tap to copy 📋</div>
-      </div>
-    </div>
-  </div>
+  <!-- Offer ticker strip is fixed at top — no block needed here -->
 
-  <div class="section" style="padding-top:1rem;padding-bottom:0;">
-    <div class="ig-offer-banner">
-      <div class="ig-offer-inner">
-        <div class="ig-offer-badge"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
-        <div class="ig-offer-text">
-          <span class="ig-offer-tag">🎁 Limited Offer</span>
-          <h3>Follow us & get a <em>season cap absolutely free!</em></h3>
-          <p>Follow @tinythreadskidswear, show us your follow & claim your free cap with your next order. Valid while stocks last.</p>
-        </div>
-        <div class="ig-offer-cta">
-          <a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener"><svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Follow on Instagram</a>
-          <span class="ig-cap-chip">🧢 Free cap included</span>
-        </div>
-      </div>
+  <!-- ── INSTAGRAM TICKER STRIP ── -->
+  <div class="ig-ticker-strip" onclick="window.open('https://www.instagram.com/tinythreadskidswear/','_blank')" role="button" aria-label="Follow us on Instagram and get a free season cap">
+    <div class="ig-ticker-track">
+      <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
+      <span class="ig-ticker-item">✨ Show us your follow in WhatsApp chat &nbsp;·&nbsp; Valid while stocks last</span>
+      <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> &nbsp;·&nbsp; <span class="ig-tk-badge">🎁 Limited Offer</span> &nbsp;·&nbsp; Tap to visit our profile</span>
+      <span class="ig-ticker-item">👗 New arrivals every week &nbsp;·&nbsp; Behind-the-scenes &nbsp;·&nbsp; Styling tips for kids</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
+      <span class="ig-ticker-item">✨ Show us your follow in WhatsApp chat &nbsp;·&nbsp; Valid while stocks last</span>
+      <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> &nbsp;·&nbsp; <span class="ig-tk-badge">🎁 Limited Offer</span> &nbsp;·&nbsp; Tap to visit our profile</span>
+      <span class="ig-ticker-item">👗 New arrivals every week &nbsp;·&nbsp; Behind-the-scenes &nbsp;·&nbsp; Styling tips for kids</span>
     </div>
   </div>
 
@@ -1600,19 +1627,34 @@ function pdpGoTo(idx){if(pdpMainSwiper)pdpMainSwiper.slideTo(idx);}
 function pdpAddToBasket(key){addToBasket(key);const btn=document.getElementById('pdp-abtn-'+key);if(btn){btn.classList.add('added');btn.textContent='✓ Added to Basket!';setTimeout(()=>{btn.classList.remove('added');btn.innerHTML='🛒 Add to Basket';},1600);}}
 function shareOnWhatsApp(key){const p=allProducts.find(p=>p.id===key);if(!p)return;const url=getProductURL(key);const msg=`✨ Check out this from *Tiny Threads Kidswear*!\n\n👕 *${p.name}*\n💰 ₹${p.price}\n\n🔗 ${url}\n\nOrder via WhatsApp: +91 78799 76016`;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}
 function closePDP(){
-  document.title='Tiny Threads Kidswear – Joyful Dailywear for Kids'; // BUG-016
-  showPage(currentPDPCategory); window.scrollTo(0,72);
+  document.title='Tiny Threads Kidswear – Joyful Dailywear for Kids';
+  showPage(currentPDPCategory||'home');
+  window.scrollTo(0,0);
 }
 
 // Page routing
 let currentPage='home';
+let _suppressPush=false;
+
+// Pages that map to bottom nav tabs (everything else keeps current tab lit)
+const MBN_MAP={home:'home',boys:'boys',girls:'girls',babies:'babies'};
+
 function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById('page-'+page);
   if(el){el.classList.add('active');currentPage=page;}
+  // Sync desktop nav
   document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('onclick')&&a.getAttribute('onclick').includes("'"+page+"'"));});
+  // Sync mobile bottom nav
+  const mbnLinks=document.querySelectorAll('.mobile-bottom-nav a');
+  mbnLinks.forEach(a=>a.classList.remove('active'));
+  const targetPage=MBN_MAP[page]||null;
+  if(targetPage){
+    mbnLinks.forEach(a=>{if(a.getAttribute('onclick')&&a.getAttribute('onclick').includes("'"+targetPage+"'"))a.classList.add('active');});
+  }
   window.scrollTo(0,0);
-  history.pushState({page},'','');
+  // Use replaceState so in-app navigation doesn't add browser history entries
+  if(!_suppressPush) history.replaceState({page},'','');
 }
 
 function setMobileNav(el){document.querySelectorAll('.mobile-bottom-nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
@@ -1626,7 +1668,38 @@ function handleURLRouting(){
   if(hash&&validPages.includes(hash)) showPage(hash);
 }
 
-window.addEventListener('popstate',function(e){if(e.state&&e.state.page)showPage(e.state.page);});
+// Intercept browser back button / swipe-back gesture
+// Push a sentinel entry so back-swipe fires popstate instead of leaving the site
+history.replaceState({page:'home'},'','');
+history.pushState({page:'home',_sentinel:true},'','');
+
+window.addEventListener('popstate',function(e){
+  // If user swiped/pressed back and we're on the sentinel, go home
+  if(!e.state||e.state._sentinel){
+    history.pushState({page:'home',_sentinel:true},'','');
+    // If PDP is open, close it back to its category
+    const pdpPage=document.getElementById('page-pdp');
+    if(pdpPage&&pdpPage.classList.contains('active')){
+      _suppressPush=true;
+      closePDP();
+      _suppressPush=false;
+    } else {
+      showPage('home');
+    }
+    return;
+  }
+  if(e.state.page){
+    _suppressPush=true;
+    // If PDP is open, close it and return to its category
+    const pdpPage=document.getElementById('page-pdp');
+    if(pdpPage&&pdpPage.classList.contains('active')){
+      closePDP();
+    } else {
+      showPage(e.state.page);
+    }
+    _suppressPush=false;
+  }
+});
 
 // Mobile menu
 function openMobMenu(){document.getElementById('mob-menu-drawer').classList.add('open');document.getElementById('mob-menu-overlay').classList.add('open');document.body.style.overflow='hidden';}
@@ -2068,6 +2141,48 @@ function renderSimilarItems(currentId) {
     // scroll back up to top of page immediately — just ensure section is rendered
     window.scrollTo(0, 0);
   }, 100);
+}
+
+// ── PROMO TICKER POPUP ──
+function openPromoPopup(){
+  document.getElementById('promo-popup-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePromoPopup(){
+  document.getElementById('promo-popup-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closePromoOnOverlay(e){
+  if(e.target===document.getElementById('promo-popup-overlay')) closePromoPopup();
+}
+function copyPromoCodePopup(){
+  var code='WELCOME10';
+  var btn=document.getElementById('promo-copy-btn');
+  var hint=document.getElementById('popup-code-hint');
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(code).then(function(){
+      _promoCodeCopied(btn,hint);
+    }).catch(function(){_promoCodeFallback(code,btn,hint);});
+  } else {
+    _promoCodeFallback(code,btn,hint);
+  }
+}
+function _promoCodeFallback(code,btn,hint){
+  var ta=document.createElement('textarea');
+  ta.value=code;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  _promoCodeCopied(btn,hint);
+}
+function _promoCodeCopied(btn,hint){
+  if(btn){btn.textContent='✅ Copied! Use at checkout';btn.classList.add('copied');}
+  if(hint){hint.textContent='✅ Code copied!';}
+  showToast('✅ WELCOME10 copied! Use at checkout');
+  setTimeout(function(){
+    if(btn){btn.textContent='📋 Copy Code — WELCOME10';btn.classList.remove('copied');}
+    if(hint){hint.textContent='Tap to copy 📋';}
+  },3000);
 }
 
 // Init
