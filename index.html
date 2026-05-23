@@ -257,10 +257,41 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .cat-hero-girls{background:linear-gradient(135deg,#FFE4EE,#FFD6E7);}
 .cat-hero-babies{background:linear-gradient(135deg,#E8F5E9,#D0EDDB);}
 .cat-hero h1{font-family:'Playfair Display',serif;font-size:2rem;margin:.5rem 0;}
-.filter-bar{max-width:1200px;margin:0 auto;padding:1.2rem 2rem;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.filter-label{font-size:13px;color:var(--muted);font-weight:600;}
-.filter-btn{background:white;border:1.5px solid #E8DED4;border-radius:20px;padding:6px 15px;font-size:12px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;font-weight:500;}
+/* ── FILTER + SORT BAR ── */
+.filter-bar{max-width:1200px;margin:0 auto;padding:.8rem 2rem;display:flex;gap:8px;align-items:center;justify-content:space-between;}
+.filter-scroll{display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px;}
+.filter-scroll::-webkit-scrollbar{display:none;}
+.filter-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;flex-shrink:0;}
+.filter-btn{background:white;border:1.5px solid #E8DED4;border-radius:20px;padding:5px 13px;font-size:12px;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--text);}
 .filter-btn:hover,.filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
+/* ── SORT ── */
+.sort-wrap{flex-shrink:0;position:relative;}
+.sort-btn{display:flex;align-items:center;gap:5px;background:white;border:1.5px solid #E8DED4;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--text);transition:all .18s;white-space:nowrap;}
+.sort-btn:hover,.sort-btn.active-sort{border-color:var(--red);color:var(--red);}
+.sort-btn svg{width:13px;height:13px;transition:transform .2s;}
+.sort-btn.open svg.chevron{transform:rotate(180deg);}
+/* Desktop dropdown — absolute positioned */
+.sort-dropdown{position:fixed;background:white;border:1.5px solid #E8DED4;border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.15);z-index:9999;min-width:185px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .18s,transform .18s;}
+.sort-dropdown.open{opacity:1;pointer-events:all;transform:translateY(0);}
+.sort-option{display:flex;align-items:center;gap:9px;padding:10px 14px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--text);transition:background .15s;border:none;background:none;width:100%;text-align:left;}
+.sort-option:hover{background:#FFF5F5;}
+.sort-option.active{color:var(--red);font-weight:600;background:#FFF5F5;}
+.sort-option .so-icon{font-size:14px;width:20px;text-align:center;}
+/* ── MOBILE FILTER+SORT PANEL ── */
+.fs-panel{display:none;background:white;border-top:1px solid #F0E0DC;border-bottom:1px solid #F0E0DC;padding:0;}
+.fs-panel.open{display:block;}
+.fs-section{padding:10px 1rem;}
+.fs-section+.fs-section{border-top:1px solid #F5EDEA;}
+.fs-section-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;}
+.fs-filter-list{display:flex;flex-wrap:wrap;gap:6px;}
+.fs-sort-list{display:flex;flex-direction:column;gap:2px;}
+.fs-sort-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;border:none;background:none;width:100%;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);transition:background .15s;}
+.fs-sort-row:hover,.fs-sort-row.active{background:#FFF5F5;color:var(--red);font-weight:600;}
+.fs-sort-row .so-icon{font-size:14px;width:22px;text-align:center;}
+.fs-done-btn{width:calc(100% - 2rem);margin:8px 1rem 10px;background:var(--red);color:white;border:none;border-radius:20px;padding:10px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;}
+/* mobile toggle button */
+.fs-toggle-btn{display:none;align-items:center;gap:5px;background:white;border:1.5px solid #E8DED4;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--text);white-space:nowrap;flex-shrink:0;}
+.fs-toggle-btn.active-filters{border-color:var(--red);color:var(--red);}
 .products-section{padding-top:1rem;}
 
 /* ── TESTIMONIALS ── */
@@ -663,8 +694,10 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .add-basket-btn{padding:7px 6px;font-size:10.5px;justify-content:center;border-radius:10px;white-space:nowrap;}
   .prod-wa-btn{padding:0;width:34px;height:34px;justify-content:center;flex-shrink:0;border-radius:10px;}
   .prod-share-btn{display:none;}
-  .filter-bar{padding:.6rem 1rem;overflow-x:auto;flex-wrap:nowrap;position:sticky;top:96px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid #F0E0DC;z-index:950;}
-  .filter-btn{white-space:nowrap;flex-shrink:0;font-size:11px;}
+  .filter-bar{padding:.5rem .8rem;position:sticky;top:96px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid #F0E0DC;z-index:950;gap:6px;}
+  .filter-btn{font-size:11px;padding:4px 11px;}
+  .sort-wrap{display:none;}/* hide desktop sort on mobile */
+  .fs-toggle-btn{display:flex;}/* show mobile toggle */
   .breadcrumb{padding:9px 1.1rem;font-size:12px;}
   .cat-hero{padding:1.5rem 1.1rem 1.2rem;}
   .cat-hero h1{font-size:1.5rem;}
@@ -1154,23 +1187,23 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 </div>
 
 <!-- CATEGORY PAGES -->
-<div id="page-boys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Boys 3–13 Years</div><div class="cat-hero cat-hero-boys"><div style="font-size:52px;margin-bottom:8px;">👦</div><h1>Boys Collection</h1><p style="color:#1a4a6a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Bold, playful & built for every adventure</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('boys','all',this)">All</button><button class="filter-btn" onclick="filterProducts('boys','traditional',this)">🧵 Traditional</button><button class="filter-btn" onclick="filterProducts('boys','summer',this)">☀️ Summer</button><button class="filter-btn" onclick="filterProducts('boys','winter',this)">🧥 Winter</button><button class="filter-btn" onclick="filterProducts('boys','nightwear',this)">🌙 Nightwear</button><button class="filter-btn" onclick="filterProducts('boys','undergarments',this)">🧸 Undergarments</button></div><div class="section products-section"><h2 class="section-title">Boys <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="boys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-boys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Boys 3–13 Years</div><div class="cat-hero cat-hero-boys"><div style="font-size:52px;margin-bottom:8px;">👦</div><h1>Boys Collection</h1><p style="color:#1a4a6a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Bold, playful & built for every adventure</p></div><div class="filter-bar" id="filter-bar-boys"><div class="filter-scroll" id="filter-scroll-boys"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('boys','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-boys" onclick="toggleFsPanel('boys')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-boys" onclick="toggleSortMenu('boys',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-boys"><button class="sort-option active" onclick="applySort('boys','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('boys','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('boys','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('boys','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('boys','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-boys"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-boys"><button class="filter-btn active" onclick="filterProducts('boys','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('boys','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('boys','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('boys','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('boys','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('boys','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('boys')">Done</button></div><div class="section products-section"><h2 class="section-title">Boys <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="boys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-girls" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Girls 3–13 Years</div><div class="cat-hero cat-hero-girls"><div style="font-size:52px;margin-bottom:8px;">👧</div><h1>Girls Collection</h1><p style="color:#7a1a4a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Sweet, vibrant & effortlessly cute</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('girls','all',this)">All</button><button class="filter-btn" onclick="filterProducts('girls','traditional',this)">🧵 Traditional</button><button class="filter-btn" onclick="filterProducts('girls','summer',this)">☀️ Summer</button><button class="filter-btn" onclick="filterProducts('girls','winter',this)">🧥 Winter</button><button class="filter-btn" onclick="filterProducts('girls','nightwear',this)">🌙 Nightwear</button><button class="filter-btn" onclick="filterProducts('girls','undergarments',this)">🧸 Undergarments</button></div><div class="section products-section"><h2 class="section-title">Girls <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="girls-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-girls" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Girls 3–13 Years</div><div class="cat-hero cat-hero-girls"><div style="font-size:52px;margin-bottom:8px;">👧</div><h1>Girls Collection</h1><p style="color:#7a1a4a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Sweet, vibrant & effortlessly cute</p></div><div class="filter-bar" id="filter-bar-girls"><div class="filter-scroll" id="filter-scroll-girls"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('girls','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-girls" onclick="toggleFsPanel('girls')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-girls" onclick="toggleSortMenu('girls',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-girls"><button class="sort-option active" onclick="applySort('girls','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('girls','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('girls','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('girls','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('girls','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-girls"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-girls"><button class="filter-btn active" onclick="filterProducts('girls','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('girls','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('girls','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('girls','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('girls','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('girls','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('girls')">Done</button></div><div class="section products-section"><h2 class="section-title">Girls <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="girls-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-babies" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Babies 0–3 Years</div><div class="cat-hero cat-hero-babies"><div style="font-size:52px;margin-bottom:8px;">👶</div><h1>Baby Collection</h1><p style="color:#1a5a3a;font-size:14px;margin-top:4px;">Ages 0 to 3 Years · Impossibly soft, gentle & adorable</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('babies','all',this)">All</button><button class="filter-btn" onclick="filterProducts('babies','traditional',this)">🧵 Traditional</button><button class="filter-btn" onclick="filterProducts('babies','summer',this)">☀️ Summer</button><button class="filter-btn" onclick="filterProducts('babies','winter',this)">🧥 Winter</button><button class="filter-btn" onclick="filterProducts('babies','nightwear',this)">🌙 Nightwear</button></div><div class="section products-section"><h2 class="section-title">Baby <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="babies-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-babies" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Babies 0–3 Years</div><div class="cat-hero cat-hero-babies"><div style="font-size:52px;margin-bottom:8px;">👶</div><h1>Baby Collection</h1><p style="color:#1a5a3a;font-size:14px;margin-top:4px;">Ages 0 to 3 Years · Impossibly soft, gentle & adorable</p></div><div class="filter-bar" id="filter-bar-babies"><div class="filter-scroll" id="filter-scroll-babies"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('babies','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-babies" onclick="toggleFsPanel('babies')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-babies" onclick="toggleSortMenu('babies',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-babies"><button class="sort-option active" onclick="applySort('babies','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('babies','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('babies','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('babies','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('babies','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-babies"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-babies"><button class="filter-btn active" onclick="filterProducts('babies','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('babies','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('babies','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('babies','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('babies','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('babies','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('babies')">Done</button></div><div class="section products-section"><h2 class="section-title">Baby <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="babies-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-accessories" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Accessories</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF8E1,#FFE082);"><div style="font-size:52px;margin-bottom:8px;">💎</div><h1>Accessories</h1><p style="color:#5D4037;font-size:14px;margin-top:4px;">Hairbands, clips, belts & more</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('accessories','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Accessories</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="accessories-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-accessories" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Accessories</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF8E1,#FFE082);"><div style="font-size:52px;margin-bottom:8px;">💎</div><h1>Accessories</h1><p style="color:#5D4037;font-size:14px;margin-top:4px;">Hairbands, clips, belts & more</p></div><div class="filter-bar" id="filter-bar-accessories"><div class="filter-scroll" id="filter-scroll-accessories"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('accessories','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-accessories" onclick="toggleFsPanel('accessories')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-accessories" onclick="toggleSortMenu('accessories',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-accessories"><button class="sort-option active" onclick="applySort('accessories','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('accessories','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('accessories','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('accessories','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('accessories','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-accessories"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-accessories"><button class="filter-btn active" onclick="filterProducts('accessories','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('accessories','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('accessories','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('accessories','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('accessories','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('accessories','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('accessories')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Accessories</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="accessories-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-toys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Toys</div><div class="cat-hero" style="background:linear-gradient(135deg,#FCE4EC,#F48FB1);"><div style="font-size:52px;margin-bottom:8px;">🧸</div><h1>Toys</h1><p style="color:#880E4F;font-size:14px;margin-top:4px;">Fun, educational & imaginative play</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('toys','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Toys</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="toys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-toys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Toys</div><div class="cat-hero" style="background:linear-gradient(135deg,#FCE4EC,#F48FB1);"><div style="font-size:52px;margin-bottom:8px;">🧸</div><h1>Toys</h1><p style="color:#880E4F;font-size:14px;margin-top:4px;">Fun, educational & imaginative play</p></div><div class="filter-bar" id="filter-bar-toys"><div class="filter-scroll" id="filter-scroll-toys"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('toys','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-toys" onclick="toggleFsPanel('toys')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-toys" onclick="toggleSortMenu('toys',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-toys"><button class="sort-option active" onclick="applySort('toys','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('toys','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('toys','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('toys','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('toys','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-toys"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-toys"><button class="filter-btn active" onclick="filterProducts('toys','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('toys','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('toys','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('toys','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('toys','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('toys','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('toys')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Toys</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="toys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-twinning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Twinning</div><div class="cat-hero" style="background:linear-gradient(135deg,#EDE7F6,#CE93D8);"><div style="font-size:52px;margin-bottom:8px;">👨‍👧</div><h1>Twinning Sets</h1><p style="color:#4A148C;font-size:14px;margin-top:4px;">Matching parent-child outfits</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('twinning','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Twinning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="twinning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-twinning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Twinning</div><div class="cat-hero" style="background:linear-gradient(135deg,#EDE7F6,#CE93D8);"><div style="font-size:52px;margin-bottom:8px;">👨‍👧</div><h1>Twinning Sets</h1><p style="color:#4A148C;font-size:14px;margin-top:4px;">Matching parent-child outfits</p></div><div class="filter-bar" id="filter-bar-twinning"><div class="filter-scroll" id="filter-scroll-twinning"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('twinning','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-twinning" onclick="toggleFsPanel('twinning')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-twinning" onclick="toggleSortMenu('twinning',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-twinning"><button class="sort-option active" onclick="applySort('twinning','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('twinning','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('twinning','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('twinning','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('twinning','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-twinning"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-twinning"><button class="filter-btn active" onclick="filterProducts('twinning','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('twinning','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('twinning','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('twinning','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('twinning','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('twinning','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('twinning')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Twinning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="twinning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-kidscare" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Kids Care</div><div class="cat-hero" style="background:linear-gradient(135deg,#E0F7FA,#80DEEA);"><div style="font-size:52px;margin-bottom:8px;">🧴</div><h1>Kids Care</h1><p style="color:#006064;font-size:14px;margin-top:4px;">Gentle skincare & grooming</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('kidscare','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Kids Care</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="kidscare-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-kidscare" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Kids Care</div><div class="cat-hero" style="background:linear-gradient(135deg,#E0F7FA,#80DEEA);"><div style="font-size:52px;margin-bottom:8px;">🧴</div><h1>Kids Care</h1><p style="color:#006064;font-size:14px;margin-top:4px;">Gentle skincare & grooming</p></div><div class="filter-bar" id="filter-bar-kidscare"><div class="filter-scroll" id="filter-scroll-kidscare"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('kidscare','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-kidscare" onclick="toggleFsPanel('kidscare')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-kidscare" onclick="toggleSortMenu('kidscare',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-kidscare"><button class="sort-option active" onclick="applySort('kidscare','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('kidscare','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('kidscare','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('kidscare','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('kidscare','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-kidscare"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-kidscare"><button class="filter-btn active" onclick="filterProducts('kidscare','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('kidscare','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('kidscare','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('kidscare','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('kidscare','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('kidscare','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('kidscare')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Kids Care</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="kidscare-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-school" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> School</div><div class="cat-hero" style="background:linear-gradient(135deg,#E8F5E9,#A5D6A7);"><div style="font-size:52px;margin-bottom:8px;">🎒</div><h1>School</h1><p style="color:#1B5E20;font-size:14px;margin-top:4px;">Bags, stationery & essentials</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('school','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">School</span> Items</h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="school-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-school" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> School</div><div class="cat-hero" style="background:linear-gradient(135deg,#E8F5E9,#A5D6A7);"><div style="font-size:52px;margin-bottom:8px;">🎒</div><h1>School</h1><p style="color:#1B5E20;font-size:14px;margin-top:4px;">Bags, stationery & essentials</p></div><div class="filter-bar" id="filter-bar-school"><div class="filter-scroll" id="filter-scroll-school"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('school','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-school" onclick="toggleFsPanel('school')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-school" onclick="toggleSortMenu('school',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-school"><button class="sort-option active" onclick="applySort('school','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('school','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('school','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('school','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('school','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-school"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-school"><button class="filter-btn active" onclick="filterProducts('school','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('school','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('school','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('school','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('school','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('school','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('school')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">School</span> Items</h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="school-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-learning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Learning</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"><div style="font-size:52px;margin-bottom:8px;">📚</div><h1>Learning</h1><p style="color:#E65100;font-size:14px;margin-top:4px;">Books, puzzles & educational tools</p></div><div class="filter-bar"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('learning','all',this)">All</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Learning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="learning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-learning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Learning</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"><div style="font-size:52px;margin-bottom:8px;">📚</div><h1>Learning</h1><p style="color:#E65100;font-size:14px;margin-top:4px;">Books, puzzles & educational tools</p></div><div class="filter-bar" id="filter-bar-learning"><div class="filter-scroll" id="filter-scroll-learning"><span class="filter-label">Filter:</span><button class="filter-btn active" onclick="filterProducts('learning','all',this)">All</button></div><button class="fs-toggle-btn" id="fs-toggle-learning" onclick="toggleFsPanel('learning')" aria-label="Filter &amp; Sort">⚙️ Filter &amp; Sort</button><div class="sort-wrap"><button class="sort-btn" id="sort-btn-learning" onclick="toggleSortMenu('learning',this)" aria-label="Sort products"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18M7 12h10M11 18h2'/></svg>Sort<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg></button><div class="sort-dropdown" id="sort-menu-learning"><button class="sort-option active" onclick="applySort('learning','default',this)"><span class="so-icon">✨</span>Featured</button><button class="sort-option" onclick="applySort('learning','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="sort-option" onclick="applySort('learning','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="sort-option" onclick="applySort('learning','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="sort-option" onclick="applySort('learning','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div></div></div><div class="fs-panel" id="fs-panel-learning"><div class="fs-section"><div class="fs-section-label">Filter by type</div><div class="fs-filter-list" id="fs-filter-list-learning"><button class="filter-btn active" onclick="filterProducts('learning','all',this)" data-all="1">All</button></div></div><div class="fs-section"><div class="fs-section-label">Sort by</div><div class="fs-sort-list"><button class="fs-sort-row active" onclick="applySort('learning','default',this)"><span class="so-icon">✨</span>Featured</button><button class="fs-sort-row" onclick="applySort('learning','price-asc',this)"><span class="so-icon">↑</span>Price: Low to High</button><button class="fs-sort-row" onclick="applySort('learning','price-desc',this)"><span class="so-icon">↓</span>Price: High to Low</button><button class="fs-sort-row" onclick="applySort('learning','new',this)"><span class="so-icon">🆕</span>New Arrivals</button><button class="fs-sort-row" onclick="applySort('learning','az',this)"><span class="so-icon">🔤</span>Name A–Z</button></div></div><button class="fs-done-btn" onclick="closeFsPanel('learning')">Done</button></div><div class="section products-section"><h2 class="section-title">All <span class="red">Learning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="learning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
 <!-- PRODUCT DETAIL PAGE -->
 <div id="page-product" class="page">
@@ -1336,17 +1369,178 @@ function renderAllGrids(){
   renderGrid('featured-grid',allProducts.filter(p=>p.featured));
   ALL_CATS.forEach(cat=>{
     renderGrid(cat+'-grid',allProducts.filter(p=>p.category===cat));
+    buildFilterBar(cat); // build filter chips based on actual products
     const cnt=document.getElementById('cnt-'+cat);
     if(cnt){const n=allProducts.filter(p=>p.category===cat).length;cnt.textContent=n+(n===1?' product':' products');}
   });
 }
 
+// ── FILTER + SORT STATE ──
+const categoryState={};
+const SUBCAT_LABELS={
+  traditional:'🧵 Traditional', summer:'☀️ Summer', winter:'🧥 Winter',
+  nightwear:'🌙 Nightwear', undergarments:'🧸 Undergarments',
+  accessories:'💎 Accessories', toys:'🧸 Toys', twinning:'👨‍👧 Twinning',
+  kidscare:'🧴 Kids Care', school:'🎒 School', learning:'📚 Learning'
+};
+
+function buildFilterBar(category){
+  const prods=allProducts.filter(p=>p.category===category);
+  const subs=[...new Set(prods.map(p=>p.subcategory).filter(Boolean))];
+
+  // ── Desktop filter scroll ──
+  const scroll=document.getElementById('filter-scroll-'+category);
+  if(scroll){
+    scroll.querySelectorAll('.filter-btn:not([data-all])').forEach(b=>b.remove());
+    const allBtn=scroll.querySelector('.filter-btn');
+    if(allBtn) allBtn.setAttribute('data-all','1');
+    subs.forEach(sub=>{
+      if(!SUBCAT_LABELS[sub]) return;
+      const btn=document.createElement('button');
+      btn.className='filter-btn'; btn.textContent=SUBCAT_LABELS[sub];
+      btn.setAttribute('data-sub',sub);
+      btn.onclick=function(){filterProducts(category,sub,btn);};
+      scroll.appendChild(btn);
+    });
+  }
+
+  // ── Mobile panel filter list ──
+  const mList=document.getElementById('fs-filter-list-'+category);
+  if(mList){
+    mList.querySelectorAll('.filter-btn:not([data-all])').forEach(b=>b.remove());
+    const allBtn=mList.querySelector('.filter-btn');
+    if(allBtn) allBtn.setAttribute('data-all','1');
+    subs.forEach(sub=>{
+      if(!SUBCAT_LABELS[sub]) return;
+      const btn=document.createElement('button');
+      btn.className='filter-btn'; btn.textContent=SUBCAT_LABELS[sub];
+      btn.setAttribute('data-sub',sub);
+      btn.onclick=function(){filterProducts(category,sub,btn);};
+      mList.appendChild(btn);
+    });
+  }
+
+  // Hide toggle if only 1 subcat (no point showing it)
+  const toggle=document.getElementById('fs-toggle-'+category);
+  if(toggle && subs.length===0) toggle.style.display='none';
+}
+
+function getState(category){
+  if(!categoryState[category]) categoryState[category]={filter:'all',sort:'default'};
+  return categoryState[category];
+}
+
 function filterProducts(category,subcategory,btn){
-  btn.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  // Sync both desktop scroll and mobile panel
+  ['filter-scroll-'+category,'fs-filter-list-'+category].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  });
+  // Mark active on the btn AND its mirror in the other list
   btn.classList.add('active');
-  let filtered=allProducts.filter(p=>p.category===category);
-  if(subcategory!=='all') filtered=filtered.filter(p=>p.subcategory===subcategory);
-  renderGrid(category+'-grid',filtered);
+  const sub=btn.getAttribute('data-sub')||'all';
+  // Sync mirror
+  const mirrorSelector=sub==='all'?'[data-all]':'[data-sub="'+sub+'"]';
+  ['filter-scroll-'+category,'fs-filter-list-'+category].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){const m=el.querySelector(mirrorSelector);if(m)m.classList.add('active');}
+  });
+  getState(category).filter=subcategory;
+  _updateToggleLabel(category);
+  applyFilterAndSort(category);
+}
+
+function toggleFsPanel(category){
+  const panel=document.getElementById('fs-panel-'+category);
+  const toggle=document.getElementById('fs-toggle-'+category);
+  if(!panel) return;
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open',!isOpen);
+  if(toggle) toggle.classList.toggle('active-filters',!isOpen||getState(category).filter!=='all'||getState(category).sort!=='default');
+}
+
+function closeFsPanel(category){
+  const panel=document.getElementById('fs-panel-'+category);
+  if(panel) panel.classList.remove('open');
+  _updateToggleLabel(category);
+}
+
+function _updateToggleLabel(category){
+  const state=getState(category);
+  const toggle=document.getElementById('fs-toggle-'+category);
+  if(!toggle) return;
+  const hasActive=state.filter!=='all'||state.sort!=='default';
+  toggle.classList.toggle('active-filters',hasActive);
+  const sortLabels={'price-asc':'↑Price','price-desc':'↓Price','new':'New','az':'A–Z','default':''};
+  const parts=[];
+  if(state.filter!=='all') parts.push(SUBCAT_LABELS[state.filter]||state.filter);
+  if(state.sort!=='default') parts.push(sortLabels[state.sort]);
+  toggle.textContent=parts.length?'⚙️ '+parts.join(' · '):'⚙️ Filter & Sort';
+}
+
+function toggleSortMenu(category,btn){
+  const menu=document.getElementById('sort-menu-'+category);
+  if(!menu) return;
+  const isOpen=menu.classList.contains('open');
+  document.querySelectorAll('.sort-dropdown.open').forEach(m=>m.classList.remove('open'));
+  document.querySelectorAll('.sort-btn.open').forEach(b=>b.classList.remove('open'));
+  if(!isOpen){
+    // Position using fixed coords to escape any overflow clipping
+    const rect=btn.getBoundingClientRect();
+    menu.style.top=(rect.bottom+6)+'px';
+    menu.style.left='auto';
+    menu.style.right=(window.innerWidth-rect.right)+'px';
+    menu.classList.add('open'); btn.classList.add('open');
+    setTimeout(()=>{
+      document.addEventListener('click',function handler(e){
+        if(!menu.contains(e.target)&&e.target!==btn){
+          menu.classList.remove('open'); btn.classList.remove('open');
+          document.removeEventListener('click',handler);
+        }
+      });
+    },10);
+  }
+}
+
+function applySort(category,sort,btn){
+  const state=getState(category);
+  state.sort=sort;
+  // Update desktop sort options
+  const menu=document.getElementById('sort-menu-'+category);
+  if(menu) menu.querySelectorAll('.sort-option').forEach(b=>b.classList.remove('active'));
+  // Update mobile sort rows
+  const panel=document.getElementById('fs-panel-'+category);
+  if(panel) panel.querySelectorAll('.fs-sort-row').forEach(b=>b.classList.remove('active'));
+  // Mark the clicked btn active (works for both .sort-option and .fs-sort-row)
+  btn.classList.add('active');
+  // Sync the mirror sort option
+  const sortIdx=['default','price-asc','price-desc','new','az'].indexOf(sort);
+  if(menu){const opts=menu.querySelectorAll('.sort-option');if(opts[sortIdx])opts[sortIdx].classList.add('active');}
+  if(panel){const rows=panel.querySelectorAll('.fs-sort-row');if(rows[sortIdx])rows[sortIdx].classList.add('active');}
+  // Update desktop sort button label
+  const sortBtn=document.getElementById('sort-btn-'+category);
+  const labels={default:'Sort','price-asc':'Price ↑','price-desc':'Price ↓','new':'New','az':'A–Z'};
+  if(sortBtn){
+    sortBtn.classList.toggle('active-sort',sort!=='default');
+    sortBtn.childNodes.forEach(n=>{if(n.nodeType===3&&n.textContent.trim())n.textContent=labels[sort]||'Sort';});
+    menu.classList.remove('open'); sortBtn.classList.remove('open');
+  }
+  _updateToggleLabel(category);
+  applyFilterAndSort(category);
+}
+
+function applyFilterAndSort(category){
+  const state=getState(category);
+  // Only products strictly belonging to this category
+  let prods=allProducts.filter(p=>p.category===category);
+  if(state.filter!=='all') prods=prods.filter(p=>p.subcategory===state.filter);
+  switch(state.sort){
+    case 'price-asc':  prods=[...prods].sort((a,b)=>a.price-b.price); break;
+    case 'price-desc': prods=[...prods].sort((a,b)=>b.price-a.price); break;
+    case 'new':        prods=[...prods].sort((a,b)=>(b.badge==='New'?1:0)-(a.badge==='New'?1:0)); break;
+    case 'az':         prods=[...prods].sort((a,b)=>a.name.localeCompare(b.name)); break;
+  }
+  renderGrid(category+'-grid',prods);
 }
 
 function renderGrid(id,products){
