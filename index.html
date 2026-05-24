@@ -62,13 +62,19 @@ body.splash-active #anim-canvas{display:none;}
 .splash-welcome{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.6);line-height:1;}
 .splash-brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;line-height:1.1;text-shadow:0 2px 14px rgba(0,0,0,.35);}
 /* Tagline */
-.splash-tagline{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55;margin-bottom:24px;animation:spTxt .6s .38s ease both;max-width:340px;}
+.splash-tagline{font-size:13px;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:18px;animation:spTxt .6s .38s ease both;max-width:320px;}
 /* Single CTA */
 .splash-explore-btn{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.38);color:white;padding:13px 26px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.3px;transition:background .25s,border-color .25s,transform .2s;animation:spTxt .6s .52s ease both;}
 .splash-explore-btn:hover{background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.6);transform:translateY(-2px);}
 .splash-explore-btn:active{transform:scale(.97);}
 .splash-explore-arrow{font-size:16px;transition:transform .2s;}
 .splash-explore-btn:hover .splash-explore-arrow{transform:translateX(4px);}
+/* ── Splash trust steps ── */
+.splash-steps{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px;animation:spTxt .6s .44s ease both;}
+.splash-step{display:flex;align-items:center;gap:5px;}
+.splash-step-icon{font-size:14px;line-height:1;}
+.splash-step-text{font-size:11px;font-weight:500;color:rgba(255,255,255,.88);letter-spacing:.2px;white-space:nowrap;}
+.splash-step-divider{font-size:10px;color:rgba(255,255,255,.35);flex-shrink:0;}
 @keyframes spTxt{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 /* Exit: fade the whole screen out, page stays hidden until display:none fires */
 #splash-screen.splash-exit{pointer-events:none;animation:spOut .5s cubic-bezier(.4,0,1,1) forwards;}
@@ -78,7 +84,9 @@ body.splash-active #anim-canvas{display:none;}
   .splash-content{padding:22px;}
   .splash-logo{width:50px;height:50px;}
   .splash-brand-name{font-size:19px;}
-  .splash-tagline{font-size:12px;margin-bottom:20px;}
+  .splash-tagline{font-size:12px;margin-bottom:14px;}
+  .splash-steps{gap:6px;margin-bottom:20px;}
+  .splash-step-text{font-size:10.5px;}
   .splash-explore-btn{padding:12px 22px;font-size:13px;}
 }
 
@@ -114,7 +122,6 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .hero-blob1{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:var(--red-light);border-radius:50%;opacity:.25;}
 .hero-blob2{position:absolute;bottom:-80px;left:-80px;width:280px;height:280px;background:#E8F5E9;border-radius:50%;opacity:.3;}
 .hero-content{position:relative;z-index:2;}
-.hero-tag{display:inline-block;background:var(--gold);color:#5D4037;font-size:12px;padding:5px 18px;border-radius:20px;margin-bottom:1.2rem;font-weight:600;letter-spacing:.5px;}
 .hero-logo-wrap{width:180px;height:180px;margin:0 auto 1.2rem;border-radius:50%;overflow:hidden;position:relative;filter:drop-shadow(0 14px 36px rgba(183,28,28,.45));animation:floatLogo 3s ease-in-out infinite;border:3px solid rgba(183,28,28,.15);}
 .hero-logo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;}
 @keyframes floatLogo{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -233,8 +240,9 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .size-pill{background:var(--red-light);color:var(--red);border:1px solid transparent;border-radius:6px;padding:3px 7px;font-size:10px;font-weight:500;cursor:pointer;transition:all .15s;}
 .size-pill:hover,.size-pill.selected{background:var(--red);color:white;}
 .color-row{display:flex;align-items:center;gap:5px;margin-bottom:10px;}
-.color-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s;}
+.color-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.1);cursor:pointer;transition:transform .15s;flex-shrink:0;}
 .color-dot:hover{transform:scale(1.25);}
+.color-dot[style*="linear-gradient"]{border-color:rgba(0,0,0,.15);}
 .fabric-chip{display:inline-block;background:#F5F0EA;color:var(--muted);border-radius:6px;padding:2px 7px;font-size:10px;margin-bottom:8px;}
 .prod-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;}
 .prod-price{font-size:16px;font-weight:700;color:var(--red);}
@@ -267,6 +275,12 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .filter-scroll::-webkit-scrollbar{display:none;}
 .filter-btn{background:#F7F0EE;border:1.5px solid transparent;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--text);-webkit-tap-highlight-color:transparent;}
 .filter-btn.active{background:var(--red);color:white;border-color:var(--red);}
+/* ── Filter "More" overflow dropdown ── */
+.filter-more-btn{background:#F7F0EE;border:1.5px solid #E8DED4;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;white-space:nowrap;flex-shrink:0;color:var(--red);display:none;align-items:center;gap:3px;-webkit-tap-highlight-color:transparent;}
+.filter-more-btn.has-active{background:var(--red);color:white;border-color:var(--red);}
+.filter-more-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1.5px solid #F0E0DC;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1);z-index:955;padding:6px;display:none;flex-wrap:wrap;gap:6px;}
+.filter-more-dropdown.open{display:flex;}
+.filter-scroll-wrap{position:relative;flex:1;min-width:0;}
 .sort-chip-row{display:flex;gap:5px;align-items:center;flex:1;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
 .sort-chip-row::-webkit-scrollbar{display:none;}
 .sort-chip{background:#F7F0EE;border:1.5px solid transparent;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--text);-webkit-tap-highlight-color:transparent;}
@@ -676,6 +690,10 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .filter-bar{position:sticky;top:96px;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);z-index:950;}
   .filter-bar-inner{padding:.35rem .8rem .3rem;}
   .filter-btn,.sort-chip{font-size:11px;padding:3px 10px;}
+  .filter-more-btn{display:inline-flex;}
+  .filter-scroll{overflow:visible;flex-wrap:nowrap;}
+  /* Hide overflow chips on mobile — JS handles which ones show */
+  .filter-btn.mob-hidden{display:none;}
   .breadcrumb{padding:9px 1.1rem;font-size:12px;}
   .cat-hero{padding:1.5rem 1.1rem 1.2rem;}
   .cat-hero h1{font-size:1.5rem;}
@@ -820,7 +838,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 
     </div><!-- /splash-slides -->
 
-    <!-- Branding block — pinned to bottom-left over the photo -->
+    <!-- Branding block — centred over the photo -->
     <div class="splash-content">
       <div class="splash-brand-row">
         <img class="splash-logo" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_200,h_200,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads" width="58" height="58">
@@ -830,6 +848,22 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
         </div>
       </div>
       <div class="splash-tagline">Joyful kidswear for every little adventure</div>
+      <div class="splash-steps">
+        <div class="splash-step">
+          <span class="splash-step-icon">💳</span>
+          <span class="splash-step-text">No pre-payment required</span>
+        </div>
+        <span class="splash-step-divider">·</span>
+        <div class="splash-step">
+          <span class="splash-step-icon">💬</span>
+          <span class="splash-step-text">Send cart on WhatsApp</span>
+        </div>
+        <span class="splash-step-divider">·</span>
+        <div class="splash-step">
+          <span class="splash-step-icon">🚚</span>
+          <span class="splash-step-text">Delivered to your door</span>
+        </div>
+      </div>
       <button class="splash-explore-btn" onclick="enterSite()">
         Explore Our Collection
         <span class="splash-explore-arrow">→</span>
@@ -1048,7 +1082,6 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   <div class="hero">
     <div class="hero-blob1"></div><div class="hero-blob2"></div>
     <div class="hero-content">
-      <div class="hero-tag">✨ New Summer Collection 2026</div>
       <div class="hero-logo-wrap"><img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Tiny Threads Logo"></div>
       <div class="tagline">For the little birds in your nest:<br><span>threads of pure joy.</span></div>
       <p>Playful, comfortable & beautiful dailywear for every little adventure — from sunrise to bedtime.</p>
@@ -1166,23 +1199,23 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 </div>
 
 <!-- CATEGORY PAGES -->
-<div id="page-boys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Boys 3–13 Years</div><div class="cat-hero cat-hero-boys"><div style="font-size:52px;margin-bottom:8px;">👦</div><h1>Boys Collection</h1><p style="color:#1a4a6a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Bold, playful & built for every adventure</p></div><div class="filter-bar" id="filter-bar-boys"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-boys"><button class="filter-btn active" onclick="filterProducts('boys','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-boys"><button class="sort-chip  sort-chip-active" onclick="applySort('boys','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('boys','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('boys','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('boys','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('boys','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Boys <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="boys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-boys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Boys 3–13 Years</div><div class="cat-hero cat-hero-boys"><div style="font-size:52px;margin-bottom:8px;">👦</div><h1>Boys Collection</h1><p style="color:#1a4a6a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Bold, playful & built for every adventure</p></div><div class="filter-bar" id="filter-bar-boys"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-boys"><div class="filter-scroll" id="filter-scroll-boys"><button class="filter-btn active" onclick="filterProducts('boys','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-boys"><button class="sort-chip  sort-chip-active" onclick="applySort('boys','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('boys','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('boys','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('boys','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('boys','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Boys <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="boys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-girls" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Girls 3–13 Years</div><div class="cat-hero cat-hero-girls"><div style="font-size:52px;margin-bottom:8px;">👧</div><h1>Girls Collection</h1><p style="color:#7a1a4a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Sweet, vibrant & effortlessly cute</p></div><div class="filter-bar" id="filter-bar-girls"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-girls"><button class="filter-btn active" onclick="filterProducts('girls','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-girls"><button class="sort-chip  sort-chip-active" onclick="applySort('girls','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('girls','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('girls','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('girls','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('girls','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Girls <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="girls-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-girls" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Girls 3–13 Years</div><div class="cat-hero cat-hero-girls"><div style="font-size:52px;margin-bottom:8px;">👧</div><h1>Girls Collection</h1><p style="color:#7a1a4a;font-size:14px;margin-top:4px;">Ages 3 to 13 Years · Sweet, vibrant & effortlessly cute</p></div><div class="filter-bar" id="filter-bar-girls"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-girls"><div class="filter-scroll" id="filter-scroll-girls"><button class="filter-btn active" onclick="filterProducts('girls','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-girls"><button class="sort-chip  sort-chip-active" onclick="applySort('girls','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('girls','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('girls','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('girls','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('girls','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Girls <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="girls-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-babies" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Babies 0–3 Years</div><div class="cat-hero cat-hero-babies"><div style="font-size:52px;margin-bottom:8px;">👶</div><h1>Baby Collection</h1><p style="color:#1a5a3a;font-size:14px;margin-top:4px;">Ages 0 to 3 Years · Impossibly soft, gentle & adorable</p></div><div class="filter-bar" id="filter-bar-babies"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-babies"><button class="filter-btn active" onclick="filterProducts('babies','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-babies"><button class="sort-chip  sort-chip-active" onclick="applySort('babies','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('babies','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('babies','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('babies','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('babies','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Baby <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="babies-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-babies" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Babies 0–3 Years</div><div class="cat-hero cat-hero-babies"><div style="font-size:52px;margin-bottom:8px;">👶</div><h1>Baby Collection</h1><p style="color:#1a5a3a;font-size:14px;margin-top:4px;">Ages 0 to 3 Years · Impossibly soft, gentle & adorable</p></div><div class="filter-bar" id="filter-bar-babies"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-babies"><div class="filter-scroll" id="filter-scroll-babies"><button class="filter-btn active" onclick="filterProducts('babies','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-babies"><button class="sort-chip  sort-chip-active" onclick="applySort('babies','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('babies','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('babies','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('babies','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('babies','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">Baby <span class="red">Collection</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="babies-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-accessories" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Accessories</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF8E1,#FFE082);"><div style="font-size:52px;margin-bottom:8px;">💎</div><h1>Accessories</h1><p style="color:#5D4037;font-size:14px;margin-top:4px;">Hairbands, clips, belts & more</p></div><div class="filter-bar" id="filter-bar-accessories"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-accessories"><button class="filter-btn active" onclick="filterProducts('accessories','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-accessories"><button class="sort-chip  sort-chip-active" onclick="applySort('accessories','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('accessories','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('accessories','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('accessories','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('accessories','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Accessories</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="accessories-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-accessories" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Accessories</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF8E1,#FFE082);"><div style="font-size:52px;margin-bottom:8px;">💎</div><h1>Accessories</h1><p style="color:#5D4037;font-size:14px;margin-top:4px;">Hairbands, clips, belts & more</p></div><div class="filter-bar" id="filter-bar-accessories"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-accessories"><div class="filter-scroll" id="filter-scroll-accessories"><button class="filter-btn active" onclick="filterProducts('accessories','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-accessories"><button class="sort-chip  sort-chip-active" onclick="applySort('accessories','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('accessories','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('accessories','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('accessories','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('accessories','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Accessories</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="accessories-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-toys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Toys</div><div class="cat-hero" style="background:linear-gradient(135deg,#FCE4EC,#F48FB1);"><div style="font-size:52px;margin-bottom:8px;">🧸</div><h1>Toys</h1><p style="color:#880E4F;font-size:14px;margin-top:4px;">Fun, educational & imaginative play</p></div><div class="filter-bar" id="filter-bar-toys"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-toys"><button class="filter-btn active" onclick="filterProducts('toys','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-toys"><button class="sort-chip  sort-chip-active" onclick="applySort('toys','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('toys','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('toys','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('toys','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('toys','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Toys</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="toys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-toys" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Toys</div><div class="cat-hero" style="background:linear-gradient(135deg,#FCE4EC,#F48FB1);"><div style="font-size:52px;margin-bottom:8px;">🧸</div><h1>Toys</h1><p style="color:#880E4F;font-size:14px;margin-top:4px;">Fun, educational & imaginative play</p></div><div class="filter-bar" id="filter-bar-toys"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-toys"><div class="filter-scroll" id="filter-scroll-toys"><button class="filter-btn active" onclick="filterProducts('toys','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-toys"><button class="sort-chip  sort-chip-active" onclick="applySort('toys','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('toys','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('toys','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('toys','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('toys','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Toys</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="toys-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-twinning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Twinning</div><div class="cat-hero" style="background:linear-gradient(135deg,#EDE7F6,#CE93D8);"><div style="font-size:52px;margin-bottom:8px;">👨‍👧</div><h1>Twinning Sets</h1><p style="color:#4A148C;font-size:14px;margin-top:4px;">Matching parent-child outfits</p></div><div class="filter-bar" id="filter-bar-twinning"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-twinning"><button class="filter-btn active" onclick="filterProducts('twinning','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-twinning"><button class="sort-chip  sort-chip-active" onclick="applySort('twinning','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('twinning','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('twinning','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('twinning','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('twinning','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Twinning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="twinning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-twinning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Twinning</div><div class="cat-hero" style="background:linear-gradient(135deg,#EDE7F6,#CE93D8);"><div style="font-size:52px;margin-bottom:8px;">👨‍👧</div><h1>Twinning Sets</h1><p style="color:#4A148C;font-size:14px;margin-top:4px;">Matching parent-child outfits</p></div><div class="filter-bar" id="filter-bar-twinning"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-twinning"><div class="filter-scroll" id="filter-scroll-twinning"><button class="filter-btn active" onclick="filterProducts('twinning','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-twinning"><button class="sort-chip  sort-chip-active" onclick="applySort('twinning','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('twinning','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('twinning','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('twinning','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('twinning','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Twinning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="twinning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-kidscare" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Kids Care</div><div class="cat-hero" style="background:linear-gradient(135deg,#E0F7FA,#80DEEA);"><div style="font-size:52px;margin-bottom:8px;">🧴</div><h1>Kids Care</h1><p style="color:#006064;font-size:14px;margin-top:4px;">Gentle skincare & grooming</p></div><div class="filter-bar" id="filter-bar-kidscare"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-kidscare"><button class="filter-btn active" onclick="filterProducts('kidscare','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-kidscare"><button class="sort-chip  sort-chip-active" onclick="applySort('kidscare','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('kidscare','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('kidscare','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('kidscare','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('kidscare','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Kids Care</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="kidscare-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-kidscare" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Kids Care</div><div class="cat-hero" style="background:linear-gradient(135deg,#E0F7FA,#80DEEA);"><div style="font-size:52px;margin-bottom:8px;">🧴</div><h1>Kids Care</h1><p style="color:#006064;font-size:14px;margin-top:4px;">Gentle skincare & grooming</p></div><div class="filter-bar" id="filter-bar-kidscare"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-kidscare"><div class="filter-scroll" id="filter-scroll-kidscare"><button class="filter-btn active" onclick="filterProducts('kidscare','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-kidscare"><button class="sort-chip  sort-chip-active" onclick="applySort('kidscare','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('kidscare','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('kidscare','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('kidscare','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('kidscare','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Kids Care</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="kidscare-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-school" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> School</div><div class="cat-hero" style="background:linear-gradient(135deg,#E8F5E9,#A5D6A7);"><div style="font-size:52px;margin-bottom:8px;">🎒</div><h1>School</h1><p style="color:#1B5E20;font-size:14px;margin-top:4px;">Bags, stationery & essentials</p></div><div class="filter-bar" id="filter-bar-school"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-school"><button class="filter-btn active" onclick="filterProducts('school','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-school"><button class="sort-chip  sort-chip-active" onclick="applySort('school','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('school','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('school','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('school','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('school','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">School</span> Items</h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="school-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-school" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> School</div><div class="cat-hero" style="background:linear-gradient(135deg,#E8F5E9,#A5D6A7);"><div style="font-size:52px;margin-bottom:8px;">🎒</div><h1>School</h1><p style="color:#1B5E20;font-size:14px;margin-top:4px;">Bags, stationery & essentials</p></div><div class="filter-bar" id="filter-bar-school"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-school"><div class="filter-scroll" id="filter-scroll-school"><button class="filter-btn active" onclick="filterProducts('school','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-school"><button class="sort-chip  sort-chip-active" onclick="applySort('school','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('school','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('school','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('school','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('school','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">School</span> Items</h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="school-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
-<div id="page-learning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Learning</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"><div style="font-size:52px;margin-bottom:8px;">📚</div><h1>Learning</h1><p style="color:#E65100;font-size:14px;margin-top:4px;">Books, puzzles & educational tools</p></div><div class="filter-bar" id="filter-bar-learning"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll" id="filter-scroll-learning"><button class="filter-btn active" onclick="filterProducts('learning','all',this)" data-all="1">All</button></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-learning"><button class="sort-chip  sort-chip-active" onclick="applySort('learning','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('learning','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('learning','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('learning','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('learning','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Learning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="learning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
+<div id="page-learning" class="page"><div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Learning</div><div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"><div style="font-size:52px;margin-bottom:8px;">📚</div><h1>Learning</h1><p style="color:#E65100;font-size:14px;margin-top:4px;">Books, puzzles & educational tools</p></div><div class="filter-bar" id="filter-bar-learning"><div class="filter-bar-inner"><div class="fb-row"><span class="filter-label">Filter</span><div class="filter-scroll-wrap"><div class="filter-scroll" id="filter-scroll-learning"><div class="filter-scroll" id="filter-scroll-learning"><button class="filter-btn active" onclick="filterProducts('learning','all',this)" data-all="1">All</button></div></div></div><div class="fb-row fb-sort-row"><span class="filter-label">Sort</span><div class="sort-chip-row" id="sort-chips-learning"><button class="sort-chip  sort-chip-active" onclick="applySort('learning','default',this)">✨ Featured</button><button class="sort-chip" onclick="applySort('learning','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip" onclick="applySort('learning','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip" onclick="applySort('learning','new',this)">🆕 New Arrivals</button><button class="sort-chip" onclick="applySort('learning','az',this)">🔤 Name A–Z</button></div></div></div></div><div class="section products-section"><h2 class="section-title">All <span class="red">Learning</span></h2><p class="section-sub">Add items to your basket and checkout via WhatsApp</p><div class="prod-grid" id="learning-grid"><div class="loading-grid"><div class="spinner"></div>Loading…</div></div></div></div>
 
 <!-- PRODUCT DETAIL PAGE -->
 <div id="page-product" class="page">
@@ -1289,15 +1322,36 @@ const WA_NUMBER='917879976016';
 let allProducts=[], basket=[];
 const PROMO_CODES={'WELCOME10':{discount:0.10,label:'WELCOME10 · 10% off',code:'WELCOME10'},'JOY155':{discount:0.155,label:'JOY155 · 15.5% off',code:'JOY155'}};
 let appliedPromo=null;
+// Legacy name→hex map — used as fallback when no hex provided
 const COLOR_MAP={
   'White':'#F5F5F5','Blue':'#1565C0','Cream':'#FFF8E1','Navy':'#0D47A1','Grey':'#9E9E9E',
   'Olive':'#827717','Red':'#B71C1C','Pink':'#E91E63','Yellow':'#FDD835','Mint':'#80CBC4',
   'Lilac':'#CE93D8','Gold':'#FFD600','Maroon':'#880E4F','Ivory':'#FFFDE7','Green':'#388E3C',
   'Sky Blue':'#29B6F6','Orange':'#F57C00','Teal':'#00796B','Mustard':'#F9A825','Magenta':'#AD1457',
-  'Pastel Mix':'linear-gradient(135deg,#FFCDD2,#B3E5FC,#DCEDC8)','Peach':'#FFAB91','Lavender':'#CE93D8',
-  'Dusty Rose':'#F48FB1','Sage':'#A5D6A7','Blush':'#FFCDD2','Burgundy':'#4A148C',
-  'Pink Stars':'#F48FB1','Purple Hearts':'#CE93D8','Blue Stars':'#90CAF9'
+  'Peach':'#FFAB91','Lavender':'#CE93D8','Dusty Rose':'#F48FB1','Sage':'#A5D6A7',
+  'Blush':'#FFCDD2','Burgundy':'#4A148C','Pink Stars':'#F48FB1','Purple Hearts':'#CE93D8','Blue Stars':'#90CAF9'
 };
+
+const MULTICOLOR_BG='linear-gradient(135deg,#FF6B6B 0%,#FFD93D 25%,#6BCB77 50%,#4D96FF 75%,#FF6BFF 100%)';
+
+// Resolve a color entry — handles:
+//   new format: {name:'Sky Blue', hex:'#87CEEB'}
+//   multicolor: {name:'Floral Print', hex:'multicolor'}
+//   old format: 'Sky Blue'  (string, looked up in COLOR_MAP)
+//   missing hex: {name:'Blue'} → falls back to COLOR_MAP → #CCC grey
+function resolveColor(c){
+  if(typeof c==='string'){
+    // Old string format — look up in map, fallback grey
+    return {name:c, bg:COLOR_MAP[c]||'#CCC'};
+  }
+  // New object format
+  var name=c.name||'';
+  var hex=c.hex||'';
+  if(hex==='multicolor') return {name:name, bg:MULTICOLOR_BG};
+  if(hex&&hex.startsWith('#')) return {name:name, bg:hex};
+  // No hex — try name lookup then grey
+  return {name:name, bg:COLOR_MAP[name]||'#CCC'};
+}
 
 // Configuration loader
 let tinythreadsConfig={};
@@ -1373,21 +1427,86 @@ function buildFilterBar(cat){
   if(!scroll) return;
   const prods=allProducts.filter(p=>p.category===cat);
   const subs=[...new Set(prods.map(p=>p.subcategory).filter(Boolean))];
+
+  // Build All button + subcategory chips
   scroll.innerHTML='<button class="filter-btn active" onclick="filterProducts(\''+cat+'\',\'all\',this)" data-all="1">All</button>';
-  subs.forEach(sub=>{
+  subs.forEach(function(sub){
     if(!SUBCAT_LABELS[sub]) return;
-    const btn=document.createElement('button');
+    var btn=document.createElement('button');
     btn.className='filter-btn';
     btn.textContent=SUBCAT_LABELS[sub];
     btn.setAttribute('data-sub',sub);
     btn.onclick=function(){filterProducts(cat,sub,btn);};
     scroll.appendChild(btn);
   });
+
+  // Inject More button + dropdown for mobile overflow
+  var wrap=scroll.closest('.filter-scroll-wrap')||scroll.parentElement;
+  // Remove any existing more btn/dropdown
+  var existingMore=document.getElementById('filter-more-btn-'+cat);
+  if(existingMore) existingMore.remove();
+  var existingDrop=document.getElementById('filter-more-drop-'+cat);
+  if(existingDrop) existingDrop.remove();
+
+  if(subs.length>2){
+    var moreBtn=document.createElement('button');
+    moreBtn.className='filter-more-btn';
+    moreBtn.id='filter-more-btn-'+cat;
+    moreBtn.innerHTML='More <span style="font-size:9px;">▾</span>';
+    moreBtn.onclick=function(e){e.stopPropagation();toggleFilterMore(cat);};
+
+    var drop=document.createElement('div');
+    drop.className='filter-more-dropdown';
+    drop.id='filter-more-drop-'+cat;
+
+    // On mobile: show only "All" + first 2 subs inline, rest go into dropdown
+    _buildMobileFilterOverflow(cat,subs,drop);
+
+    scroll.after(moreBtn);
+    moreBtn.after(drop);
+
+    // Close dropdown on outside tap
+    document.addEventListener('click',function(){
+      drop.classList.remove('open');
+    },{capture:false});
+  }
+}
+
+function _buildMobileFilterOverflow(cat,subs,drop){
+  // Populate the More dropdown with chips beyond the first 2
+  drop.innerHTML='';
+  subs.slice(2).forEach(function(sub){
+    if(!SUBCAT_LABELS[sub]) return;
+    var btn=document.createElement('button');
+    btn.className='filter-btn';
+    btn.textContent=SUBCAT_LABELS[sub];
+    btn.setAttribute('data-sub',sub);
+    btn.onclick=function(e){e.stopPropagation();filterProducts(cat,sub,btn);toggleFilterMore(cat,true);};
+    drop.appendChild(btn);
+  });
+}
+
+function toggleFilterMore(cat,forceClose){
+  var drop=document.getElementById('filter-more-drop-'+cat);
+  if(!drop) return;
+  if(forceClose){drop.classList.remove('open');return;}
+  drop.classList.toggle('open');
 }
 
 function filterProducts(cat,sub,btn){
-  document.querySelectorAll('#filter-scroll-'+cat+' .filter-btn').forEach(b=>b.classList.remove('active'));
+  // Deactivate all filter chips (inline + dropdown)
+  document.querySelectorAll('#filter-scroll-'+cat+' .filter-btn').forEach(function(b){b.classList.remove('active');});
+  var drop=document.getElementById('filter-more-drop-'+cat);
+  if(drop) drop.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
+
+  // Highlight More button if active selection is inside the dropdown
+  var moreBtn=document.getElementById('filter-more-btn-'+cat);
+  if(moreBtn){
+    var inDrop=drop&&drop.contains(btn);
+    moreBtn.classList.toggle('has-active',inDrop&&sub!=='all');
+  }
+
   getState(cat).filter=sub;
   applyFilterAndSort(cat);
 }
@@ -1461,7 +1580,8 @@ function productCard(p){
     slidesHtml=`<div class="swiper-slide"><div class="slide-ph"><span class="ph-icon">${icons[p.subcategory]||'📸'}</span><span class="ph-text">${p.name}</span></div></div>`;
   }
   const sizesHtml=p.sizes?p.sizes.map(s=>`<button type="button" class="size-pill" onclick="selectSize(this,'${key}')">${s}</button>`).join(''):'';
-  const colorsHtml=p.colors?p.colors.map(c=>{const bg=COLOR_MAP[c]||'#CCC';return `<span class="color-dot" title="${c}" style="background:${bg}"></span>`;}).join(''):'';
+  const colorsHtml=p.colors&&p.colors.length?p.colors.slice(0,6).map(c=>{const r=resolveColor(c);return `<span class="color-dot" title="${r.name}" style="background:${r.bg}"></span>`;}).join(''):'';
+
   const subcatLabel={traditional:'Traditional',summer:'Summer',winter:'Winter',nightwear:'Nightwear',undergarments:'Undergarments',accessories:'Accessories',toys:'Toys',twinning:'Twinning',kidscare:'Kids Care',school:'School',learning:'Learning'}[p.subcategory]||p.subcategory||'';
   return `<div class="prod-card" id="card-${key}">
     <div class="prod-swiper-wrap" style="cursor:pointer;" onclick="openPDP('${key}')">
@@ -1700,7 +1820,7 @@ function openPDP(key){
   });
   // Build info
   const sizesHtml=p.sizes?p.sizes.map(s=>`<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${key}')">${s}</button>`).join(''):'';
-  const colorsHtml=p.colors?p.colors.map(c=>{const bg=COLOR_MAP[c]||'#CCC';return `<div class="pdp-color-btn" title="${c}" style="background:${bg}" onclick="pdpSelectColor(this,'${c}')"></div>`;}).join(''):'';
+  const colorsHtml=p.colors&&p.colors.length?p.colors.slice(0,6).map(c=>{const r=resolveColor(c);return `<div class="pdp-color-btn" title="${r.name}" style="background:${r.bg}" onclick="pdpSelectColor(this,'${r.name}')"></div>`;}).join(''):'';
   const catEmoji={'boys':'👦','girls':'👧','babies':'👶','accessories':'💎','toys':'🧸','twinning':'👨‍👧','kidscare':'🧴','school':'🎒','learning':'📚'}[p.category]||'📦';
   document.getElementById('pdp-info').innerHTML=`
     <div class="pdp-category-tag">${catEmoji} ${backLabel}</div>
