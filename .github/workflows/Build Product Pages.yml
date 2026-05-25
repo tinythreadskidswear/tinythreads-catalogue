@@ -1,12 +1,12 @@
 name: Build Product Pages
 
 on:
-  workflow_dispatch:       # manual trigger only
+  workflow_dispatch:
     inputs:
       target_branch:
         description: 'Branch to push generated pages to'
         required: true
-        default: 'supabase_branch'    # ← safe default, never main
+        default: 'supabase_branch'
 
 jobs:
   build:
@@ -17,13 +17,26 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.target_branch }}
-          fetch-depth: 0     # full history needed for push
+          fetch-depth: 0
+
+      - name: Show repo structure (debug)
+        run: find . -name "*.js" | grep -v node_modules | grep -v ".git" | sort
 
       - name: Build product pages from Supabase
         env:
           SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: node OG_Page_Builder.js
+        run: |
+          # Find the builder script wherever it lives in the repo
+          SCRIPT=$(find . -name "Supabase_OG_Page_Builder.js" -not -path "*/node_modules/*" | head -1)
+          if [ -z "$SCRIPT" ]; then
+            echo "❌  OG_Page_Builder.js not found in repo"
+            echo "    JS files found:"
+            find . -name "*.js" -not -path "*/node_modules/*"
+            exit 1
+          fi
+          echo "✅  Found script at: $SCRIPT"
+          node "$SCRIPT"
 
       - name: Commit and push to target branch
         run: |
