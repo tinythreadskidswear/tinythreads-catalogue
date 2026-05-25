@@ -1,0 +1,54 @@
+name: Sync products.json → Supabase
+
+on:
+  workflow_dispatch:         # run manually from GitHub Actions UI only
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Upsert products into Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          python3 << 'PYEOF'
+          # Pure Python stdlib — no npm, no node_modules, no SDK, no dependencies
+          import json, urllib.request, urllib.error, os, math
+
+          SUPABASE_URL      = os.environ['SUPABASE_URL'].rstrip('/')
+          SERVICE_KEY       = os.environ['SUPABASE_SERVICE_KEY']
+          HEADERS = {
+            'apikey':        SERVICE_KEY,
+            'Authorization': f'Bearer {SERVICE_KEY}',
+            'Content-Type':  'application/json',
+            'Prefer':        'resolution=merge-duplicates,return=minimal'
+          }
+
+          def upsert_batch(batch):
+            body = json.dumps(batch, ensure_ascii=False).encode('utf-8')
+            req  = urllib.request.Request(
+              f'{SUPABASE_URL}/rest/v1/products',
+              data=body, headers=HEADERS, method='POST'
+            )
+            try:
+              urllib.request.urlopen(req)
+            except urllib.error.HTTPError as e:
+              raise RuntimeError(f'Supabase {e.code}: {e.read().decode()}')
+
+          with open('products.json', encoding='utf-8') as f:
+            raw = json.load(f)
+          products = raw.get('products', raw) if isinstance(raw, dict) else raw
+          rows = [{**p, 'active': p.get('active', True)} for p in products]
+
+          BATCH, upserted = 100, 0
+          for i in range(0, len(rows), BATCH):
+            upsert_batch(rows[i:i+BATCH])
+            upserted += len(rows[i:i+BATCH])
+            print(f'✅ Upserted {upserted}/{len(rows)} products')
+
+          print(f'\n✅ Sync complete — {upserted} products in Supabase')
+          PYEOF
