@@ -10,54 +10,45 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Upsert products into Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          node << 'EOF'
-          // No SDK — plain fetch() to Supabase REST API (no WebSocket/Realtime needed)
-          const fs = require('fs');
+          python3 << 'PYEOF'
+          # Pure Python stdlib — no npm, no node_modules, no SDK, no dependencies
+          import json, urllib.request, urllib.error, os, math
 
-          const SUPABASE_URL     = process.env.SUPABASE_URL;
-          const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
-
-          async function upsertBatch(batch) {
-            const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
-              method: 'POST',
-              headers: {
-                'apikey':        SUPABASE_SERVICE_KEY,
-                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
-                'Content-Type':  'application/json',
-                'Prefer':        'resolution=merge-duplicates'  // upsert on conflict
-              },
-              body: JSON.stringify(batch)
-            });
-            if (!res.ok) {
-              const err = await res.text();
-              throw new Error(`Supabase error ${res.status}: ${err}`);
-            }
+          SUPABASE_URL      = os.environ['SUPABASE_URL'].rstrip('/')
+          SERVICE_KEY       = os.environ['SUPABASE_SERVICE_KEY']
+          HEADERS = {
+            'apikey':        SERVICE_KEY,
+            'Authorization': f'Bearer {SERVICE_KEY}',
+            'Content-Type':  'application/json',
+            'Prefer':        'resolution=merge-duplicates'
           }
 
-          async function main() {
-            const raw      = JSON.parse(fs.readFileSync('products.json', 'utf8'));
-            const products = raw.products || raw;
-            const rows     = products.map(p => ({ ...p, active: p.active !== false }));
+          def upsert_batch(batch):
+            body = json.dumps(batch, ensure_ascii=False).encode('utf-8')
+            req  = urllib.request.Request(
+              f'{SUPABASE_URL}/rest/v1/products',
+              data=body, headers=HEADERS, method='POST'
+            )
+            try:
+              urllib.request.urlopen(req)
+            except urllib.error.HTTPError as e:
+              raise RuntimeError(f'Supabase {e.code}: {e.read().decode()}')
 
-            const BATCH = 100;
-            let upserted = 0;
-            for (let i = 0; i < rows.length; i += BATCH) {
-              await upsertBatch(rows.slice(i, i + BATCH));
-              upserted += Math.min(BATCH, rows.length - i);
-              console.log(`✅ Upserted ${upserted}/${rows.length} products`);
-            }
-            console.log(`\n✅ Sync complete — ${upserted} products in Supabase`);
-          }
+          with open('products.json', encoding='utf-8') as f:
+            raw = json.load(f)
+          products = raw.get('products', raw) if isinstance(raw, dict) else raw
+          rows = [{**p, 'active': p.get('active', True)} for p in products]
 
-          main().catch(e => { console.error('❌', e.message); process.exit(1); });
-          EOF
+          BATCH, upserted = 100, 0
+          for i in range(0, len(rows), BATCH):
+            upsert_batch(rows[i:i+BATCH])
+            upserted += len(rows[i:i+BATCH])
+            print(f'✅ Upserted {upserted}/{len(rows)} products')
+
+          print(f'\n✅ Sync complete — {upserted} products in Supabase')
+          PYEOF
