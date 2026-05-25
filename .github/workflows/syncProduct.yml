@@ -1,0 +1,101 @@
+name: Sync products.json → Supabase
+
+on:
+  workflow_dispatch:         # run manually from GitHub Actions UI only
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js
+
+      - name: Upsert products into Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          node << 'EOF'
+          const { createClient } = require('@supabase/supabase-js');
+          const fs = require('fs');
+
+          const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_KEY
+          );
+
+          async function main() {
+            const raw = JSON.parse(fs.readFileSync('products.json', 'utf8'));
+            const products = raw.products || raw;   // handle both {products:[]} and []
+
+            // Add active:true if not present, so RLS filter works
+            const rows = products.map(p => ({ ...p, active: p.active !== false }));
+
+            // Upsert in batches of 100 (Supabase limit per request)
+            const BATCH = 100;
+            let upserted = 0;
+            for (let i = 0; i < rows.length; i += BATCH) {
+              const batch = rows.slice(i, i + BATCH);
+              const { error } = await supabase
+                .from('products')
+                .upsert(batch, { onConflict: 'id' });   // id is the unique key
+              if (error) throw new Error(`Upsert failed at batch ${i}: ${error.message}`);
+              upserted += batch.length;
+              console.log(`✅ Upserted ${upserted}/${rows.length} products`);
+            }
+            console.log(`\n✅ Sync complete — ${upserted} products in Supabase`);
+          }
+
+          main().catch(e => { console.error('❌', e.message); process.exit(1); });
+          EOF
+
+      - name: Update embedded fallback in index.html
+        run: |
+          python3 << 'PYEOF'
+          import json, re
+
+          with open('products.json') as f:
+              raw = json.load(f)
+          products = raw.get('products', raw)
+
+          # Compact JSON (no extra spaces)
+          blob = json.dumps(products, ensure_ascii=False, separators=(',', ':'))
+
+          with open('index.html', 'r', encoding='utf-8') as f:
+              html = f.read()
+
+          # Replace everything between the two markers
+          new_block = (
+              '    // AUTO-GENERATED-PRODUCTS-START\n'
+              f'    allProducts={blob};\n'
+              '    // AUTO-GENERATED-PRODUCTS-END'
+          )
+          html = re.sub(
+              r'    // AUTO-GENERATED-PRODUCTS-START.*?// AUTO-GENERATED-PRODUCTS-END',
+              new_block,
+              html,
+              flags=re.DOTALL
+          )
+
+          with open('index.html', 'w', encoding='utf-8') as f:
+              f.write(html)
+
+          print(f"✅ Embedded fallback updated ({len(products)} products)")
+          PYEOF
+
+      - name: Commit updated index.html
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          # Only commit if index.html actually changed
+          git diff --staged --quiet || git commit -m "chore: update embedded product fallback [skip ci]"
+          git push
