@@ -15,40 +15,45 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install @supabase/supabase-js
-
       - name: Upsert products into Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           node << 'EOF'
-          const { createClient } = require('@supabase/supabase-js');
+          // No SDK — plain fetch() to Supabase REST API (no WebSocket/Realtime needed)
           const fs = require('fs');
 
-          const supabase = createClient(
-            process.env.SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_KEY
-          );
+          const SUPABASE_URL     = process.env.SUPABASE_URL;
+          const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+          async function upsertBatch(batch) {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+              method: 'POST',
+              headers: {
+                'apikey':        SUPABASE_SERVICE_KEY,
+                'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+                'Content-Type':  'application/json',
+                'Prefer':        'resolution=merge-duplicates'  // upsert on conflict
+              },
+              body: JSON.stringify(batch)
+            });
+            if (!res.ok) {
+              const err = await res.text();
+              throw new Error(`Supabase error ${res.status}: ${err}`);
+            }
+          }
 
           async function main() {
-            const raw = JSON.parse(fs.readFileSync('products.json', 'utf8'));
-            const products = raw.products || raw;   // handle both {products:[]} and []
+            const raw      = JSON.parse(fs.readFileSync('products.json', 'utf8'));
+            const products = raw.products || raw;
+            const rows     = products.map(p => ({ ...p, active: p.active !== false }));
 
-            // Add active:true if not present, so RLS filter works
-            const rows = products.map(p => ({ ...p, active: p.active !== false }));
-
-            // Upsert in batches of 100 (Supabase limit per request)
             const BATCH = 100;
             let upserted = 0;
             for (let i = 0; i < rows.length; i += BATCH) {
-              const batch = rows.slice(i, i + BATCH);
-              const { error } = await supabase
-                .from('products')
-                .upsert(batch, { onConflict: 'id' });   // id is the unique key
-              if (error) throw new Error(`Upsert failed at batch ${i}: ${error.message}`);
-              upserted += batch.length;
+              await upsertBatch(rows.slice(i, i + BATCH));
+              upserted += Math.min(BATCH, rows.length - i);
               console.log(`✅ Upserted ${upserted}/${rows.length} products`);
             }
             console.log(`\n✅ Sync complete — ${upserted} products in Supabase`);
