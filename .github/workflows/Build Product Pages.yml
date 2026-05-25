@@ -23,7 +23,7 @@ jobs:
         env:
           SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: node Supabase_OG_Page_Builder.js
+        run: node OG_Page_Builder.js
 
       - name: Commit and push to target branch
         run: |
