@@ -23,9 +23,9 @@ jobs:
           SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          SCRIPT=$(find . -name "OG_Page_Builder.js" -not -path "*/node_modules/*" | head -1)
+          SCRIPT=$(find . -name "Supabase_OG_Page_Builder.js" -not -path "*/node_modules/*" | head -1)
           if [ -z "$SCRIPT" ]; then
-            echo "❌  OG_Page_Builder.js not found in repo"
+            echo "❌  Supabase_OG_Page_Builder.js not found in repo"
             exit 1
           fi
           echo "✅  Found script at: $SCRIPT"
