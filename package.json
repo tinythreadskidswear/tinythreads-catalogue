@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "build:embed": "node build-embed-products.js",
+    "build:pages": "node generate-product-pages-2505.js",
+    "test": "playwright test"
+  },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "playwright": "^1.60.0"
