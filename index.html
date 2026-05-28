@@ -750,6 +750,42 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   nav{padding:0 1.2rem;}
   .nav-links li a{font-size:12px;padding:6px 10px;}
 }
+
+/* ═══════════════════════════════════════════════════
+   SHIPPING MODAL — basket checkout
+   ═══════════════════════════════════════════════════ */
+.ship-overlay{position:fixed;inset:0;background:rgba(44,24,16,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20000;opacity:0;pointer-events:none;transition:opacity .25s ease;backdrop-filter:blur(3px);}
+.ship-overlay.active{opacity:1;pointer-events:all;}
+.ship-modal{background:white;border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom);transform:translateY(100%);transition:transform .32s cubic-bezier(.32,1,.6,1);-webkit-overflow-scrolling:touch;}
+.ship-overlay.active .ship-modal{transform:translateY(0);}
+.ship-modal-head{position:sticky;top:0;background:white;z-index:10;padding:1rem 1.4rem .8rem;border-bottom:1px solid var(--red-light);display:flex;align-items:center;justify-content:space-between;}
+.ship-modal-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);}
+.ship-modal-close{width:32px;height:32px;border-radius:50%;background:var(--red-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:18px;font-weight:700;transition:background .15s;flex-shrink:0;}
+.ship-modal-close:hover{background:#FFCDD2;}
+.ship-basket-bar{background:var(--warm);padding:.75rem 1.4rem;border-bottom:1px solid var(--red-light);font-size:12.5px;color:var(--muted);line-height:1.6;}
+.ship-basket-bar strong{color:var(--red);font-size:14px;}
+.ship-form{padding:1rem 1.4rem 0;}
+.ship-sec-label{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin:1rem 0 .55rem;display:block;}
+.ship-row{display:flex;gap:10px;}
+.ship-row .ship-field{flex:1;}
+.ship-field{margin-bottom:.7rem;position:relative;}
+.ship-field label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.ship-field label .req{color:var(--red);}
+.ship-field input,.ship-field select{width:100%;padding:10px 12px;border-radius:11px;border:1.5px solid var(--red-light);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:white;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;appearance:none;outline:none;}
+.ship-field input:focus,.ship-field select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(183,28,28,.1);}
+.ship-field.has-error input,.ship-field.has-error select{border-color:#E53935;box-shadow:0 0 0 3px rgba(229,57,53,.1);}
+.ship-err{font-size:10.5px;color:#E53935;margin-top:3px;display:none;}
+.ship-field.has-error .ship-err{display:block;}
+.ship-pin-st{font-size:11px;margin-top:4px;min-height:16px;}
+.ship-pin-st.ok{color:#1B8C4E;}.ship-pin-st.fail{color:#E53935;}.ship-pin-st.loading{color:var(--muted);}
+.ship-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A5C50' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+.ship-actions{padding:1rem 1.4rem 0;}
+.ship-submit{width:100%;padding:14px;border-radius:15px;background:#25D366;color:white;border:none;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:background .2s,transform .1s;margin-bottom:.6rem;}
+.ship-submit:hover{background:#20ba5c;}.ship-submit:active{transform:scale(.98);}.ship-submit:disabled{background:#A5D6B0;cursor:not-allowed;transform:none;}
+.ship-skip{width:100%;padding:10px;background:transparent;color:var(--muted);border:none;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.ship-skip:hover{color:var(--text);}
+@keyframes _ssp{to{transform:rotate(360deg);}}
+.ship-spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:_ssp .7s linear infinite;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -1818,6 +1854,10 @@ function _shareLegacyCopy(url){
 
 function checkoutWhatsApp(){
   if(basket.length===0) return;
+  openShipModal(); // collect shipping details first; WA fires after
+}
+function _doCheckoutWA(ship){
+  if(basket.length===0) return;
   const subtotal=basket.reduce((s,i)=>s+i.qty*i.price,0);
   const discountAmt=appliedPromo?Math.round(subtotal*appliedPromo.discount):0;
   const total=subtotal-discountAmt;
@@ -1828,7 +1868,13 @@ function checkoutWhatsApp(){
   });
   msg+=`${div}\n🧾 *Order Summary*\n   Items    : ${basket.reduce((s,i)=>s+i.qty,0)}\n   Subtotal : ₹${subtotal.toLocaleString('en-IN')}\n`;
   if(appliedPromo) msg+=`   Promo    : *${appliedPromo.code}* (${Math.round(appliedPromo.discount*100)}% off) −₹${discountAmt.toLocaleString('en-IN')}\n`;
-  msg+=`   *Total   : ₹${total.toLocaleString('en-IN')}*\n${div}\n\nPlease confirm availability and share payment details. Thank you! 🙏`;
+  msg+=`   *Total   : ₹${total.toLocaleString('en-IN')}*\n${div}\n`;
+  if(ship){
+    msg+=`\n📦 *Shipping Details*\n   Name    : ${ship.name}\n   Mobile  : ${ship.mobile}\n   Address : ${ship.addr1}${ship.addr2?', '+ship.addr2:''}\n   Area    : ${ship.area}\n   City    : ${ship.city} – ${ship.pin}\n   State   : ${ship.state}\n   Order # : ${ship.orderId||'pending'}\n`;
+  } else {
+    msg+='\n📦 Shipping details: Not shared\n';
+  }
+  msg+='\nPlease confirm availability. Thank you! 🙏';
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -2530,5 +2576,243 @@ function _promoCodeCopied(btn,hint){
   await loadProducts();
 })();
 </script>
+
+<!-- ══════════════════════════════════════════════
+     SHIPPING MODAL — basket checkout
+     ══════════════════════════════════════════════ -->
+<div class="ship-overlay" id="shipOverlay" onclick="shipOverlayClick(event)">
+  <div class="ship-modal" role="dialog" aria-modal="true">
+    <div class="ship-modal-head">
+      <div class="ship-modal-title">📦 Where should we ship?</div>
+      <button class="ship-modal-close" onclick="closeShipModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="ship-basket-bar" id="shipBasketBar">Loading basket…</div>
+    <div class="ship-form">
+      <span class="ship-sec-label">Contact</span>
+      <div class="ship-field" id="sf-name">
+        <label>Full Name <span class="req">*</span></label>
+        <input type="text" id="sinp-name" placeholder="e.g. Priya Sharma" autocomplete="name" inputmode="text" maxlength="80">
+        <div class="ship-err">Please enter your name</div>
+      </div>
+      <div class="ship-field" id="sf-mobile">
+        <label>Mobile Number <span class="req">*</span></label>
+        <input type="tel" id="sinp-mobile" placeholder="10-digit mobile" autocomplete="tel" inputmode="numeric" maxlength="10">
+        <div class="ship-err">Enter a valid 10-digit number</div>
+      </div>
+      <span class="ship-sec-label">Delivery Address</span>
+      <div class="ship-row">
+        <div class="ship-field" id="sf-pin" style="flex:0 0 130px;">
+          <label>PIN Code <span class="req">*</span></label>
+          <input type="text" id="sinp-pin" placeholder="6 digits" autocomplete="postal-code" inputmode="numeric" maxlength="6">
+          <div class="ship-pin-st" id="shipPinSt"></div>
+          <div class="ship-err">Enter valid 6-digit PIN</div>
+        </div>
+        <div class="ship-field" id="sf-city" style="flex:1;">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="sinp-city" placeholder="Auto-filled" autocomplete="address-level2" maxlength="60">
+          <div class="ship-err">City is required</div>
+        </div>
+      </div>
+      <div class="ship-field" id="sf-area">
+        <label>Area / Locality <span class="req">*</span></label>
+        <select id="sinp-area"><option value="">Enter PIN to load areas…</option></select>
+        <div class="ship-err">Please select your area</div>
+      </div>
+      <div class="ship-field">
+        <label>State</label>
+        <input type="text" id="sinp-state" placeholder="Auto-filled" autocomplete="address-level1" maxlength="60" readonly style="background:#FAFAFA;color:var(--muted);">
+      </div>
+      <div class="ship-field" id="sf-addr1">
+        <label>Address Line 1 <span class="req">*</span></label>
+        <input type="text" id="sinp-addr1" placeholder="House / Flat no., Building name" autocomplete="address-line1" maxlength="120">
+        <div class="ship-err">Address is required</div>
+      </div>
+      <div class="ship-field">
+        <label>Address Line 2 <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+        <input type="text" id="sinp-addr2" placeholder="Street, Landmark" autocomplete="address-line2" maxlength="120">
+      </div>
+    </div>
+    <div class="ship-actions">
+      <button class="ship-submit" id="shipSubmitBtn" onclick="shipSubmit()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Confirm & Checkout on WhatsApp
+      </button>
+      <button class="ship-skip" onclick="shipSkip()">Skip for now →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// SHIPPING MODAL — basket checkout
+// Session key 'tt_ship' is shared with product pages so the
+// customer never re-types their address in the same session.
+// ═══════════════════════════════════════════════════════════
+const _SHIP_SESS = 'tt_ship';
+const _SB_URL_S  = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
+const _SB_KEY_S  = 'sb_publishable_8Sxqgnn-VQJrVnpRy2WqUQ_g23PLPvk';
+
+function _shipSave(d){ try{sessionStorage.setItem(_SHIP_SESS,JSON.stringify(d));}catch(e){} }
+function _shipLoad(){ try{return JSON.parse(sessionStorage.getItem(_SHIP_SESS)||'null');}catch(e){return null;} }
+
+function openShipModal(){
+  const subtotal=basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const items=basket.reduce((s,i)=>s+i.qty,0);
+  const disc=appliedPromo?Math.round(subtotal*appliedPromo.discount):0;
+  const bar=document.getElementById('shipBasketBar');
+  if(bar){
+    bar.innerHTML=`<strong>${items} item${items!==1?'s':''}</strong> · Subtotal ₹${subtotal.toLocaleString('en-IN')}`
+      +(disc?` · Discount −₹${disc.toLocaleString('en-IN')} · <strong>Total ₹${(subtotal-disc).toLocaleString('en-IN')}</strong>`:'');
+  }
+  document.getElementById('shipOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+  setTimeout(_shipRestore,60);
+}
+function closeShipModal(){
+  document.getElementById('shipOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+function shipOverlayClick(e){
+  if(e.target===document.getElementById('shipOverlay')) closeShipModal();
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&document.getElementById('shipOverlay').classList.contains('active')) closeShipModal();
+});
+
+function _shipRestore(){
+  const d=_shipLoad(); if(!d) return;
+  _sset('sinp-name',d.name||''); _sset('sinp-mobile',d.mobile||'');
+  _sset('sinp-addr1',d.addr1||''); _sset('sinp-addr2',d.addr2||'');
+  if(d.pin&&d.pin.length===6){_sset('sinp-pin',d.pin);_shipPinLookup(d.pin,d.area||'');}
+}
+
+function _sset(id,v){const el=document.getElementById(id);if(el)el.value=v;}
+function _sget(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function _serr(fId,on){const el=document.getElementById(fId);if(el)el.classList.toggle('has-error',on);}
+function _sclerr(fId){_serr(fId,false);}
+
+(function(){
+  const map={'sinp-name':'sf-name','sinp-mobile':'sf-mobile','sinp-pin':'sf-pin',
+             'sinp-city':'sf-city','sinp-area':'sf-area','sinp-addr1':'sf-addr1'};
+  Object.keys(map).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('input',()=>_sclerr(map[id]));
+  });
+})();
+
+let _shipPinTimer=null;
+document.getElementById('sinp-pin').addEventListener('input',function(){
+  clearTimeout(_shipPinTimer);
+  const v=this.value.replace(/\D/g,''); this.value=v;
+  if(v.length===6){_shipPinTimer=setTimeout(()=>_shipPinLookup(v,''),400);}
+  else{_resetShipPin();_shipPinSt('','');}
+});
+function _resetShipPin(){
+  _sset('sinp-city','');_sset('sinp-state','');
+  document.getElementById('sinp-area').innerHTML='<option value="">Enter PIN to load areas…</option>';
+}
+function _shipPinSt(cls,msg){
+  const el=document.getElementById('shipPinSt');
+  el.className='ship-pin-st'+(cls?' '+cls:'');el.textContent=msg;
+}
+async function _shipPinLookup(pin,preferArea){
+  _shipPinSt('loading','⏳ Looking up…');_resetShipPin();
+  try{
+    const r=await fetch('https://api.postalpincode.in/pincode/'+pin);
+    const d=await r.json();
+    if(!d||d[0].Status!=='Success'){_shipPinSt('fail','❌ PIN not found');return;}
+    const offices=d[0].PostOffice||[];
+    if(!offices.length){_shipPinSt('fail','❌ No data');return;}
+    const city=offices[0].District||offices[0].Division||'';
+    const state=offices[0].State||'';
+    _sset('sinp-city',city);_sset('sinp-state',state);_sclerr('sf-city');
+    const sel=document.getElementById('sinp-area');
+    sel.innerHTML='<option value="">Select your area…</option>';
+    const seen=new Set();
+    offices.forEach(o=>{
+      if(o.Name&&!seen.has(o.Name)){
+        seen.add(o.Name);
+        const opt=document.createElement('option');
+        opt.value=o.Name;opt.textContent=o.Name;
+        if(preferArea&&o.Name===preferArea)opt.selected=true;
+        sel.appendChild(opt);
+      }
+    });
+    _sclerr('sf-area');
+    _shipPinSt('ok','✓ '+city+', '+state);
+  }catch(e){
+    _shipPinSt('fail','❌ Network error — type city manually');
+    document.getElementById('sinp-city').removeAttribute('readonly');
+  }
+}
+
+function _shipValidate(){
+  let ok=true;
+  if(!_sget('sinp-name'))                    {_serr('sf-name',true);  ok=false;}
+  if(!/^\d{10}$/.test(_sget('sinp-mobile'))) {_serr('sf-mobile',true);ok=false;}
+  if(!/^\d{6}$/.test(_sget('sinp-pin')))     {_serr('sf-pin',true);  ok=false;}
+  if(!_sget('sinp-city'))                    {_serr('sf-city',true); ok=false;}
+  if(!_sget('sinp-area'))                    {_serr('sf-area',true); ok=false;}
+  if(!_sget('sinp-addr1'))                   {_serr('sf-addr1',true);ok=false;}
+  return ok;
+}
+
+const WA_BTN_HTML='<svg width="19" height="19" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Confirm & Checkout on WhatsApp';
+
+async function shipSubmit(){
+  if(!_shipValidate()){
+    const first=document.querySelector('#shipOverlay .has-error input,#shipOverlay .has-error select');
+    if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const btn=document.getElementById('shipSubmitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<div class="ship-spin"></div> Saving details…';
+
+  const ship={
+    name:_sget('sinp-name'),mobile:_sget('sinp-mobile'),
+    pin:_sget('sinp-pin'),city:_sget('sinp-city'),
+    area:_sget('sinp-area'),state:_sget('sinp-state'),
+    addr1:_sget('sinp-addr1'),addr2:_sget('sinp-addr2'),
+  };
+  _shipSave(ship);
+
+  const subtotal=basket.reduce((s,i)=>s+i.qty*i.price,0);
+  const discountAmt=appliedPromo?Math.round(subtotal*appliedPromo.discount):0;
+
+  let orderId=null;
+  try{
+    const res=await fetch(_SB_URL_S+'/rest/v1/orders',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':_SB_KEY_S,'Authorization':'Bearer '+_SB_KEY_S,'Prefer':'return=representation'},
+      body:JSON.stringify({
+        customer_name:ship.name,mobile:ship.mobile,
+        address_line1:ship.addr1,address_line2:ship.addr2||null,
+        area:ship.area,city:ship.city,pincode:ship.pin,state:ship.state||null,
+        product_id:'BASKET',
+        product_name:basket.map(i=>i.name+'×'+i.qty).join(' | '),
+        product_price:subtotal-discountAmt,
+        status:'pending',wa_sent:true
+      })
+    });
+    const data=await res.json();
+    orderId=data&&data[0]?data[0].id:null;
+  }catch(e){console.warn('Supabase save:',e.message);}
+
+  showToast('✅ Address saved! Opening WhatsApp…');
+  setTimeout(()=>{
+    closeShipModal();
+    _doCheckoutWA({...ship,orderId});
+    btn.disabled=false;
+    btn.innerHTML=WA_BTN_HTML;
+  },700);
+}
+
+function shipSkip(){
+  closeShipModal();
+  _doCheckoutWA(null);
+}
+</script>
+
 </body>
 </html>
