@@ -508,7 +508,7 @@ function _clearErr(fId){ _err(fId,false); }
 let _pinTimer=null;
 document.getElementById('inp-pin').addEventListener('input',function(){
   clearTimeout(_pinTimer);
-  const v=this.value.replace(/D/g,''); this.value=v;
+  const v=this.value.replace(/\D/g,''); this.value=v;
   if(v.length===6){ _pinTimer=setTimeout(()=>_pinLookup(v,''),400); }
   else { _resetPinFields(); _pinSt('',''); }
 });
@@ -548,13 +548,7 @@ async function _pinLookup(pin, preferArea){
     return true;
   }
 
-  function _fallbackManual(){
-    _pinSt('fail','❌ Could not auto-fill — please type city manually');
-    const c=document.getElementById('inp-city');
-    c.removeAttribute('readonly'); c.focus();
-  }
-
-  // Primary: api.postalpincode.in
+  // api.postalpincode.in
   try{
     const r=await fetch('https://api.postalpincode.in/pincode/'+pin,{cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
@@ -564,30 +558,10 @@ async function _pinLookup(pin, preferArea){
       return;
     }
     throw new Error('not found');
-  }catch(e1){
-    // Primary failed (HTTP 400 / network / API down) — fallback to india-pincode API
-    try{
-      const r2=await fetch('https://india-pincode-with-all-details.p.rapidapi.com/api/v1/pincode/'+pin,{
-        headers:{
-          'x-rapidapi-host':'india-pincode-with-all-details.p.rapidapi.com',
-          'x-rapidapi-key':'dde68e7c3cmsh7cae43a9c8b4a3ep122e93jsn89de6f2f5342'
-        },
-        cache:'no-store'
-      });
-      if(!r2.ok) throw new Error('HTTP '+r2.status);
-      const d2=await r2.json();
-      if(!Array.isArray(d2)||!d2.length) throw new Error('empty');
-      // Map to postalpincode.in shape
-      const offices=d2.map(o=>({
-        Name:    o.officeName||o.taluk||o.Name||'',
-        District:o.districtName||o.district||o.District||'',
-        State:   o.stateName||o.state||o.State||'',
-        Division:o.divisionName||''
-      }));
-      _fillFromOffices(offices);
-    }catch(e2){
-      _fallbackManual();
-    }
+  }catch(e){
+    _pinSt('fail','❌ PIN not found — please type city manually');
+    const c=document.getElementById('inp-city');
+    c.removeAttribute('readonly'); c.focus();
   }
 }
 
@@ -595,8 +569,8 @@ async function _pinLookup(pin, preferArea){
 function _validate(){
   let ok=true;
   if(!_get('inp-name'))                     { _err('f-name',true);   ok=false; }
-  if(!/^d{10}$/.test(_get('inp-mobile')))  { _err('f-mobile',true); ok=false; }
-  if(!/^d{6}$/.test(_get('inp-pin')))      { _err('f-pin',true);    ok=false; }
+  if(!/^\d{10}$/.test(_get('inp-mobile')))  { _err('f-mobile',true); ok=false; }
+  if(!/^\d{6}$/.test(_get('inp-pin')))      { _err('f-pin',true);    ok=false; }
   if(!_get('inp-city'))                     { _err('f-city',true);   ok=false; }
   if(!_get('inp-area'))                     { _err('f-area',true);   ok=false; }
   if(!_get('inp-addr1'))                    { _err('f-addr1',true);  ok=false; }
