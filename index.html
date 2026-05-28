@@ -2715,35 +2715,74 @@ function _shipPinSt(cls,msg){
   const el=document.getElementById('shipPinSt');
   el.className='ship-pin-st'+(cls?' '+cls:'');el.textContent=msg;
 }
-async function _shipPinLookup(pin,preferArea){
-  _shipPinSt('loading','⏳ Looking up…');_resetShipPin();
-  try{
-    const r=await fetch('https://api.postalpincode.in/pincode/'+pin);
-    const d=await r.json();
-    if(!d||d[0].Status!=='Success'){_shipPinSt('fail','❌ PIN not found');return;}
-    const offices=d[0].PostOffice||[];
-    if(!offices.length){_shipPinSt('fail','❌ No data');return;}
-    const city=offices[0].District||offices[0].Division||'';
-    const state=offices[0].State||'';
-    _sset('sinp-city',city);_sset('sinp-state',state);_sclerr('sf-city');
-    const sel=document.getElementById('sinp-area');
-    sel.innerHTML='<option value="">Select your area…</option>';
-    const seen=new Set();
-    offices.forEach(o=>{
-      if(o.Name&&!seen.has(o.Name)){
-        seen.add(o.Name);
-        const opt=document.createElement('option');
-        opt.value=o.Name;opt.textContent=o.Name;
-        if(preferArea&&o.Name===preferArea)opt.selected=true;
-        sel.appendChild(opt);
-      }
-    });
-    _sclerr('sf-area');
-    _shipPinSt('ok','✓ '+city+', '+state);
-  }catch(e){
-    _shipPinSt('fail','❌ Network error — type city manually');
-    document.getElementById('sinp-city').removeAttribute('readonly');
+async function _shipPinLookup(pin, preferArea) {
+  _shipPinSt('loading', '⏳ Looking up…'); _resetShipPin();
+
+  // Always unlock fields so user can override regardless
+  const cityEl  = document.getElementById('sinp-city');
+  const stateEl = document.getElementById('sinp-state');
+  const areaEl  = document.getElementById('sinp-area');
+  cityEl.removeAttribute('readonly');
+  stateEl.removeAttribute('readonly');
+
+  // Try direct first, then via CORS proxy as fallback
+  const target = 'https://api.postalpincode.in/pincode/' + pin;
+  const urls = [
+    target,
+    'https://corsproxy.io/?' + encodeURIComponent(target),
+  ];
+
+  let d = null;
+  for (const url of urls) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 6000);
+      const r = await fetch(url, { signal: controller.signal });
+      clearTimeout(timer);
+      if (!r.ok) continue;
+      const json = await r.json();
+      if (json?.[0]?.Status === 'Success') { d = json; break; }
+    } catch (e) { continue; }
   }
+
+  if (!d) {
+    _shipPinSt('warn', '⚠️ Couldn\'t auto-fill — please enter manually');
+    areaEl.innerHTML = '<option value="">Select area…</option>'
+                     + '<option value="Other">Other / Not listed</option>';
+    return;
+  }
+
+  const offices = d[0].PostOffice || [];
+  if (!offices.length) {
+    _shipPinSt('warn', '⚠️ No data — please enter manually');
+    areaEl.innerHTML = '<option value="">Select area…</option>'
+                     + '<option value="Other">Other / Not listed</option>';
+    return;
+  }
+
+  const city  = offices[0].District || offices[0].Division || '';
+  const state = offices[0].State || '';
+  _sset('sinp-city', city);
+  _sset('sinp-state', state);
+  _sclerr('sf-city');
+
+  areaEl.innerHTML = '<option value="">Select your area…</option>';
+  const seen = new Set();
+  offices.forEach(o => {
+    if (o.Name && !seen.has(o.Name)) {
+      seen.add(o.Name);
+      const opt = document.createElement('option');
+      opt.value = o.Name; opt.textContent = o.Name;
+      if (preferArea && o.Name === preferArea) opt.selected = true;
+      areaEl.appendChild(opt);
+    }
+  });
+  const other = document.createElement('option');
+  other.value = 'Other'; other.textContent = 'Other / Not listed';
+  areaEl.appendChild(other);
+
+  _sclerr('sf-area');
+  _shipPinSt('ok', '✓ ' + city + ', ' + state);
 }
 
 function _shipValidate(){
