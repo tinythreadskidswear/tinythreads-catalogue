@@ -802,7 +802,7 @@ function _clearErr(fId){ _err(fId,false); }
 let _pinTimer=null;
 document.getElementById('inp-pin').addEventListener('input',function(){
   clearTimeout(_pinTimer);
-  const v=this.value.replace(/\D/g,''); this.value=v;
+  const v=this.value.replace(/\\D/g,''); this.value=v;
   if(v.length===6){ _pinTimer=setTimeout(()=>_pinLookup(v,''),400); }
   else { _resetPinFields(); _pinSt('',''); }
 });
@@ -889,8 +889,8 @@ async function _pinLookup(pin, preferArea){
 function _validate(){
   let ok=true;
   if(!_get('inp-name'))                     { _err('f-name',true);   ok=false; }
-  if(!/^\d{10}$/.test(_get('inp-mobile')))  { _err('f-mobile',true); ok=false; }
-  if(!/^\d{6}$/.test(_get('inp-pin')))      { _err('f-pin',true);    ok=false; }
+  if(!/^\\d{10}$/.test(_get('inp-mobile')))  { _err('f-mobile',true); ok=false; }
+  if(!/^\\d{6}$/.test(_get('inp-pin')))      { _err('f-pin',true);    ok=false; }
   if(!_get('inp-city'))                     { _err('f-city',true);   ok=false; }
   if(!_get('inp-area'))                     { _err('f-area',true);   ok=false; }
   if(!_get('inp-addr1'))                    { _err('f-addr1',true);  ok=false; }
