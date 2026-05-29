@@ -182,7 +182,7 @@ function ogImage(product, h = 630) {
 
   // Use Rs. (ASCII) instead of ₹ (multi-byte) to stay URL-safe
   const price    = product.price
-    ? `Rs.${Number(product.price).toLocaleString('en-IN')}  |  mytinythreads.in`
+    ? `Rs.${Number(product.price).toLocaleString('en-IN')} - mytinythreads.in`
     : 'mytinythreads.in';
   const encPrice = cloudinaryTextEncode(price);
 
@@ -190,31 +190,33 @@ function ogImage(product, h = 630) {
 
   // ── Build the Cloudinary transformation chain ────────────────────────────
   //
-  //  [T1] c_limit,h_{h},w_{h},q_auto
-  //       Scale product to fit a square = frame height. Portrait photos
-  //       become h px tall, landscape become h px wide. No upscaling.
-  //       This keeps the product centred naturally when padded next.
+  //  This is the ORIGINAL chain that was confirmed working for WhatsApp previews.
+  //  DO NOT change the transform structure — it produces valid cached JPEG images
+  //  that WhatsApp's crawler can fetch and display correctly.
   //
-  //  [T2] c_pad,w_1200,h_{h},g_center,b_rgb:FFF8F5
-  //       Pad to full OG dimensions. g_center ensures equal left/right bars
-  //       so the product sits exactly in the middle 630px — WhatsApp-safe.
+  //  [T1] c_limit,h_540,w_540,q_auto
+  //       Scale product to fill 540×540 (leaves 90px breathing room below 630).
+  //       c_limit = only shrink, never enlarge. Preserves aspect ratio.
   //
-  //  [T3] Brand label — bottom-centre, small caps, brand red
-  //       letter_spacing is a standalone param, NOT part of the font string.
-  //       Correct syntax: l_text:Font_Size_Style:Text,letter_spacing_N
+  //  [T2] c_pad,w_1200,h_630,b_rgb:FFF8F5
+  //       Pad to exact OG dimensions with warm-white brand background.
+  //       Narrow bars appear left+right of the portrait product.
   //
-  //  [T4] Product name — bottom-centre, medium weight
+  //  [T3] Brand label — bottom-left, small red caps with letter spacing
   //
-  //  [T5] Price + CTA — bottom-centre, brand red
+  //  [T4] Product name — bottom-left, dark brand colour
+  //
+  //  [T5] Price + CTA — bottom-left, matching colour
   //
   //  [T6] f_jpg,q_85 — compressed JPEG, WhatsApp-safe (<300 KB)
   //
+  const productH  = h - 90;   // 540 for h=630, 538 for h=628
   const transforms = [
-    `c_limit,h_${h},w_${h},q_auto`,
-    `c_pad,w_1200,h_${h},g_center,b_rgb:FFF8F5`,
-    `l_text:DM+Sans_12_bold:${encBrand},co_rgb:B71C1C,g_south,y_68,letter_spacing_3`,
-    `l_text:DM+Sans_22_semibold:${encName},co_rgb:2C1810,g_south,y_38`,
-    `l_text:DM+Sans_14:${encPrice},co_rgb:B71C1C,g_south,y_12`,
+    `c_limit,h_${productH},w_${productH},q_auto`,
+    `c_pad,w_1200,h_${h},b_rgb:FFF8F5`,
+    `l_text:DM+Sans_13_bold_letter_spacing_3:${encBrand},co_rgb:B71C1C,g_south_west,y_68,x_40`,
+    `l_text:DM+Sans_22_semibold:${encName},co_rgb:2C1810,g_south_west,y_38,x_40`,
+    `l_text:DM+Sans_15:${encPrice},co_rgb:B71C1C,g_south_west,y_14,x_40`,
     `f_jpg,q_85`,
   ].join('/');
 
