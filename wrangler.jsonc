@@ -2,14 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tinythreads-catalogue",
   "compatibility_date": "2026-04-26",
-  "main": "_worker.js",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": ".",
-    "binding": "ASSETS",
-    "run_worker_first": ["/products/*"]
+    "directory": "."
   },
   "compatibility_flags": [
     "nodejs_compat"
