@@ -1453,7 +1453,7 @@ async function loadProducts(){
   var loaded=false;
   try{
     var res=await fetch(
-      SUPABASE_URL+'/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors&order=created_at.desc',
+      SUPABASE_URL+'/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors&order=sort_order.asc.nullslast&order=created_at.desc',
       {headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}
     );
     if(!res.ok) throw new Error('Supabase '+res.status);
@@ -1496,7 +1496,12 @@ async function loadProducts(){
 
 function renderAllGrids(){
   const ALL_CATS=['boys','girls','babies','accessories','toys','twinning','kidscare','school','learning'];
-  renderGrid('featured-grid',allProducts.filter(p=>p.featured));
+  // renderGrid('featured-grid',allProducts.filter(p=>p.featured));
+  renderGrid('featured-grid',allProducts.filter(p=>p.featured).sort((a,b)=>{
+  const sa = a.sort_order == null ? Infinity : a.sort_order;
+  const sb = b.sort_order == null ? Infinity : b.sort_order;
+  return sa - sb;
+}));
   ALL_CATS.forEach(cat=>{
     renderGrid(cat+'-grid',allProducts.filter(p=>p.category===cat));
     buildFilterBar(cat); // build filter chips based on actual products
@@ -1625,6 +1630,11 @@ function applyFilterAndSort(cat){
     case 'price-desc': prods=[...prods].sort((a,b)=>b.price-a.price); break;
     case 'new':        prods=[...prods].sort((a,b)=>(b.badge==='New'?1:0)-(a.badge==='New'?1:0)); break;
     case 'az':         prods=[...prods].sort((a,b)=>a.name.localeCompare(b.name)); break;
+    default:           prods=[...prods].sort((a,b)=>{
+                         const sa = a.sort_order == null ? Infinity : a.sort_order;
+                         const sb = b.sort_order == null ? Infinity : b.sort_order;
+                         return sa - sb;
+                       }); break;
   }
   renderGrid(cat+'-grid',prods);
 }
