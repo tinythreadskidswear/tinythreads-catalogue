@@ -1,0 +1,30 @@
+# Worker source — must not be served as static files
+_worker.js
+wrangler.jsonc
+wrangler.toml
+
+# Build & dev tools
+node_modules
+package.json
+package-lock.json
+.github
+.vscode
+
+# Generator scripts (no longer needed after worker is live)
+OG_Page_Builder.js
+Supabase_OG_Page_Builder.js
+generate-product-pages*.js
+build-embed-products.js
+
+# Docs & config
+*.md
+AGENTS.md
+DEPLOY.md
+README.md
+OPTIMIZATION_REPORT.md
+netlify.toml
+tinythreads.properties
+
+# Test files
+*.spec.js
+test-*.js
