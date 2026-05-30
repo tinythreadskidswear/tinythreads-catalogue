@@ -6,7 +6,7 @@ on:
       target_branch:
         description: 'Branch to push generated pages to'
         required: true
-        default: 'main'
+        default: 'sudo'
 
 jobs:
   build:
