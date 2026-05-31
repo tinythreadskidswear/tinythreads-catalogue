@@ -90,9 +90,9 @@ function buildOgImage(product, h) {
   var transforms = [
     'c_limit,h_' + (h - 90) + ',w_' + (h - 90) + ',g_north,q_auto',
     'c_pad,w_1200,h_' + h + ',g_north_west,b_rgb:FFF8F5',
-    'l_text:DM+Sans_13_bold_letter_spacing_3:' + cloudinaryEncode('TINY THREADS KIDSWEAR') + ',co_rgb:B71C1C,g_south_west,y_68,x_40',
-    'l_text:DM+Sans_22_semibold:' + cloudinaryEncode(name) + ',co_rgb:2C1810,g_south_west,y_38,x_40',
-    'l_text:DM+Sans_15:' + cloudinaryEncode(price) + ',co_rgb:B71C1C,g_south_west,y_14,x_40',
+    'l_text:Arial_12_bold:' + cloudinaryEncode('TINY THREADS KIDSWEAR') + ',co_rgb:B71C1C,g_south_west,y_68,x_40',
+    'l_text:Arial_22_bold:' + cloudinaryEncode(name) + ',co_rgb:2C1810,g_south_west,y_38,x_40',
+    'l_text:Arial_14:' + cloudinaryEncode(price) + ',co_rgb:B71C1C,g_south_west,y_14,x_40',
     'f_jpg,q_85',
   ].join('/');
 
