@@ -1339,14 +1339,16 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   // Expose globally for onclick
   window.enterSite = enterSite;
 
-  function initSplash() {
-    // BUG-003 fix: skip splash if already seen this session
-    if (sessionStorage.getItem('tt_splash_seen')) {
-      var screen = document.getElementById('splash-screen');
-      if (screen) { screen.style.display = 'none'; screen.setAttribute('aria-hidden', 'true'); }
-      document.body.classList.remove('splash-active');
-      return;
-    }
+function initSplash() {
+  // Skip splash if already seen this session OR if arriving on a direct product URL
+  const onProductPage = window.location.pathname.match(/^\/products\/([^/]+)/);
+  if (sessionStorage.getItem('tt_splash_seen') || onProductPage) {
+    var screen = document.getElementById('splash-screen');
+    if (screen) { screen.style.display = 'none'; screen.setAttribute('aria-hidden', 'true'); }
+    document.body.classList.remove('splash-active');
+    return;
+  }
+
     slides = document.querySelectorAll('.splash-slide');
     if (!slides.length) return;
     document.body.classList.add('splash-active');
