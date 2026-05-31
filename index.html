@@ -2048,6 +2048,10 @@ function handleURLRouting(){
   const hash=window.location.hash.replace('#','');
   const search=new URLSearchParams(window.location.search);
   const prodId=search.get('product');
+  // ── handle direct /products/:id URLs served by _worker.js ──
+  const pathMatch=window.location.pathname.match(/^\/products\/([^/]+)/);
+  if(pathMatch){openPDP(pathMatch[1]);return;}
+  // ── end ──
   if(prodId){openPDP(prodId);return;}
   const validPages=['home','boys','girls','babies','accessories','toys','twinning','kidscare','school','learning'];
   if(hash&&validPages.includes(hash)) showPage(hash);
