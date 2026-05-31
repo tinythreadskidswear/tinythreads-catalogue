@@ -88,8 +88,8 @@ function buildOgImage(product, h) {
     : 'mytinythreads.in';
 
   var transforms = [
-    'c_limit,h_' + (h - 90) + ',w_' + (h - 90) + ',q_auto',
-    'c_pad,w_1200,h_' + h + ',b_rgb:FFF8F5',
+    'c_limit,h_' + (h - 90) + ',w_' + (h - 90) + ',g_north,q_auto',
+    'c_pad,w_1200,h_' + h + ',g_north_west,b_rgb:FFF8F5',
     'l_text:DM+Sans_13_bold_letter_spacing_3:' + cloudinaryEncode('TINY THREADS KIDSWEAR') + ',co_rgb:B71C1C,g_south_west,y_68,x_40',
     'l_text:DM+Sans_22_semibold:' + cloudinaryEncode(name) + ',co_rgb:2C1810,g_south_west,y_38,x_40',
     'l_text:DM+Sans_15:' + cloudinaryEncode(price) + ',co_rgb:B71C1C,g_south_west,y_14,x_40',
@@ -261,11 +261,20 @@ export default {
 
     var id = match[1];
 
-    // Regular browser — serve index.html (SPA handles product display via ?product=id)
-    // We no longer have static product HTML files — the SPA handles all browser visits
+    // Regular browser — serve index.html directly.
+    // The browser URL stays as /products/b146 so the SPA reads it via
+    // window.location and opens the correct product automatically.
     if (!isCrawler(ua)) {
-      var indexReq = new Request(url.origin + '/?product=' + id, request);
-      return env.ASSETS.fetch(indexReq);
+      var indexReq = new Request(url.origin + '/index.html', {
+        method:  request.method,
+        headers: request.headers,
+      });
+      var indexRes = await env.ASSETS.fetch(indexReq);
+      // Return index.html but keep status 200 (not a redirect)
+      return new Response(indexRes.body, {
+        status:  200,
+        headers: indexRes.headers,
+      });
     }
 
     // Social crawler — serve dynamic OG HTML
@@ -282,14 +291,14 @@ export default {
       product = await fetchProduct(id);
     } catch (e) {
       // Supabase error — serve index.html as fallback
-      var indexReq = new Request(url.origin + '/?product=' + id, request);
-      return env.ASSETS.fetch(indexReq);
+      var indexReq = new Request(url.origin + '/index.html', { method: 'GET', headers: request.headers });
+      return new Response((await env.ASSETS.fetch(indexReq)).body, { status: 200 });
     }
 
     // 3. Not found in Supabase — serve index.html as fallback
     if (!product) {
-      var indexReq = new Request(url.origin + '/?product=' + id, request);
-      return env.ASSETS.fetch(indexReq);
+      var indexReq = new Request(url.origin + '/index.html', { method: 'GET', headers: request.headers });
+      return new Response((await env.ASSETS.fetch(indexReq)).body, { status: 200 });
     }
 
     // 4. Return OG HTML
