@@ -1813,8 +1813,7 @@ function openBasket(){document.getElementById('basket-drawer').classList.add('op
 function closeBasket(){document.getElementById('basket-drawer').classList.remove('open');document.getElementById('basket-overlay').classList.remove('open');document.body.style.overflow='';}
 
 function getProductURL(id){
-  // Static product pages -- have full OG/Twitter meta tags for rich WhatsApp/Instagram previews
-  return 'https://mytinythreads.in/products/'+id+'.html';
+  return 'https://mytinythreads.in/products/'+id;
 }
 
 function shareProduct(key){
@@ -2051,7 +2050,7 @@ function handleURLRouting(){
   const search=new URLSearchParams(window.location.search);
   const prodId=search.get('product');
   // ── handle direct /products/:id URLs served by _worker.js ──
-  const pathMatch=window.location.pathname.match(/^\/products\/([^/]+)/);
+  const pathMatch=window.location.pathname.match(/^\/products\/([^/.]+?)(?:\.html)?$/);
   if(pathMatch){
     sessionStorage.setItem('tt_splash_seen','1');
     const splashEl=document.getElementById('splash-screen');
