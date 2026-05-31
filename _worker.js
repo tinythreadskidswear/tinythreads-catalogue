@@ -88,12 +88,7 @@ function buildOgImage(product, h) {
     : 'mytinythreads.in';
 
   var transforms = [
-    'c_limit,h_' + (h - 90) + ',w_' + (h - 90) + ',g_north,q_auto',
-    'c_pad,w_1200,h_' + h + ',g_north_west,b_rgb:FFF8F5',
-    'l_text:Arial_12_bold:' + cloudinaryEncode('TINY THREADS KIDSWEAR') + ',co_rgb:B71C1C,g_south_west,y_68,x_40',
-    'l_text:Arial_22_bold:' + cloudinaryEncode(name) + ',co_rgb:2C1810,g_south_west,y_38,x_40',
-    'l_text:Arial_14:' + cloudinaryEncode(price) + ',co_rgb:B71C1C,g_south_west,y_14,x_40',
-    'f_jpg,q_85',
+    'c_pad,w_1200,h_' + h + ',g_north,b_white,q_auto,f_jpg',
   ].join('/');
 
   return base + transforms + '/' + assetPath;
@@ -278,19 +273,20 @@ export default {
 
     var id = match[1];
 
-    // Regular browser — serve index.html directly.
-    // The browser URL stays as /products/b146 so the SPA reads it via
-    // window.location and opens the correct product automatically.
+    // Regular browser — serve index.html so the SPA loads.
+    // URL stays as /products/:id in the browser address bar.
+    // handleURLRouting() in index.html reads window.location.pathname
+    // and calls openPDP(id) to open the correct product directly.
     if (!isCrawler(ua)) {
-      var indexReq = new Request(url.origin + '/index.html', {
-        method:  request.method,
-        headers: request.headers,
-      });
-      var indexRes = await env.ASSETS.fetch(indexReq);
-      // Return index.html but keep status 200 (not a redirect)
+      var indexRes = await env.ASSETS.fetch(
+        new Request(url.origin + '/index.html', { headers: request.headers })
+      );
       return new Response(indexRes.body, {
         status:  200,
-        headers: indexRes.headers,
+        headers: new Headers({
+          'Content-Type':  'text/html;charset=UTF-8',
+          'Cache-Control': 'no-store',
+        }),
       });
     }
 
