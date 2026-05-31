@@ -99,6 +99,23 @@ function buildOgImage(product, h) {
   return base + transforms + '/' + assetPath;
 }
 
+// ── Pre-warm Cloudinary OG image ─────────────────────────────────────────
+// Cloudinary renders transformation chains lazily on first request.
+// This can take 2-4s — longer than WhatsApp's crawler timeout (~3s).
+// We fire a background GET to bake the image into Cloudinary's CDN cache
+// so WhatsApp's crawler gets an instant response.
+async function prewarmOgImage(url) {
+  try {
+    await fetch(url, {
+      method: 'GET',
+      headers: { 'User-Agent': 'TinyThreads-Prewarm/1.0' },
+      signal: AbortSignal.timeout(12000),
+    });
+  } catch (e) {
+    // Never block the response — prewarm failures are silent
+  }
+}
+
 // ── Display image for the product card (full quality, no OG crop) ─────────
 function buildDisplayImg(product) {
   var raw = product.images && product.images.length > 0 ? product.images[0] : '';
@@ -313,9 +330,13 @@ export default {
       },
     });
 
-    // 5. Cache it (non-blocking)
+    // 5. Cache it + pre-warm Cloudinary OG image (both non-blocking)
+    var ogImageUrl = buildOgImage(product, 630);
     if (env.waitUntil) {
-      env.waitUntil(cache.put(cacheKey, response.clone()));
+      env.waitUntil(Promise.all([
+        cache.put(cacheKey, response.clone()),
+        prewarmOgImage(ogImageUrl),
+      ]));
     }
 
     return response;
