@@ -284,7 +284,7 @@ nav{background:white;border-bottom:2px solid var(--red-light);padding:0 2rem;pos
 .filter-more-btn.has-active{background:var(--red);color:white;border-color:var(--red);}
 .filter-more-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:1.5px solid #F0E0DC;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1);z-index:955;padding:6px;display:none;flex-wrap:wrap;gap:6px;}
 .filter-more-dropdown.open{display:flex;}
-.filter-scroll-wrap{position:relative;flex:1;min-width:0;}
+.filter-scroll-wrap{position:relative;flex:1;min-width:0;overflow:hidden;}
 .sort-chip-row{display:flex;gap:5px;align-items:center;flex:1;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
 .sort-chip-row::-webkit-scrollbar{display:none;}
 .sort-chip{background:#F7F0EE;border:1.5px solid transparent;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;flex-shrink:0;color:var(--text);-webkit-tap-highlight-color:transparent;}
@@ -705,9 +705,7 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
   .filter-bar-inner{padding:.35rem .8rem .3rem;}
   .filter-btn,.sort-chip{font-size:11px;padding:3px 10px;}
   .filter-more-btn{display:inline-flex;}
-  .filter-scroll{overflow:visible;flex-wrap:nowrap;}
-  /* Hide overflow chips on mobile -- JS handles which ones show */
-  .filter-btn.mob-hidden{display:none;}
+  .filter-scroll{overflow-x:auto;flex-wrap:nowrap;}
   .breadcrumb{padding:9px 1.1rem;font-size:12px;}
   .cat-hero{padding:1.5rem 1.1rem 1.2rem;}
   .cat-hero h1{font-size:1.5rem;}
@@ -1542,38 +1540,7 @@ function buildFilterBar(cat){
     btn.setAttribute('data-sub',sub);
     btn.onclick=function(){filterProducts(cat,sub,btn);};
     scroll.appendChild(btn);
-  });
-
-  // Inject More button + dropdown for mobile overflow
-  var wrap=scroll.closest('.filter-scroll-wrap')||scroll.parentElement;
-  // Remove any existing more btn/dropdown
-  var existingMore=document.getElementById('filter-more-btn-'+cat);
-  if(existingMore) existingMore.remove();
-  var existingDrop=document.getElementById('filter-more-drop-'+cat);
-  if(existingDrop) existingDrop.remove();
-
-  if(subs.length>2){
-    var moreBtn=document.createElement('button');
-    moreBtn.className='filter-more-btn';
-    moreBtn.id='filter-more-btn-'+cat;
-    moreBtn.innerHTML='More <span style="font-size:9px;">▾</span>';
-    moreBtn.onclick=function(e){e.stopPropagation();toggleFilterMore(cat);};
-
-    var drop=document.createElement('div');
-    drop.className='filter-more-dropdown';
-    drop.id='filter-more-drop-'+cat;
-
-    // On mobile: show only "All" + first 2 subs inline, rest go into dropdown
-    _buildMobileFilterOverflow(cat,subs,drop);
-
-    scroll.after(moreBtn);
-    moreBtn.after(drop);
-
-    // Close dropdown on outside tap
-    document.addEventListener('click',function(){
-      drop.classList.remove('open');
-    },{capture:false});
-  }
+  });  
 }
 
 function _buildMobileFilterOverflow(cat,subs,drop){
