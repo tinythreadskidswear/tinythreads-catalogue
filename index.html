@@ -1622,7 +1622,9 @@ function renderGrid(id,products){
   grid.innerHTML=products.map(p=>productCard(p)).join('');
   grid.querySelectorAll('.prod-swiper').forEach(el=>{
     const count=el.querySelectorAll('.swiper-slide').length;
-    const canLoop=count>1;
+    // Enable loop only if we have enough slides for proper looping (minimum 3)
+    // Swiper needs at least slidesPerView + slidesPerGroup slides to loop properly
+    const canLoop=count>=3;
     new Swiper(el,{
       loop:canLoop,
       autoplay:canLoop?{delay:tinythreadsConfig.autoPlayInterval||3000,disableOnInteraction:false}:false,
