@@ -95,13 +95,23 @@ async function fetchSplashImagesFromSupabase() {
       return null;
     }
     
+    // Create a 3-second timeout promise
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Splash fetch timeout (>3s)')), 3000)
+    );
+    
     // Fetch active splash screens ordered by sequence
-    const { data, error } = await client
+    const fetchPromise = client
       .from('splash_screens')
       .select('*')
       .eq('is_active', true)
-      .order('sequence_order', { ascending: true })
-      .timeout(3000); // 3 second timeout
+      .order('sequence_order', { ascending: true });
+    
+    // Race between fetch and timeout (whichever finishes first)
+    const { data, error } = await Promise.race([
+      fetchPromise,
+      timeoutPromise
+    ]);
     
     if (error) {
       console.warn('Supabase fetch error:', error.message);
