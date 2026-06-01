@@ -23,6 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<!-- ── SUPABASE INTEGRATION ── -->
+<link rel="preconnect" href="https://your-project.supabase.co">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--red:#B71C1C;--red-dark:#7F0000;--red-light:#FFEBEE;--red-mid:#E53935;--warm:#FFF8F5;--text:#2C1810;--muted:#7A5C50;--gold:#FFD54F;}
@@ -2876,6 +2879,18 @@ async function shipSkip(){
   closeShipModal();
   _doCheckoutWA(null);
 }
+</script>
+
+<!-- ── SUPABASE SPLASH SCREEN INTEGRATION ── -->
+<script src="./supabase-splash.js"></script>
+<script>
+  // Initialize splash screen images on page load (non-blocking)
+  // Runs after DOM is ready, doesn't delay splash animation
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSplashScreenImages);
+  } else {
+    initSplashScreenImages();
+  }
 </script>
 
 </body>
