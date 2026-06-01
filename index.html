@@ -23,6 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<!-- ── SUPABASE INTEGRATION ── -->
+<link rel="preconnect" href="https://your-project.supabase.co">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--red:#B71C1C;--red-dark:#7F0000;--red-light:#FFEBEE;--red-mid:#E53935;--warm:#FFF8F5;--text:#2C1810;--muted:#7A5C50;--gold:#FFD54F;}
@@ -1305,10 +1308,10 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
 // =============================================
 (function() {
   // Auto-cycle interval in ms (1500 = 1.5 seconds per image)
-  var SLIDE_COUNT = 6, SLIDE_DURATION = 1500, currentSlide = 0, splashTimer = null, slides;
+  var SLIDE_DURATION = 1500, currentSlide = 0, splashTimer = null, slides, SLIDE_COUNT = 0;
 
   function splashNext() {
-    if (!slides) return;
+    if (!slides || SLIDE_COUNT === 0) return;
     slides[currentSlide].classList.remove('active');
     currentSlide = (currentSlide + 1) % SLIDE_COUNT;
     slides[currentSlide].classList.add('active');
@@ -1334,8 +1337,26 @@ footer{background:var(--red-dark);color:#FFCDD2;padding:2.5rem 2rem 1.5rem;}
     }, 520);
   }
 
-  // Expose globally for onclick
+  // Update splash carousel when slides are dynamically changed
+  function updateSplashCarousel() {
+    slides = document.querySelectorAll('.splash-slide');
+    SLIDE_COUNT = slides.length;
+    if (SLIDE_COUNT === 0) {
+      console.warn('[Splash] No slides found');
+      return;
+    }
+    // Reset to first slide
+    slides.forEach(s => s.classList.remove('active'));
+    if (slides.length > 0) slides[0].classList.add('active');
+    currentSlide = 0;
+    // Restart timer with updated slide count
+    startSplashTimer();
+    console.log(`[Splash] Carousel updated: ${SLIDE_COUNT} slides`);
+  }
+
+  // Expose globally for onclick and updates
   window.enterSite = enterSite;
+  window.updateSplashCarousel = updateSplashCarousel;
 
 function initSplash() {
   // Skip splash if already seen this session OR if arriving on a direct product URL
@@ -1348,6 +1369,7 @@ function initSplash() {
   }
 
     slides = document.querySelectorAll('.splash-slide');
+    SLIDE_COUNT = slides.length;
     if (!slides.length) return;
     document.body.classList.add('splash-active');
     startSplashTimer();
@@ -1619,7 +1641,9 @@ function renderGrid(id,products){
   grid.innerHTML=products.map(p=>productCard(p)).join('');
   grid.querySelectorAll('.prod-swiper').forEach(el=>{
     const count=el.querySelectorAll('.swiper-slide').length;
-    const canLoop=count>1;
+    // Enable loop only if we have enough slides for proper looping (minimum 3)
+    // Swiper needs at least slidesPerView + slidesPerGroup slides to loop properly
+    const canLoop=count>=3;
     new Swiper(el,{
       loop:canLoop,
       autoplay:canLoop?{delay:tinythreadsConfig.autoPlayInterval||3000,disableOnInteraction:false}:false,
@@ -2876,6 +2900,27 @@ async function shipSkip(){
   closeShipModal();
   _doCheckoutWA(null);
 }
+</script>
+
+<!-- ── SUPABASE SPLASH SCREEN INTEGRATION ── -->
+<script src="./supabase-splash.js"></script>
+<script>
+  // Initialize splash screen images on page load (non-blocking)
+  // Waits for supabase-splash.js to load before calling function
+  function initSplash() {
+    if (typeof initSplashScreenImages === 'function') {
+      initSplashScreenImages();
+    } else {
+      // If script not loaded yet, retry after 100ms
+      setTimeout(initSplash, 100);
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSplash);
+  } else {
+    initSplash();
+  }
 </script>
 
 </body>
