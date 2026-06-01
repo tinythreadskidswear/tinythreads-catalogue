@@ -17,8 +17,8 @@
 
 // Replace these with your Supabase project credentials
 const SUPABASE_CONFIG = {
-  URL: 'https://your-project.supabase.co',      // Replace with your Supabase URL
-  ANON_KEY: 'your-anon-public-key'               // Replace with your public key
+  URL: 'https://gtszuhmfpywqwdetoqqo.supabase.co',
+  ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0'
 };
 
 // Initialize Supabase client (lazy loaded)
@@ -261,6 +261,22 @@ async function initSplashScreenImages() {
     console.error('[Splash] Initialization error:', err);
     // Continue with hardcoded images - no user-facing error
   }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EXPORTS (for testing & manual calls)
+// ═══════════════════════════════════════════════════════════════
+
+// Make functions available globally if needed
+if (typeof window !== 'undefined') {
+  window.splashUtils = {
+    fetchSplashImages,
+    initSplashScreenImages,
+    clearSplashCache,
+    getCachedSplashImages,
+    updateSplashSlides,
+    fetchSplashImagesFromSupabase
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════
