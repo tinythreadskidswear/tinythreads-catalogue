@@ -198,9 +198,9 @@ function updateSplashSlides(images) {
     
     console.log(`Updated ${images.length} splash slides from Supabase`);
     
-    // Reinitialize carousel if it was already running
-    if (window.splashCarousel) {
-      window.splashCarousel.update();
+    // Notify splash carousel to update its slide count and restart animation
+    if (typeof window.updateSplashCarousel === 'function') {
+      window.updateSplashCarousel();
     }
   } catch (err) {
     console.error('Error updating splash slides:', err);
