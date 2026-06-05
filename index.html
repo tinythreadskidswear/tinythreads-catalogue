@@ -4040,98 +4040,6 @@
       padding: 0 3px;
     }
 
-    /* ── CART BAR ── */
-    .cart-bar {
-      display: none;
-      position: fixed;
-      bottom: calc(62px + env(safe-area-inset-bottom));
-      left: 0;
-      right: 0;
-      z-index: 1999;
-      background: var(--red-dark);
-      color: white;
-      height: 52px;
-      padding: 0 1rem;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      /* start fully off-screen so it never flashes visible */
-      transform: translateY(110%);
-      transition: transform .32s cubic-bezier(.22,.68,0,1.2);
-      box-shadow: 0 -3px 16px rgba(127,0,0,.22);
-      -webkit-tap-highlight-color: transparent;
-      /* prevent accidental taps while hidden */
-      pointer-events: none;
-    }
-
-    .cart-bar.visible {
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    /* always flex on mobile so CSS transition can fire — show/hide via translateY only */
-    @media(max-width:700px) {
-      .cart-bar {
-        display: flex;
-        transform: translateY(110%); /* explicitly hidden until .visible added by JS */
-      }
-      .cart-bar.visible {
-        transform: translateY(0);
-      }
-    }
-
-    .cart-bar-left {
-      display: flex;
-      align-items: center;
-      gap: .55rem;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .cart-bar-count {
-      background: rgba(255,255,255,.22);
-      font-size: 11px;
-      font-weight: 700;
-      min-width: 22px;
-      height: 22px;
-      border-radius: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 5px;
-    }
-
-    .cart-bar-total {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-
-    .cart-bar-cta {
-      background: rgba(255,255,255,.18);
-      border: 1.5px solid rgba(255,255,255,.38);
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
-      padding: .35rem .85rem;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: .3rem;
-      letter-spacing: .2px;
-      transition: background .18s;
-      white-space: nowrap;
-    }
-
-    .cart-bar:active .cart-bar-cta {
-      background: rgba(255,255,255,.3);
-    }
-
-    body.splash-active .cart-bar {
-      visibility: hidden;
-      pointer-events: none;
-    }
-
     .mob-menu-overlay {
       display: none;
       position: fixed;
@@ -4294,11 +4202,6 @@
 
       .mob-ham-btn {
         display: flex;
-      }
-
-      .basket-nav-btn,
-      nav .basket-nav-btn {
-        display: none !important;
       }
 
       .mobile-bottom-nav {
@@ -5658,17 +5561,6 @@
     </ul>
   </nav>
 
-  <!-- ── CART BAR ── -->
-  <div class="cart-bar" id="cart-bar" onclick="openBasket()" role="button" aria-label="View basket">
-    <div class="cart-bar-left">
-      <span>🛒</span>
-      <span class="cart-bar-count" id="cart-bar-count">0</span>
-      <span id="cart-bar-label">items in basket</span>
-    </div>
-    <div class="cart-bar-total" id="cart-bar-total">₹0</div>
-    <div class="cart-bar-cta">View Basket →</div>
-  </div>
-
   <!-- HOME PAGE -->
   <div id="page-home" class="page active">
     <div class="hero">
@@ -6890,14 +6782,6 @@
       } else { discRow.style.display = 'none'; }
       const mbnBadge = document.getElementById('mbn-basket-count');
       if (mbnBadge) { mbnBadge.textContent = totalItems; mbnBadge.style.display = totalItems > 0 ? 'flex' : 'none'; }
-      // ── cart bar ──
-      const cartBar = document.getElementById('cart-bar');
-      if (cartBar) {
-        cartBar.classList.toggle('visible', totalItems > 0);
-        document.getElementById('cart-bar-count').textContent = totalItems;
-        document.getElementById('cart-bar-label').textContent = totalItems === 1 ? 'item in basket' : 'items in basket';
-        document.getElementById('cart-bar-total').textContent = '₹' + total.toLocaleString('en-IN');
-      }
       const body = document.getElementById('basket-body');
       if (basket.length === 0) { body.innerHTML = `<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`; return; }
       body.innerHTML = basket.map(item => `
@@ -7042,11 +6926,6 @@
       }
       msg += '\nPlease confirm availability. Thank you! 🙏';
       window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-      // clear basket and hide cart bar after checkout
-      basket = [];
-      appliedPromo = null;
-      closeBasket();
-      updateBasketUI();
     }
 
     function waEnquire(name, price) {
