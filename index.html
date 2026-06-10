@@ -6687,108 +6687,301 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
+
     // =============================================
-    // SPLASH SCREEN JS
-    // =============================================
-    (function () {
-      // Auto-cycle interval in ms (1500 = 1.5 seconds per image)
-      var SLIDE_DURATION = 1500, currentSlide = 0, splashTimer = null, slides, SLIDE_COUNT = 0;
+// SPLASH SCREEN JS  — video-first patch
+// v2 — mobile-hardened edition
+// =============================================
+// DROP-IN REPLACEMENT for the existing splash IIFE in index.html.
+// Delete everything from the opening:
+//   // =============================================
+//   // SPLASH SCREEN JS
+//   // =============================================
+//   (function () {
+// …all the way down to its closing… })();
+// Then paste this entire block in its place.
+// =============================================
+(function () {
+  'use strict';
 
-      function splashNext() {
-        if (!slides || SLIDE_COUNT === 0) return;
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % SLIDE_COUNT;
-        slides[currentSlide].classList.add('active');
-      }
+  // ── CONFIG ────────────────────────────────────────────────────────────────
+  // Your Cloudinary video — with q_auto,vc_auto for best mobile compression
+  var SPLASH_VIDEO_URL = 'https://res.cloudinary.com/tinythreads/video/upload/q_auto,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
 
-      function startSplashTimer() {
-        if (splashTimer) clearInterval(splashTimer);
-        splashTimer = setInterval(splashNext, SLIDE_DURATION);
-      }
+  // Poster: first splash photo, portrait crop — shown instantly while video buffers
+  // This is your existing splash slide 1 image, resized to mobile dimensions
+  var SPLASH_POSTER_URL = 'https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_900,g_north,q_auto,f_auto/v1777272488/tinythreads/IMG-20260117-WA0008_ds6761.jpg';
 
-      function enterSite() {
-        var screen = document.getElementById('splash-screen');
-        if (!screen || screen.style.display === 'none') return;
-        if (splashTimer) { clearInterval(splashTimer); splashTimer = null; }
-        sessionStorage.setItem('tt_splash_seen', '1'); // BUG-003 fix
-        // Start fade-out animation
-        screen.classList.add('splash-exit');
-        // Only AFTER the fade completes: remove splash-active (reveals home page) then hide element
-        setTimeout(function () {
-          document.body.classList.remove('splash-active');
-          screen.style.display = 'none';
-          screen.setAttribute('aria-hidden', 'true');
-        }, 520);
-      }
+  var SLIDE_DURATION   = 1500;   // ms per photo slide after video ends
+  var VIDEO_TIMEOUT_MS = 4000;   // ms before giving up on video (4s — safe for mobile 4G)
+  // ─────────────────────────────────────────────────────────────────────────
 
-      // Update splash carousel when slides are dynamically changed
-      function updateSplashCarousel() {
-        slides = document.querySelectorAll('.splash-slide');
-        SLIDE_COUNT = slides.length;
-        if (SLIDE_COUNT === 0) {
-          console.warn('[Splash] No slides found');
-          return;
-        }
-        // Reset to first slide
-        slides.forEach(s => s.classList.remove('active'));
-        if (slides.length > 0) slides[0].classList.add('active');
-        currentSlide = 0;
-        // Restart timer with updated slide count
-        startSplashTimer();
-        console.log(`[Splash] Carousel updated: ${SLIDE_COUNT} slides`);
-      }
+  var currentSlide = 0, splashTimer = null, slides, SLIDE_COUNT = 0;
+  var videoPhaseActive = false;
 
-      // Expose globally for onclick and updates
-      window.enterSite = enterSite;
-      window.updateSplashCarousel = updateSplashCarousel;
+  // ── PHOTO SLIDESHOW ───────────────────────────────────────────────────────
 
-      function initSplash() {
-        // Skip splash if already seen this session OR if arriving on a direct product URL
-        const onProductPage = window.location.pathname.match(/^\/products\/([^/]+)/);
-        if (sessionStorage.getItem('tt_splash_seen') || onProductPage) {
-          var screen = document.getElementById('splash-screen');
-          if (screen) { screen.style.display = 'none'; screen.setAttribute('aria-hidden', 'true'); }
-          document.body.classList.remove('splash-active');
-          return;
-        }
+  function splashNext() {
+    if (!slides || SLIDE_COUNT === 0) return;
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % SLIDE_COUNT;
+    slides[currentSlide].classList.add('active');
+  }
 
-        slides = document.querySelectorAll('.splash-slide');
-        SLIDE_COUNT = slides.length;
-        if (!slides.length) return;
-        document.body.classList.add('splash-active');
-        startSplashTimer();
-
-        // Keyboard: Escape or Enter exits
-        document.addEventListener('keydown', function (e) {
-          var screen = document.getElementById('splash-screen');
-          if (!screen || screen.style.display === 'none') return;
-          // BUG-002 fix: don't intercept when lightbox or size guide is open
-          var lbx = document.getElementById('lbx-overlay');
-          var sg = document.getElementById('sg-overlay');
-          if ((lbx && lbx.classList.contains('open')) || (sg && sg.classList.contains('open'))) return;
-          if (e.key === 'Escape' || e.key === 'Enter') enterSite();
+  function startPhotoSlideshow() {
+    videoPhaseActive = false;
+    var slidesContainer = document.querySelector('.splash-slides');
+    if (slidesContainer) {
+      slidesContainer.style.transition = 'opacity 0.8s ease';
+      // rAF ensures the transition actually fires after opacity:0 was painted
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          slidesContainer.style.opacity = '1';
         });
+      });
+    }
+    if (splashTimer) clearInterval(splashTimer);
+    splashTimer = setInterval(splashNext, SLIDE_DURATION);
+  }
 
-        // Tap anywhere on splash (outside button) also enters site
-        var card = document.getElementById('splash-card');
-        if (card) {
-          card.addEventListener('click', function (e) {
-            if (e.target.closest && e.target.closest('.splash-explore-btn')) return;
-            enterSite();
+  function updateSplashCarousel() {
+    slides      = document.querySelectorAll('.splash-slide');
+    SLIDE_COUNT = slides.length;
+    if (SLIDE_COUNT === 0) { console.warn('[Splash] No slides found'); return; }
+    slides.forEach(function (s) { s.classList.remove('active'); });
+    slides[0].classList.add('active');
+    currentSlide = 0;
+    if (!videoPhaseActive) {
+      if (splashTimer) clearInterval(splashTimer);
+      splashTimer = setInterval(splashNext, SLIDE_DURATION);
+    }
+    console.log('[Splash] Carousel updated: ' + SLIDE_COUNT + ' slides');
+  }
+
+  // ── VIDEO PHASE ───────────────────────────────────────────────────────────
+
+  function buildVideoElement(url) {
+    var vid = document.createElement('video');
+    vid.id  = 'splash-video';
+
+    // ── Autoplay requirements (mobile-critical) ──
+    // muted       → required by iOS Safari + Android Chrome for autoplay
+    // playsinline → prevents iOS from hijacking into fullscreen player
+    // Both the property AND the HTML attribute are set for maximum compatibility
+    vid.muted   = true;
+    vid.volume  = 0;                           // belt-and-braces mute for Android
+    vid.setAttribute('muted', '');
+    vid.autoplay = true;
+    vid.setAttribute('autoplay', '');
+    vid.playsInline = true;
+    vid.setAttribute('playsinline', '');       // older iOS WebKit needs the attr
+    vid.setAttribute('webkit-playsinline', '');// iOS 9 / WKWebView legacy
+
+    vid.preload = 'auto';
+    vid.loop    = false;
+    vid.src     = url;
+
+    // Poster: shown immediately while video buffers → no black flash on slow mobile
+    if (SPLASH_POSTER_URL) vid.poster = SPLASH_POSTER_URL;
+
+    // Styling: fills the splash card, same as the photo slides
+    // z-index 2 → above .splash-slides (z:0), below .splash-content (z:10)
+    vid.style.cssText = [
+      'position:absolute',
+      'inset:0',
+      'width:100%',
+      'height:100%',
+      'object-fit:cover',
+      'object-position:center top',
+      'display:block',
+      'z-index:2',
+      'opacity:0',
+      'transition:opacity 0.6s ease',
+      '-webkit-transform:translateZ(0)', // GPU layer — smoother on low-end Android
+      'transform:translateZ(0)'
+    ].join(';');
+
+    return vid;
+  }
+
+  function startVideoPhase() {
+    if (!SPLASH_VIDEO_URL) {
+      startPhotoSlideshow();
+      return;
+    }
+
+    videoPhaseActive = true;
+
+    // Keep photos at opacity:0 while video plays (they're the fallback, still in DOM)
+    var slidesContainer = document.querySelector('.splash-slides');
+    if (slidesContainer) {
+      slidesContainer.style.transition = 'opacity 0.4s ease';
+      slidesContainer.style.opacity    = '0';
+    }
+
+    var card = document.getElementById('splash-card');
+    if (!card) { startPhotoSlideshow(); return; }
+
+    var vid = buildVideoElement(SPLASH_VIDEO_URL);
+    // Insert before .splash-content so branding overlay sits on top
+    var content = card.querySelector('.splash-content');
+    card.insertBefore(vid, content || null);
+
+    // ── Fallback timer ────────────────────────────────────────────────────
+    // If video hasn't fired canplay within VIDEO_TIMEOUT_MS, give up silently.
+    // 4 s covers most 4G connections; on Wi-Fi canplay fires in < 500 ms.
+    var fallbackTimer = setTimeout(function () {
+      if (!videoPhaseActive) return;
+      console.warn('[Splash] Video timeout — falling back to photos');
+      teardownVideo(vid);
+      startPhotoSlideshow();
+    }, VIDEO_TIMEOUT_MS);
+
+    // ── Resolved flag — prevents double-resolution ─────────────────────
+    var resolved = false;
+    function resolve(reason) {
+      if (resolved) return;
+      resolved = true;
+      clearTimeout(fallbackTimer);
+      if (reason === 'play') {
+        vid.style.opacity = '1';
+        // vid.play() returns a Promise on modern browsers; .catch handles
+        // the NotAllowedError thrown when autoplay is blocked
+        var p = vid.play();
+        if (p && p.catch) {
+          p.catch(function (err) {
+            console.warn('[Splash] Autoplay blocked:', err.message);
+            teardownVideo(vid);
+            startPhotoSlideshow();
           });
         }
+      } else {
+        teardownVideo(vid);
+        startPhotoSlideshow();
       }
+    }
 
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSplash);
-      else initSplash();
-    })();
+    // canplay fires as soon as the browser has buffered enough to start
+    // (fires before canplaythrough — better for slow connections)
+    vid.addEventListener('canplay', function () { resolve('play'); }, { once: true });
 
+    // ended → crossfade out video, crossfade in photos
+    vid.addEventListener('ended', function () {
+      if (!videoPhaseActive) return;
+      videoPhaseActive = false;
+      clearTimeout(fallbackTimer);
+      vid.style.opacity = '0';
+      setTimeout(function () {
+        teardownVideo(vid);
+        startPhotoSlideshow();
+      }, 650);
+    }, { once: true });
+
+    // Hard error (404, codec unsupported, network offline)
+    vid.addEventListener('error', function (e) {
+      console.warn('[Splash] Video error:', e);
+      resolve('error');
+    }, { once: true });
+
+    // stalled / suspend — browser gave up downloading (common on 2G / bad signal)
+    vid.addEventListener('stalled',  function () {
+      // Give it another 2 s before giving up
+      setTimeout(function () {
+        if (!videoPhaseActive || resolved) return;
+        console.warn('[Splash] Video stalled — falling back');
+        resolve('error');
+      }, 2000);
+    }, { once: true });
+  }
+
+  function teardownVideo(vid) {
+    videoPhaseActive = false;
+    if (!vid) return;
+    try {
+      vid.pause();
+      vid.removeAttribute('src');
+      vid.load();   // aborts any pending network request
+    } catch (e) { /* ignore */ }
+    if (vid.parentNode) vid.parentNode.removeChild(vid);
+  }
+
+  // ── ENTER SITE ────────────────────────────────────────────────────────────
+
+  function enterSite() {
+    var screen = document.getElementById('splash-screen');
+    if (!screen || screen.style.display === 'none') return;
+
+    videoPhaseActive = false;
+    if (splashTimer) { clearInterval(splashTimer); splashTimer = null; }
+    var vid = document.getElementById('splash-video');
+    if (vid) teardownVideo(vid);
+
+    sessionStorage.setItem('tt_splash_seen', '1');
+
+    screen.classList.add('splash-exit');
+    setTimeout(function () {
+      document.body.classList.remove('splash-active');
+      screen.style.display = 'none';
+      screen.setAttribute('aria-hidden', 'true');
+    }, 520);
+  }
+
+  // ── EXPOSE GLOBALS ────────────────────────────────────────────────────────
+  window.enterSite            = enterSite;
+  window.updateSplashCarousel = updateSplashCarousel;
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+
+  function initSplash() {
+    var onProductPage = window.location.pathname.match(/^\/products\/([^/]+)/);
+    if (sessionStorage.getItem('tt_splash_seen') || onProductPage) {
+      var screen = document.getElementById('splash-screen');
+      if (screen) { screen.style.display = 'none'; screen.setAttribute('aria-hidden', 'true'); }
+      document.body.classList.remove('splash-active');
+      return;
+    }
+
+    slides      = document.querySelectorAll('.splash-slide');
+    SLIDE_COUNT = slides.length;
+    if (!slides.length) return;
+
+    document.body.classList.add('splash-active');
+    startVideoPhase();
+
+    // Keyboard: Escape / Enter → skip to site
+    document.addEventListener('keydown', function (e) {
+      var screen = document.getElementById('splash-screen');
+      if (!screen || screen.style.display === 'none') return;
+      var lbx = document.getElementById('lbx-overlay');
+      var sg  = document.getElementById('sg-overlay');
+      if ((lbx && lbx.classList.contains('open')) || (sg && sg.classList.contains('open'))) return;
+      if (e.key === 'Escape' || e.key === 'Enter') enterSite();
+    });
+
+    // Tap anywhere on splash card (outside Explore button) → skip to site
+    var card = document.getElementById('splash-card');
+    if (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest && e.target.closest('.splash-explore-btn')) return;
+        enterSite();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSplash);
+  } else {
+    initSplash();
+  }
+
+})();
+   
     // =============================================
     // MAIN CATALOGUE JS
     // =============================================
     const WA_NUMBER = '917879976016';
     let allProducts = [];
-    const PROMO_CODES = { 'WELCOME10': { discount: 0.10, label: 'WELCOME10 · 10% off', code: 'WELCOME10' }, 'JOY155': { discount: 0.155, label: 'JOY155 · 15.5% off', code: 'JOY155' } };
+    const PROMO_CODES = { 'WELCOME10': { discount: 0.10, label: 'WELCOME10 · 10% off', code: 'WELCOME10' }, 'JOY155': { discount: 0.155, label: 'JOY155 · 15.5% off', code: 'JOY155' }, 'INSTA25': { discount: 0.25, label: 'INSTA25 · 25% off', code: 'INSTA25' } };
     let basket = [];
     let appliedPromo = null;
     // Legacy name→hex map -- used as fallback when no hex provided
