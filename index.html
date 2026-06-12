@@ -6968,7 +6968,7 @@
     // =============================================
     const WA_NUMBER = '917879976016';
     let allProducts = [];
-    const PROMO_CODES = { 'WELCOME10': { discount: 0.10, label: 'WELCOME10 · 10% off', code: 'WELCOME10' }, 'JOY155': { discount: 0.155, label: 'JOY155 · 15.5% off', code: 'JOY155' }, 'INSTA25': { discount: 0.25, label: 'INSTA25 · 25% off', code: 'INSTA25' } };
+    let PROMO_CODES = {};          // populated from Supabase at boot via loadPromoCodes()
     let basket = [];
     let appliedPromo = null;
 
