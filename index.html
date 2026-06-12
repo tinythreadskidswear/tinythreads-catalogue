@@ -5251,23 +5251,10 @@
 
   <!-- ── PROMO TICKER STRIP ── -->
   <div class="promo-ticker-strip" onclick="openPromoPopup()" role="button"
-    aria-label="First order 10% off - tap to copy code WELCOME10" title="Tap to get your discount code">
+    aria-label="Tap to see discount codes" title="Tap to get your discount code">
     <div class="promo-ticker-track" id="promo-ticker-track">
-      <span class="promo-ticker-item">🎉 First Order Offer -- Use code <span class="tk-code">WELCOME10</span> for 10%
-        off! <span class="tk-tap">· Tap to copy 📋</span></span>
-      <span class="promo-ticker-item">✨ No minimum order &nbsp;·&nbsp; Valid on all products &nbsp;·&nbsp; Apply at
-        checkout</span>
-      <span class="promo-ticker-item">🛍️ New customer? Save 10% with <span class="tk-code">WELCOME10</span> <span
-          class="tk-tap">· Tap for code 📋</span></span>
-      <span class="promo-ticker-item">👶 Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>
-      <!-- duplicate set for seamless loop -->
-      <span class="promo-ticker-item">🎉 First Order Offer -- Use code <span class="tk-code">WELCOME10</span> for 10%
-        off! <span class="tk-tap">· Tap to copy 📋</span></span>
-      <span class="promo-ticker-item">✨ No minimum order &nbsp;·&nbsp; Valid on all products &nbsp;·&nbsp; Apply at
-        checkout</span>
-      <span class="promo-ticker-item">🛍️ New customer? Save 10% with <span class="tk-code">WELCOME10</span> <span
-          class="tk-tap">· Tap for code 📋</span></span>
-      <span class="promo-ticker-item">👶 Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>
+      <!-- populated by loadPromoCodes() -->
+      <span class="promo-ticker-item">🛍️ Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>
     </div>
   </div>
 
@@ -5275,17 +5262,17 @@
   <div class="promo-popup-overlay" id="promo-popup-overlay" onclick="closePromoOnOverlay(event)">
     <div class="promo-popup" role="dialog" aria-modal="true" aria-label="Discount Code">
       <button class="promo-popup-close" onclick="closePromoPopup()" aria-label="Close">✕</button>
+      <!-- populated by loadPromoCodes() -->
       <span class="promo-popup-emoji">🎉</span>
-      <span class="promo-popup-tag">✨ First Order Offer</span>
-      <h3>Get <em>10% off</em> your first order!</h3>
-      <p>Apply at checkout · Valid on all products · No minimum order value</p>
+      <span class="promo-popup-tag" id="popup-tag">Loading offers...</span>
+      <h3 id="popup-heading">&nbsp;</h3>
+      <p id="popup-subtext">&nbsp;</p>
       <div class="promo-code-box" onclick="copyPromoCodePopup()" title="Tap to copy">
         <div class="promo-code-label">Your discount code</div>
-        <div class="promo-code-val" id="popup-code-val">WELCOME10</div>
+        <div class="promo-code-val" id="popup-code-val"></div>
         <div class="promo-code-hint" id="popup-code-hint">Tap to copy 📋</div>
       </div>
-      <button class="promo-copy-btn" id="promo-copy-btn" onclick="copyPromoCodePopup()">📋 Copy Code --
-        WELCOME10</button>
+      <button class="promo-copy-btn" id="promo-copy-btn" onclick="copyPromoCodePopup()">📋 Copy Code</button>
     </div>
   </div>
 
@@ -6981,9 +6968,19 @@
     // =============================================
     const WA_NUMBER = '917879976016';
     let allProducts = [];
-    const PROMO_CODES = { 'WELCOME10': { discount: 0.10, label: 'WELCOME10 · 10% off', code: 'WELCOME10' }, 'JOY155': { discount: 0.155, label: 'JOY155 · 15.5% off', code: 'JOY155' }, 'INSTA25': { discount: 0.25, label: 'INSTA25 · 25% off', code: 'INSTA25' } };
+    let PROMO_CODES = {};          // populated from Supabase at boot via loadPromoCodes()
     let basket = [];
     let appliedPromo = null;
+
+    // Returns the actual rupee discount for a given subtotal, respecting max_upto cap
+    function calcDiscount(subtotal) {
+      if (!appliedPromo) return 0;
+      var raw = Math.round(subtotal * appliedPromo.discount);
+      return (appliedPromo.max_upto && raw > appliedPromo.max_upto)
+        ? Math.round(appliedPromo.max_upto)
+        : raw;
+    }
+
     // Legacy name→hex map -- used as fallback when no hex provided
     const COLOR_MAP = {
       'White': '#F5F5F5', 'Blue': '#1565C0', 'Cream': '#FFF8E1', 'Navy': '#0D47A1', 'Grey': '#9E9E9E',
@@ -7314,7 +7311,7 @@
     function updateBasketUI() {
       const totalItems = basket.reduce((s, i) => s + i.qty, 0);
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
-      const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+      const discountAmt = calcDiscount(subtotal);
       const total = subtotal - discountAmt;
       document.getElementById('nav-basket-count').textContent = totalItems;
       document.getElementById('nav-basket-count').style.background = totalItems > 0 ? 'var(--red)' : '#CCC';
@@ -7350,20 +7347,37 @@
 
     function applyPromo() {
       const code = document.getElementById('promo-input').value.trim().toUpperCase();
-      const btn = document.getElementById('promo-apply-btn');
-      const msg = document.getElementById('promo-msg');
+      const btn  = document.getElementById('promo-apply-btn');
+      const msg  = document.getElementById('promo-msg');
       if (appliedPromo) { return; }
-      if (PROMO_CODES[code]) {
-        appliedPromo = { ...PROMO_CODES[code] };
-        msg.className = 'promo-msg success'; msg.textContent = `✓ Code applied! ${Math.round(appliedPromo.discount * 100)}% off your order.`;
-        btn.textContent = 'Applied ✓'; btn.classList.add('applied');
-        document.getElementById('promo-input').classList.add('valid');
-        updateBasketUI();
-      } else {
-        msg.className = 'promo-msg error'; msg.textContent = 'Invalid promo code. Try WELCOME10 for 10% off!';
+
+      const pc = PROMO_CODES[code];
+      if (!pc) {
+        msg.className = 'promo-msg error';
+        msg.textContent = 'Invalid promo code. Please check and try again.';
         document.getElementById('promo-input').classList.add('invalid');
         setTimeout(() => document.getElementById('promo-input').classList.remove('invalid'), 1500);
+        return;
       }
+
+      // min_order check
+      const cartTotal = basket.reduce((s, i) => s + i.price * i.qty, 0);
+      if (pc.min_order && cartTotal < pc.min_order) {
+        msg.className = 'promo-msg error';
+        msg.textContent = `Minimum order ₹${pc.min_order} required for this code.`;
+        document.getElementById('promo-input').classList.add('invalid');
+        setTimeout(() => document.getElementById('promo-input').classList.remove('invalid'), 1500);
+        return;
+      }
+
+      appliedPromo = { ...pc };
+      const pct = Math.round(pc.discount * 100);
+      let successMsg = `✓ Code applied! ${pct}% off your order.`;
+      if (pc.max_upto) successMsg += ` (max discount ₹${pc.max_upto})`;
+      msg.className = 'promo-msg success'; msg.textContent = successMsg;
+      btn.textContent = 'Applied ✓'; btn.classList.add('applied');
+      document.getElementById('promo-input').classList.add('valid');
+      updateBasketUI();
     }
 
     function removePromo() {
@@ -7457,7 +7471,7 @@
     function _doCheckoutWA(ship) {
       if (basket.length === 0) return;
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
-      const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+      const discountAmt = calcDiscount(subtotal);
       const total = subtotal - discountAmt;
       const div = '─────────────────────────';
       let msg = `🛍️ *New Order -- Tiny Threads Kidswear*\n${div}\n\n`;
@@ -8284,7 +8298,7 @@
     function openShipModal() {
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
       const items = basket.reduce((s, i) => s + i.qty, 0);
-      const disc = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+      const disc = calcDiscount(subtotal);
       const bar = document.getElementById('shipBasketBar');
       if (bar) {
         bar.innerHTML = `<strong>${items} item${items !== 1 ? 's' : ''}</strong> · Subtotal ₹${subtotal.toLocaleString('en-IN')}`
@@ -8444,7 +8458,7 @@
       _shipSave(ship);
 
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
-      const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+      const discountAmt = calcDiscount(subtotal);
 
       let orderId = null;
       try {
@@ -8476,7 +8490,7 @@
 
     async function shipSkip() {
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
-      const discountAmt = appliedPromo ? Math.round(subtotal * appliedPromo.discount) : 0;
+      const discountAmt = calcDiscount(subtotal);
       try {
         await fetch('https://mytinythreads.in/api/orders', {
           method: 'POST',
@@ -8884,6 +8898,163 @@
               document.addEventListener('DOMContentLoaded', loadBanners);
             else
               loadBanners();
+          }());
+        </script>
+
+        <!-- ── PROMO CODES LOADER ── -->
+        <script>
+          (function () {
+            var SB_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
+            var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0';
+
+            // Emoji map by origin for ticker + popup flavour
+            var ORIGIN_EMOJI = {
+              'tinythreads': '🎉',
+              'instagram':   '📸',
+              'referee':     '🤝',
+              'reseller':    '🏪'
+            };
+            var ORIGIN_LABEL = {
+              'tinythreads': 'Exclusive Offer',
+              'instagram':   'Instagram Offer',
+              'referee':     'Referral Offer',
+              'reseller':    'Partner Offer'
+            };
+
+            function esc(s) {
+              return String(s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }
+
+            // Build a human-readable description line for a promo row
+            function promoDesc(p) {
+              var pct  = Math.round(p.discount * 100);
+              var line = pct + '% off';
+              if (p.max_upto)   line += ' (up to ₹' + p.max_upto + ')';
+              if (p.min_order)  line += ' · Min order ₹' + p.min_order;
+              return line;
+            }
+
+            function renderTicker(codes) {
+              var track = document.getElementById('promo-ticker-track');
+              if (!track) return;
+              if (!codes.length) return; // keep static fallback item
+
+              var items = [];
+              codes.forEach(function (p) {
+                var pct = Math.round(p.discount * 100);
+                var emoji = ORIGIN_EMOJI[p.origin] || '✨';
+                items.push(
+                  '<span class="promo-ticker-item">'
+                  + emoji + ' Use code <span class="tk-code">' + esc(p.code) + '</span>'
+                  + ' for ' + pct + '% off!'
+                  + (p.min_order ? ' · Min ₹' + p.min_order : '')
+                  + ' <span class="tk-tap">· Tap to copy 📋</span></span>'
+                );
+                items.push(
+                  '<span class="promo-ticker-item">✨ '
+                  + promoDesc(p) + ' · Apply code <span class="tk-code">' + esc(p.code)
+                  + '</span> at checkout</span>'
+                );
+              });
+              // Always include a brand filler item
+              items.push('<span class="promo-ticker-item">👶 Joyful kidswear from ₹199 &nbsp;·&nbsp; Checkout via WhatsApp</span>');
+
+              // Duplicate for seamless infinite scroll
+              track.innerHTML = items.join('') + items.join('');
+
+              // Update strip aria-label with first code for accessibility
+              var strip = track.closest('.promo-ticker-strip');
+              if (strip && codes[0]) {
+                strip.setAttribute('aria-label',
+                  'Tap to see discount code ' + codes[0].code
+                  + ' — ' + Math.round(codes[0].discount * 100) + '% off');
+              }
+            }
+
+            function renderPopup(codes) {
+              // Show the first tinythreads-origin code in the popup; fall back to first available
+              var p = codes.find(function (c) { return c.origin === 'tinythreads'; }) || codes[0];
+              if (!p) return;
+
+              var pct   = Math.round(p.discount * 100);
+              var emoji = ORIGIN_EMOJI[p.origin] || '🎉';
+              var tag   = '✨ ' + (ORIGIN_LABEL[p.origin] || 'Special Offer');
+
+              var heading = 'Get <em>' + pct + '% off</em>';
+              if (p.max_upto) heading += ' (up to ₹' + p.max_upto + ')';
+              heading += '!';
+
+              var subParts = ['Apply at checkout', 'Valid on all products'];
+              if (p.min_order) subParts.push('Min order ₹' + p.min_order);
+              else             subParts.push('No minimum order');
+
+              var tagEl     = document.getElementById('popup-tag');
+              var headEl    = document.getElementById('popup-heading');
+              var subEl     = document.getElementById('popup-subtext');
+              var codeValEl = document.getElementById('popup-code-val');
+              var copyBtn   = document.getElementById('promo-copy-btn');
+
+              var emojiEl = tagEl && tagEl.previousElementSibling;
+              if (emojiEl && emojiEl.classList.contains('promo-popup-emoji')) emojiEl.textContent = emoji;
+              if (tagEl)     tagEl.textContent   = tag;
+              if (headEl)    headEl.innerHTML     = heading;
+              if (subEl)     subEl.textContent    = subParts.join(' · ');
+              if (codeValEl) codeValEl.textContent = p.code;
+              if (copyBtn)   copyBtn.textContent   = '📋 Copy Code – ' + p.code;
+            }
+
+            async function loadPromoCodes() {
+              var now = new Date().toISOString();
+              var url = SB_URL + '/rest/v1/promocodes'
+                + '?active=eq.true'
+                + '&select=code,label,discount,origin,is_public,min_order,max_upto,valid_from,valid_until'
+                + '&order=id.asc';
+              try {
+                var res = await fetch(url, {
+                  headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                var rows = await res.json();
+                if (!Array.isArray(rows) || !rows.length) return;
+
+                // Filter out time-expired codes client-side
+                var valid = rows.filter(function (p) {
+                  if (p.valid_from  && now < p.valid_from)  return false;
+                  if (p.valid_until && now > p.valid_until) return false;
+                  return true;
+                });
+
+                // Populate the global PROMO_CODES map with ALL valid codes (public + private)
+                // Private codes (is_public=false) are never shown on site but validate fine at checkout
+                if (typeof PROMO_CODES !== 'undefined') {
+                  valid.forEach(function (p) {
+                    PROMO_CODES[p.code.toUpperCase()] = {
+                      code:      p.code.toUpperCase(),
+                      label:     p.label,
+                      discount:  parseFloat(p.discount),
+                      origin:    p.origin,
+                      min_order: parseFloat(p.min_order) || 0,
+                      max_upto:  p.max_upto ? parseFloat(p.max_upto) : null
+                    };
+                  });
+                }
+
+                // Ticker + popup only see is_public=true codes
+                var publicCodes = valid.filter(function (p) { return p.is_public === true; });
+                renderTicker(publicCodes);
+                renderPopup(publicCodes);
+
+              } catch (err) {
+                console.warn('[PromoCodes] Using static fallback:', err.message);
+              }
+            }
+
+            if (document.readyState === 'loading')
+              document.addEventListener('DOMContentLoaded', loadPromoCodes);
+            else
+              loadPromoCodes();
           }());
         </script>
 
