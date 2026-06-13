@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiny Stone Jewells - Handcrafted Jewellery for Every Occasion</title>
+  <meta name="description"
+    content="Beautiful handcrafted jewellery — rings, necklaces, earrings, bangles & more. Curated collections for daily wear, bridal, festive & gifting. Order via WhatsApp. Prices from ₹299.">
+  <link rel="canonical" href="https://jewells.mytinythreads.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tiny Stone Jewells">
+  <meta property="og:url" content="https://jewells.mytinythreads.in/">
+  <meta property="og:title" content="Tiny Stone Jewells - Handcrafted Jewellery for Every Occasion">
+  <meta property="og:description"
+    content="Curated handcrafted jewellery. Rings, necklaces, earrings, bangles & more. Starting ₹299. Order via WhatsApp!">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tiny Stone Jewells - Handcrafted Jewellery for Every Occasion">
+  <meta name="twitter:description"
+    content="Curated handcrafted jewellery. Starting ₹299. Order via WhatsApp!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold:        #B8860B;
+      --gold-dark:   #7A5700;
+      --gold-light:  #FFF8E7;
+      --gold-mid:    #D4A017;
+      --gold-bright: #F5C842;
+      --warm:        #FDFAF4;
+      --text:        #1C1208;
+      --muted:       #6B5533;
+      --cream:       #F7F0E3;
+      --border:      #E8D9BC;
+    }
+
+    html { overflow-x: hidden; width: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm);
+      color: var(--text);
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      padding-top: 108px;
+    }
+
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+
+    /* ── SPLASH ── */
+    body.splash-active {
+      overflow: hidden;
+      background: #0a0804;
+    }
+    body.splash-active .page,
+    body.splash-active nav,
+    body.splash-active .float-wa,
+    body.splash-active .mobile-bottom-nav,
+    body.splash-active .promo-ticker-strip,
+    body.splash-active .promo-popup-overlay {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    body.splash-active .promo-ticker-strip { display: none; }
+
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #0a0804;
+    }
+    .splash-card {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0804;
+    }
+    .splash-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #0a0804;
+    }
+    .splash-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+      will-change: opacity;
+    }
+    .splash-slide.active { opacity: 1; z-index: 1; }
+    .splash-slide picture, .splash-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.1) 0%, rgba(0,0,0,.2) 40%, rgba(10,4,2,.75) 75%, rgba(10,4,2,.93) 100%);
+      pointer-events: none;
+    }
+    .splash-content {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .splash-gem-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      animation: spTxt .6s .1s ease both;
+    }
+    .splash-gem-divider {
+      color: var(--gold-bright);
+      font-size: 14px;
+      opacity: .7;
+      letter-spacing: 6px;
+    }
+    .splash-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+      animation: spTxt .6s .2s ease both;
+    }
+    .splash-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid rgba(245,200,66,.45);
+      box-shadow: 0 0 30px rgba(245,200,66,.25), 0 6px 24px rgba(0,0,0,.5);
+      display: block;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .splash-brand-text { display: flex; flex-direction: column; gap: 3px; }
+    .splash-welcome {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245,200,66,.65);
+      line-height: 1;
+    }
+    .splash-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+      text-shadow: 0 2px 18px rgba(0,0,0,.4);
+    }
+    .splash-brand-name em {
+      font-style: italic;
+      color: var(--gold-bright);
+    }
+    .splash-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,.72);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      animation: spTxt .6s .38s ease both;
+      max-width: 300px;
+    }
+    .splash-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      animation: spTxt .6s .44s ease both;
+    }
+    .splash-step { display: flex; align-items: center; gap: 5px; }
+    .splash-step-icon { font-size: 13px; line-height: 1; }
+    .splash-step-text {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+    .splash-step-divider { font-size: 10px; color: rgba(245,200,66,.4); flex-shrink: 0; }
+    .splash-explore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(245,200,66,.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(245,200,66,.4);
+      color: white;
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .4px;
+      transition: background .25s, border-color .25s, transform .2s;
+      animation: spTxt .6s .52s ease both;
+    }
+    .splash-explore-btn:hover {
+      background: rgba(245,200,66,.28);
+      border-color: rgba(245,200,66,.65);
+      transform: translateY(-2px);
+    }
+    .splash-explore-btn:active { transform: scale(.97); }
+    .splash-explore-arrow { font-size: 16px; transition: transform .2s; }
+    .splash-explore-btn:hover .splash-explore-arrow { transform: translateX(4px); }
+
+    @keyframes spTxt {
+      from { opacity: 0; transform: translateY(14px) }
+      to   { opacity: 1; transform: translateY(0) }
+    }
+    #splash-screen.splash-exit {
+      pointer-events: none;
+      animation: spOut .55s cubic-bezier(.4,0,1,1) forwards;
+    }
+    @keyframes spOut { to { opacity: 0 } }
+
+    @media(max-width:700px) {
+      .splash-content { padding: 22px; }
+      .splash-logo { width: 50px; height: 50px; }
+      .splash-brand-name { font-size: 22px; }
+    }
+
+    /* ── PROMO TICKER STRIP ── */
+    .promo-ticker-strip {
+      background: linear-gradient(90deg, #7A5700, #B8860B, #C89B10, #B8860B, #7A5700);
+      background-size: 300% 100%;
+      animation: tickerShift 6s linear infinite;
+      height: 36px;
+      overflow: hidden;
+      cursor: pointer;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1001;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    @keyframes tickerShift {
+      0%   { background-position: 0% 50% }
+      50%  { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+    .promo-ticker-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: tickerScroll 28s linear infinite;
+      will-change: transform;
+    }
+    .promo-ticker-strip:hover .promo-ticker-track { animation-play-state: paused; }
+    @keyframes tickerScroll {
+      0%   { transform: translateX(0) }
+      100% { transform: translateX(-50%) }
+    }
+    .promo-ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 28px;
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+      letter-spacing: .4px;
+    }
+    .ticker-gem { color: var(--gold-bright); font-size: 11px; }
+
+    /* ── NAV ── */
+    nav {
+      background: white;
+      border-bottom: 2px solid var(--gold-light);
+      padding: 0 2rem;
+      position: fixed;
+      top: 36px; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      box-shadow: 0 2px 16px rgba(184,134,11,.1);
+      width: 100%;
+      max-width: 100vw;
+      overflow: hidden;
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .logo-svg-wrap {
+      width: 52px; height: 52px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      filter: drop-shadow(0 3px 12px rgba(184,134,11,.4));
+      transition: transform .25s;
+      border: 2px solid rgba(184,134,11,.2);
+    }
+    .logo-svg-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .logo-wrap:hover .logo-svg-wrap { transform: scale(1.09) rotate(-4deg); }
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      line-height: 1.1;
+    }
+    .logo-text em { font-style: italic; color: var(--gold); }
+    .logo-text span {
+      font-size: 10px;
+      font-weight: 400;
+      font-style: normal;
+      color: var(--muted);
+      display: block;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 11px;
+      border-radius: 8px;
+      transition: all .2s;
+      display: block;
+    }
+    .nav-links li a:hover, .nav-links li a.active {
+      color: var(--gold-dark);
+      background: var(--gold-light);
+    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .wa-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+    .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,.35); }
+    .basket-nav-btn {
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      border: 1.5px solid var(--gold);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all .2s;
+    }
+    .basket-nav-btn:hover { background: var(--gold); color: white; }
+    .basket-count-badge {
+      background: var(--gold);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .basket-nav-btn:hover .basket-count-badge { background: white; color: var(--gold-dark); }
+    .ig-btn {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .2s;
+      text-decoration: none;
+    }
+    .ig-btn:hover { transform: translateY(-2px); }
+    .mob-ham-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      color: var(--gold);
+    }
+    .mob-ham-btn svg { width: 24px; height: 24px; }
+
+    /* ── PAGES ── */
+    .page { display: none; position: relative; z-index: 1; overflow-x: hidden; }
+    .page.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #FFFFFF 0%, #F5F5F7 50%, #EAE9E6 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-blob1 {
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(245,200,66,.22) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-blob2 {
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(184,134,11,.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--white-bright);
+      opacity: .6;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: .2; transform: scale(.8); }
+      50% { opacity: .9; transform: scale(1.4); }
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-logo-wrap {
+      width: 250px; height: 250px;
+      margin: 0 auto 1.4rem;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      filter: drop-shadow(0 14px 40px rgba(184,134,11,.4));
+      animation: floatLogo 3.2s ease-in-out infinite;
+      border: 1px solid rgba(230, 213, 171, 0.2);
+    }
+    .hero-logo-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0) }
+      50% { transform: translateY(-10px) }
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .6rem;
+    }
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      font-weight: 700;
+      color: var(--gold-dark);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .tagline em { font-style: italic; color: var(--gold); }
+    .hero p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 480px;
+      margin: 0 auto 1.6rem;
+      line-height: 1.8;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(184,134,11,.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold-dark);
+      border: 1.5px solid var(--gold);
+      padding: 12px 26px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .trust-badges {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: .5rem;
+      flex-wrap: wrap;
+    }
+    .trust-badge {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 3.5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: .4rem;
+      color: var(--gold-dark);
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-sub { color: var(--muted); font-size: 14px; margin-bottom: 2.5rem; }
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2.5rem;
+    }
+    .section-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .section-divider-gem { color: var(--gold-bright); font-size: 14px; }
+
+    /* ── CATEGORY GRID ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    .cat-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      text-align: center;
+    }
+    .cat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px rgba(184,134,11,.18);
+      border-color: var(--gold);
+    }
+    .cat-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+    }
+    .cat-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+    }
+    .cat-label {
+      padding: 10px 8px 12px;
+    }
+    .cat-label h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 3px;
+    }
+    .cat-label p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── PRODUCT GRID ── */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+    .prod-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+    }
+    .prod-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(184,134,11,.18);
+    }
+    .prod-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--gold-light);
+    }
+    .prod-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+      display: block;
+    }
+    .prod-card:hover .prod-img-wrap img { transform: scale(1.06); }
+    .prod-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #FFF8E7, #F7F0E3);
+    }
+    .prod-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--gold);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 12px;
+      letter-spacing: .4px;
+    }
+    .prod-badge.new { background: #1B8C4E; }
+    .prod-badge.trending { background: #C62828; }
+    .prod-wishlist {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: white;
+      border: none;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    }
+    .prod-wishlist:hover { transform: scale(1.2); }
+    .prod-info { padding: 14px 14px 16px; }
+    .prod-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .prod-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
+    .prod-price-row { display: flex; align-items: center; gap: 7px; margin-bottom: 12px; }
+    .prod-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold-dark);
+    }
+    .prod-mrp {
+      font-size: 12px;
+      color: #aaa;
+      text-decoration: line-through;
+    }
+    .prod-off {
+      font-size: 11px;
+      font-weight: 600;
+      color: #1B8C4E;
+      background: #E8F5E9;
+      padding: 2px 7px;
+      border-radius: 8px;
+    }
+    .prod-add-btn {
+      width: 100%;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      border: 1.5px solid var(--gold);
+      padding: 9px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .prod-add-btn:hover { background: var(--gold); color: white; }
+
+    /* ── FEATURED BANNER ── */
+    .featured-banner {
+      background: linear-gradient(135deg, #7A5700 0%, #B8860B 50%, #D4A017 100%);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin: 0 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .featured-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+    }
+    .featured-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+    }
+    .fb-text { position: relative; z-index: 2; }
+    .fb-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      margin-bottom: .5rem;
+    }
+    .fb-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: .6rem;
+      line-height: 1.2;
+    }
+    .fb-title em { font-style: italic; opacity: .88; }
+    .fb-sub { color: rgba(255,255,255,.75); font-size: 14px; margin-bottom: 1.4rem; }
+    .fb-btn {
+      background: white;
+      color: var(--gold-dark);
+      border: none;
+      padding: 11px 24px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+    .fb-icons {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: -10px;
+      font-size: 4rem;
+      opacity: .85;
+      flex-shrink: 0;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .hiw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .hiw-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+    }
+    .hiw-num {
+      width: 44px; height: 44px;
+      background: var(--gold-light);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin: 0 auto 1rem;
+    }
+    .hiw-icon { font-size: 2rem; margin-bottom: .7rem; }
+    .hiw-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+    .hiw-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .testi-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+    .testi-stars { color: var(--gold-bright); font-size: 14px; margin-bottom: .7rem; letter-spacing: 2px; }
+    .testi-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15.5px;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .testi-author { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+    /* ── NEWSLETTER / WA COMMUNITY ── */
+    .wa-community {
+      background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+      border-radius: 24px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1.5px solid #C8E6C9;
+      margin: 0 2rem;
+    }
+    .wa-community-icon {
+      width: 68px; height: 68px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 24px rgba(37,211,102,.35);
+    }
+    .wa-community-icon svg { width: 36px; height: 36px; }
+    .wa-community h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1B5E20;
+      margin-bottom: .5rem;
+    }
+    .wa-community p { font-size: 14px; color: #2E7D32; margin-bottom: 1.4rem; }
+    .wa-community-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 13px 30px;
+      border-radius: 50px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-community-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.4); }
+    .wa-community-perks {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .wa-community-perks span {
+      font-size: 12px;
+      color: #388E3C;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 2rem 1.5rem;
+      margin-top: 4rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+    }
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: .5rem;
+    }
+    .footer-brand-name em { font-style: italic; }
+    footer p { font-size: 13px; line-height: 1.7; margin-bottom: 1rem; }
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .5rem; }
+    .footer-col ul li a {
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold-bright); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-bottom a { color: var(--gold-bright); text-decoration: none; }
+
+    /* ── FLOATING WA BUTTON ── */
+    .float-wa {
+      position: fixed;
+      bottom: 28px; right: 20px;
+      width: 58px; height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37,211,102,.45);
+      cursor: pointer;
+      z-index: 5000;
+      transition: transform .25s, box-shadow .25s;
+      border: none;
+      text-decoration: none;
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 10px 28px rgba(37,211,102,.55); }
+    .float-wa svg { width: 30px; height: 30px; fill: white; }
+
+    /* ── BASKET DRAWER ── */
+    .basket-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,18,8,.5);
+      z-index: 9000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .basket-overlay.open { opacity: 1; pointer-events: all; }
+    .basket-drawer {
+      position: fixed;
+      top: 0; right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: white;
+      z-index: 9001;
+      box-shadow: -6px 0 40px rgba(0,0,0,.18);
+      transition: right .35s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+    }
+    .basket-drawer.open { right: 0; }
+    .basket-head {
+      padding: 1.2rem 1.4rem;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .basket-head h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+    }
+    .basket-close {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-dark);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .basket-items { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+    .basket-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .basket-empty-icon { font-size: 3rem; margin-bottom: .8rem; }
+    .basket-empty p { font-size: 14px; }
+    .basket-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .basket-item-img {
+      width: 64px; height: 64px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--gold-light);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .basket-item-info { flex: 1; }
+    .basket-item-name { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .basket-item-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 8px; }
+    .basket-item-row { display: flex; align-items: center; justify-content: space-between; }
+    .basket-item-price { font-size: 14px; font-weight: 700; color: var(--gold-dark); }
+    .basket-qty {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .basket-qty button {
+      width: 28px; height: 28px;
+      background: var(--gold-light);
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .basket-qty span {
+      width: 30px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .basket-foot {
+      padding: 1.2rem 1.4rem;
+      border-top: 1.5px solid var(--border);
+    }
+    .basket-total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 15px;
+    }
+    .basket-total-row strong { font-size: 18px; color: var(--gold-dark); }
+    .basket-checkout-btn {
+      width: 100%;
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background .2s;
+    }
+    .basket-checkout-btn:hover { background: #20ba5c; }
+    .basket-checkout-btn:disabled { background: #A5D6B0; cursor: not-allowed; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text);
+      color: white;
+      padding: 11px 20px;
+      border-radius: 50px;
+      font-size: 13.5px;
+      font-weight: 500;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity .25s, transform .25s;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── MOBILE BOTTOM NAV ── */
+    /* ── MOBILE BOTTOM NAV — scrolling category strip ── */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1.5px solid var(--border);
+      z-index: 4000;
+      height: 68px;
+      box-shadow: 0 -4px 20px rgba(184,134,11,.10);
+      overflow: hidden;
+    }
+
+    /* the scrolling track */
+    .mob-nav-track {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      padding: 0 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .mob-nav-track::-webkit-scrollbar { display: none; }
+
+    /* each pill button */
+    .mob-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-radius: 16px;
+      padding: 6px 14px;
+      flex-shrink: 0;
+      transition: background .25s, transform .25s, box-shadow .25s;
+      position: relative;
+      min-width: 56px;
+    }
+    .mob-nav-item:active { transform: scale(.93); }
+
+    /* ACTIVE state — filled gold pill with lift */
+    .mob-nav-item.active {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      box-shadow: 0 4px 14px rgba(184,134,11,.40);
+      transform: translateY(-4px);
+    }
+
+    .mob-nav-icon {
+      font-size: 19px;
+      line-height: 1;
+      transition: transform .25s;
+    }
+    .mob-nav-item.active .mob-nav-icon {
+      transform: scale(1.15);
+    }
+
+    .mob-nav-label {
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .2px;
+      white-space: nowrap;
+      transition: color .25s, font-weight .25s;
+    }
+    .mob-nav-item.active .mob-nav-label {
+      color: white;
+      font-weight: 700;
+    }
+
+    /* subtle separator dots between items */
+    .mob-nav-sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      opacity: .6;
+    }
+
+    /* ── MOBILE MENU DRAWER ── */
+    .mob-menu-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,18,8,.5);
+      z-index: 7000;
+    }
+    .mob-menu-overlay.open { display: block; }
+    .mob-menu-drawer {
+      position: fixed;
+      top: 0; left: -300px;
+      width: 290px;
+      height: 100vh;
+      background: white;
+      z-index: 7001;
+      transition: left .32s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .mob-menu-drawer.open { left: 0; }
+    .mob-menu-head {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      padding: 1.4rem 1.2rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mob-menu-head-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+    }
+    .mob-menu-head-text em { font-style: italic; }
+    .mob-menu-head-text span { font-size: 10px; display: block; color: rgba(255,255,255,.65); font-style: normal; font-family: 'DM Sans', sans-serif; letter-spacing: 1px; }
+    .mob-menu-close {
+      margin-left: auto;
+      background: rgba(255,255,255,.2);
+      border: none;
+      color: white;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .mob-menu-body { flex: 1; overflow-y: auto; padding: .6rem 0; }
+    .mob-menu-body ul { list-style: none; }
+    .mob-menu-body ul li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 1.4rem;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background .18s;
+    }
+    .mob-menu-body ul li a:hover { background: var(--gold-light); }
+    .mn-icon { font-size: 18px; width: 24px; text-align: center; }
+    .mob-menu-wa {
+      padding: 1rem 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .mob-menu-wa a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: background .2s;
+    }
+    .mob-menu-wa a:hover { background: #20ba5c; }
+
+    /* ── PRODUCT DETAIL PAGE ── */
+    .pdp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;   /* extra bottom so buttons clear bottom nav */
+    }
+    .pdp-main-img {
+      aspect-ratio: 1;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      cursor: pointer;
+      border: 2px solid var(--border);
+    }
+    .pdp-main-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pdp-thumb-row { display: flex; gap: 10px; margin-top: 12px; }
+    .pdp-thumb {
+      width: 72px; height: 72px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      background: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      transition: border-color .2s;
+    }
+    .pdp-thumb:hover, .pdp-thumb.active { border-color: var(--gold); }
+    .pdp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .pdp-back {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 1rem 2rem 0;
+      transition: color .2s;
+    }
+    .pdp-back:hover { color: var(--gold-dark); }
+    .pdp-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+    .pdp-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+      line-height: 1.2;
+    }
+    .pdp-sub { font-size: 13.5px; color: var(--muted); margin-bottom: 1rem; }
+    .pdp-price { font-size: 1.9rem; font-weight: 700; color: var(--gold-dark); margin-bottom: .3rem; }
+    .pdp-price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem; }
+    .pdp-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 1.4rem; }
+    .pdp-meta-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.6rem; }
+    .pdp-meta-item { display: flex; gap: 8px; font-size: 13px; }
+    .pdp-meta-label { color: var(--muted); min-width: 80px; }
+    .pdp-meta-val { color: var(--text); font-weight: 500; }
+    .pdp-add-row { display: flex; gap: 12px; }
+    .pdp-add-btn {
+      flex: 1;
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .2s, transform .1s;
+    }
+    .pdp-add-btn:hover { background: var(--gold-dark); }
+    .pdp-wa-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .2s;
+    }
+    .pdp-wa-btn:hover { background: #20ba5c; }
+
+    /* ── CATEGORY PAGE BANNER ── */
+    .cat-page-banner {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-page-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -60px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.1);
+      border-radius: 50%;
+    }
+    .cat-page-banner h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+    .cat-page-banner p {
+      font-size: 14px;
+      color: rgba(255,255,255,.78);
+      margin-top: .4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── FILTER BARS WRAPPER ── */
+    .filter-bars-wrap {
+      position: sticky;
+      top: 108px;
+      z-index: 100;
+      background: white;
+      border-bottom: 1.5px solid var(--border);
+      box-shadow: 0 2px 8px rgba(184,134,11,.07);
+    }
+
+    /* ── PRICE / BADGE FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      padding: .9rem 1.4rem .7rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--border);
+      background: white;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    /* ── TYPE (subcategory) FILTER BAR ── */
+    .type-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: .6rem 1.4rem .8rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: var(--warm);
+    }
+    .type-bar::-webkit-scrollbar { display: none; }
+    .type-bar-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-right: 4px;
+    }
+
+    /* shared chip style */
+    .filter-chip {
+      background: white;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      background: var(--gold-light);
+      border-color: var(--gold);
+      color: var(--gold-dark);
+    }
+    /* type chips slightly smaller + different active colour */
+    .type-chip {
+      background: white;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      padding: 5px 13px;
+      border-radius: 50px;
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .type-chip:hover, .type-chip.active {
+      background: #FFF3E0;
+      border-color: var(--gold-mid);
+      color: var(--gold-dark);
+    }
+
+    /* product section needs bottom padding on mobile so cards clear bottom nav */
+    .prod-section-wrap {
+      padding-bottom: 80px;
+    }
+    @media(max-width:700px) {
+      .prod-section-wrap { padding-bottom: 88px; }
+      .filter-bars-wrap  { top: 100px; }
+    }
+
+    /* ── MEDIA QUERIES ── */
+    @media(max-width:700px) {
+      body { padding-top: 100px; }
+      nav { padding: 0 1rem; height: 64px; top: 36px; }
+      .nav-links, .ig-btn { display: none; }
+      .mob-ham-btn { display: flex; }
+      .mobile-bottom-nav { display: block; }
+      .prod-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+      .cat-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+      .section { padding: 2.5rem 1rem; }
+      .featured-banner { flex-direction: column; margin: 0 1rem; padding: 2rem 1.5rem; text-align: center; }
+      .fb-icons { font-size: 2.5rem; }
+      .wa-community { margin: 0 1rem; padding: 1.8rem 1.2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .footer-grid > div:first-child { grid-column: 1/-1; }
+      .footer-col:nth-child(3) { display: none; }
+      .hiw-grid { grid-template-columns: 1fr; }
+      .pdp-layout { grid-template-columns: 1fr; padding: 1rem 1rem 96px; }
+      #page-pdp { padding-bottom: 88px; }
+      .basket-drawer { top: auto; bottom: -100%; right: 0; left: 0; width: 100%; height: 92vh; border-radius: 22px 22px 0 0; transition: bottom .35s cubic-bezier(.4,0,.2,1); }
+      .basket-drawer.open { bottom: 0; }
+      .float-wa { bottom: 80px; width: 50px; height: 50px; }
+    }
+    @media(min-width:701px) and (max-width:1024px) {
+      .prod-grid { grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); }
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+      .footer-col:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+
+<body class="splash-active">
+
+  <!-- ==================== SPLASH SCREEN ==================== -->
+  <div id="splash-screen">
+    <div class="splash-card">
+
+      <!-- Background slides with jewellery imagery -->
+      <div class="splash-slides">
+        <!-- Slide 1: warm gold bokeh -->
+        <div class="splash-slide active" id="splash-s1">
+          <picture>
+            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&auto=format&fit=crop&q=80" alt="Jewellery splash">
+          </picture>
+          <div class="slide-overlay"></div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="splash-slide" id="splash-s2">
+          <picture>
+            <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=800&auto=format&fit=crop&q=80" alt="Jewellery splash 2">
+          </picture>
+          <div class="slide-overlay"></div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="splash-slide" id="splash-s3">
+          <picture>
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80" alt="Jewellery splash 3">
+          </picture>
+          <div class="slide-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Branding -->
+      <div class="splash-content">
+        <div class="splash-gem-row">
+          <span class="splash-gem-divider">✦ ✦ ✦</span>
+        </div>
+        <div class="splash-brand-row">
+          <div class="splash-brand-text">
+            <span class="splash-welcome">Welcome to</span>
+            <span class="splash-brand-name">Tiny Stone <em>Jewells</em></span>
+          </div>
+        </div>
+        <div class="splash-tagline">Handcrafted jewellery for every story, every occasion</div>
+        <div class="splash-steps">
+          <div class="splash-step">
+            <span class="splash-step-icon">💎</span>
+            <span class="splash-step-text">Handcrafted pieces</span>
+          </div>
+          <span class="splash-step-divider">·</span>
+          <div class="splash-step">
+            <span class="splash-step-icon">💬</span>
+            <span class="splash-step-text">Order via WhatsApp</span>
+          </div>
+          <span class="splash-step-divider">·</span>
+          <div class="splash-step">
+            <span class="splash-step-icon">🚚</span>
+            <span class="splash-step-text">Delivered to your door</span>
+          </div>
+        </div>
+        <button class="splash-explore-btn" onclick="enterSite()">
+          Explore Collections
+          <span class="splash-explore-arrow">→</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== TOAST ==================== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ==================== PROMO TICKER ==================== -->
+  <div class="promo-ticker-strip" onclick="openWA('Check out our latest jewellery collection!')">
+    <div class="promo-ticker-track" id="promo-track">
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Free shipping on orders above ₹999</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> New bridal collection now available</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Order via WhatsApp — easy & fast</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Handcrafted silver & gold-plated jewellery</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Gifting? We do custom packaging!</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Starting ₹299 — quality you can feel</span>
+      <!-- duplicate for seamless loop -->
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Free shipping on orders above ₹999</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> New bridal collection now available</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Order via WhatsApp — easy & fast</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Handcrafted silver & gold-plated jewellery</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Gifting? We do custom packaging!</span>
+      <span class="promo-ticker-item"><span class="ticker-gem">✦</span> Starting ₹299 — quality you can feel</span>
+    </div>
+  </div>
+
+  <!-- ==================== NAV ==================== -->
+  <nav>
+    <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0">
+      <div class="logo-svg-wrap">
+        <img src="https://res.cloudinary.com/dq8khv47z/image/upload/v1781354427/file_00000000b12072068c8b410827db682e_qalblk.png" alt="Tiny Stone Jewells Logo">
+      </div>
+      <div class="logo-text">Tiny Stone <em>Jewells</em> <span>Handcrafted Jewellery</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('rings');return false;">Rings</a></li>
+      <li><a href="#" onclick="showPage('necklaces');return false;">Necklaces</a></li>
+      <li><a href="#" onclick="showPage('earrings');return false;">Earrings</a></li>
+      <li><a href="#" onclick="showPage('bangles');return false;">Bangles</a></li>
+      <li><a href="#" onclick="showPage('bridal');return false;">Bridal</a></li>
+      <li><a href="#" onclick="showPage('gifting');return false;">Gifting</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="basket-nav-btn" onclick="openBasket()">
+        🛒 <span id="nav-basket-count" class="basket-count-badge">0</span>
+      </button>
+      <a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+        <svg style="width:15px;height:15px;fill:white;" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Follow
+      </a>
+      <button class="mob-ham-btn" onclick="openMobMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== MOBILE MENU ==================== -->
+  <div class="mob-menu-overlay" id="mob-menu-overlay" onclick="closeMobMenu()"></div>
+  <div class="mob-menu-drawer" id="mob-menu-drawer">
+    <div class="mob-menu-head">
+      <img src="https://res.cloudinary.com/dq8khv47z/image/upload/v1781354427/file_00000000b12072068c8b410827db682e_qalblk.png"
+        alt="Logo" style="width:42px;height:42px;border-radius:50%;object-fit:cover;">
+      <div class="mob-menu-head-text">Tiny Stone <em>Jewells</em> <span>Handcrafted Jewellery</span></div>
+      <button class="mob-menu-close" onclick="closeMobMenu()">✕</button>
+    </div>
+    <div class="mob-menu-body">
+      <ul>
+        <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">🏠</span>Home</a></li>
+        <li><a href="#" onclick="showPage('rings');closeMobMenu();return false;"><span class="mn-icon">💍</span>Rings</a></li>
+        <li><a href="#" onclick="showPage('necklaces');closeMobMenu();return false;"><span class="mn-icon">📿</span>Necklaces</a></li>
+        <li><a href="#" onclick="showPage('earrings');closeMobMenu();return false;"><span class="mn-icon">✨</span>Earrings</a></li>
+        <li><a href="#" onclick="showPage('bangles');closeMobMenu();return false;"><span class="mn-icon">🌸</span>Bangles & Bracelets</a></li>
+        <li><a href="#" onclick="showPage('bridal');closeMobMenu();return false;"><span class="mn-icon">👰</span>Bridal Sets</a></li>
+        <li><a href="#" onclick="showPage('gifting');closeMobMenu();return false;"><span class="mn-icon">🎁</span>Gifting</a></li>
+        <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon">🛒</span>My Basket</a></li>
+        <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span class="mn-icon">📸</span>Follow on Instagram</a></li>
+      </ul>
+    </div>
+    <div class="mob-menu-wa">
+      <a href="https://wa.me/917879976016?text=Hi!%20I%20want%20to%20browse%20your%20jewellery%20collection." target="_blank">
+        <svg style="width:18px;height:18px;fill:white;flex-shrink:0;" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================== MOBILE BOTTOM NAV — scrolling category strip ==================== -->
+  <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <div class="mob-nav-track" id="mob-nav-track">
+      <button class="mob-nav-item active" id="mn-home" onclick="showPage('home')">
+        <span class="mob-nav-icon">🏠</span>
+        <span class="mob-nav-label">Home</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-rings" onclick="showPage('rings')">
+        <span class="mob-nav-icon">💍</span>
+        <span class="mob-nav-label">Rings</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-necklaces" onclick="showPage('necklaces')">
+        <span class="mob-nav-icon">📿</span>
+        <span class="mob-nav-label">Necklaces</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-earrings" onclick="showPage('earrings')">
+        <span class="mob-nav-icon">✨</span>
+        <span class="mob-nav-label">Earrings</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-bangles" onclick="showPage('bangles')">
+        <span class="mob-nav-icon">🌸</span>
+        <span class="mob-nav-label">Bangles</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-bridal" onclick="showPage('bridal')">
+        <span class="mob-nav-icon">👰</span>
+        <span class="mob-nav-label">Bridal</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-gifting" onclick="showPage('gifting')">
+        <span class="mob-nav-icon">🎁</span>
+        <span class="mob-nav-label">Gifting</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-anklets" onclick="showPage('anklets')">
+        <span class="mob-nav-icon">🦶</span>
+        <span class="mob-nav-label">Anklets</span>
+      </button>
+      <div class="mob-nav-sep"></div>
+      <button class="mob-nav-item" id="mn-maangtika" onclick="showPage('maangtika')">
+        <span class="mob-nav-icon">🌺</span>
+        <span class="mob-nav-label">Maang Tika</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== BASKET DRAWER ==================== -->
+  <div class="basket-overlay" id="basket-overlay" onclick="closeBasket()"></div>
+  <div class="basket-drawer" id="basket-drawer">
+    <div class="basket-head">
+      <h3>💎 My Basket</h3>
+      <button class="basket-close" onclick="closeBasket()">✕</button>
+    </div>
+    <div class="basket-items" id="basket-items">
+      <div class="basket-empty">
+        <div class="basket-empty-icon">💍</div>
+        <p>Your basket is empty.<br>Add some beautiful pieces!</p>
+      </div>
+    </div>
+    <div class="basket-foot" id="basket-foot" style="display:none;">
+      <div class="basket-total-row">
+        <span>Total</span>
+        <strong id="basket-total">₹0</strong>
+      </div>
+      <button class="basket-checkout-btn" id="basket-checkout-btn" onclick="checkoutWA()">
+        <svg style="width:18px;height:18px;fill:white;flex-shrink:0;" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Send Order on WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== FLOATING WA BUTTON ==================== -->
+  <a class="float-wa" href="https://wa.me/917879976016?text=Hi!%20I%27d%20love%20to%20browse%20your%20jewellery%20collection." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div class="page active" id="page-home">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-blob1"></div>
+      <div class="hero-blob2"></div>
+      <!-- Sparkle dots -->
+      <div class="hero-sparkle" style="top:20%;left:15%;animation-delay:.3s;"></div>
+      <div class="hero-sparkle" style="top:35%;right:18%;animation-delay:1s;width:6px;height:6px;"></div>
+      <div class="hero-sparkle" style="bottom:25%;left:25%;animation-delay:1.8s;"></div>
+      <div class="hero-sparkle" style="top:55%;right:12%;animation-delay:.7s;width:5px;height:5px;"></div>
+      <div class="hero-content">
+        <div class="hero-logo-wrap" onclick="openGiftPopup()" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter'||event.key===' ')openGiftPopup()"
+         aria-label="Tap for a surprise gift"><img
+        src="https://res.cloudinary.com/dq8khv47z/image/upload/v1781354427/file_00000000b12072068c8b410827db682e_qalblk.png"
+        alt="Tiny Stone Jewells Logo"></div>
+        <div class="hero-eyebrow">✦ Tiny Stone Jewells ✦</div>
+        <h1 class="tagline">Jewellery that tells<br><em>your story</em></h1>
+        <p>Handcrafted with love — from everyday elegance to festive grandeur. Rings, necklaces, earrings, bangles & bridal sets, all curated for the modern Indian woman.</p>
+        <div class="hero-cta-row">
+          <button class="btn-primary" onclick="showPage('rings')">💍 Shop Rings</button>
+          <button class="btn-outline" onclick="showPage('bridal')">👰 Bridal Sets</button>
+        </div>
+        <div class="trust-badges">
+          <div class="trust-badge"><div class="badge-dot" style="background:#1B8C4E;"></div> Handcrafted Quality</div>
+          <div class="trust-badge"><div class="badge-dot" style="background:#B8860B;"></div> From ₹299</div>
+          <div class="trust-badge"><div class="badge-dot" style="background:#25D366;"></div> Order via WhatsApp</div>
+          <div class="trust-badge"><div class="badge-dot" style="background:#1565C0;"></div> Free delivery above ₹999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="section">
+      <div class="section-title">Shop by <em>Category</em></div>
+      <div class="section-sub">Every piece handpicked for quality and character</div>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="showPage('rings')">
+          <div class="cat-img-placeholder">💍</div>
+          <div class="cat-label"><h3>Rings</h3><p>Stackable · Statement · Everyday</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('necklaces')">
+          <div class="cat-img-placeholder">📿</div>
+          <div class="cat-label"><h3>Necklaces</h3><p>Chains · Pendants · Layered</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('earrings')">
+          <div class="cat-img-placeholder">✨</div>
+          <div class="cat-label"><h3>Earrings</h3><p>Studs · Drops · Jhumkas</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('bangles')">
+          <div class="cat-img-placeholder">🌸</div>
+          <div class="cat-label"><h3>Bangles</h3><p>Bangles · Bracelets · Kadas</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('bridal')">
+          <div class="cat-img-placeholder">👰</div>
+          <div class="cat-label"><h3>Bridal Sets</h3><p>Complete bridal jewellery</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('gifting')">
+          <div class="cat-img-placeholder">🎁</div>
+          <div class="cat-label"><h3>Gifting</h3><p>Curated gift sets · Custom boxes</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('anklets')">
+          <div class="cat-img-placeholder">🦶</div>
+          <div class="cat-label"><h3>Anklets</h3><p>Payal · Silver · Layered</p></div>
+        </div>
+        <div class="cat-card" onclick="showPage('maangtika')">
+          <div class="cat-img-placeholder">🌺</div>
+          <div class="cat-label"><h3>Maang Tika</h3><p>Festive · Bridal · Occasion</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED BANNER -->
+    <div class="featured-banner">
+      <div class="fb-text">
+        <div class="fb-eyebrow">New Arrival</div>
+        <div class="fb-title">The <em>Bridal Edit</em><br>is here</div>
+        <div class="fb-sub">Complete bridal sets, maang tika, nath & more — curated for your special day.</div>
+        <button class="fb-btn" onclick="showPage('bridal')">Explore Bridal ✦</button>
+      </div>
+      <div class="fb-icons">💍✨👰</div>
+    </div>
+
+    <!-- TRENDING PRODUCTS -->
+    <div class="section">
+      <div class="section-title">Trending <em>Right Now</em></div>
+      <div class="section-sub">Our customers' most loved pieces this season</div>
+      <div class="prod-grid" id="trending-grid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="section" style="background: white; max-width: 100%; padding: 3.5rem 2rem;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <div class="section-title" style="text-align:center;">How to <em>Order</em></div>
+        <div class="section-sub" style="text-align:center;">Getting your favourite piece is this simple</div>
+        <div class="hiw-grid">
+          <div class="hiw-card">
+            <div class="hiw-icon">💎</div>
+            <div class="hiw-num">1</div>
+            <h4>Browse & Pick</h4>
+            <p>Explore our collections and add pieces you love to your basket.</p>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-icon">💬</div>
+            <div class="hiw-num">2</div>
+            <h4>Send via WhatsApp</h4>
+            <p>Tap "Send Order" — your cart goes straight to us on WhatsApp.</p>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-icon">✅</div>
+            <div class="hiw-num">3</div>
+            <h4>Confirm & Pay</h4>
+            <p>We confirm availability, you pay — UPI, bank transfer, or COD.</p>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-icon">🚚</div>
+            <div class="hiw-num">4</div>
+            <h4>Delivered to You</h4>
+            <p>Your jewellery, beautifully packed, delivered within 3–5 days.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="section">
+      <div class="section-title">What our customers <em>say</em></div>
+      <div class="section-sub">Real stories from real jewellery lovers</div>
+      <div class="testimonial-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Ordered the bridal necklace set and it was even more beautiful in person. The quality is excellent for the price. Everyone at my wedding kept asking where I got it!"</div>
+          <div class="testi-author">— Priya S., Pune</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"The jhumkas I ordered are stunning. Delivery was super fast and the packaging was gorgeous — I gave them as a gift and my friend was delighted!"</div>
+          <div class="testi-author">— Meera K., Mumbai</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"WhatsApp ordering is so convenient! I messaged them with questions and they responded instantly. The ring fits perfectly. Will definitely order again."</div>
+          <div class="testi-author">— Ananya R., Bengaluru</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WA COMMUNITY -->
+    <div class="wa-community">
+      <div class="wa-community-icon">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </div>
+      <h3>Join our WhatsApp community</h3>
+      <p>Get first access to new arrivals, exclusive offers & styling tips — directly on WhatsApp.</p>
+      <button class="wa-community-btn" onclick="openWA('Hi! I want to join the Tiny Stone Jewells WhatsApp community.')">
+        <svg style="width:18px;height:18px;fill:white;flex-shrink:0;" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Join the Community
+      </button>
+      <div class="wa-community-perks">
+        <span>✓ New arrival alerts</span>
+        <span>✓ Members-only deals</span>
+        <span>✓ Styling tips</span>
+        <span>✓ Free to join</span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Tiny Stone <em>Jewells</em></div>
+          <p>Handcrafted jewellery for the modern Indian woman. Quality you can feel, at prices that make you smile.</p>
+          <p style="font-size:12px;">📍 Based in Pune, Maharashtra<br>📦 Ships across India</p>
+        </div>
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('rings');return false;">Rings</a></li>
+            <li><a href="#" onclick="showPage('necklaces');return false;">Necklaces</a></li>
+            <li><a href="#" onclick="showPage('earrings');return false;">Earrings</a></li>
+            <li><a href="#" onclick="showPage('bangles');return false;">Bangles</a></li>
+            <li><a href="#" onclick="showPage('bridal');return false;">Bridal Sets</a></li>
+            <li><a href="#" onclick="showPage('gifting');return false;">Gifting</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="https://wa.me/917879976016" target="_blank">WhatsApp Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns & Exchange</a></li>
+            <li><a href="#">Size & Fit Guide</a></li>
+            <li><a href="#">Care Instructions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Pinterest</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Tiny Stone Jewells · Part of the <a href="https://mytinythreads.in">Tiny Stone</a> family · Made with ♥ in Pune</p>
+      </div>
+    </footer>
+
+  </div><!-- /page-home -->
+
+  <!-- ==================== CATEGORY PAGES (Rings, Necklaces, etc.) ==================== -->
+  <!-- These pages are generated by JS from the product data below -->
+  <div class="page" id="page-rings"></div>
+  <div class="page" id="page-necklaces"></div>
+  <div class="page" id="page-earrings"></div>
+  <div class="page" id="page-bangles"></div>
+  <div class="page" id="page-bridal"></div>
+  <div class="page" id="page-gifting"></div>
+  <div class="page" id="page-anklets"></div>
+  <div class="page" id="page-maangtika"></div>
+
+  <!-- ==================== PRODUCT DETAIL PAGE ==================== -->
+  <div class="page" id="page-pdp">
+    <button class="pdp-back" onclick="history.back(); return false;" id="pdp-back-btn">← Back</button>
+    <div class="pdp-layout" id="pdp-content">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  // ─── SUPABASE CONFIG ─────────────────────────────────────────────────────────
+  const SB_URL  = 'https://uzzkitpcmoghrwxahtrc.supabase.co';
+  const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6emtpdHBjbW9naHJ3eGFodHJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODU2MTYsImV4cCI6MjA5Njg2MTYxNn0.F8GdHWOQTIIBLEWqZzXaHdQKXEPhNDsOea5SdraPx3I';
+  const sb      = supabase.createClient(SB_URL, SB_KEY);
+
+  // ─── CATEGORY META ───────────────────────────────────────────────────────────
+  const CATEGORIES = {
+    rings:      { title:'Rings',              desc:'Stackable, statement, and everyday — a ring for every finger and every mood.',                                    emoji:'💍' },
+    necklaces:  { title:'Necklaces',          desc:'From delicate chains to statement temple jewellery — adorn your neckline.',                                      emoji:'📿' },
+    earrings:   { title:'Earrings',           desc:'Studs, drops, jhumkas, chandbalis — earrings that complete every look.',                                         emoji:'✨' },
+    bangles:    { title:'Bangles & Bracelets',desc:'From slim gold bangles to bold oxidised kadas — grace your wrists.',                                             emoji:'🌸' },
+    bridal:     { title:'Bridal Collections', desc:'Your most important day deserves the most beautiful jewellery. Bridal sets crafted to perfection.',               emoji:'👰' },
+    gifting:    { title:'Gifting Collections',desc:'Beautiful curated sets, gift-boxed and ready to delight someone special.',                                        emoji:'🎁' },
+    anklets:    { title:'Anklets',            desc:'Delicate payals and bold anklets — let your feet sparkle too.',                                                   emoji:'🦶' },
+    maangtika:  { title:'Maang Tika',         desc:'Festive and bridal maang tikas in Kundan, Polki, and more.',                                                     emoji:'🌺' },
+  };
+
+  // Category → emoji fallback (used when no image is available)
+  const CAT_EMOJI = { rings:'💍', necklaces:'📿', earrings:'✨', bangles:'🌸', bridal:'👰', gifting:'🎁', anklets:'🦶', maangtika:'🌺' };
+
+  // ─── STATE ───────────────────────────────────────────────────────────────────
+  const WA_NUMBER   = '917879976016';
+  let PRODUCTS      = [];          // filled from Supabase on load
+  let basket        = [];
+  let currentPdp    = null;
+  let currentCat    = null;
+  let catCache      = {};          // { category: [products] } — avoids refetching
+
+  // ─── SUPABASE FETCH HELPERS ──────────────────────────────────────────────────
+
+  // Fetch ALL active products (called once on load for featured/trending)
+  async function fetchAllProducts() {
+    const { data, error } = await sb
+      .from('products')
+      .select('*')
+      .eq('active', true)
+      .order('sort_order', { ascending: true });
+    if (error) { console.error('fetchAllProducts:', error); return []; }
+    return data || [];
+  }
+
+  // Fetch products for a specific category (cached per session)
+  async function fetchProductsByCategory(cat) {
+    if (catCache[cat]) return catCache[cat];
+    const { data, error } = await sb
+      .from('products')
+      .select('*')
+      .eq('active', true)
+      .eq('category', cat)
+      .order('sort_order', { ascending: true });
+    if (error) { console.error('fetchByCategory:', error); return []; }
+    catCache[cat] = data || [];
+    return catCache[cat];
+  }
+
+  // Fetch single product by id
+  async function fetchProductById(id) {
+    // Check local cache first
+    const cached = PRODUCTS.find(p => p.id === id)
+      || Object.values(catCache).flat().find(p => p.id === id);
+    if (cached) return cached;
+    const { data, error } = await sb
+      .from('products')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (error) { console.error('fetchById:', error); return null; }
+    return data;
+  }
+
+  // ─── PRODUCT CARD HTML ───────────────────────────────────────────────────────
+  // ─── IMAGE HELPER ────────────────────────────────────────────────────────────
+  // images column is stored as a plain string array: ["url1","url2","url3"]
+  // Each element may also be a legacy {url,alt} object — handle both gracefully.
+  function parseImgs(raw) {
+    let arr = [];
+    if (Array.isArray(raw))        arr = raw;
+    else if (typeof raw === 'string') { try { arr = JSON.parse(raw); } catch(e) { arr = []; } }
+    // Normalise every element → plain URL string
+    return arr.map(item => (typeof item === 'string' ? item : (item?.url || ''))).filter(Boolean);
+  }
+
+  function productCardHTML(p) {
+    const offPct   = (p.mrp && p.mrp > p.price) ? Math.round((1 - p.price / p.mrp) * 100) : 0;
+    const badgeCls = p.badge === 'New' ? 'new' : p.badge === 'Trending' ? 'trending' : '';
+    const imgs     = parseImgs(p.images);
+    const firstImg = imgs[0];
+    const emoji    = CAT_EMOJI[p.category] || '💎';
+    const imgHTML  = firstImg
+      ? `<img src="${firstImg}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : `<div class="prod-img-placeholder">${emoji}</div>`;
+
+    return `
+      <div class="prod-card" onclick="openPdp('${p.id}')">
+        <div class="prod-img-wrap">
+          ${imgHTML}
+          ${p.badge ? `<div class="prod-badge ${badgeCls}">${p.badge}</div>` : ''}
+          <button class="prod-wishlist" onclick="event.stopPropagation();showToast('Added to wishlist 💛');">♡</button>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">${p.name}</div>
+          <div class="prod-sub">${[p.material, p.subcategory].filter(Boolean).join(' · ')}</div>
+          <div class="prod-price-row">
+            <span class="prod-price">₹${Number(p.price).toLocaleString('en-IN')}</span>
+            ${p.mrp && p.mrp > p.price ? `<span class="prod-mrp">₹${Number(p.mrp).toLocaleString('en-IN')}</span>` : ''}
+            ${offPct > 0 ? `<span class="prod-off">${offPct}% off</span>` : ''}
+          </div>
+          <button class="prod-add-btn" onclick="event.stopPropagation();addToBasket('${p.id}')">+ Add to Basket</button>
+        </div>
+      </div>`;
+  }
+
+  // ─── SKELETON LOADER ─────────────────────────────────────────────────────────
+  function skeletonGrid(count = 3) {
+    return `<div class="prod-grid">${Array(count).fill(0).map(() => `
+      <div class="prod-card" style="pointer-events:none;">
+        <div class="prod-img-wrap" style="background:linear-gradient(90deg,#f0e8d0 25%,#fdf6e0 50%,#f0e8d0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;">
+        </div>
+        <div class="prod-info">
+          <div style="height:14px;background:#f0e8d0;border-radius:6px;margin-bottom:8px;animation:shimmer 1.4s infinite;"></div>
+          <div style="height:11px;background:#f5f0e0;border-radius:6px;width:70%;margin-bottom:12px;animation:shimmer 1.4s infinite;"></div>
+          <div style="height:30px;background:#f0e8d0;border-radius:10px;animation:shimmer 1.4s infinite;"></div>
+        </div>
+      </div>`).join('')}</div>`;
+  }
+
+  // ─── INIT: load on page boot ──────────────────────────────────────────────────
+  async function initProducts() {
+    PRODUCTS = await fetchAllProducts();
+    // Store in catCache too so category pages don't need to refetch
+    PRODUCTS.forEach(p => {
+      if (!catCache[p.category]) catCache[p.category] = [];
+      if (!catCache[p.category].find(x => x.id === p.id)) catCache[p.category].push(p);
+    });
+    renderTrendingSection();
+  }
+
+  function renderTrendingSection() {
+    const trending = PRODUCTS.filter(p => p.badge === 'Trending').slice(0, 6);
+    const grid = document.getElementById('trending-grid');
+    if (!grid) return;
+    if (trending.length === 0) {
+      grid.innerHTML = '<p style="color:var(--muted);font-size:14px;">No trending products yet.</p>';
+      return;
+    }
+    grid.innerHTML = trending.map(productCardHTML).join('');
+  }
+
+  // ─── SPLASH ──────────────────────────────────────────────────────────────────
+  (function() {
+    const slides = document.querySelectorAll('.splash-slide');
+    let cur = 0;
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[cur].classList.remove('active');
+        cur = (cur + 1) % slides.length;
+        slides[cur].classList.add('active');
+      }, 3500);
+    }
+  })();
+
+  function enterSite() {
+    const splash = document.getElementById('splash-screen');
+    splash.classList.add('splash-exit');
+    setTimeout(() => {
+      splash.style.display = 'none';
+      document.body.classList.remove('splash-active');
+    }, 550);
+  }
+
+  // ─── PAGE NAVIGATION ─────────────────────────────────────────────────────────
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links li a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.mob-nav-item').forEach(b => b.classList.remove('active'));
+
+    const pageEl = document.getElementById('page-' + id);
+    if (!pageEl) return;
+    pageEl.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Highlight desktop nav link
+    const navLink = document.querySelector('.nav-links li a[onclick*="' + id + '"]');
+    if (navLink) navLink.classList.add('active');
+
+    // Highlight + smooth-scroll active pill into centre of track
+    const mobBtn = document.getElementById('mn-' + id);
+    if (mobBtn) {
+      mobBtn.classList.add('active');
+      const track = document.getElementById('mob-nav-track');
+      if (track) {
+        // Scroll so the active pill is centred in the track
+        const btnLeft   = mobBtn.offsetLeft;
+        const btnWidth  = mobBtn.offsetWidth;
+        const trackW    = track.offsetWidth;
+        track.scrollTo({ left: btnLeft - (trackW / 2) + (btnWidth / 2), behavior: 'smooth' });
+      }
+    }
+
+    if (CATEGORIES[id]) {
+      currentCat = id;
+      renderCategoryPage(id);
+    }
+  }
+
+  // ─── CATEGORY PAGE (async, with skeleton loader) ──────────────────────────────
+  async function renderCategoryPage(cat) {
+    const info = CATEGORIES[cat] || { title: cat, desc: '', emoji: '💎' };
+    const el   = document.getElementById('page-' + cat);
+    if (!el) return;
+
+    // Show banner + skeleton immediately
+    el.innerHTML = `
+      <div class="cat-page-banner">
+        <h1>${info.emoji} ${info.title}</h1>
+        <p>${info.desc}</p>
+      </div>
+      <div class="filter-bars-wrap" id="fbars-${cat}">
+        <div class="filter-bar" id="filter-bar-${cat}">
+          <div class="filter-chip active" data-filter="all">All</div>
+          <div class="filter-chip" data-filter="under500">Under ₹500</div>
+          <div class="filter-chip" data-filter="500to1000">₹500–₹1000</div>
+          <div class="filter-chip" data-filter="above1000">Above ₹1000</div>
+          <div class="filter-chip" data-filter="New">New</div>
+          <div class="filter-chip" data-filter="Trending">Trending</div>
+        </div>
+        <div class="type-bar" id="type-bar-${cat}">
+          <span class="type-bar-label">Type</span>
+          <div class="type-chip active" data-type="all">All</div>
+        </div>
+      </div>
+      <div class="section prod-section-wrap" id="prod-section-${cat}">
+        ${skeletonGrid(3)}
+      </div>`;
+
+    // Fetch products
+    const prods = await fetchProductsByCategory(cat);
+
+    // Populate Type bar with unique subcategories from fetched data
+    const typeBar  = document.getElementById('type-bar-' + cat);
+    const subtypes = [...new Set(prods.map(p => p.subcategory).filter(Boolean))];
+    subtypes.forEach(sub => {
+      const chip = document.createElement('div');
+      chip.className = 'type-chip';
+      chip.dataset.type = sub;
+      chip.textContent = sub;
+      typeBar.appendChild(chip);
+    });
+
+    // Active filter state
+    let activePrice = 'all';
+    let activeType  = 'all';
+
+    function applyFilters() {
+      let filtered = [...prods];
+      // Price / badge
+      if (activePrice === 'under500')   filtered = filtered.filter(p => p.price < 500);
+      if (activePrice === 'above1000')  filtered = filtered.filter(p => p.price > 1000);
+      if (activePrice === '500to1000')  filtered = filtered.filter(p => p.price >= 500 && p.price <= 1000);
+      if (activePrice === 'New')        filtered = filtered.filter(p => p.badge === 'New');
+      if (activePrice === 'Trending')   filtered = filtered.filter(p => p.badge === 'Trending');
+      // Type (subcategory)
+      if (activeType !== 'all')         filtered = filtered.filter(p => p.subcategory === activeType);
+
+      const section = document.getElementById('prod-section-' + cat);
+      if (!section) return;
+      if (filtered.length === 0) {
+        section.innerHTML = `
+          <div style="text-align:center;padding:3rem 1rem;color:var(--muted)">
+            <div style="font-size:2.5rem;margin-bottom:.8rem;">${info.emoji}</div>
+            <p style="font-size:14px;">No products match this filter.<br>
+            <a href="#" onclick="window['resetFilters_${cat}']();return false;"
+               style="color:var(--gold-dark);font-weight:600;">Clear filters</a>
+            &nbsp;or&nbsp;
+            <a href="https://wa.me/${WA_NUMBER}" target="_blank"
+               style="color:var(--gold-dark)">chat with us</a>.
+            </p>
+          </div>`;
+      } else {
+        section.innerHTML = `<div class="prod-grid">${filtered.map(productCardHTML).join('')}</div>`;
+      }
+    }
+
+    // Global reset hook for the "Clear filters" link inside innerHTML
+    window['resetFilters_' + cat] = function() {
+      activePrice = 'all';
+      activeType  = 'all';
+      el.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === 'all'));
+      el.querySelectorAll('.type-chip').forEach(c => c.classList.toggle('active', c.dataset.type === 'all'));
+      applyFilters();
+    };
+
+    // Wire price chips
+    el.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        el.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activePrice = chip.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // Wire type chips (including ones added dynamically)
+    el.addEventListener('click', e => {
+      const chip = e.target.closest('.type-chip');
+      if (!chip) return;
+      el.querySelectorAll('.type-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeType = chip.dataset.type;
+      applyFilters();
+    });
+
+    // Initial render
+    applyFilters();
+  }
+
+  // ─── PRODUCT DETAIL PAGE ─────────────────────────────────────────────────────
+  async function openPdp(id) {
+    // Show PDP page immediately with a loader
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-pdp').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const content = document.getElementById('pdp-content');
+    content.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted);">
+      <div style="font-size:2rem;margin-bottom:.8rem;">⏳</div><p>Loading product…</p></div>`;
+
+    const p = await fetchProductById(id);
+    if (!p) {
+      content.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--muted);">
+        <p>Product not found. <button onclick="showPage('home')" style="color:var(--gold-dark);background:none;border:none;cursor:pointer;font-size:14px;">Go home</button></p></div>`;
+      return;
+    }
+
+    currentPdp = p;
+    document.getElementById('pdp-back-btn').onclick = () => showPage(p.category);
+
+    const imgs    = parseImgs(p.images);
+    const sizes   = Array.isArray(p.sizes)  ? p.sizes  : (typeof p.sizes  === 'string' ? JSON.parse(p.sizes)  : []);
+    const emoji   = CAT_EMOJI[p.category] || '💎';
+    const offPct  = (p.mrp && p.mrp > p.price) ? Math.round((1 - p.price / p.mrp) * 100) : 0;
+    const catInfo = CATEGORIES[p.category] || { title: p.category };
+
+    const mainImgHTML = imgs[0]
+      ? `<img src="${imgs[0]}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;" id="pdp-main-img">`
+      : `<span style="font-size:6rem;">${emoji}</span>`;
+
+    const thumbsHTML = imgs.length > 0
+      ? imgs.map((url, i) => `
+          <div class="pdp-thumb ${i===0?'active':''}" onclick="pdpSwitchImg('${url}',this)">
+            <img src="${url}" alt="${p.name} view ${i+1}" style="width:100%;height:100%;object-fit:cover;">
+          </div>`).join('')
+      : `<div class="pdp-thumb active">${emoji}</div>`;
+
+    const sizesHTML = sizes.length > 0 ? `
+      <div class="pdp-meta-item">
+        <span class="pdp-meta-label">Sizes</span>
+        <span class="pdp-meta-val" style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${sizes.map(s => `<span style="border:1.5px solid var(--border);border-radius:8px;padding:3px 10px;font-size:12px;cursor:pointer;transition:all .2s;"
+            onclick="this.style.borderColor='var(--gold)';this.style.background='var(--gold-light)'">${s}</span>`).join('')}
+        </span>
+      </div>` : '';
+
+    content.innerHTML = `
+      <div>
+        <div class="pdp-main-img" style="cursor:zoom-in;">${mainImgHTML}</div>
+        <div class="pdp-thumb-row">${thumbsHTML}</div>
+      </div>
+      <div>
+        <div class="pdp-eyebrow">${catInfo.title}</div>
+        <h1 class="pdp-title">${p.name}</h1>
+        <div class="pdp-sub">${p.subcategory || ''}</div>
+        <div class="pdp-price-row">
+          <span class="pdp-price">₹${Number(p.price).toLocaleString('en-IN')}</span>
+          ${p.mrp && p.mrp > p.price ? `<span class="prod-mrp" style="font-size:1rem;">₹${Number(p.mrp).toLocaleString('en-IN')}</span>` : ''}
+          ${offPct > 0 ? `<span class="prod-off">${offPct}% off</span>` : ''}
+        </div>
+        <div class="pdp-desc">${p.description}</div>
+        <div class="pdp-meta-row">
+          ${p.material          ? `<div class="pdp-meta-item"><span class="pdp-meta-label">Material</span><span class="pdp-meta-val">${p.material}</span></div>` : ''}
+          ${p.finish            ? `<div class="pdp-meta-item"><span class="pdp-meta-label">Finish</span><span class="pdp-meta-val">${p.finish}</span></div>` : ''}
+          ${p.care_instructions ? `<div class="pdp-meta-item"><span class="pdp-meta-label">Care</span><span class="pdp-meta-val">${p.care_instructions}</span></div>` : ''}
+          ${sizesHTML}
+        </div>
+        <div class="pdp-add-row">
+          <button class="pdp-add-btn" onclick="addToBasket('${p.id}')">🛒 Add to Basket</button>
+          <button class="pdp-wa-btn" onclick="buyNowWA('${p.id}')">
+            <svg style="width:16px;height:16px;fill:white;flex-shrink:0;" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Buy Now
+          </button>
+        </div>
+      </div>`;
+  }
+
+  function pdpSwitchImg(url, thumbEl) {
+    const mainImg = document.getElementById('pdp-main-img');
+    if (mainImg) { mainImg.src = url; }
+    document.querySelectorAll('.pdp-thumb').forEach(t => t.classList.remove('active'));
+    thumbEl.classList.add('active');
+  }
+
+  function buyNowWA(id) {
+    const p = PRODUCTS.find(pr => pr.id === id)
+      || Object.values(catCache).flat().find(pr => pr.id === id)
+      || currentPdp;
+    if (!p) return;
+    const msg = `Hi! I want to buy:\n\n*${p.name}*\n${p.material || ''}\nPrice: ₹${Number(p.price).toLocaleString('en-IN')}\n\nPlease confirm availability and share payment details.`;
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // ─── BASKET ──────────────────────────────────────────────────────────────────
+  function addToBasket(id) {
+    const p = PRODUCTS.find(pr => pr.id === id)
+      || Object.values(catCache).flat().find(pr => pr.id === id)
+      || currentPdp;
+    if (!p) return;
+    const existing = basket.find(b => b.id === id);
+    if (existing) { existing.qty++; }
+    else {
+      const imgs = parseImgs(p.images);
+      basket.push({ id: p.id, name: p.name, price: Number(p.price), material: p.material || '', category: p.category, img: imgs[0] || null, qty: 1 });
+    }
+    updateBasketUI();
+    showToast((CAT_EMOJI[p.category] || '💎') + ' Added to basket!');
+  }
+
+  function changeQty(id, delta) {
+    const item = basket.find(b => b.id === id);
+    if (!item) return;
+    item.qty = Math.max(0, item.qty + delta);
+    if (item.qty === 0) basket = basket.filter(b => b.id !== id);
+    updateBasketUI();
+  }
+
+  function updateBasketUI() {
+    const total = basket.reduce((s, b) => s + b.price * b.qty, 0);
+    const count = basket.reduce((s, b) => s + b.qty, 0);
+    document.getElementById('nav-basket-count').textContent = count;
+    document.getElementById('basket-total').textContent = '₹' + total.toLocaleString('en-IN');
+    const foot    = document.getElementById('basket-foot');
+    const itemsEl = document.getElementById('basket-items');
+
+    if (basket.length === 0) {
+      foot.style.display = 'none';
+      itemsEl.innerHTML = '<div class="basket-empty"><div class="basket-empty-icon">💍</div><p>Your basket is empty.<br>Add some beautiful pieces!</p></div>';
+    } else {
+      foot.style.display = 'block';
+      itemsEl.innerHTML = basket.map(item => {
+        const emoji = CAT_EMOJI[item.category] || '💎';
+        const imgHTML = item.img
+          ? `<img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
+          : emoji;
+        return `
+          <div class="basket-item">
+            <div class="basket-item-img">${imgHTML}</div>
+            <div class="basket-item-info">
+              <div class="basket-item-name">${item.name}</div>
+              <div class="basket-item-sub">${item.material}</div>
+              <div class="basket-item-row">
+                <span class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</span>
+                <div class="basket-qty">
+                  <button onclick="changeQty('${item.id}',-1)">−</button>
+                  <span>${item.qty}</span>
+                  <button onclick="changeQty('${item.id}',+1)">+</button>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+  }
+
+  function openBasket() {
+    document.getElementById('basket-overlay').classList.add('open');
+    document.getElementById('basket-drawer').classList.add('open');
+  }
+  function closeBasket() {
+    document.getElementById('basket-overlay').classList.remove('open');
+    document.getElementById('basket-drawer').classList.remove('open');
+  }
+
+  function checkoutWA() {
+    if (!basket.length) return;
+    const lines = basket.map(b => `• *${b.name}* × ${b.qty} = ₹${(b.price * b.qty).toLocaleString('en-IN')}`).join('\n');
+    const total = basket.reduce((s, b) => s + b.price * b.qty, 0);
+    const msg   = `Hi! I'd like to place an order from Tiny Stone Jewells:\n\n${lines}\n\n*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment & delivery details.`;
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // ─── MOBILE MENU ─────────────────────────────────────────────────────────────
+  function openMobMenu() {
+    document.getElementById('mob-menu-overlay').classList.add('open');
+    document.getElementById('mob-menu-drawer').classList.add('open');
+  }
+  function closeMobMenu() {
+    document.getElementById('mob-menu-overlay').classList.remove('open');
+    document.getElementById('mob-menu-drawer').classList.remove('open');
+  }
+
+  // ─── TOAST ───────────────────────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  // ─── WA HELPER ───────────────────────────────────────────────────────────────
+  function openWA(msg) {
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // ─── HISTORY BACK SHIM ───────────────────────────────────────────────────────
+  history.back = function() {
+    if (currentPdp) showPage(currentPdp.category);
+    else showPage('home');
+  };
+
+  // ─── SHIMMER ANIMATION ───────────────────────────────────────────────────────
+  const shimmerStyle = document.createElement('style');
+  shimmerStyle.textContent = `
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }`;
+  document.head.appendChild(shimmerStyle);
+
+  // ─── BOOT ────────────────────────────────────────────────────────────────────
+  // Start fetching products as soon as the page loads (before splash exits)
+  initProducts();
+  </script>
+
+</body>
+</html>

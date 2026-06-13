@@ -5241,6 +5241,288 @@
 .partner-change-btn:hover { background: var(--red-light); }
 
   </style>
+
+  <!-- ═══════════════ 1. STYLES ═══════════════ -->
+<style>
+  /* ── GIFT POPUP -- energetic surprise reveal ── */
+  .gift-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 10, 8, .6);
+    z-index: 70000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+    padding: 1.5rem;
+  }
+ 
+  .gift-popup-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+ 
+  .gift-popup {
+    position: relative;
+    background: linear-gradient(160deg, #FF6B6B 0%, #B71C1C 45%, #7F0000 100%);
+    border-radius: 28px;
+    padding: 2.2rem 1.8rem 1.8rem;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, .45);
+    transform: scale(.85) translateY(24px) rotate(-2deg);
+    transition: transform .4s cubic-bezier(.22, 1.4, .36, 1);
+    overflow: hidden;
+  }
+ 
+  .gift-popup-overlay.open .gift-popup {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+ 
+  /* Confetti-style decorative dots */
+  .gift-popup::before,
+  .gift-popup::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+ 
+  .gift-popup::before {
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 213, 79, .18);
+    top: -60px;
+    right: -50px;
+  }
+ 
+  .gift-popup::after {
+    width: 110px;
+    height: 110px;
+    background: rgba(255, 255, 255, .10);
+    bottom: -40px;
+    left: -30px;
+  }
+ 
+  .gift-popup-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, .18);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background .2s, transform .15s;
+    z-index: 2;
+  }
+ 
+  .gift-popup-close:hover {
+    background: rgba(255, 255, 255, .3);
+    transform: rotate(90deg);
+  }
+ 
+  .gift-popup-burst {
+    font-size: 54px;
+    line-height: 1;
+    display: inline-block;
+    margin-bottom: .6rem;
+    animation: giftBounce 1.1s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  @keyframes giftBounce {
+ 
+    0%,
+    100% {
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+ 
+    25% {
+      transform: translateY(-8px) scale(1.06) rotate(-6deg);
+    }
+ 
+    50% {
+      transform: translateY(0) scale(1) rotate(0deg);
+    }
+ 
+    75% {
+      transform: translateY(-4px) scale(1.03) rotate(6deg);
+    }
+  }
+ 
+  .gift-popup-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: #5D4037;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 12px;
+    margin-bottom: .8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: relative;
+    z-index: 2;
+    animation: giftTagPop .5s .15s cubic-bezier(.22, 1.4, .36, 1) both;
+  }
+ 
+  @keyframes giftTagPop {
+    from {
+      opacity: 0;
+      transform: scale(.6) translateY(8px);
+    }
+ 
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+ 
+  .gift-popup h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: white;
+    margin-bottom: .35rem;
+    line-height: 1.3;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .gift-popup h3 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+ 
+  .gift-popup p.gift-sub {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, .8);
+    line-height: 1.6;
+    margin-bottom: 1.3rem;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .gift-code-box {
+    background: rgba(0, 0, 0, .25);
+    border: 2.5px dashed rgba(255, 213, 79, .6);
+    border-radius: 18px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1.1rem;
+    cursor: pointer;
+    transition: background .2s, transform .15s, border-color .2s;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .gift-code-box:hover {
+    background: rgba(0, 0, 0, .38);
+    transform: translateY(-1px);
+  }
+ 
+  .gift-code-box:active {
+    transform: scale(.98);
+  }
+ 
+  .gift-code-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, .65);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+ 
+  .gift-code-val {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 2px 14px rgba(255, 213, 79, .35);
+  }
+ 
+  .gift-code-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, .55);
+    margin-top: 6px;
+  }
+ 
+  .gift-copy-btn {
+    width: 100%;
+    background: var(--gold);
+    color: #5D4037;
+    border: none;
+    padding: 14px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+    letter-spacing: .5px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+ 
+  .gift-copy-btn:hover {
+    background: #FFE082;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 213, 79, .45);
+  }
+ 
+  .gift-copy-btn:active {
+    transform: scale(.97);
+  }
+ 
+  .gift-copy-btn.copied {
+    background: #25D366;
+    color: white;
+  }
+ 
+  .gift-popup-foot {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, .55);
+    margin-top: .9rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  @media(max-width:480px) {
+    .gift-popup {
+      padding: 1.9rem 1.4rem 1.5rem;
+      border-radius: 22px;
+    }
+ 
+    .gift-popup-burst {
+      font-size: 46px;
+    }
+ 
+    .gift-popup h3 {
+      font-size: 1.25rem;
+    }
+ 
+    .gift-code-val {
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -5805,7 +6087,8 @@
       <li><a href="#" onclick="showPage('girls');return false;">Girls</a></li>
       <li><a href="#" onclick="showPage('babies');return false;">Babies</a></li>
       <li><a href="#" onclick="showPage('nightwear');return false;">Nightwear</a></li>
-      <li><a href="#" onclick="showPage('accessories');return false;">Accessories</a></li>
+      <!-- <li><a href="#" onclick="showPage('accessories');return false;">Accessories</a></li>-->
+      <li><a href="tinystone.html">Jewellery &amp; Accessories</a></li>
       <li><a href="#" onclick="showPage('toys');return false;">Toys</a></li>
       <li><a href="#" onclick="showPage('twinning');return false;">Twinning</a></li>
       <li><a href="#" onclick="showPage('school');return false;">School</a></li>
@@ -5851,8 +6134,9 @@
             0-3 Years</a></li>
         <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span
               class="mn-icon">🌙</span>Nightwear</a></li>
-        <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
-              class="mn-icon">💎</span>Accessories</a></li>
+        <!-- <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
+              class="mn-icon">💎</span>Accessories</a></li> -->
+        <li><a href="tinystone.html"><span class="mn-icon">💍</span>Jewellery &amp; Accessories</a></li>
         <li><a href="#" onclick="showPage('toys');closeMobMenu();return false;"><span class="mn-icon">🧸</span>Toys</a>
         </li>
         <li><a href="#" onclick="showPage('twinning');closeMobMenu();return false;"><span
@@ -5909,9 +6193,11 @@
       <div class="hero-blob1"></div>
       <div class="hero-blob2"></div>
       <div class="hero-content">
-        <div class="hero-logo-wrap"><img
-            src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png"
-            alt="Tiny Threads Logo"></div>
+         <div class="hero-logo-wrap" onclick="openGiftPopup()" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter'||event.key===' ')openGiftPopup()"
+         aria-label="Tap for a surprise gift"><img
+        src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png"
+        alt="Tiny Threads Logo"></div>
         <div class="tagline">For the little birds in your nest:<br><span>threads of pure joy.</span></div>
         <p>Playful, comfortable & beautiful dailywear for every little adventure -- from sunrise to bedtime.</p>
         <div class="trust-badges">
@@ -9418,6 +9704,76 @@
   };
 
 }());
+</script>
+
+<!-- ═══════════════ 2. MARKUP ═══════════════ -->
+<div class="gift-popup-overlay" id="gift-popup-overlay" onclick="closeGiftOnOverlay(event)">
+  <div class="gift-popup" role="dialog" aria-modal="true" aria-label="Surprise Gift">
+    <button class="gift-popup-close" onclick="closeGiftPopup()" aria-label="Close">✕</button>
+    <span class="gift-popup-burst">🎁</span>
+    <span class="gift-popup-tag">✨ You found a surprise!</span>
+    <h3>Glad you liked our logo! <em>Here's a little gift</em> for you 💖</h3>
+    <p class="gift-sub">Use the code below at checkout and enjoy flat ₹155 off on your cart -- our way of saying thanks for stopping by!</p>
+    <div class="gift-code-box" onclick="copyGiftCode()" title="Tap to copy">
+      <div class="gift-code-label">Your surprise code</div>
+      <div class="gift-code-val" id="gift-code-val">JOY155</div>
+      <div class="gift-code-hint" id="gift-code-hint">Tap to copy 📋</div>
+    </div>
+    <button class="gift-copy-btn" id="gift-copy-btn" onclick="copyGiftCode()">📋 Copy Code -- JOY155</button>
+    <div class="gift-popup-foot">Flat ₹155 off · Apply at checkout · Valid on all products</div>
+  </div>
+</div>
+
+<!-- ═══════════════ 4. SCRIPT ═══════════════ -->
+<script>
+  // ── HERO LOGO SURPRISE GIFT POPUP ──
+  function openGiftPopup() {
+    document.getElementById('gift-popup-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGiftPopup() {
+    document.getElementById('gift-popup-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeGiftOnOverlay(e) {
+    if (e.target === document.getElementById('gift-popup-overlay')) closeGiftPopup();
+  }
+  function copyGiftCode() {
+    var code = 'JOY155';
+    var btn  = document.getElementById('gift-copy-btn');
+    var hint = document.getElementById('gift-code-hint');
+ 
+    function done() {
+      if (btn)  { btn.textContent = '✅ Copied! Use at checkout'; btn.classList.add('copied'); }
+      if (hint) { hint.textContent = '✅ Code copied!'; }
+      if (typeof showToast === 'function') showToast('✅ JOY155 copied! Use at checkout');
+      setTimeout(function () {
+        if (btn)  { btn.textContent = '📋 Copy Code -- JOY155'; btn.classList.remove('copied'); }
+        if (hint) { hint.textContent = 'Tap to copy 📋'; }
+      }, 3000);
+    }
+ 
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(done).catch(function () { _giftCopyFallback(code, done); });
+    } else {
+      _giftCopyFallback(code, done);
+    }
+  }
+  function _giftCopyFallback(code, done) {
+    var ta = document.createElement('textarea');
+    ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+  // Escape key closes the popup
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var ov = document.getElementById('gift-popup-overlay');
+      if (ov && ov.classList.contains('open')) closeGiftPopup();
+    }
+  });
 </script>
 
 </body>
