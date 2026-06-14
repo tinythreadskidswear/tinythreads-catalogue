@@ -1,43 +1,52 @@
-# Tiny Threads Kidswear — Netlify Deployment Guide
+# Tiny Threads Kidswear — Cloudflare Workers Deployment Guide
 ## mytinythreads.in
 
 ---
 
-## 📁 File Structure to Upload
+## 🚀 Deployment Setup
 
-```
-your-repo/
-├── index.html                  ← main catalogue (updated with OG tags)
-├── products.json               ← product data
-├── netlify.toml                ← Netlify config (headers, redirects, pretty URLs)
-├── generate-product-pages.js   ← run this when products change
-└── products/
-    ├── b001.html               ← Cotton Kurta Set OG page
-    ├── b002.html               ← Linen Shorts + Tee OG page
-    ├── b003.html               ← Hooded Sweatshirt OG page
-    ├── ...                     ← one file per product (25 total)
-    └── bb006.html
+### Prerequisites
+
+1. **Cloudflare Account** with domain `mytinythreads.in` configured
+2. **Wrangler CLI** installed: `npm install -g wrangler`
+3. **Supabase Project** with products table populated
+4. **GitHub Repository** with this code
+
+### One-Time Setup
+
+1. **Configure Wrangler**:
+   ```bash
+   npx wrangler login
+   ```
+   This authenticates your Cloudflare account.
+
+2. **Set Supabase Credentials**:
+   ```bash
+   npx wrangler secret put SUPABASE_URL
+   # Paste: https://gtszuhmfpywqwdetoqqo.supabase.co
+   
+   npx wrangler secret put SUPABASE_SERVICE_KEY
+   # Paste your Supabase service key
+   ```
+
+3. **Deploy Worker**:
+   ```bash
+   npx wrangler deploy
+   ```
+   Worker is now live at your Cloudflare domain!
+
+### Ongoing Deployments
+
+```bash
+git add .
+git commit -m "Update products / fix bug"
+git push origin main
+npx wrangler deploy
 ```
 
 ---
 
-## 🚀 First-Time Deploy to Netlify
-
-### Option A — Drag & Drop (fastest)
-1. Go to [app.netlify.com](https://app.netlify.com)
-2. Drag your **entire project folder** onto the deploy area
-3. Netlify will auto-detect `netlify.toml` and apply all settings
-4. Set your custom domain to `mytinythreads.in` in Site Settings → Domain Management
-
-### Option B — Git (recommended for ongoing updates)
-1. Push your project to a GitHub / GitLab repo
-2. In Netlify: **Add new site → Import from Git**
-3. Select your repo — Netlify reads `netlify.toml` automatically
-4. Every `git push` auto-deploys the site
-
----
-
-## 🔗 How WhatsApp Previews Now Work
+## 🔗 How WhatsApp Previews Work
 
 When you share a product link on WhatsApp:
 
@@ -45,8 +54,15 @@ When you share a product link on WhatsApp:
 https://mytinythreads.in/products/b001
 ```
 
-WhatsApp's bot reads the static `/products/b001.html` file,
-finds the Open Graph tags, and generates a rich preview:
+**Request Flow**:
+1. WhatsApp bot requests: `/products/b001`
+2. Cloudflare Worker intercepts request
+3. Detects crawler user-agent
+4. Fetches product data from Supabase
+5. Generates OG HTML with Cloudinary preview image
+6. Returns to WhatsApp bot (cached for 1 hour)
+
+**Result**: Rich preview appears instantly on WhatsApp
 
 ```
 ┌─────────────────────────────────────┐
@@ -58,27 +74,28 @@ finds the Open Graph tags, and generates a rich preview:
 └─────────────────────────────────────┘
 ```
 
-Real users clicking the link are **instantly redirected** to the
-product detail page in the main catalogue — they never see the
-intermediate OG page.
+**Regular Users**: Clicking the link redirects to the main SPA (`/#product=b001`) for full interactivity.
 
 ---
 
 ## 🛍️ Adding New Products
 
-Whenever you add products to `products.json`:
+1. **Add to Supabase `products` table**:
+   ```sql
+   INSERT INTO products (id, name, category, price, images, ...) 
+   VALUES ('b050', 'New Product', 'boys', 599, [...], ...);
+   ```
 
-```bash
-node generate-product-pages.js
-```
+2. **Deploy** (if you changed Worker code):
+   ```bash
+   npx wrangler deploy
+   ```
 
-This regenerates all files in `/products/`. Then redeploy:
-- **Drag & drop**: re-drag the folder to Netlify
-- **Git**: `git add products/ && git commit -m "Add new products" && git push`
+3. **Product appears immediately** — Cloudflare Worker fetches fresh data on every request
 
 ---
 
-## 🧪 Testing Previews Before Sharing
+## 🧪 Testing OG Previews
 
 Use Facebook's Sharing Debugger (works for WhatsApp too):
 
@@ -93,9 +110,9 @@ Click **"Scrape Again"** to force a fresh preview fetch.
 
 ---
 
-## ✅ What's Configured in netlify.toml
+## ✅ Performance & Caching
 
-| Feature | Detail |
+| Asset | Cache Location | TTL |
 |---|---|
 | Pretty URLs | `/products/b001` serves `b001.html` — no `.html` in links |
 | Old link redirect | `/?product=b001` → `/products/b001` (301 permanent) |

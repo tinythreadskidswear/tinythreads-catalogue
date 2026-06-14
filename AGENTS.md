@@ -18,7 +18,7 @@ A static e-commerce catalogue for kidswear built for mobile-first experience and
 
 ### Key Build/Deploy
 - **Deploy**: Git push → automatic Netlify rebuild (no build step required; see [netlify.toml](netlify.toml))
-- **Add Products**: Update `products.json`, then run `node generate-product-pages.js` (script not in repo; auto-generates `/products/*.html`)
+- **Add Products**: Add to Supabase `products` table; Cloudflare Worker auto-generates OG pages
 - **Test Views**: Playwright tests at 5"/6.5"/6.7" viewports
 - **Config**: `tinythreads.properties` (carousel autoplay=3000ms, pagination dots enabled)
 
@@ -233,9 +233,9 @@ autoPlayInfiniteLoop=true       # Loop carousel infinitely
 ## Common Tasks & How to Implement
 
 ### ✅ Add a New Product
-1. Edit `products.json` — add new product object with all required fields
-2. Run `node generate-product-pages.js` (auto-generates `/products/{id}.html`)
-3. Commit and push → Netlify auto-deploys
+1. Add product to Supabase `products` table with all required fields
+2. Deploy: `npx wrangler deploy` (if Worker code changed)
+3. Product appears instantly → Cloudflare Worker fetches fresh data
 
 ### ✅ Update Product Image
 1. Upload new image to Cloudinary
@@ -291,7 +291,7 @@ git push origin main
 
 | Issue | Solution |
 |-------|----------|
-| Product doesn't appear on site | Run `node generate-product-pages.js` after updating `products.json` |
+| Product doesn't appear on site | Check Supabase `products` table; verify `active: true` |
 | Images not loading | Check Cloudinary URL format; verify `res.cloudinary.com` domain is accessible |
 | WhatsApp link not working | Ensure phone number in `tinythreads.properties` is correct (with country code) |
 | Mobile layout broken | Check breakpoint: `@media (max-width: 700px)` — adjust if narrower needed |
