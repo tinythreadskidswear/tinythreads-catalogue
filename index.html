@@ -1104,6 +1104,10 @@
       background: linear-gradient(145deg, #FFF3E0, #FFCC80);
     }
 
+    .cat-card.footwear {
+      background: linear-gradient(145deg, #EFEBE9, #BCAAA4);
+    }
+
     .cat-icon-wrap {
       width: 100%;
       height: 100px;
@@ -1353,7 +1357,7 @@
       background: transparent;
     }
 
-    .prod-badge {
+    /* .prod-badge {
       position: absolute;
       top: 10px;
       left: 10px;
@@ -1364,7 +1368,7 @@
       border-radius: 10px;
       font-weight: 500;
       z-index: 10;
-    }
+    } */
 
     .prod-info {
       padding: 1rem;
@@ -1392,6 +1396,61 @@
       text-transform: uppercase;
       letter-spacing: .5px;
     }
+
+    /* ── 1. SIZE PILLS ──────────────────────────────────────────────────────── */
+ 
+/*
+ * The container: single non-wrapping row, horizontally scrollable.
+ * max-width keeps it flush with the card's info padding.
+ * -webkit-overflow-scrolling: touch gives momentum on iOS.
+ */
+.prod-card .size-pills {
+  display:             flex;
+  flex-wrap:           nowrap;          /* single row — no wrapping */
+  overflow-x:          auto;
+  overflow-y:          hidden;
+  gap:                 4px;
+  margin-bottom:       10px;
+  padding-bottom:      3px;            /* room for the scrollbar on desktop */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width:     none;           /* Firefox: hide scrollbar */
+  -ms-overflow-style:  none;           /* IE/Edge: hide scrollbar */
+}
+ 
+/* Chrome/Safari: hide scrollbar track but keep scroll working */
+.prod-card .size-pills::-webkit-scrollbar {
+  display: none;
+}
+ 
+/*
+ * Each pill: fixed min-width so 2 chips fill ~the card width,
+ * flex-shrink:0 so they never squish when there are many.
+ */
+.prod-card .size-pill {
+  flex-shrink: 0;
+}
+ 
+/* ── 2. PRODUCT BADGE (New / Bestseller / etc.) ─────────────────────────── */
+ 
+/*
+ * Semi-transparent frosted look:
+ *  - smaller font + tighter padding
+ *  - rgba background at 70% opacity so the product image shows through
+ *  - backdrop-filter blur for a glass effect on supporting browsers
+ *  - subtle border so it stays legible on light images
+ */
+.prod-badge {
+  font-size:        9px;               /* was 10px — a touch more discreet */
+  padding:          2px 8px;           /* was 3px 10px */
+  border-radius:    8px;
+  background:       rgba(183, 28, 28, 0.70);   /* --red at 70% opacity */
+  color:            rgba(255, 255, 255, 0.93);
+  border:           1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter:  blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-weight:      600;               /* was 500 — keeps it crisp at small size */
+  letter-spacing:   0.3px;
+}
 
     .size-pills {
       display: flex;
@@ -5523,6 +5582,7 @@
     }
   }
 </style>
+
 </head>
 
 <body>
@@ -6087,6 +6147,7 @@
       <li><a href="#" onclick="showPage('girls');return false;">Girls</a></li>
       <li><a href="#" onclick="showPage('babies');return false;">Babies</a></li>
       <li><a href="#" onclick="showPage('nightwear');return false;">Nightwear</a></li>
+      <li><a href="#" onclick="showPage('footwear');return false;">Footwear</a></li>
       <!-- <li><a href="#" onclick="showPage('accessories');return false;">Accessories</a></li>-->
       <li><a href="tinystone.html">Jewellery &amp; Accessories</a></li>
       <li><a href="#" onclick="showPage('toys');return false;">Toys</a></li>
@@ -6134,6 +6195,8 @@
             0-3 Years</a></li>
         <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span
               class="mn-icon">🌙</span>Nightwear</a></li>
+        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span
+              class="mn-icon">👟</span>Footwear</a></li>
         <!-- <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
               class="mn-icon">💎</span>Accessories</a></li> -->
         <li><a href="tinystone.html"><span class="mn-icon">💍</span>Jewellery &amp; Accessories</a></li>
@@ -6298,6 +6361,12 @@
           <div class="cat-icon-wrap"><span class="cat-big-icon">📚</span></div><span class="cat-age">All Ages</span>
           <h3>Learning</h3>
           <p>Books, puzzles & kits</p>
+        </div>
+        <div class="cat-card footwear" onclick="showPage('footwear')"><span class="cat-count" id="cnt-footwear">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👟</span></div><span class="cat-age">All Ages</span>
+          <h3>Footwear</h3>
+          <p>Sneakers, sandals & shoes</p>
         </div>
       </div>
     </div>
@@ -6678,6 +6747,46 @@
       <h2 class="section-title">All <span class="red">Nightwear</span></h2>
       <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
       <div class="prod-grid" id="nightwear-grid">
+        <div class="loading-grid">
+          <div class="spinner"></div>Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="page-footwear" class="page">
+    <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Footwear</div>
+    <div id="cat-banner-footwear" class="cat-banner-wrap">
+      <div id="cat-banner-inner-footwear">
+        <div class="cat-hero" style="background:linear-gradient(135deg,#EFEBE9,#BCAAA4);"
+          id="cat-hero-fallback-footwear">
+          <div style="font-size:52px;margin-bottom:8px;">👟</div>
+          <h1>Footwear</h1>
+          <p style="color:#4E342E;font-size:14px;margin-top:4px;">Sneakers, sandals &amp; shoes for every step</p>
+        </div>
+      </div>
+    </div>
+    <div class="filter-bar" id="filter-bar-footwear">
+      <div class="filter-bar-inner">
+        <div class="fb-row"><span class="filter-label">Filter</span>
+          <div class="filter-scroll-wrap">
+            <div class="filter-scroll" id="filter-scroll-footwear"><button class="filter-btn active"
+                onclick="filterProducts('footwear','all',this)" data-all="1">All</button></div>
+          </div>
+        </div>
+        <div class="fb-row fb-sort-row"><span class="filter-label">Sort</span>
+          <div class="sort-chip-row" id="sort-chips-footwear"><button class="sort-chip sort-chip-active"
+              onclick="applySort('footwear','default',this)">✨ Featured</button><button class="sort-chip"
+              onclick="applySort('footwear','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip"
+              onclick="applySort('footwear','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip"
+              onclick="applySort('footwear','new',this)">🆕 New Arrivals</button><button class="sort-chip"
+              onclick="applySort('footwear','az',this)">🔤 Name A-Z</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="section products-section">
+      <h2 class="section-title">All <span class="red">Footwear</span></h2>
+      <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
+      <div class="prod-grid" id="footwear-grid">
         <div class="loading-grid">
           <div class="spinner"></div>Loading...
         </div>
@@ -7377,7 +7486,7 @@
     }
 
     function renderAllGrids() {
-      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
       // renderGrid('featured-grid',allProducts.filter(p=>p.featured));
       renderGrid('featured-grid', allProducts.filter(p => p.featured).sort((a, b) => {
         const sa = a.sort_order == null ? Infinity : a.sort_order;
@@ -7398,7 +7507,12 @@
       traditional: '🧵 Traditional', summer: '☀️ Summer', winter: '🧥 Winter',
       nightwear: '🌙 Nightwear', undergarments: '🧸 Undergarments',
       accessories: '💎 Accessories', toys: '🧸 Toys', twinning: '👨‍👧 Twinning',
-      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning'
+      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning',
+      // Footwear -- rename these keys to match whatever values you store
+      // in products.subcategory for category='footwear' in Supabase
+      sandals: '🩴 Sandals', sports: '👟 Sports Shoes',
+      'school-shoes': '🎒 School Shoes', ethnic: '🥿 Ethnic',
+      slippers: '🥿 Slippers'
     };
 
     function getState(cat) {
@@ -7535,7 +7649,8 @@
           return `<div class="swiper-slide"><img src="${transformed}" alt="${p.name}" loading="lazy" onerror="if(this.src!=='${url}')this.src='${url}';"></div>`;
         }).join('');
       } else {
-        const icons = { traditional: '🧵', summer: '☀️', winter: '🧥', nightwear: '🌙', undergarments: '🧸' };
+        const icons = { traditional: '🧵', summer: '☀️', winter: '🧥', nightwear: '🌙', undergarments: '🧸',
+          sandals: '🩴', sports: '👟', 'school-shoes': '🎒', ethnic: '🥿', slippers: '🥿' };
         slidesHtml = `<div class="swiper-slide"><div class="slide-ph"><span class="ph-icon">${icons[p.subcategory] || '📸'}</span><span class="ph-text">${p.name}</span></div></div>`;
       }
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="size-pill" onclick="event.stopPropagation();selectSize(this,'${key}')">${s}</button>`).join('') : '';
@@ -7796,7 +7911,7 @@
       const p = allProducts.find(p => p.id === key); if (!p) return;
       currentPDPCategory = p.category || 'home';
       currentPDPKey = key;
-      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' }[p.category] || 'Back';
+      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' }[p.category] || 'Back';
       document.getElementById('pdp-back-label').textContent = '← Back to ' + backLabel;
       // Build slides
       const hasImgs = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -7818,7 +7933,7 @@
       // Build info
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<div class="pdp-color-btn" title="${r.name}" style="background:${r.bg}" onclick="pdpSelectColor(this,'${r.name}')"></div>`; }).join('') : '';
-      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' }[p.category] || '📦';
+      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' }[p.category] || '📦';
       document.getElementById('pdp-info').innerHTML = `
     <div class="pdp-category-tag">${catEmoji} ${backLabel}</div>
     <h1 class="pdp-name">${p.name}</h1>
@@ -7931,7 +8046,7 @@
       }
       // ── end ──
       if (prodId) { openPDP(prodId); return; }
-      const validPages = ['home', 'boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
       if (hash && validPages.includes(hash)) showPage(hash);
     }
 
@@ -8127,7 +8242,7 @@
         .filter(Boolean);
       if (items.length < 2) { section.classList.remove('visible'); return; }
       section.classList.add('visible');
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
       track.innerHTML = items.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
         var imgHtml = hasImg
@@ -8408,7 +8523,7 @@
 
       if (pool.length === 0) { section.classList.remove('visible'); return; }
 
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
 
       track.innerHTML = pool.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -9078,6 +9193,7 @@
               girls: { title: 'Girls Collection', sub: 'Ages 3-13 Years · Sweet, vibrant & effortlessly cute' },
               babies: { title: 'Baby Collection', sub: 'Ages 0-3 Years · Impossibly soft, gentle & adorable' },
               nightwear: { title: 'Nightwear', sub: 'Cozy sleepwear & pyjamas for all ages' },
+              footwear: { title: 'Footwear', sub: 'Sneakers, sandals, Clog & shoes for every step' },
               accessories: { title: 'Accessories', sub: 'Hairbands, clips, belts & more' },
               toys: { title: 'Toys', sub: 'Fun, educational & imaginative play' },
               twinning: { title: 'Twinning Sets', sub: 'Matching parent-child outfits' },
