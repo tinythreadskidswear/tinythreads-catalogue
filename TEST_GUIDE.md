@@ -1,14 +1,34 @@
-## 🔧 Quick Test Guide - Splash Screen Integration
+## 🧪 Testing Guide - Tinythreads Kidswear
 
-### ✅ Status
-- Syntax errors: **FIXED** ✅
-- Supabase credentials: **CONFIGURED** ✅
-- Script loading: **IMPROVED** ✅
-- Ready for testing: **YES** ✅
+Comprehensive testing approach for the Cloudflare Workers + Supabase architecture.
 
 ---
 
-## 🧪 Step 1: Test in Browser
+## 🚀 Step 1: Automated E2E Tests (Playwright)
+
+### Setup
+```bash
+npm install
+npm test
+```
+
+### What it tests
+- ✅ Products load from Supabase correctly
+- ✅ Product cards render on page
+- ✅ Supabase API calls succeed
+
+### Expected Output
+```
+✅ Products loaded: 105 items
+   First product: "Cotton Kurta Set" (boys)
+📊 Supabase API calls: 1
+🎨 Product cards rendered: 48
+✓ Screenshot saved
+```
+
+---
+
+## 📱 Step 2: Manual Browser Testing
 
 1. Open `index.html` in browser
 2. Press **F12** to open Developer Console
@@ -140,10 +160,11 @@ Check your Supabase project has:
 ## 🚀 Next Steps
 
 If all tests pass:
-1. ✅ Deploy to Netlify
-2. ✅ Test on physical mobile device
-3. ✅ Verify network requests in Netlify
-4. ✅ Create PR: `supabase` → `main`
+1. ✅ Deploy to Cloudflare: `npx wrangler deploy`
+2. ✅ Verify live at: https://mytinythreads.in
+3. ✅ Test on physical mobile device
+4. ✅ Monitor Cloudflare Worker logs: `wrangler tail`
+5. ✅ Create PR: `feature-branch` → `main`
 
 ---
 

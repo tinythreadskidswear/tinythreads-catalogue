@@ -238,7 +238,7 @@ See [OPTIMIZATION_REPORT.md](OPTIMIZATION_REPORT.md) for detailed metrics.
 
 | Problem | Solution |
 |---------|----------|
-| Products not showing | Run `node generate-product-pages.js` after editing `products.json` |
+| Products not showing | Check Supabase `products` table; verify `active: true` |
 | Images broken | Check Cloudinary URL; verify domain accessibility |
 | WhatsApp link errors | Verify phone number in `tinythreads.properties` includes country code |
 | Mobile layout broken | Check breakpoint `@media (max-width: 700px)` in CSS |
