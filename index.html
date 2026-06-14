@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tiny Threads Kidswear - Joyful Dailywear for Kids</title>
   <meta name="description"
-    content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹99.">
+    content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹199.">
   <link rel="canonical" href="https://mytinythreads.in/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tiny Threads Kidswear">
@@ -15,7 +15,7 @@
   <meta property="og:description"
     content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Starting ₹199. Order via WhatsApp!">
   <meta property="og:image"
-    content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1781597084/Untitled_design_nm2und.png">
+    content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_IN">
@@ -28,10 +28,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <!-- ── SUPABASE INTEGRATION ── -->
   <link rel="preconnect" href="https://your-project.supabase.co">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -43,39 +42,14 @@
     }
 
     :root {
-      /* Brand accent — desaturated brick red */
-      --red: #C0392B;
-      --red-dark: #922B21;
-      --red-light: #FDECEA;
-      --red-mid: #E74C3C;
-
-      /* Neutral base */
-      --warm: #FAFAF8;
-      --cream: #F5F4F0;
-
-      /* Typography */
-      --text: #1A1A2E;
-      --muted: #6B7280;
-      --muted-light: #9CA3AF;
-
-      /* Accent pastels (replacing gold) */
-      --sage: #D1E8D5;
-      --blush: #FAE3E3;
-      --sky: #D6EAF8;
-
-      /* Shadow scale — all neutral */
-      --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,.08);
-      --shadow-lg: 0 12px 32px rgba(0,0,0,.10);
-
-      /* Radius scale */
-      --r-sm: 8px;
-      --r-md: 12px;
-      --r-lg: 16px;
-      --r-xl: 24px;
-
-      /* Kept for backward compat — maps to above */
-      --gold: #F4A261;
+      --red: #B71C1C;
+      --red-dark: #7F0000;
+      --red-light: #FFEBEE;
+      --red-mid: #E53935;
+      --warm: #FFF8F5;
+      --text: #2C1810;
+      --muted: #7A5C50;
+      --gold: #FFD54F;
     }
 
     html {
@@ -249,7 +223,7 @@
     }
 
     .splash-brand-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
       font-weight: 700;
       color: white;
@@ -278,7 +252,7 @@
       border: 1.5px solid rgba(255, 255, 255, .38);
       color: white;
       padding: 13px 26px;
-      border-radius: 12px;
+      border-radius: 50px;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       font-weight: 600;
@@ -405,7 +379,7 @@
     /* ── NAV ── */
     nav {
       background: white;
-      border-bottom: 1px solid #EBEBEB;
+      border-bottom: 2px solid var(--red-light);
       padding: 0 2rem;
       position: fixed;
       top: 36px;
@@ -416,7 +390,7 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
-      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+      box-shadow: 0 2px 12px rgba(183, 28, 28, .08);
       width: 100%;
       max-width: 100vw;
       overflow: hidden;
@@ -435,9 +409,9 @@
       flex-shrink: 0;
       border-radius: 50%;
       overflow: hidden;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.10));
+      filter: drop-shadow(0 3px 10px rgba(183, 28, 28, .38));
       transition: transform .25s;
-      border: 2px solid rgba(0,0,0,.06);
+      border: 2px solid rgba(183, 28, 28, .15);
     }
 
     .logo-svg-wrap img {
@@ -453,7 +427,7 @@
     }
 
     .logo-text {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       font-weight: 700;
       color: var(--red-dark);
@@ -499,44 +473,44 @@
     }
 
     .wa-btn {
-      background: transparent;
-      color: #25D366;
-      border: 1.5px solid #25D366;
-      padding: 8px 16px;
-      border-radius: var(--r-md);
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 25px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 7px;
-      transition: background .2s, color .2s;
+      transition: transform .2s, box-shadow .2s;
       text-decoration: none;
     }
 
     .wa-btn:hover {
-      background: #25D366;
-      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, .35);
     }
 
     .basket-nav-btn {
-      background: transparent;
-      color: var(--text);
-      border: 1.5px solid #DDDBD8;
+      background: var(--red-light);
+      color: var(--red);
+      border: 1.5px solid var(--red);
       padding: 8px 16px;
-      border-radius: var(--r-md);
+      border-radius: 25px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 7px;
-      transition: border-color .2s, background .2s;
+      transition: all .2s;
     }
 
     .basket-nav-btn:hover {
-      border-color: var(--text);
-      background: #F5F4F0;
+      background: var(--red);
+      color: white;
     }
 
     .basket-count-badge {
@@ -562,7 +536,7 @@
       color: white;
       border: none;
       padding: 9px 16px;
-      border-radius: 12px;
+      border-radius: 25px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
@@ -623,7 +597,7 @@
       right: -100px;
       width: 400px;
       height: 400px;
-      background: #f8faf8;
+      background: var(--red-light);
       border-radius: 50%;
       opacity: .25;
     }
@@ -651,9 +625,9 @@
       border-radius: 50%;
       overflow: hidden;
       position: relative;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,.12));
+      filter: drop-shadow(0 14px 36px rgba(183, 28, 28, .45));
       animation: floatLogo 3s ease-in-out infinite;
-      border: 3px solid rgba(0,0,0,.06);
+      border: 3px solid rgba(183, 28, 28, .15);
     }
 
     .hero-logo-wrap img {
@@ -677,7 +651,7 @@
     }
 
     .tagline {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.7rem, 4vw, 2.5rem);
       font-weight: 700;
       color: var(--red-dark);
@@ -708,7 +682,7 @@
     .trust-badge {
       background: white;
       border: 1px solid #F0E0DC;
-      border-radius: 8px;
+      border-radius: 20px;
       padding: 7px 16px;
       font-size: 12px;
       color: var(--muted);
@@ -732,7 +706,7 @@
     }
 
     .section-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 3vw, 2.1rem);
       margin-bottom: .4rem;
     }
@@ -749,8 +723,10 @@
 
     /* ── PROMO TICKER STRIP ── */
     .promo-ticker-strip {
-      background: #1A1A2E;
-      height: 36px;
+      background: linear-gradient(90deg, #7F0000, #B71C1C, #C62828, #B71C1C, #7F0000);
+      background-size: 300% 100%;
+      animation: tickerShift 6s linear infinite;
+      height: 42px;
       overflow: hidden;
       cursor: pointer;
       position: fixed;
@@ -764,7 +740,19 @@
       -webkit-tap-highlight-color: rgba(255, 255, 255, .1);
     }
 
-    /* tickerShift removed — ticker now solid */
+    @keyframes tickerShift {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
 
     .promo-ticker-track {
       display: flex;
@@ -793,20 +781,20 @@
       align-items: center;
       gap: 10px;
       padding: 0 2rem;
-      color: rgba(255,255,255,.85);
-      font-size: 12px;
-      font-weight: 500;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
       letter-spacing: .3px;
     }
 
     .promo-ticker-item .tk-code {
-      background: var(--red);
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
-      letter-spacing: 1px;
+      background: var(--gold);
+      color: #5D4037;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 9px;
+      border-radius: 8px;
+      letter-spacing: 1.5px;
       margin: 0 4px;
     }
 
@@ -822,8 +810,10 @@
 
     /* ── INSTAGRAM TICKER STRIP ── */
     .ig-ticker-strip {
-      background: #2D1B69;
-      height: 32px;
+      background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045, #fd1d1d, #833ab4);
+      background-size: 300% 100%;
+      animation: igTickerShift 7s linear infinite;
+      height: 36px;
       overflow: hidden;
       cursor: pointer;
       width: 100%;
@@ -834,10 +824,22 @@
     }
 
     .ig-ticker-strip:hover {
-      filter: brightness(1.15);
+      filter: brightness(1.1);
     }
 
-    /* igTickerShift removed — ig ticker now solid */
+    @keyframes igTickerShift {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
 
     .ig-ticker-track {
       display: flex;
@@ -897,7 +899,7 @@
     }
 
     .promo-popup {
-      background: #1A1A2E;
+      background: linear-gradient(145deg, #7F0000, #B71C1C 50%, #C62828);
       border-radius: 24px;
       padding: 2rem 1.8rem 1.6rem;
       max-width: 360px;
@@ -956,7 +958,7 @@
     }
 
     .promo-popup h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
       color: white;
       margin-bottom: .4rem;
@@ -1002,7 +1004,7 @@
       font-weight: 800;
       color: var(--gold);
       letter-spacing: 3px;
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
     }
 
     .promo-code-hint {
@@ -1042,125 +1044,122 @@
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+      gap: 22px;
     }
 
     .cat-card {
-      border-radius: var(--r-lg);
+      border-radius: 22px;
+      padding: 2rem 1.8rem;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: transform .28s, box-shadow .28s;
-      -webkit-tap-highlight-color: rgba(0,0,0,.06);
+      -webkit-tap-highlight-color: rgba(0, 0, 0, .06);
       user-select: none;
       -webkit-user-select: none;
-      aspect-ratio: 4/3;
-      background: #1A1A2E; /* fallback while image loads */
-    }
-
-    /* Photo layer */
-    .cat-card-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      transition: transform .38s ease;
-    }
-
-    .cat-card:hover .cat-card-img {
-      transform: scale(1.04);
-    }
-
-    /* Dark gradient overlay */
-    .cat-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(15,15,25,.72) 0%, rgba(15,15,25,.18) 55%, transparent 100%);
-      z-index: 1;
     }
 
     .cat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.16);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .12);
     }
 
-    /* Remove old per-category gradient backgrounds */
-    .cat-card.boys,
-    .cat-card.girls,
-    .cat-card.babies,
-    .cat-card.nightwear,
-    .cat-card.accessories,
-    .cat-card.toys,
-    .cat-card.twinning,
-    .cat-card.kidscare,
-    .cat-card.school,
-    .cat-card.learning,
-    .cat-card.footwear,
-    .cat-card.celebration {
-      background: #1A1A2E;
+    .cat-card.boys {
+      background: linear-gradient(145deg, #DAEEFF, #C5DFF8);
     }
 
-    /* Text sits above overlay */
-    .cat-card-body {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 2;
-      padding: 1rem 1.2rem;
+    .cat-card.girls {
+      background: linear-gradient(145deg, #FFE4EE, #FFB5C8);
+    }
+
+    .cat-card.babies {
+      background: linear-gradient(145deg, #E8F5E9, #B5D5C5);
+    }
+
+    .cat-card.nightwear {
+      background: linear-gradient(145deg, #EDE7F6, #9575CD);
+    }
+
+    .cat-card.accessories {
+      background: linear-gradient(145deg, #FFF8E1, #FFE082);
+    }
+
+    .cat-card.toys {
+      background: linear-gradient(145deg, #FCE4EC, #F48FB1);
+    }
+
+    .cat-card.twinning {
+      background: linear-gradient(145deg, #EDE7F6, #CE93D8);
+    }
+
+    .cat-card.kidscare {
+      background: linear-gradient(145deg, #E0F7FA, #80DEEA);
+    }
+
+    .cat-card.school {
+      background: linear-gradient(145deg, #E8F5E9, #A5D6A7);
+    }
+
+    .cat-card.learning {
+      background: linear-gradient(145deg, #FFF3E0, #FFCC80);
+    }
+
+    .cat-card.footwear {
+      background: linear-gradient(145deg, #EFEBE9, #BCAAA4);
     }
 
     .cat-icon-wrap {
-      display: none; /* replaced by photo */
+      width: 100%;
+      height: 100px;
+      border-radius: 14px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .5);
+    }
+
+    .cat-icon-wrap .cat-big-icon {
+      font-size: 52px;
+      line-height: 1;
+      display: block;
     }
 
     .cat-age {
       display: inline-block;
-      background: rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border-radius: 4px;
-      padding: 2px 10px;
-      font-size: 10px;
+      background: rgba(255, 255, 255, .65);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 6px;
-      letter-spacing: .4px;
-      color: rgba(255,255,255,.85);
-      border: 1px solid rgba(255,255,255,.18);
+      margin-bottom: 8px;
+      letter-spacing: .3px;
     }
 
     .cat-card h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: .2rem;
-      line-height: 1.2;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: .3rem;
     }
 
     .cat-card p {
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      line-height: 1.4;
+      font-size: 13px;
+      opacity: .72;
+      margin-bottom: 1.2rem;
+      line-height: 1.55;
     }
 
     .cat-count {
       position: absolute;
-      top: .9rem;
-      right: .9rem;
-      background: rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 6px;
-      padding: 3px 9px;
-      font-size: 10px;
-      color: rgba(255,255,255,.85);
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(255, 255, 255, .55);
+      border-radius: 10px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--muted);
       font-weight: 500;
-      z-index: 2;
     }
 
     /* ── SUBCATEGORY ── */
@@ -1192,7 +1191,7 @@
     .sub-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, .09);
-      border-color: rgba(0,0,0,.12);
+      border-color: rgba(183, 28, 28, .25);
     }
 
     .sub-card.traditional {
@@ -1247,10 +1246,10 @@
 
     .prod-card {
       background: white;
-      border-radius: var(--r-lg);
+      border-radius: 18px;
       overflow: hidden;
       transition: transform .22s, box-shadow .22s;
-      border: 1px solid #EBEBEB;
+      border: 1px solid #F0E0DC;
       cursor: pointer;
     }
 
@@ -1339,7 +1338,7 @@
     .prod-swiper-wrap .swiper-pagination-bullet {
       width: 8px;
       height: 8px;
-      background: rgba(0,0,0,.18);
+      background: rgba(183, 28, 28, .35);
       margin: 0 4px;
       transition: all .3s ease;
     }
@@ -1444,7 +1443,7 @@
   font-size:        9px;               /* was 10px — a touch more discreet */
   padding:          2px 8px;           /* was 3px 10px */
   border-radius:    8px;
-  background:       rgba(192, 57, 43, 0.88);   /* --red at 88% opacity */
+  background:       rgba(183, 28, 28, 0.70);   /* --red at 70% opacity */
   color:            rgba(255, 255, 255, 0.93);
   border:           1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter:  blur(4px);
@@ -1537,19 +1536,18 @@
       color: white;
       border: none;
       padding: 6px 10px;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 11px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: transform .18s, box-shadow .18s;
+      transition: all .18s;
     }
 
     .add-basket-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+      background: var(--red-dark);
     }
 
     .add-basket-btn.added {
@@ -1561,7 +1559,7 @@
       color: #25D366;
       border: 1.5px solid #25D366;
       padding: 5px 8px;
-      border-radius: var(--r-sm);
+      border-radius: 12px;
       font-size: 11px;
       cursor: pointer;
       display: flex;
@@ -1637,7 +1635,7 @@
     }
 
     .cat-hero h1 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
       margin: .5rem 0;
     }
@@ -1696,7 +1694,7 @@
     .filter-btn {
       background: #F7F0EE;
       border: 1.5px solid transparent;
-      border-radius: 8px;
+      border-radius: 20px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1719,7 +1717,7 @@
     .filter-more-btn {
       background: #F7F0EE;
       border: 1.5px solid #E8DED4;
-      border-radius: 8px;
+      border-radius: 20px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1784,7 +1782,7 @@
     .sort-chip {
       background: #F7F0EE;
       border: 1.5px solid transparent;
-      border-radius: 8px;
+      border-radius: 20px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1833,12 +1831,12 @@
       font-size: 12px;
       font-weight: 700;
       padding: 5px 18px;
-      border-radius: 8px;
+      border-radius: 20px;
       margin-bottom: 1rem;
     }
 
     .testimonials-header h2 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.6rem, 3vw, 2.1rem);
       margin-bottom: .4rem;
     }
@@ -1868,7 +1866,7 @@
       border-radius: 22px;
       padding: 1.6rem;
       border: 1.5px solid #F5EAE8;
-      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      box-shadow: 0 4px 24px rgba(183, 28, 28, .06);
       position: relative;
       opacity: .55;
       transform: scale(.96);
@@ -1883,7 +1881,7 @@
 
     .t-card::before {
       content: '\201C';
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 64px;
       color: var(--red-light);
       position: absolute;
@@ -1944,7 +1942,7 @@
     }
 
     .t-swiper-outer .swiper-pagination-bullet {
-      background: rgba(0,0,0,.15);
+      background: rgba(183, 28, 28, .25);
       opacity: 1;
       width: 7px;
       height: 7px;
@@ -1963,7 +1961,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      box-shadow: 0 2px 12px rgba(183, 28, 28, .18);
       top: 45%;
     }
 
@@ -1982,7 +1980,7 @@
       border-radius: 18px;
       padding: 1.2rem 2rem;
       margin: .5rem 2rem 0;
-      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+      box-shadow: 0 4px 20px rgba(183, 28, 28, .06);
       flex-wrap: wrap;
     }
 
@@ -1991,7 +1989,7 @@
     }
 
     .t-stat-num {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.9rem;
       font-weight: 700;
       color: var(--red-dark);
@@ -2025,7 +2023,7 @@
     }
 
     .newsletter h2 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       margin-bottom: .5rem;
     }
@@ -2065,7 +2063,7 @@
       color: white;
       text-decoration: none;
       padding: 14px 32px;
-      border-radius: 12px;
+      border-radius: 30px;
       font-size: 15px;
       font-weight: 700;
       font-family: 'DM Sans', sans-serif;
@@ -2099,7 +2097,7 @@
       font-weight: 500;
       background: white;
       padding: 4px 12px;
-      border-radius: 8px;
+      border-radius: 20px;
       border: 1px solid rgba(37, 211, 102, .25);
     }
 
@@ -2116,7 +2114,7 @@
       min-width: 200px;
       padding: 12px 18px;
       border: 1.5px solid #E0D0CC;
-      border-radius: 12px;
+      border-radius: 25px;
       font-size: 14px;
       outline: none;
       font-family: 'DM Sans', sans-serif;
@@ -2131,7 +2129,7 @@
       color: white;
       border: none;
       padding: 12px 22px;
-      border-radius: 12px;
+      border-radius: 25px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
@@ -2181,7 +2179,7 @@
     }
 
     .basket-header h3 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
       color: var(--red-dark);
     }
@@ -2198,7 +2196,7 @@
     }
 
     .basket-close:hover {
-      background: rgba(0,0,0,.05);
+      background: rgba(183, 28, 28, .1);
     }
 
     .basket-body {
@@ -2526,7 +2524,7 @@
     }
 
     .sim-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
       color: var(--text);
     }
@@ -2569,7 +2567,7 @@
 
     .sim-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      box-shadow: 0 10px 24px rgba(183, 28, 28, .12);
     }
 
     .sim-img-wrap {
@@ -2673,7 +2671,7 @@
       position: absolute;
       top: 7px;
       right: 7px;
-      background: var(--red);
+      background: rgba(183, 28, 28, .85);
       color: white;
       font-size: 9px;
       padding: 2px 7px;
@@ -2752,9 +2750,9 @@
     }
 
     .pdp-gallery-swiper {
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      background: #FAFAF8;
+      background: #FFF8F5;
       height: min(82vh, 680px);
     }
 
@@ -2769,7 +2767,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FAFAF8;
+      background: #FFF8F5;
     }
 
     .pdp-gallery-swiper .swiper-slide img {
@@ -2807,7 +2805,7 @@
       gap: 6px;
       overflow-x: auto;
       scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,.15) transparent;
+      scrollbar-color: rgba(183, 28, 28, .25) transparent;
       max-height: 76px;
       padding: 2px 12px 4px;
       flex-shrink: 0;
@@ -2820,7 +2818,7 @@
     }
 
     .pdp-thumbs::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,.15);
+      background: rgba(183, 28, 28, .25);
       border-radius: 2px;
     }
 
@@ -2834,7 +2832,7 @@
       border: 2px solid transparent;
       cursor: pointer;
       transition: border-color .2s;
-      background: #FAFAF8;
+      background: #FFF8F5;
     }
 
     .pdp-thumb.active {
@@ -2861,7 +2859,7 @@
       gap: 6px;
       background: var(--red-light);
       color: var(--red);
-      border-radius: 8px;
+      border-radius: 20px;
       padding: 4px 14px;
       font-size: 11.5px;
       font-weight: 600;
@@ -2870,7 +2868,7 @@
     }
 
     .pdp-name {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 700;
       margin-bottom: .5rem;
@@ -2882,7 +2880,7 @@
       font-weight: 800;
       color: var(--red);
       margin-bottom: .9rem;
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
     }
 
     .pdp-desc {
@@ -3152,7 +3150,7 @@
     }
 
     .sg-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.25rem;
       color: var(--text);
     }
@@ -3260,7 +3258,7 @@
     }
 
     .sg-table tr:nth-child(even) td {
-      background: #FAFAF8;
+      background: #FFF8F5;
     }
 
     .sg-tip {
@@ -3351,7 +3349,7 @@
     }
 
     .rv-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: var(--text);
     }
@@ -3396,7 +3394,7 @@
 
     .rv-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.07);
+      box-shadow: 0 8px 20px rgba(183, 28, 28, .1);
     }
 
     .rv-img-wrap {
@@ -3542,7 +3540,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 14px;
-      border-radius: 8px;
+      border-radius: 20px;
       white-space: nowrap;
       pointer-events: none;
       transition: opacity .4s;
@@ -3564,7 +3562,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 12px;
-      border-radius: 8px;
+      border-radius: 20px;
       cursor: pointer;
       display: none;
       z-index: 2;
@@ -3707,7 +3705,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 12px;
-      border-radius: 8px;
+      border-radius: 20px;
       pointer-events: none;
       z-index: 2;
       transition: opacity .3s;
@@ -3723,7 +3721,7 @@
       font-size: 10px;
       font-family: 'DM Sans', sans-serif;
       padding: 4px 10px;
-      border-radius: 8px;
+      border-radius: 20px;
       pointer-events: none;
       display: flex;
       align-items: center;
@@ -3826,7 +3824,7 @@
       background: var(--red-dark);
       color: white;
       padding: 10px 22px;
-      border-radius: 16px;
+      border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
       z-index: 20000;
@@ -3899,7 +3897,7 @@
     }
 
     .footer-brand-text {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 17px;
       color: white;
       font-weight: 700;
@@ -3953,7 +3951,7 @@
       align-items: center;
       gap: 8px;
       padding: 9px 18px;
-      border-radius: 16px;
+      border-radius: 20px;
       text-decoration: none;
       font-size: 13px;
       font-weight: 500;
@@ -4040,36 +4038,20 @@
     }
     .mob-nav-item:active { transform: scale(.93); }
 
-    /* ACTIVE state — clean underline dot, no gradient pill */
+    /* ACTIVE state — filled gradient pill with lift (using red tones) */
     .mob-nav-item.active {
-      background: transparent;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .mob-nav-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--red);
+      background: linear-gradient(135deg, var(--red-dark), var(--red-mid));
+      box-shadow: 0 4px 14px rgba(184, 134, 11, .40);
+      transform: translateY(-3px);
     }
 
     .mob-nav-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 19px;
       line-height: 1;
       transition: transform .25s;
-      color: var(--muted);
     }
     .mob-nav-item.active .mob-nav-icon {
-      transform: scale(1.10);
-      color: var(--red);
+      transform: scale(1.15);
     }
 
     .mob-nav-label {
@@ -4081,7 +4063,7 @@
       transition: color .25s, font-weight .25s;
     }
     .mob-nav-item.active .mob-nav-label {
-      color: var(--red);
+      color: white;
       font-weight: 700;
     }
 
@@ -4132,7 +4114,7 @@
     }
 
     .mob-menu-head-text {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 16px;
       color: white;
       font-weight: 700;
@@ -4187,12 +4169,9 @@
     }
 
     .mob-menu-body ul li a .mn-icon {
-      width: 24px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--muted);
+      font-size: 20px;
+      width: 28px;
+      text-align: center;
     }
 
     .mob-menu-wa {
@@ -4315,23 +4294,27 @@
       }
 
       .cat-card {
-        border-radius: var(--r-md);
-        aspect-ratio: 3/4;
+        padding: .6rem .5rem;
+        border-radius: 14px;
       }
 
-      .cat-card-body {
-        padding: .6rem .7rem;
+      .cat-icon-wrap {
+        height: 62px;
+        border-radius: 10px;
+        margin-bottom: .45rem;
+      }
+
+      .cat-icon-wrap .cat-big-icon {
+        font-size: 34px;
       }
 
       .cat-age {
         font-size: 8px;
         padding: 2px 6px;
-        margin-bottom: 4px;
       }
 
       .cat-card h3 {
-        font-size: .82rem;
-        margin-bottom: .1rem;
+        font-size: .88rem;
       }
 
       .cat-card p {
@@ -4711,7 +4694,7 @@
     }
 
     .ship-modal-title {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--text);
@@ -4811,7 +4794,7 @@
     .ship-field input:focus,
     .ship-field select:focus {
       border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+      box-shadow: 0 0 0 3px rgba(183, 28, 28, .1);
     }
 
     .ship-field.has-error input,
@@ -4974,7 +4957,7 @@
     }
 
     .cat-banner-caption h1 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Playfair Display', serif;
       font-size: clamp(1.4rem, 3.5vw, 2.2rem);
       color: white;
       margin: 0 0 .2rem;
@@ -5072,7 +5055,7 @@
   transform: translateY(0) scale(1);
 }
 .partner-modal-head {
-  background: #1A1A2E;
+  background: linear-gradient(135deg, #7F0000, #B71C1C);
   padding: 1.2rem 1.2rem 1rem;
   display: flex;
   align-items: center;
@@ -5090,7 +5073,7 @@
   justify-content: center;
 }
 .partner-head-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1rem;
   color: white;
   font-weight: 700;
@@ -5157,7 +5140,7 @@
 .partner-field input:focus,
 .partner-field select:focus {
   border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+  box-shadow: 0 0 0 3px rgba(183,28,28,.1);
 }
 .partner-field.has-error input,
 .partner-field.has-error select {
@@ -5214,10 +5197,10 @@
   border-radius: 14px;
   padding: 1rem 1.1rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(0,0,0,.08);
+  border: 1px solid rgba(183,28,28,.15);
 }
 .partner-store-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 1.15rem;
   color: var(--red-dark);
   font-weight: 700;
@@ -5307,7 +5290,7 @@
  
   .gift-popup {
     position: relative;
-    background: var(--red);
+    background: linear-gradient(160deg, #FF6B6B 0%, #B71C1C 45%, #7F0000 100%);
     border-radius: 28px;
     padding: 2.2rem 1.8rem 1.8rem;
     max-width: 380px;
@@ -5432,7 +5415,7 @@
   }
  
   .gift-popup h3 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.45rem;
     color: white;
     margin-bottom: .35rem;
@@ -5489,7 +5472,7 @@
     font-weight: 800;
     color: var(--gold);
     letter-spacing: 4px;
-    font-family: 'Fraunces', serif;
+    font-family: 'Playfair Display', serif;
     text-shadow: 0 2px 14px rgba(255, 213, 79, .35);
   }
  
@@ -6131,25 +6114,22 @@
       <li><a href="#" onclick="showPage('nightwear');return false;">Nightwear</a></li>
       <li><a href="#" onclick="showPage('footwear');return false;">Footwear</a></li>
       <!-- <li><a href="#" onclick="showPage('accessories');return false;">Accessories</a></li>-->
-      <li><a href="tinystone.html">Jewellery</a></li>
+      <li><a href="tinystone.html">Jewellery &amp; Accessories</a></li>
       <li><a href="#" onclick="showPage('toys');return false;">Toys</a></li>
       <li><a href="#" onclick="showPage('twinning');return false;">Twinning</a></li>
       <li><a href="#" onclick="showPage('school');return false;">School</a></li>
       <li><a href="#" onclick="showPage('learning');return false;">Learning</a></li>
-      <li><a href="#" onclick="showPage('celebration');return false;">Celebration</a></li>
     </ul>
     <div class="nav-right">
-      <button class="basket-nav-btn" onclick="openBasket()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span id="nav-basket-count" class="basket-count-badge">0</span>
-      </button>
-       <!--<a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
+      <button class="basket-nav-btn" onclick="openBasket()">🛒 <span id="nav-basket-count"
+          class="basket-count-badge">0</span></button>
+      <a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
         <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24">
           <path
             d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
         </svg>
         Follow
-      </a>-->
+      </a>
       <button class="mob-ham-btn" onclick="openMobMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2.2" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6" />
@@ -6170,21 +6150,35 @@
     </div>
     <div class="mob-menu-body">
       <ul>
-        <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</a></li>
-        <li><a href="#" onclick="showPage('boys');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>Boys 3–13 Years</a></li>
-        <li><a href="#" onclick="showPage('girls');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>Girls 3–13 Years</a></li>
-        <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="8"/><path d="M9 12h.01M15 12h.01M10 16s1 1 2 1 2-1 2-1"/></svg></span>Babies 0–3 Years</a></li>
-        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>Nightwear</a></li>
-        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19l2-7h16l2 7H2z"/><path d="M4 12V7a2 2 0 0 1 2-2h5l3 5"/></svg></span>Footwear</a></li>
-        <li><a href="tinystone.html"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Jewellery &amp; Accessories</a></li>
-        <li><a href="#" onclick="showPage('toys');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg></span>Toys</a></li>
-        <li><a href="#" onclick="showPage('twinning');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Twinning</a></li>
-        <li><a href="#" onclick="showPage('kidscare');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Kids Care</a></li>
-        <li><a href="#" onclick="showPage('school');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>School</a></li>
-        <li><a href="#" onclick="showPage('learning');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Learning</a></li>
-        <li><a href="#" onclick="showPage('celebration');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>celebration</a></li>
-        <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>My Basket</a></li>
-        <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></span>Follow on Instagram</a></li>
+        <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">🏠</span>Home</a>
+        </li>
+        <li><a href="#" onclick="showPage('boys');closeMobMenu();return false;"><span class="mn-icon">👦</span>Boys 3-13
+            Years</a></li>
+        <li><a href="#" onclick="showPage('girls');closeMobMenu();return false;"><span class="mn-icon">👧</span>Girls
+            3-13 Years</a></li>
+        <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon">👶</span>Babies
+            0-3 Years</a></li>
+        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span class="mn-icon">🌙</span>Nightwear
+        </a></li>
+        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span class="mn-icon">👟</span>Footwear
+        </a></li>
+        <!-- <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
+              class="mn-icon">💎</span>Accessories</a></li> -->
+        <li><a href="tinystone.html"><span class="mn-icon">💍</span>Jewellery &amp; Accessories</a></li>
+        <li><a href="#" onclick="showPage('toys');closeMobMenu();return false;"><span class="mn-icon">🧸</span>Toys</a>
+        </li>
+        <li><a href="#" onclick="showPage('twinning');closeMobMenu();return false;"><span
+              class="mn-icon">👨‍👧</span>Twinning</a></li>
+        <li><a href="#" onclick="showPage('kidscare');closeMobMenu();return false;"><span class="mn-icon">🧴</span>Kids
+            Care</a></li>
+        <li><a href="#" onclick="showPage('school');closeMobMenu();return false;"><span
+              class="mn-icon">🎒</span>School</a></li>
+        <li><a href="#" onclick="showPage('learning');closeMobMenu();return false;"><span
+              class="mn-icon">📚</span>Learning</a></li>
+        <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon">🛒</span>My Basket</a>
+        </li>
+        <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span
+              class="mn-icon">📸</span>Follow on Instagram</a></li>
       </ul>
     </div>
     <div class="mob-menu-wa">
@@ -6208,68 +6202,63 @@
   <div class="mob-nav-track" id="mob-nav-track">
     
     <button class="mob-nav-item active" id="mn-home" onclick="showPage('home')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+      <span class="mob-nav-icon">🏠</span>
       <span class="mob-nav-label">Home</span>
     </button>
     
     <button class="mob-nav-item" id="mn-boys" onclick="showPage('boys')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
+      <span class="mob-nav-icon">👦</span>
       <span class="mob-nav-label">Boys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-girls" onclick="showPage('girls')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
+      <span class="mob-nav-icon">👧</span>
       <span class="mob-nav-label">Girls</span>
     </button>
     
     <button class="mob-nav-item" id="mn-babies" onclick="showPage('babies')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01M15 12h.01M10 16s1 1 2 1 2-1 2-1"/><circle cx="12" cy="11" r="8"/></svg></span>
+      <span class="mob-nav-icon">👶</span>
       <span class="mob-nav-label">Babies</span>
     </button>
     
     <button class="mob-nav-item" id="mn-nightwear" onclick="showPage('nightwear')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+      <span class="mob-nav-icon">🌙</span>
       <span class="mob-nav-label">Nightwear</span>
     </button>
     
     <button class="mob-nav-item" id="mn-footwear" onclick="showPage('footwear')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19l2-7h16l2 7H2z"/><path d="M4 12V7a2 2 0 0 1 2-2h5l3 5"/></svg></span>
+      <span class="mob-nav-icon">👟</span>
       <span class="mob-nav-label">Footwear</span>
     </button>
     
    
     <button class="mob-nav-item" id="mn-toys" onclick="showPage('toys')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg></span>
+      <span class="mob-nav-icon">🧸</span>
       <span class="mob-nav-label">Toys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-twinning" onclick="showPage('twinning')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <span class="mob-nav-icon">👨‍👧</span>
       <span class="mob-nav-label">Twins</span>
     </button>
     
     <button class="mob-nav-item" id="mn-kidscare" onclick="showPage('kidscare')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+      <span class="mob-nav-icon">🧴</span>
       <span class="mob-nav-label">Care</span>
     </button>
     
     <button class="mob-nav-item" id="mn-school" onclick="showPage('school')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+      <span class="mob-nav-icon">🎒</span>
       <span class="mob-nav-label">School</span>
     </button>
     
     <button class="mob-nav-item" id="mn-learning" onclick="showPage('learning')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+      <span class="mob-nav-icon">📚</span>
       <span class="mob-nav-label">Learning</span>
     </button>
 
-    <button class="mob-nav-item" id="mn-celebration" onclick="showPage('celebration')">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-      <span class="mob-nav-label">Celebration</span>
-    </button>
-
     <button class="mob-nav-item" id="mn-jewellery" onclick="window.location.href='tinystone.html'">
-      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+      <span class="mob-nav-icon">💍</span>
       <span class="mob-nav-label">Jewellery</span>
     </button>
 
@@ -6293,7 +6282,7 @@
           <div class="trust-badge"><span class="badge-dot" style="background:#66BB6A;"></span>100% Safe Fabrics</div>
           <div class="trust-badge"><span class="badge-dot" style="background:#EC407A;"></span>Skin-Friendly Dyes</div>
           <div class="trust-badge"><span class="badge-dot" style="background:#42A5F5;"></span>Durable & Washable</div>
-          <div class="trust-badge"><span class="badge-dot" style="background:#A8C5A0;"></span>Affordable Pricing</div>
+          <div class="trust-badge"><span class="badge-dot" style="background:#FFD54F;"></span>Affordable Pricing</div>
         </div>
       </div>
     </div>
@@ -6304,8 +6293,21 @@
     <div class="ig-ticker-strip" onclick="window.open('https://www.instagram.com/tinythreadskidswear/','_blank')"
       role="button" aria-label="Follow us on Instagram and get a free season cap">
       <div class="ig-ticker-track">
-        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
-        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
+        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span
+            class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
+        <span class="ig-ticker-item">✨ Show us your follow in WhatsApp chat &nbsp;·&nbsp; Valid while stocks last</span>
+        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> &nbsp;·&nbsp; <span
+            class="ig-tk-badge">🎁 Limited Offer</span> &nbsp;·&nbsp; Tap to visit our profile</span>
+        <span class="ig-ticker-item">👗 New arrivals every week &nbsp;·&nbsp; Behind-the-scenes &nbsp;·&nbsp; Styling
+          tips for kids</span>
+        <!-- duplicate for seamless loop -->
+        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span
+            class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
+        <span class="ig-ticker-item">✨ Show us your follow in WhatsApp chat &nbsp;·&nbsp; Valid while stocks last</span>
+        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> &nbsp;·&nbsp; <span
+            class="ig-tk-badge">🎁 Limited Offer</span> &nbsp;·&nbsp; Tap to visit our profile</span>
+        <span class="ig-ticker-item">👗 New arrivals every week &nbsp;·&nbsp; Behind-the-scenes &nbsp;·&nbsp; Styling
+          tips for kids</span>
       </div>
     </div>
 
@@ -6314,113 +6316,72 @@
       <h2 class="section-title">Shop by <span class="red">Category</span></h2>
       <p class="section-sub">Find the perfect look for every little one in your life</p>
       <div class="cat-grid">
-        <div class="cat-card boys" onclick="showPage('boys')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Boys Kidswear" loading="lazy">
-          <span class="cat-count" id="cnt-boys">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">Ages 3–13 Years</span>
-            <h3>Boys</h3>
-            <p>Bold, playful & built to last</p>
-          </div>
+        <div class="cat-card boys" onclick="showPage('boys')"><span class="cat-count" id="cnt-boys">0 products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👦</span></div><span class="cat-age">Ages 3-13
+            Years</span>
+          <h3>Boys</h3>
+          <p>Bold, playful & built to last</p>
         </div>
-        <div class="cat-card girls" onclick="showPage('girls')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Girls Kidswear" loading="lazy">
-          <span class="cat-count" id="cnt-girls">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">Ages 3–13 Years</span>
-            <h3>Girls</h3>
-            <p>Sweet, vibrant & comfortable</p>
-          </div>
+        <div class="cat-card girls" onclick="showPage('girls')"><span class="cat-count" id="cnt-girls">0 products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👧</span></div><span class="cat-age">Ages 3-13
+            Years</span>
+          <h3>Girls</h3>
+          <p>Sweet, vibrant & comfortable</p>
         </div>
-        <div class="cat-card babies" onclick="showPage('babies')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Babies Clothing" loading="lazy">
-          <span class="cat-count" id="cnt-babies">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">Ages 0–3 Years</span>
-            <h3>Babies</h3>
-            <p>Impossibly soft, gentle on skin</p>
-          </div>
+        <div class="cat-card babies" onclick="showPage('babies')"><span class="cat-count" id="cnt-babies">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👶</span></div><span class="cat-age">Ages 0-3
+            Years</span>
+          <h3>Babies</h3>
+          <p>Impossibly soft, gentle on skin</p>
         </div>
-        <div class="cat-card nightwear" onclick="showPage('nightwear')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Nightwear" loading="lazy">
-          <span class="cat-count" id="cnt-nightwear">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Nightwear</h3>
-            <p>Cozy sleepwear & pyjamas</p>
-          </div>
+        <div class="cat-card nightwear" onclick="showPage('nightwear')"><span class="cat-count" id="cnt-nightwear">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">🌙</span></div><span class="cat-age">All Ages</span>
+          <h3>Nightwear</h3>
+          <p>Cozy sleepwear & pyjamas</p>
         </div>
-        <div class="cat-card accessories" onclick="showPage('accessories')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Accessories" loading="lazy">
-          <span class="cat-count" id="cnt-accessories">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Accessories</h3>
-            <p>Hairbands, clips & belts</p>
-          </div>
+        <div class="cat-card accessories" onclick="showPage('accessories')"><span class="cat-count"
+            id="cnt-accessories">0 products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">💎</span></div><span class="cat-age">All Ages</span>
+          <h3>Accessories</h3>
+          <p>Hairbands, clips & belts</p>
         </div>
-        <div class="cat-card toys" onclick="showPage('toys')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Toys" loading="lazy">
-          <span class="cat-count" id="cnt-toys">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Toys</h3>
-            <p>Fun educational play toys</p>
-          </div>
+        <div class="cat-card toys" onclick="showPage('toys')"><span class="cat-count" id="cnt-toys">0 products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">🧸</span></div><span class="cat-age">All Ages</span>
+          <h3>Toys</h3>
+          <p>Fun educational play toys</p>
         </div>
-        <div class="cat-card twinning" onclick="showPage('twinning')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Twinning Sets" loading="lazy">
-          <span class="cat-count" id="cnt-twinning">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">Parent & Child</span>
-            <h3>Twinning</h3>
-            <p>Matching parent-child & sibling sets</p>
-          </div>
+        <div class="cat-card twinning" onclick="showPage('twinning')"><span class="cat-count" id="cnt-twinning">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👨‍👧</span></div><span class="cat-age">Parent &
+            Child</span>
+          <h3>Twinning</h3>
+          <p>Twining parent-child or Sibling sets</p>
         </div>
-        <div class="cat-card kidscare" onclick="showPage('kidscare')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Care" loading="lazy">
-          <span class="cat-count" id="cnt-kidscare">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Kids Care</h3>
-            <p>Gentle skincare & grooming</p>
-          </div>
+        <div class="cat-card kidscare" onclick="showPage('kidscare')"><span class="cat-count" id="cnt-kidscare">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">🧴</span></div><span class="cat-age">All Ages</span>
+          <h3>Kids Care</h3>
+          <p>Gentle skincare & grooming</p>
         </div>
-        <div class="cat-card school" onclick="showPage('school')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="School Essentials" loading="lazy">
-          <span class="cat-count" id="cnt-school">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">3–13 Years</span>
-            <h3>School</h3>
-            <p>Bags, stationery & essentials</p>
-          </div>
+        <div class="cat-card school" onclick="showPage('school')"><span class="cat-count" id="cnt-school">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">🎒</span></div><span class="cat-age">3-13 Years</span>
+          <h3>School</h3>
+          <p>Bags, stationery & essentials</p>
         </div>
-        <div class="cat-card learning" onclick="showPage('learning')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Learning & Books" loading="lazy">
-          <span class="cat-count" id="cnt-learning">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Learning</h3>
-            <p>Books, puzzles & kits</p>
-          </div>
+        <div class="cat-card learning" onclick="showPage('learning')"><span class="cat-count" id="cnt-learning">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">📚</span></div><span class="cat-age">All Ages</span>
+          <h3>Learning</h3>
+          <p>Books, puzzles & kits</p>
         </div>
-               <div class="cat-card celebration" onclick="showPage('celebration')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Celebration" loading="lazy">
-          <span class="cat-count" id="cnt-celebration">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Celebration</h3>
-            <p>Cake, Gifts & Decorations</p>
-          </div>
-        </div>
-        <div class="cat-card footwear" onclick="showPage('footwear')">
-          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Footwear" loading="lazy">
-          <span class="cat-count" id="cnt-footwear">0 products</span>
-          <div class="cat-card-body">
-            <span class="cat-age">All Ages</span>
-            <h3>Footwear</h3>
-            <p>Sneakers, sandals & shoes</p>
-          </div>
+        <div class="cat-card footwear" onclick="showPage('footwear')"><span class="cat-count" id="cnt-footwear">0
+            products</span>
+          <div class="cat-icon-wrap"><span class="cat-big-icon">👟</span></div><span class="cat-age">All Ages</span>
+          <h3>Footwear</h3>
+          <p>Sneakers, sandals & shoes</p>
         </div>
       </div>
     </div>
@@ -7063,7 +7024,7 @@
         </div>
       </div>
     </div>
-    <div class="filter-bar" id="filter-bar-toys">
+    <div class="filter-bar" id="filter-bar-learning">
       <div class="filter-bar-inner">
         <div class="fb-row"><span class="filter-label">Filter</span>
           <div class="filter-scroll-wrap">
@@ -7082,49 +7043,9 @@
       </div>
     </div>
     <div class="section products-section">
-      <h2 class="section-title">All <span class="red">Learning</span> Items</h2>
+      <h2 class="section-title">All <span class="red">Learning</span></h2>
       <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
       <div class="prod-grid" id="learning-grid">
-        <div class="loading-grid">
-          <div class="spinner"></div>Loading...
-        </div>
-      </div>
-    </div>
-  </div>  <div id="page-celebration" class="page">
-    <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Celebration</div>
-    <div id="cat-banner-celebration" class="cat-banner-wrap">
-      <div id="cat-banner-inner-celebration">
-        <div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"
-          id="cat-hero-fallback-celebration">
-          <div style="font-size:52px;margin-bottom:8px;">🎉</div>
-          <h1>Celebration</h1>
-          <p style="color:#E65100;font-size:14px;margin-top:4px;">Cake, Gifts &amp; Decorations</p>
-        </div>
-      </div>
-    </div>
-    <div class="filter-bar" id="filter-bar-celebration">
-      <div class="filter-bar-inner">
-        <div class="fb-row"><span class="filter-label">Filter</span>
-          <div class="filter-scroll-wrap">
-            <div class="filter-scroll" id="filter-scroll-celebration"><button class="filter-btn active"
-                onclick="filterProducts('celebration','all',this)" data-all="1">All</button></div>
-          </div>
-        </div>
-        <div class="fb-row fb-sort-row"><span class="filter-label">Sort</span>
-          <div class="sort-chip-row" id="sort-chips-celebration"><button class="sort-chip  sort-chip-active"
-              onclick="applySort('celebration','default',this)">✨ Featured</button><button class="sort-chip"
-              onclick="applySort('celebration','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip"
-              onclick="applySort('celebration','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip"
-              onclick="applySort('celebration','new',this)">🆕 New Arrivals</button><button class="sort-chip"
-              onclick="applySort('celebration','az',this)">🔤 Name A-Z</button></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section products-section">
-      <h2 class="section-title">All <span class="red">Celebration</span></h2>
-      <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
-      <div class="prod-grid" id="celebration-grid">
         <div class="loading-grid">
           <div class="spinner"></div>Loading...
         </div>
@@ -7456,8 +7377,6 @@
     // MAIN CATALOGUE JS
     // =============================================
     const WA_NUMBER = '917879976016';
-    const SUPABASE_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0';
     let allProducts = [];
     let PROMO_CODES = {};          // populated from Supabase at boot via loadPromoCodes()
     let basket = [];
@@ -7535,10 +7454,12 @@
 
     async function loadProducts() {
       // 1. Try Supabase (primary)
+      var SUPABASE_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
+      var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0';
       var loaded = false;
       try {
         var res = await fetch(
-          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors,created_by&order=sort_order.asc.nullslast&order=created_at.desc',
+          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors&order=sort_order.asc.nullslast&order=created_at.desc',
           { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
         );
         if (!res.ok) throw new Error('Supabase ' + res.status);
@@ -7552,14 +7473,26 @@
               category: r.category, subcategory: r.subcategory || '',
               images: Array.isArray(r.images) ? r.images : [],
               sizes: Array.isArray(r.sizes) ? r.sizes : [],
-              colors: Array.isArray(r.colors) ? r.colors : [],
-              created_by: r.created_by || null
+              colors: Array.isArray(r.colors) ? r.colors : []
             };
           });
           loaded = true;
           console.log('Products loaded from Supabase:', allProducts.length);
         }
       } catch (e) { console.warn('Supabase failed, trying products.json:', e.message); }
+
+      // 2. Fallback: products.json
+      if (!loaded) {
+        try {
+          var base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+          var res2 = await fetch(base + 'products.json');
+          if (!res2.ok) throw new Error('fetch failed ' + res2.status);
+          var data = await res2.json();
+          allProducts = data.products || data;
+          loaded = true;
+          console.log('Products loaded from products.json:', allProducts.length);
+        } catch (e2) { console.warn('products.json failed, using built-in fallback:', e2.message); }
+      }
 
       // 3. Last-resort minimal fallback
       if (!loaded) allProducts = getFallbackProducts();
@@ -7568,7 +7501,7 @@
     }
 
     function renderAllGrids() {
-      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'];
+      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
       // renderGrid('featured-grid',allProducts.filter(p=>p.featured));
       renderGrid('featured-grid', allProducts.filter(p => p.featured).sort((a, b) => {
         const sa = a.sort_order == null ? Infinity : a.sort_order;
@@ -7589,7 +7522,7 @@
       traditional: '🧵 Traditional', summer: '☀️ Summer', winter: '🧥 Winter',
       nightwear: '🌙 Nightwear', undergarments: '🧸 Undergarments',
       accessories: '💎 Accessories', toys: '🧸 Toys', twinning: '👨‍👧 Twinning',
-      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning', celebration: '🎉 Celebration',
+      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning',
       // Footwear -- rename these keys to match whatever values you store
       // in products.subcategory for category='footwear' in Supabase
       sandals: '🩴 Sandals', sports: '👟 Sports Shoes',
@@ -7738,7 +7671,7 @@
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="size-pill" onclick="event.stopPropagation();selectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<span class="color-dot" title="${r.name}" style="background:${r.bg}"></span>`; }).join('') : '';
 
-      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning', celebration: 'Celebration' }[p.subcategory] || p.subcategory || '';
+      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning' }[p.subcategory] || p.subcategory || '';
       return `<div class="prod-card" id="card-${key}">
     <div class="prod-swiper-wrap">
       ${badgeHtml}
@@ -7762,7 +7695,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           </button>
           <button type="button" class="add-basket-btn" id="abtn-${key}" onclick="addToBasket('${key}')">🛒 Add</button>
-          <button type="button" class="prod-wa-btn" onclick="waEnquire('${key}')" aria-label="WhatsApp">
+          <button type="button" class="prod-wa-btn" onclick="waEnquire('${p.name.replace(/'/g, "\\'")}','${p.price}')" aria-label="WhatsApp">
             <svg style="width:13px;height:13px;fill:#25D366;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </button>
         </div>
@@ -7973,57 +7906,9 @@
       window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
     }
 
-    function formatWaNumber(raw) {
-      if (!raw) return null;
-      var digits = String(raw).replace(/\D/g, '');
-      if (digits.length === 10) digits = '91' + digits;
-      return digits.length >= 10 ? digits : null;
-    }
-
-    async function waEnquire(key) {
-      const p = allProducts.find(p => p.id === key);
-      if (!p) return;
-
-      // Open tab immediately (direct user-gesture response) to avoid popup blockers
-      const waWindow = window.open('', '_blank');
-
-      let waNumber = WA_NUMBER; // fallback to default store number
-
-      try {
-        if (p.created_by) {
-          const res = await fetch(
-            SUPABASE_URL + '/rest/v1/profiles?id=eq.' + p.created_by + '&select=phone_number',
-            { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-          );
-          if (res.ok) {
-            const rows = await res.json();
-            const formatted = rows.length ? formatWaNumber(rows[0].phone_number) : null;
-            if (formatted) waNumber = formatted;
-          }
-        }
-      } catch (e) { console.warn('Partner profile lookup failed:', e.message); }
-
-      // Log the inquiry (non-blocking, errors ignored)
-      fetch(SUPABASE_URL + '/rest/v1/inquiry', {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({
-          product_id: p.id,
-          product_title: p.name,
-          partner_uuid: p.created_by || null
-        })
-      }).catch(e => console.warn('Inquiry log failed:', e.message));
-
-      const msg = `Hi Tiny Threads! I'm interested in:\n\n👕 *${p.name}*\n💰 Price: ₹${p.price}\n\nCould you please share availability and sizes? Thank you!`;
-      const url = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
-
-      if (waWindow) waWindow.location.href = url;
-      else window.open(url, '_blank');
+    function waEnquire(name, price) {
+      const msg = `Hi Tiny Threads! I'm interested in:\n\n👕 *${name}*\n💰 Price: ₹${price}\n\nCould you please share availability and sizes? Thank you!`;
+      window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
     }
 
     function copyPromoCode(el) {
@@ -8041,7 +7926,7 @@
       const p = allProducts.find(p => p.id === key); if (!p) return;
       currentPDPCategory = p.category || 'home';
       currentPDPKey = key;
-      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' , 'celebration': 'Celebration' }[p.category] || 'Back';
+      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' }[p.category] || 'Back';
       document.getElementById('pdp-back-label').textContent = '← Back to ' + backLabel;
       // Build slides
       const hasImgs = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -8063,7 +7948,7 @@
       // Build info
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<div class="pdp-color-btn" title="${r.name}" style="background:${r.bg}" onclick="pdpSelectColor(this,'${r.name}')"></div>`; }).join('') : '';
-      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' , 'celebration':'📦' }[p.category] || '📦';
+      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' }[p.category] || '📦';
       document.getElementById('pdp-info').innerHTML = `
     <div class="pdp-category-tag">${catEmoji} ${backLabel}</div>
     <h1 class="pdp-name">${p.name}</h1>
@@ -8076,7 +7961,7 @@
     ${p.colors && p.colors.length > 0 ? `<div class="pdp-section-label">Available Colors</div><div class="pdp-colors" id="pdp-colors-${key}">${colorsHtml}<span class="pdp-color-name" id="pdp-color-name">--</span></div>` : ''}
     <div class="pdp-actions">
       <button type="button" class="pdp-add-btn" id="pdp-abtn-${key}" onclick="pdpAddToBasket('${key}')">🛒 Add to Basket</button>
-      <button type="button" class="pdp-wa-btn" onclick="waEnquire('${key}')">
+      <button type="button" class="pdp-wa-btn" onclick="waEnquire('${p.name.replace(/'/g, "\\'")}','${p.price}')">
         <svg style="width:18px;height:18px;fill:#25D366;" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Enquire on WhatsApp
       </button>
@@ -8187,7 +8072,7 @@
       }
       // ── end ──
       if (prodId) { openPDP(prodId); return; }
-      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning' , 'celebration'];
+      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
       if (hash && validPages.includes(hash)) showPage(hash);
     }
 
@@ -8262,7 +8147,7 @@
     // Category swipers
     function initCatSwipers() {
       const catImages = {
-        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: [], celebration: []
+        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: []
       };
       allProducts.forEach(p => {
         if (catImages[p.category] !== undefined && p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME')) {
@@ -8271,7 +8156,7 @@
       });
       document.querySelectorAll('.cat-swiper').forEach(sw => {
         const card = sw.closest('.cat-card');
-        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'].includes(c));
+        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'].includes(c));
         if (!cat || !catImages[cat] || catImages[cat].length === 0) return;
         const wrapper = sw.querySelector('.swiper-wrapper');
         wrapper.innerHTML = catImages[cat].map(url => {
@@ -8383,7 +8268,7 @@
         .filter(Boolean);
       if (items.length < 2) { section.classList.remove('visible'); return; }
       section.classList.add('visible');
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
       track.innerHTML = items.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
         var imgHtml = hasImg
@@ -8664,7 +8549,7 @@
 
       if (pool.length === 0) { section.classList.remove('visible'); return; }
 
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
 
       track.innerHTML = pool.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -8822,7 +8707,9 @@
         </button>
       </div>
     </div>
-  </d  <script>
+  </div>
+
+  <script>
     // ═══════════════════════════════════════════════════════════
     // SHIPPING MODAL -- basket checkout
     // Session key 'tt_ship' is shared with product pages so the
@@ -9109,7 +8996,6 @@
     kidscare: { title: 'Kids Care', sub: 'Gentle skincare & grooming' },
     school: { title: 'School', sub: 'Bags, stationery & essentials' },
     learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' }
-    celebration: { title: 'Celebration', sub: 'Festive outfits for every occasion' }
     };
 
     /* ── Build a Cloudinary URL optimised for landscape banner dimensions ─ */
@@ -9339,8 +9225,7 @@
               twinning: { title: 'Twinning Sets', sub: 'Matching parent-child outfits' },
               kidscare: { title: 'Kids Care', sub: 'Gentle skincare & grooming' },
               school: { title: 'School', sub: 'Bags, stationery & essentials' },
-              learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' },
-              celebration: { title: 'Celebration', sub: 'Birthday outfits, Cakes, Return Gifts for every occasion' }
+              learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' }
             };
 
             // Store Swiper instances so they can be destroyed before recreating
