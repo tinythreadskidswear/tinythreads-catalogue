@@ -197,8 +197,8 @@
     }
 
     .splash-logo {
-      width: 58px;
-      height: 58px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       border: 2px solid rgba(255, 255, 255, .5);
       box-shadow: 0 6px 24px rgba(0, 0, 0, .45);
@@ -619,8 +619,8 @@
     }
 
     .hero-logo-wrap {
-      width: 180px;
-      height: 180px;
+      width: 248px;
+      height: 248px;
       margin: 0 auto 1.2rem;
       border-radius: 50%;
       overflow: hidden;
@@ -726,7 +726,7 @@
       background: linear-gradient(90deg, #7F0000, #B71C1C, #C62828, #B71C1C, #7F0000);
       background-size: 300% 100%;
       animation: tickerShift 6s linear infinite;
-      height: 36px;
+      height: 42px;
       overflow: hidden;
       cursor: pointer;
       position: fixed;
@@ -3993,113 +3993,78 @@
     .mobile-bottom-nav {
       display: none;
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 2000;
+      bottom: 0;      left: 0;      right: 0;
       background: white;
       border-top: 1.5px solid var(--red-light);
-      box-shadow: 0 -4px 20px rgba(183, 28, 28, .10);
-      height: 62px;
-      padding-bottom: env(safe-area-inset-bottom);
+      z-index: 4000;
+      height: 68px;
+      box-shadow: 0 -4px 20px rgba(184, 134, 11, .10);
+      overflow: hidden;
+     
     }
 
-    .mobile-bottom-nav ul {
+    /* the scrolling track */
+    .mob-nav-track {
       display: flex;
-      list-style: none;
+      align-items: center;
+      gap: 10px;
       height: 100%;
-      margin: 0;
-      padding: 0;
+      padding: 0 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .mob-nav-track::-webkit-scrollbar { display: none; }
 
-    .mobile-bottom-nav ul li {
-      flex: 1;
-    }
-
-    .mobile-bottom-nav ul li a,
-    .mobile-bottom-nav ul li button {
+    /* each category button - sized so ~5 are visible per screen, rest scrollable */
+    .mob-nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      width: 100%;
-      height: 100%;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 500;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      padding: 4px 2px 2px;
-      transition: color .15s;
-      position: relative;
-      -webkit-tap-highlight-color: rgba(183, 28, 28, .12);
-    }
-
-    .mobile-bottom-nav ul li a .mbn-icon,
-    .mobile-bottom-nav ul li button .mbn-icon {
-      font-size: 20px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 28px;
-      border-radius: 10px;
-      transition: background .15s, transform .15s;
-    }
-
-    /* ── ACTIVE STATE -- persistent highlight after tap ── */
-    .mobile-bottom-nav ul li a.active,
-    .mobile-bottom-nav ul li button.active {
-      color: var(--red);
-      font-weight: 700;
-    }
-
-    .mobile-bottom-nav ul li a.active .mbn-icon,
-    .mobile-bottom-nav ul li button.active .mbn-icon {
-      background: var(--red-light);
-      transform: scale(1.08);
-    }
-
-    /* ── PRESS STATE -- instant feedback while finger is down ── */
-    .mobile-bottom-nav ul li a:active .mbn-icon,
-    .mobile-bottom-nav ul li button:active .mbn-icon {
-      background: var(--red-light);
-      transform: scale(.93);
-    }
-
-    .mobile-bottom-nav ul li a:active,
-    .mobile-bottom-nav ul li button:active {
-      color: var(--red);
-    }
-
-    .mbn-basket-wrap {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       gap: 3px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-radius: 16px;
+      padding: 6px 4px;
+      flex-shrink: 0;
+      transition: background .25s, transform .25s, box-shadow .25s;
+      position: relative;
+      min-width: 60px;
+      flex: 0 0 calc((100% - 40px) / 5);
+    }
+    .mob-nav-item:active { transform: scale(.93); }
+
+    /* ACTIVE state — filled gradient pill with lift (using red tones) */
+    .mob-nav-item.active {
+      background: linear-gradient(135deg, var(--red-dark), var(--red-mid));
+      box-shadow: 0 4px 14px rgba(184, 134, 11, .40);
+      transform: translateY(-3px);
     }
 
-    .mbn-badge {
-      position: absolute;
-      top: -4px;
-      right: -8px;
-      background: var(--red);
-      color: white;
+    .mob-nav-icon {
+      font-size: 19px;
+      line-height: 1;
+      transition: transform .25s;
+    }
+    .mob-nav-item.active .mob-nav-icon {
+      transform: scale(1.15);
+    }
+
+    .mob-nav-label {
       font-size: 9px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .2px;
+      white-space: nowrap;
+      transition: color .25s, font-weight .25s;
+    }
+    .mob-nav-item.active .mob-nav-label {
+      color: white;
       font-weight: 700;
-      min-width: 16px;
-      height: 16px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 3px;
     }
 
     .mob-menu-overlay {
@@ -4280,8 +4245,8 @@
       }
 
       .hero-logo-wrap {
-        width: 130px;
-        height: 130px;
+        width: 200px;
+        height: 200px;
         margin-bottom: .9rem;
       }
 
@@ -5729,7 +5694,7 @@
           <span class="splash-step-divider">·</span>
           <div class="splash-step">
             <span class="splash-step-icon">🚚</span>
-            <span class="splash-step-text">Delivered to your door</span>
+            <span class="splash-step-text">Cash on Delivery</span>
           </div>
         </div>
         <button class="splash-explore-btn" onclick="enterSite()">
@@ -6180,7 +6145,7 @@
     <div class="mob-menu-head">
       <img src="https://res.cloudinary.com/tinythreads/image/upload/v1776510180/Firefly_GeminiFlash_ic3nbt.png"
         alt="Logo" style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
-      <div class="mob-menu-head-text">Tiny Threads <span>Kidswear</span></div>
+      <div class="mob-menu-head-text">Tinythreads <span>Kidswear</span></div>
       <button class="mob-menu-close" onclick="closeMobMenu()">✕</button>
     </div>
     <div class="mob-menu-body">
@@ -6193,10 +6158,10 @@
             3-13 Years</a></li>
         <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon">👶</span>Babies
             0-3 Years</a></li>
-        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span
-              class="mn-icon">🌙</span>Nightwear</a></li>
-        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span
-              class="mn-icon">👟</span>Footwear</a></li>
+        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span class="mn-icon">🌙</span>Nightwear
+        </a></li>
+        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span class="mn-icon">👟</span>Footwear
+        </a></li>
         <!-- <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
               class="mn-icon">💎</span>Accessories</a></li> -->
         <li><a href="tinystone.html"><span class="mn-icon">💍</span>Jewellery &amp; Accessories</a></li>
@@ -6232,23 +6197,73 @@
   </div>
 
   <!-- MOBILE BOTTOM NAV -->
-  <nav class="mobile-bottom-nav">
-    <ul>
-      <li><a href="#" class="active" onclick="showPage('home');setMobileNav(this);return false;"><span
-            class="mbn-icon">🏠</span>Home</a></li>
-      <li><a href="#" onclick="showPage('boys');setMobileNav(this);return false;"><span
-            class="mbn-icon">👦</span>Boys</a></li>
-      <li><a href="#" onclick="showPage('girls');setMobileNav(this);return false;"><span
-            class="mbn-icon">👧</span>Girls</a></li>
-      <li><a href="#" onclick="showPage('babies');setMobileNav(this);return false;"><span
-            class="mbn-icon">👶</span>Babies</a></li>
-      <li><button type="button" onclick="openBasket()">
-          <div class="mbn-basket-wrap"><span class="mbn-icon">🛒</span><span class="mbn-badge" id="mbn-basket-count"
-              style="display:none;">0</span></div>Basket
-        </button></li>
-      <li><button type="button" onclick="openMobMenu()"><span class="mbn-icon">☰</span>More</button></li>
-    </ul>
-  </nav>
+  <!-- ==================== MOBILE BOTTOM NAV — scrolling category strip ==================== -->
+    <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <div class="mob-nav-track" id="mob-nav-track">
+    
+    <button class="mob-nav-item active" id="mn-home" onclick="showPage('home')">
+      <span class="mob-nav-icon">🏠</span>
+      <span class="mob-nav-label">Home</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-boys" onclick="showPage('boys')">
+      <span class="mob-nav-icon">👦</span>
+      <span class="mob-nav-label">Boys</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-girls" onclick="showPage('girls')">
+      <span class="mob-nav-icon">👧</span>
+      <span class="mob-nav-label">Girls</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-babies" onclick="showPage('babies')">
+      <span class="mob-nav-icon">👶</span>
+      <span class="mob-nav-label">Babies</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-nightwear" onclick="showPage('nightwear')">
+      <span class="mob-nav-icon">🌙</span>
+      <span class="mob-nav-label">Nightwear</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-footwear" onclick="showPage('footwear')">
+      <span class="mob-nav-icon">👟</span>
+      <span class="mob-nav-label">Footwear</span>
+    </button>
+    
+   
+    <button class="mob-nav-item" id="mn-toys" onclick="showPage('toys')">
+      <span class="mob-nav-icon">🧸</span>
+      <span class="mob-nav-label">Toys</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-twinning" onclick="showPage('twinning')">
+      <span class="mob-nav-icon">👨‍👧</span>
+      <span class="mob-nav-label">Twins</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-kidscare" onclick="showPage('kidscare')">
+      <span class="mob-nav-icon">🧴</span>
+      <span class="mob-nav-label">Care</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-school" onclick="showPage('school')">
+      <span class="mob-nav-icon">🎒</span>
+      <span class="mob-nav-label">School</span>
+    </button>
+    
+    <button class="mob-nav-item" id="mn-learning" onclick="showPage('learning')">
+      <span class="mob-nav-icon">📚</span>
+      <span class="mob-nav-label">Learning</span>
+    </button>
+
+    <button class="mob-nav-item" id="mn-jewellery" onclick="window.location.href='tinystone.html'">
+      <span class="mob-nav-icon">💍</span>
+      <span class="mob-nav-label">Jewellery</span>
+    </button>
+
+  </div>
+</div>
 
   <!-- HOME PAGE -->
   <div id="page-home" class="page active">
@@ -8001,34 +8016,45 @@
     let _suppressPush = false;
 
     // Pages that map to bottom nav tabs (everything else keeps current tab lit)
-    const MBN_MAP = { home: 'home', boys: 'boys', girls: 'girls', babies: 'babies' };
+    const MBN_MAP = { 
+      home: 'mn-home', 
+      boys: 'mn-boys', 
+      girls: 'mn-girls', 
+      babies: 'mn-babies',
+      traditional: 'mn-traditional',
+      summer: 'mn-summer',
+      winter: 'mn-winter',
+      accessories: 'mn-accessories'
+    };
 
-    function showPage(page) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      const el = document.getElementById('page-' + page);
-      if (el) { el.classList.add('active'); currentPage = page; }
-      // Sync desktop nav
-      document.querySelectorAll('.nav-links a').forEach(a => { a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + page + "'")); });
-      // Sync mobile bottom nav
-      const mbnLinks = document.querySelectorAll('.mobile-bottom-nav a');
-      mbnLinks.forEach(a => a.classList.remove('active'));
-      const targetPage = MBN_MAP[page] || null;
-      if (targetPage) {
-        mbnLinks.forEach(a => { if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + targetPage + "'")) a.classList.add('active'); });
-      }
-      window.scrollTo(0, 0);
-      // Push category pages so back-swipe returns to previous screen
-      // replaceState only for 'home' (base) and internal calls flagged with _suppressPush
-      if (!_suppressPush) {
-        if (page === 'home' || page === 'product') {
-          history.replaceState({ page }, '', '');
-        } else {
-          history.pushState({ page }, '', '');
-        }
+    // ─── PAGE NAVIGATION ─────────────────────────────────────────────────────────
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links li a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.mob-nav-item').forEach(b => b.classList.remove('active'));
+
+    const pageEl = document.getElementById('page-' + id);
+    if (!pageEl) return;
+    pageEl.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // Sync desktop nav
+    document.querySelectorAll('.nav-links li a').forEach(a => { a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")); });
+     
+    // Highlight + smooth-scroll active pill into centre of track
+    const mobBtn = document.getElementById('mn-' + id);
+    if (mobBtn) {
+      mobBtn.classList.add('active');
+      const track = document.getElementById('mob-nav-track');
+      if (track) {
+        // Scroll so the active pill is centred in the track
+        const btnLeft   = mobBtn.offsetLeft;
+        const btnWidth  = mobBtn.offsetWidth;
+        const trackW    = track.offsetWidth;
+        track.scrollTo({ left: btnLeft - (trackW / 2) + (btnWidth / 2), behavior: 'smooth' });
       }
     }
-
-    function setMobileNav(el) { document.querySelectorAll('.mobile-bottom-nav a').forEach(a => a.classList.remove('active')); el.classList.add('active'); }
+  }
 
     function handleURLRouting() {
       const hash = window.location.hash.replace('#', '');
