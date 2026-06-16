@@ -15,8 +15,8 @@
   <meta property="og:description"
     content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Starting ₹199. Order via WhatsApp!">
   <meta property="og:image"
-    content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_630,h_630,g_center,q_auto,f_jpg/v1776510180/Firefly_GeminiFlash_ic3nbt.png">
-  <meta property="og:image:width" content="630">
+    content="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_1200,h_630,g_center,q_auto,f_jpg/v1781597084/Untitled_design_nm2und.png">
+  <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary_large_image">
@@ -28,9 +28,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <!-- ── SUPABASE INTEGRATION ── -->
   <link rel="preconnect" href="https://your-project.supabase.co">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -42,14 +43,39 @@
     }
 
     :root {
-      --red: #B71C1C;
-      --red-dark: #7F0000;
-      --red-light: #FFEBEE;
-      --red-mid: #E53935;
-      --warm: #FFF8F5;
-      --text: #2C1810;
-      --muted: #7A5C50;
-      --gold: #FFD54F;
+      /* Brand accent — desaturated brick red */
+      --red: #C0392B;
+      --red-dark: #922B21;
+      --red-light: #FDECEA;
+      --red-mid: #E74C3C;
+
+      /* Neutral base */
+      --warm: #FAFAF8;
+      --cream: #F5F4F0;
+
+      /* Typography */
+      --text: #1A1A2E;
+      --muted: #6B7280;
+      --muted-light: #9CA3AF;
+
+      /* Accent pastels (replacing gold) */
+      --sage: #D1E8D5;
+      --blush: #FAE3E3;
+      --sky: #D6EAF8;
+
+      /* Shadow scale — all neutral */
+      --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,.10);
+
+      /* Radius scale */
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 24px;
+
+      /* Kept for backward compat — maps to above */
+      --gold: #F4A261;
     }
 
     html {
@@ -223,7 +249,7 @@
     }
 
     .splash-brand-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 22px;
       font-weight: 700;
       color: white;
@@ -252,7 +278,7 @@
       border: 1.5px solid rgba(255, 255, 255, .38);
       color: white;
       padding: 13px 26px;
-      border-radius: 50px;
+      border-radius: 12px;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       font-weight: 600;
@@ -379,7 +405,7 @@
     /* ── NAV ── */
     nav {
       background: white;
-      border-bottom: 2px solid var(--red-light);
+      border-bottom: 1px solid #EBEBEB;
       padding: 0 2rem;
       position: fixed;
       top: 36px;
@@ -390,7 +416,7 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
-      box-shadow: 0 2px 12px rgba(183, 28, 28, .08);
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
       width: 100%;
       max-width: 100vw;
       overflow: hidden;
@@ -409,9 +435,9 @@
       flex-shrink: 0;
       border-radius: 50%;
       overflow: hidden;
-      filter: drop-shadow(0 3px 10px rgba(183, 28, 28, .38));
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.10));
       transition: transform .25s;
-      border: 2px solid rgba(183, 28, 28, .15);
+      border: 2px solid rgba(0,0,0,.06);
     }
 
     .logo-svg-wrap img {
@@ -427,7 +453,7 @@
     }
 
     .logo-text {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 18px;
       font-weight: 700;
       color: var(--red-dark);
@@ -473,44 +499,44 @@
     }
 
     .wa-btn {
-      background: #25D366;
-      color: white;
-      border: none;
-      padding: 9px 18px;
-      border-radius: 25px;
+      background: transparent;
+      color: #25D366;
+      border: 1.5px solid #25D366;
+      padding: 8px 16px;
+      border-radius: var(--r-md);
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 7px;
-      transition: transform .2s, box-shadow .2s;
+      transition: background .2s, color .2s;
       text-decoration: none;
     }
 
     .wa-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(37, 211, 102, .35);
+      background: #25D366;
+      color: white;
     }
 
     .basket-nav-btn {
-      background: var(--red-light);
-      color: var(--red);
-      border: 1px solid var(--red);
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid #DDDBD8;
       padding: 8px 16px;
-      border-radius: 25px;
+      border-radius: var(--r-md);
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 7px;
-      transition: all .2s;
+      transition: border-color .2s, background .2s;
     }
 
     .basket-nav-btn:hover {
-      background: var(--red);
-      color: white;
+      border-color: var(--text);
+      background: #F5F4F0;
     }
 
     .basket-count-badge {
@@ -536,7 +562,7 @@
       color: white;
       border: none;
       padding: 9px 16px;
-      border-radius: 25px;
+      border-radius: 12px;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
@@ -625,9 +651,9 @@
       border-radius: 50%;
       overflow: hidden;
       position: relative;
-      filter: drop-shadow(0 14px 36px rgba(183, 28, 28, .45));
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.12));
       animation: floatLogo 3s ease-in-out infinite;
-      border: 3px solid rgba(183, 28, 28, .15);
+      border: 3px solid rgba(0,0,0,.06);
     }
 
     .hero-logo-wrap img {
@@ -651,7 +677,7 @@
     }
 
     .tagline {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(1.7rem, 4vw, 2.5rem);
       font-weight: 700;
       color: var(--red-dark);
@@ -682,7 +708,7 @@
     .trust-badge {
       background: white;
       border: 1px solid #F0E0DC;
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 7px 16px;
       font-size: 12px;
       color: var(--muted);
@@ -706,7 +732,7 @@
     }
 
     .section-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(1.6rem, 3vw, 2.1rem);
       margin-bottom: .4rem;
     }
@@ -723,10 +749,8 @@
 
     /* ── PROMO TICKER STRIP ── */
     .promo-ticker-strip {
-      background: linear-gradient(90deg, #7F0000, #B71C1C, #C62828, #B71C1C, #7F0000);
-      background-size: 300% 100%;
-      animation: tickerShift 6s linear infinite;
-      height: 42px;
+      background: #1A1A2E;
+      height: 36px;
       overflow: hidden;
       cursor: pointer;
       position: fixed;
@@ -740,19 +764,7 @@
       -webkit-tap-highlight-color: rgba(255, 255, 255, .1);
     }
 
-    @keyframes tickerShift {
-      0% {
-        background-position: 0% 50%
-      }
-
-      50% {
-        background-position: 100% 50%
-      }
-
-      100% {
-        background-position: 0% 50%
-      }
-    }
+    /* tickerShift removed — ticker now solid */
 
     .promo-ticker-track {
       display: flex;
@@ -781,20 +793,20 @@
       align-items: center;
       gap: 10px;
       padding: 0 2rem;
-      color: white;
-      font-size: 13px;
-      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      font-size: 12px;
+      font-weight: 500;
       letter-spacing: .3px;
     }
 
     .promo-ticker-item .tk-code {
-      background: var(--gold);
-      color: #5D4037;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 2px 9px;
-      border-radius: 8px;
-      letter-spacing: 1.5px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 1px;
       margin: 0 4px;
     }
 
@@ -810,10 +822,8 @@
 
     /* ── INSTAGRAM TICKER STRIP ── */
     .ig-ticker-strip {
-      background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045, #fd1d1d, #833ab4);
-      background-size: 300% 100%;
-      animation: igTickerShift 7s linear infinite;
-      height: 36px;
+      background: #2D1B69;
+      height: 32px;
       overflow: hidden;
       cursor: pointer;
       width: 100%;
@@ -824,22 +834,10 @@
     }
 
     .ig-ticker-strip:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.15);
     }
 
-    @keyframes igTickerShift {
-      0% {
-        background-position: 0% 50%
-      }
-
-      50% {
-        background-position: 100% 50%
-      }
-
-      100% {
-        background-position: 0% 50%
-      }
-    }
+    /* igTickerShift removed — ig ticker now solid */
 
     .ig-ticker-track {
       display: flex;
@@ -899,7 +897,7 @@
     }
 
     .promo-popup {
-      background: linear-gradient(145deg, #7F0000, #B71C1C 50%, #C62828);
+      background: #1A1A2E;
       border-radius: 24px;
       padding: 2rem 1.8rem 1.6rem;
       max-width: 360px;
@@ -958,7 +956,7 @@
     }
 
     .promo-popup h3 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.3rem;
       color: white;
       margin-bottom: .4rem;
@@ -1004,7 +1002,7 @@
       font-weight: 800;
       color: var(--gold);
       letter-spacing: 3px;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
     }
 
     .promo-code-hint {
@@ -1044,122 +1042,124 @@
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 22px;
+      gap: 16px;
     }
 
     .cat-card {
-      border-radius: 22px;
-      padding: 2rem 1.8rem;
+      border-radius: var(--r-lg);
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: transform .28s, box-shadow .28s;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, .06);
+      -webkit-tap-highlight-color: rgba(0,0,0,.06);
       user-select: none;
       -webkit-user-select: none;
+      aspect-ratio: 4/3;
+      background: #1A1A2E; /* fallback while image loads */
+    }
+
+    /* Photo layer */
+    .cat-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform .38s ease;
+    }
+
+    .cat-card:hover .cat-card-img {
+      transform: scale(1.04);
+    }
+
+    /* Dark gradient overlay */
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,15,25,.72) 0%, rgba(15,15,25,.18) 55%, transparent 100%);
+      z-index: 1;
     }
 
     .cat-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, .12);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.16);
     }
 
-    .cat-card.boys {
-      background: linear-gradient(145deg, #DAEEFF, #C5DFF8);
-    }
-
-    .cat-card.girls {
-      background: linear-gradient(145deg, #FFE4EE, #FFB5C8);
-    }
-
-    .cat-card.babies {
-      background: linear-gradient(145deg, #E8F5E9, #B5D5C5);
-    }
-
-    .cat-card.nightwear {
-      background: linear-gradient(145deg, #EDE7F6, #9575CD);
-    }
-
-    .cat-card.accessories {
-      background: linear-gradient(145deg, #FFF8E1, #FFE082);
-    }
-
-    .cat-card.toys {
-      background: linear-gradient(145deg, #FCE4EC, #F48FB1);
-    }
-
-    .cat-card.twinning {
-      background: linear-gradient(145deg, #EDE7F6, #CE93D8);
-    }
-
-    .cat-card.kidscare {
-      background: linear-gradient(145deg, #E0F7FA, #80DEEA);
-    }
-
-    .cat-card.school {
-      background: linear-gradient(145deg, #E8F5E9, #A5D6A7);
-    }
-
-    .cat-card.learning {
-      background: linear-gradient(145deg, #FFF3E0, #FFCC80);
-    }
-
+    /* Remove old per-category gradient backgrounds */
+    .cat-card.boys,
+    .cat-card.girls,
+    .cat-card.babies,
+    .cat-card.nightwear,
+    .cat-card.accessories,
+    .cat-card.toys,
+    .cat-card.twinning,
+    .cat-card.kidscare,
+    .cat-card.school,
+    .cat-card.learning,
     .cat-card.footwear {
-      background: linear-gradient(145deg, #EFEBE9, #BCAAA4);
+      background: #1A1A2E;
+    }
+
+    /* Text sits above overlay */
+    .cat-card-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 1rem 1.2rem;
     }
 
     .cat-icon-wrap {
-      width: 100%;
-      height: 100px;
-      border-radius: 14px;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, .5);
-    }
-
-    .cat-icon-wrap .cat-big-icon {
-      font-size: 52px;
-      line-height: 1;
-      display: block;
+      display: none; /* replaced by photo */
     }
 
     .cat-age {
       display: inline-block;
-      background: rgba(255, 255, 255, .65);
-      backdrop-filter: blur(4px);
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 11px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 4px;
+      padding: 2px 10px;
+      font-size: 10px;
       font-weight: 600;
-      margin-bottom: 8px;
-      letter-spacing: .3px;
+      margin-bottom: 6px;
+      letter-spacing: .4px;
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.18);
     }
 
     .cat-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      margin-bottom: .3rem;
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: .2rem;
+      line-height: 1.2;
     }
 
     .cat-card p {
-      font-size: 13px;
-      opacity: .72;
-      margin-bottom: 1.2rem;
-      line-height: 1.55;
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      line-height: 1.4;
     }
 
     .cat-count {
       position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      background: rgba(255, 255, 255, .55);
-      border-radius: 10px;
-      padding: 4px 10px;
-      font-size: 11px;
-      color: var(--muted);
+      top: .9rem;
+      right: .9rem;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 10px;
+      color: rgba(255,255,255,.85);
       font-weight: 500;
+      z-index: 2;
     }
 
     /* ── SUBCATEGORY ── */
@@ -1191,7 +1191,7 @@
     .sub-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, .09);
-      border-color: rgba(183, 28, 28, .25);
+      border-color: rgba(0,0,0,.12);
     }
 
     .sub-card.traditional {
@@ -1246,10 +1246,10 @@
 
     .prod-card {
       background: white;
-      border-radius: 18px;
+      border-radius: var(--r-lg);
       overflow: hidden;
       transition: transform .22s, box-shadow .22s;
-      border: 1px solid #F0E0DC;
+      border: 1px solid #EBEBEB;
       cursor: pointer;
     }
 
@@ -1338,7 +1338,7 @@
     .prod-swiper-wrap .swiper-pagination-bullet {
       width: 8px;
       height: 8px;
-      background: rgba(183, 28, 28, .35);
+      background: rgba(0,0,0,.18);
       margin: 0 4px;
       transition: all .3s ease;
     }
@@ -1443,7 +1443,7 @@
   font-size:        9px;               /* was 10px — a touch more discreet */
   padding:          2px 8px;           /* was 3px 10px */
   border-radius:    8px;
-  background:       rgba(183, 28, 28, 0.70);   /* --red at 70% opacity */
+  background:       rgba(192, 57, 43, 0.88);   /* --red at 88% opacity */
   color:            rgba(255, 255, 255, 0.93);
   border:           1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter:  blur(4px);
@@ -1536,18 +1536,19 @@
       color: white;
       border: none;
       padding: 6px 10px;
-      border-radius: 12px;
+      border-radius: 8px;
       font-size: 11px;
       font-weight: 500;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: all .18s;
+      transition: transform .18s, box-shadow .18s;
     }
 
     .add-basket-btn:hover {
-      background: var(--red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,.15);
     }
 
     .add-basket-btn.added {
@@ -1559,7 +1560,7 @@
       color: #25D366;
       border: 1.5px solid #25D366;
       padding: 5px 8px;
-      border-radius: 12px;
+      border-radius: var(--r-sm);
       font-size: 11px;
       cursor: pointer;
       display: flex;
@@ -1635,7 +1636,7 @@
     }
 
     .cat-hero h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 2rem;
       margin: .5rem 0;
     }
@@ -1694,7 +1695,7 @@
     .filter-btn {
       background: #F7F0EE;
       border: 1.5px solid transparent;
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1717,7 +1718,7 @@
     .filter-more-btn {
       background: #F7F0EE;
       border: 1.5px solid #E8DED4;
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1782,7 +1783,7 @@
     .sort-chip {
       background: #F7F0EE;
       border: 1.5px solid transparent;
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 4px 12px;
       font-size: 11px;
       cursor: pointer;
@@ -1831,12 +1832,12 @@
       font-size: 12px;
       font-weight: 700;
       padding: 5px 18px;
-      border-radius: 20px;
+      border-radius: 8px;
       margin-bottom: 1rem;
     }
 
     .testimonials-header h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(1.6rem, 3vw, 2.1rem);
       margin-bottom: .4rem;
     }
@@ -1866,7 +1867,7 @@
       border-radius: 22px;
       padding: 1.6rem;
       border: 1.5px solid #F5EAE8;
-      box-shadow: 0 4px 24px rgba(183, 28, 28, .06);
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
       position: relative;
       opacity: .55;
       transform: scale(.96);
@@ -1881,7 +1882,7 @@
 
     .t-card::before {
       content: '\201C';
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 64px;
       color: var(--red-light);
       position: absolute;
@@ -1942,7 +1943,7 @@
     }
 
     .t-swiper-outer .swiper-pagination-bullet {
-      background: rgba(183, 28, 28, .25);
+      background: rgba(0,0,0,.15);
       opacity: 1;
       width: 7px;
       height: 7px;
@@ -1961,7 +1962,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      box-shadow: 0 2px 12px rgba(183, 28, 28, .18);
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
       top: 45%;
     }
 
@@ -1980,7 +1981,7 @@
       border-radius: 18px;
       padding: 1.2rem 2rem;
       margin: .5rem 2rem 0;
-      box-shadow: 0 4px 20px rgba(183, 28, 28, .06);
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
       flex-wrap: wrap;
     }
 
@@ -1989,7 +1990,7 @@
     }
 
     .t-stat-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.9rem;
       font-weight: 700;
       color: var(--red-dark);
@@ -2023,7 +2024,7 @@
     }
 
     .newsletter h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.8rem;
       margin-bottom: .5rem;
     }
@@ -2063,7 +2064,7 @@
       color: white;
       text-decoration: none;
       padding: 14px 32px;
-      border-radius: 30px;
+      border-radius: 12px;
       font-size: 15px;
       font-weight: 700;
       font-family: 'DM Sans', sans-serif;
@@ -2097,7 +2098,7 @@
       font-weight: 500;
       background: white;
       padding: 4px 12px;
-      border-radius: 20px;
+      border-radius: 8px;
       border: 1px solid rgba(37, 211, 102, .25);
     }
 
@@ -2114,7 +2115,7 @@
       min-width: 200px;
       padding: 12px 18px;
       border: 1.5px solid #E0D0CC;
-      border-radius: 25px;
+      border-radius: 12px;
       font-size: 14px;
       outline: none;
       font-family: 'DM Sans', sans-serif;
@@ -2129,7 +2130,7 @@
       color: white;
       border: none;
       padding: 12px 22px;
-      border-radius: 25px;
+      border-radius: 12px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
@@ -2179,7 +2180,7 @@
     }
 
     .basket-header h3 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.3rem;
       color: var(--red-dark);
     }
@@ -2196,7 +2197,7 @@
     }
 
     .basket-close:hover {
-      background: rgba(183, 28, 28, .1);
+      background: rgba(0,0,0,.05);
     }
 
     .basket-body {
@@ -2524,7 +2525,7 @@
     }
 
     .sim-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.2rem;
       color: var(--text);
     }
@@ -2567,7 +2568,7 @@
 
     .sim-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(183, 28, 28, .12);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
     }
 
     .sim-img-wrap {
@@ -2671,7 +2672,7 @@
       position: absolute;
       top: 7px;
       right: 7px;
-      background: rgba(183, 28, 28, .85);
+      background: var(--red);
       color: white;
       font-size: 9px;
       padding: 2px 7px;
@@ -2750,9 +2751,9 @@
     }
 
     .pdp-gallery-swiper {
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
-      background: #FFF8F5;
+      background: #FAFAF8;
       height: min(82vh, 680px);
     }
 
@@ -2767,7 +2768,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FFF8F5;
+      background: #FAFAF8;
     }
 
     .pdp-gallery-swiper .swiper-slide img {
@@ -2805,7 +2806,7 @@
       gap: 6px;
       overflow-x: auto;
       scrollbar-width: thin;
-      scrollbar-color: rgba(183, 28, 28, .25) transparent;
+      scrollbar-color: rgba(0,0,0,.15) transparent;
       max-height: 76px;
       padding: 2px 12px 4px;
       flex-shrink: 0;
@@ -2818,7 +2819,7 @@
     }
 
     .pdp-thumbs::-webkit-scrollbar-thumb {
-      background: rgba(183, 28, 28, .25);
+      background: rgba(0,0,0,.15);
       border-radius: 2px;
     }
 
@@ -2832,7 +2833,7 @@
       border: 2px solid transparent;
       cursor: pointer;
       transition: border-color .2s;
-      background: #FFF8F5;
+      background: #FAFAF8;
     }
 
     .pdp-thumb.active {
@@ -2859,7 +2860,7 @@
       gap: 6px;
       background: var(--red-light);
       color: var(--red);
-      border-radius: 20px;
+      border-radius: 8px;
       padding: 4px 14px;
       font-size: 11.5px;
       font-weight: 600;
@@ -2868,7 +2869,7 @@
     }
 
     .pdp-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 700;
       margin-bottom: .5rem;
@@ -2880,7 +2881,7 @@
       font-weight: 800;
       color: var(--red);
       margin-bottom: .9rem;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
     }
 
     .pdp-desc {
@@ -3150,7 +3151,7 @@
     }
 
     .sg-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.25rem;
       color: var(--text);
     }
@@ -3258,7 +3259,7 @@
     }
 
     .sg-table tr:nth-child(even) td {
-      background: #FFF8F5;
+      background: #FAFAF8;
     }
 
     .sg-tip {
@@ -3349,7 +3350,7 @@
     }
 
     .rv-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.1rem;
       color: var(--text);
     }
@@ -3394,7 +3395,7 @@
 
     .rv-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(183, 28, 28, .1);
+      box-shadow: 0 8px 20px rgba(0,0,0,.07);
     }
 
     .rv-img-wrap {
@@ -3540,7 +3541,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 14px;
-      border-radius: 20px;
+      border-radius: 8px;
       white-space: nowrap;
       pointer-events: none;
       transition: opacity .4s;
@@ -3562,7 +3563,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 12px;
-      border-radius: 20px;
+      border-radius: 8px;
       cursor: pointer;
       display: none;
       z-index: 2;
@@ -3705,7 +3706,7 @@
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       padding: 5px 12px;
-      border-radius: 20px;
+      border-radius: 8px;
       pointer-events: none;
       z-index: 2;
       transition: opacity .3s;
@@ -3721,7 +3722,7 @@
       font-size: 10px;
       font-family: 'DM Sans', sans-serif;
       padding: 4px 10px;
-      border-radius: 20px;
+      border-radius: 8px;
       pointer-events: none;
       display: flex;
       align-items: center;
@@ -3824,7 +3825,7 @@
       background: var(--red-dark);
       color: white;
       padding: 10px 22px;
-      border-radius: 20px;
+      border-radius: 16px;
       font-size: 13px;
       font-weight: 500;
       z-index: 20000;
@@ -3897,7 +3898,7 @@
     }
 
     .footer-brand-text {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 17px;
       color: white;
       font-weight: 700;
@@ -3951,7 +3952,7 @@
       align-items: center;
       gap: 8px;
       padding: 9px 18px;
-      border-radius: 20px;
+      border-radius: 16px;
       text-decoration: none;
       font-size: 13px;
       font-weight: 500;
@@ -4038,20 +4039,36 @@
     }
     .mob-nav-item:active { transform: scale(.93); }
 
-    /* ACTIVE state — filled gradient pill with lift (using red tones) */
+    /* ACTIVE state — clean underline dot, no gradient pill */
     .mob-nav-item.active {
-      background: linear-gradient(135deg, var(--red-dark), var(--red-mid));
-      box-shadow: 0 4px 14px rgba(184, 134, 11, .40);
-      transform: translateY(-3px);
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .mob-nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--red);
     }
 
     .mob-nav-icon {
-      font-size: 19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       line-height: 1;
       transition: transform .25s;
+      color: var(--muted);
     }
     .mob-nav-item.active .mob-nav-icon {
-      transform: scale(1.15);
+      transform: scale(1.10);
+      color: var(--red);
     }
 
     .mob-nav-label {
@@ -4063,7 +4080,7 @@
       transition: color .25s, font-weight .25s;
     }
     .mob-nav-item.active .mob-nav-label {
-      color: white;
+      color: var(--red);
       font-weight: 700;
     }
 
@@ -4114,7 +4131,7 @@
     }
 
     .mob-menu-head-text {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 16px;
       color: white;
       font-weight: 700;
@@ -4169,9 +4186,12 @@
     }
 
     .mob-menu-body ul li a .mn-icon {
-      font-size: 20px;
-      width: 28px;
-      text-align: center;
+      width: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--muted);
     }
 
     .mob-menu-wa {
@@ -4294,27 +4314,23 @@
       }
 
       .cat-card {
-        padding: .6rem .5rem;
-        border-radius: 14px;
+        border-radius: var(--r-md);
+        aspect-ratio: 3/4;
       }
 
-      .cat-icon-wrap {
-        height: 62px;
-        border-radius: 10px;
-        margin-bottom: .45rem;
-      }
-
-      .cat-icon-wrap .cat-big-icon {
-        font-size: 34px;
+      .cat-card-body {
+        padding: .6rem .7rem;
       }
 
       .cat-age {
         font-size: 8px;
         padding: 2px 6px;
+        margin-bottom: 4px;
       }
 
       .cat-card h3 {
-        font-size: .88rem;
+        font-size: .82rem;
+        margin-bottom: .1rem;
       }
 
       .cat-card p {
@@ -4694,7 +4710,7 @@
     }
 
     .ship-modal-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--text);
@@ -4794,7 +4810,7 @@
     .ship-field input:focus,
     .ship-field select:focus {
       border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(183, 28, 28, .1);
+      box-shadow: 0 0 0 3px rgba(0,0,0,.06);
     }
 
     .ship-field.has-error input,
@@ -4957,7 +4973,7 @@
     }
 
     .cat-banner-caption h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(1.4rem, 3.5vw, 2.2rem);
       color: white;
       margin: 0 0 .2rem;
@@ -5055,7 +5071,7 @@
   transform: translateY(0) scale(1);
 }
 .partner-modal-head {
-  background: linear-gradient(135deg, #7F0000, #B71C1C);
+  background: #1A1A2E;
   padding: 1.2rem 1.2rem 1rem;
   display: flex;
   align-items: center;
@@ -5073,7 +5089,7 @@
   justify-content: center;
 }
 .partner-head-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1rem;
   color: white;
   font-weight: 700;
@@ -5140,7 +5156,7 @@
 .partner-field input:focus,
 .partner-field select:focus {
   border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(183,28,28,.1);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.06);
 }
 .partner-field.has-error input,
 .partner-field.has-error select {
@@ -5197,10 +5213,10 @@
   border-radius: 14px;
   padding: 1rem 1.1rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(183,28,28,.15);
+  border: 1px solid rgba(0,0,0,.08);
 }
 .partner-store-name {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.15rem;
   color: var(--red-dark);
   font-weight: 700;
@@ -5290,7 +5306,7 @@
  
   .gift-popup {
     position: relative;
-    background: linear-gradient(160deg, #FF6B6B 0%, #B71C1C 45%, #7F0000 100%);
+    background: var(--red);
     border-radius: 28px;
     padding: 2.2rem 1.8rem 1.8rem;
     max-width: 380px;
@@ -5415,7 +5431,7 @@
   }
  
   .gift-popup h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.45rem;
     color: white;
     margin-bottom: .35rem;
@@ -5472,7 +5488,7 @@
     font-weight: 800;
     color: var(--gold);
     letter-spacing: 4px;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     text-shadow: 0 2px 14px rgba(255, 213, 79, .35);
   }
  
@@ -6121,8 +6137,10 @@
       <li><a href="#" onclick="showPage('learning');return false;">Learning</a></li>
     </ul>
     <div class="nav-right">
-      <button class="basket-nav-btn" onclick="openBasket()">🛒 <span id="nav-basket-count"
-          class="basket-count-badge">0</span></button>
+      <button class="basket-nav-btn" onclick="openBasket()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span id="nav-basket-count" class="basket-count-badge">0</span>
+      </button>
        <!--<a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
         <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24">
           <path
@@ -6150,35 +6168,20 @@
     </div>
     <div class="mob-menu-body">
       <ul>
-        <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon">🏠</span>Home</a>
-        </li>
-        <li><a href="#" onclick="showPage('boys');closeMobMenu();return false;"><span class="mn-icon">👦</span>Boys 3-13
-            Years</a></li>
-        <li><a href="#" onclick="showPage('girls');closeMobMenu();return false;"><span class="mn-icon">👧</span>Girls
-            3-13 Years</a></li>
-        <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon">👶</span>Babies
-            0-3 Years</a></li>
-        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span class="mn-icon">🌙</span>Nightwear
-        </a></li>
-        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span class="mn-icon">👟</span>Footwear
-        </a></li>
-        <!-- <li><a href="#" onclick="showPage('accessories');closeMobMenu();return false;"><span
-              class="mn-icon">💎</span>Accessories</a></li> -->
-        <li><a href="tinystone.html"><span class="mn-icon">💍</span>Jewellery &amp; Accessories</a></li>
-        <li><a href="#" onclick="showPage('toys');closeMobMenu();return false;"><span class="mn-icon">🧸</span>Toys</a>
-        </li>
-        <li><a href="#" onclick="showPage('twinning');closeMobMenu();return false;"><span
-              class="mn-icon">👨‍👧</span>Twinning</a></li>
-        <li><a href="#" onclick="showPage('kidscare');closeMobMenu();return false;"><span class="mn-icon">🧴</span>Kids
-            Care</a></li>
-        <li><a href="#" onclick="showPage('school');closeMobMenu();return false;"><span
-              class="mn-icon">🎒</span>School</a></li>
-        <li><a href="#" onclick="showPage('learning');closeMobMenu();return false;"><span
-              class="mn-icon">📚</span>Learning</a></li>
-        <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon">🛒</span>My Basket</a>
-        </li>
-        <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span
-              class="mn-icon">📸</span>Follow on Instagram</a></li>
+        <li><a href="#" onclick="showPage('home');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</a></li>
+        <li><a href="#" onclick="showPage('boys');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>Boys 3–13 Years</a></li>
+        <li><a href="#" onclick="showPage('girls');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>Girls 3–13 Years</a></li>
+        <li><a href="#" onclick="showPage('babies');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="8"/><path d="M9 12h.01M15 12h.01M10 16s1 1 2 1 2-1 2-1"/></svg></span>Babies 0–3 Years</a></li>
+        <li><a href="#" onclick="showPage('nightwear');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>Nightwear</a></li>
+        <li><a href="#" onclick="showPage('footwear');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19l2-7h16l2 7H2z"/><path d="M4 12V7a2 2 0 0 1 2-2h5l3 5"/></svg></span>Footwear</a></li>
+        <li><a href="tinystone.html"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Jewellery &amp; Accessories</a></li>
+        <li><a href="#" onclick="showPage('toys');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg></span>Toys</a></li>
+        <li><a href="#" onclick="showPage('twinning');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Twinning</a></li>
+        <li><a href="#" onclick="showPage('kidscare');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Kids Care</a></li>
+        <li><a href="#" onclick="showPage('school');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>School</a></li>
+        <li><a href="#" onclick="showPage('learning');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Learning</a></li>
+        <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>My Basket</a></li>
+        <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></span>Follow on Instagram</a></li>
       </ul>
     </div>
     <div class="mob-menu-wa">
@@ -6202,63 +6205,63 @@
   <div class="mob-nav-track" id="mob-nav-track">
     
     <button class="mob-nav-item active" id="mn-home" onclick="showPage('home')">
-      <span class="mob-nav-icon">🏠</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
       <span class="mob-nav-label">Home</span>
     </button>
     
     <button class="mob-nav-item" id="mn-boys" onclick="showPage('boys')">
-      <span class="mob-nav-icon">👦</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
       <span class="mob-nav-label">Boys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-girls" onclick="showPage('girls')">
-      <span class="mob-nav-icon">👧</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
       <span class="mob-nav-label">Girls</span>
     </button>
     
     <button class="mob-nav-item" id="mn-babies" onclick="showPage('babies')">
-      <span class="mob-nav-icon">👶</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01M15 12h.01M10 16s1 1 2 1 2-1 2-1"/><circle cx="12" cy="11" r="8"/></svg></span>
       <span class="mob-nav-label">Babies</span>
     </button>
     
     <button class="mob-nav-item" id="mn-nightwear" onclick="showPage('nightwear')">
-      <span class="mob-nav-icon">🌙</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
       <span class="mob-nav-label">Nightwear</span>
     </button>
     
     <button class="mob-nav-item" id="mn-footwear" onclick="showPage('footwear')">
-      <span class="mob-nav-icon">👟</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19l2-7h16l2 7H2z"/><path d="M4 12V7a2 2 0 0 1 2-2h5l3 5"/></svg></span>
       <span class="mob-nav-label">Footwear</span>
     </button>
     
    
     <button class="mob-nav-item" id="mn-toys" onclick="showPage('toys')">
-      <span class="mob-nav-icon">🧸</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg></span>
       <span class="mob-nav-label">Toys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-twinning" onclick="showPage('twinning')">
-      <span class="mob-nav-icon">👨‍👧</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
       <span class="mob-nav-label">Twins</span>
     </button>
     
     <button class="mob-nav-item" id="mn-kidscare" onclick="showPage('kidscare')">
-      <span class="mob-nav-icon">🧴</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
       <span class="mob-nav-label">Care</span>
     </button>
     
     <button class="mob-nav-item" id="mn-school" onclick="showPage('school')">
-      <span class="mob-nav-icon">🎒</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
       <span class="mob-nav-label">School</span>
     </button>
     
     <button class="mob-nav-item" id="mn-learning" onclick="showPage('learning')">
-      <span class="mob-nav-icon">📚</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
       <span class="mob-nav-label">Learning</span>
     </button>
 
     <button class="mob-nav-item" id="mn-jewellery" onclick="window.location.href='tinystone.html'">
-      <span class="mob-nav-icon">💍</span>
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
       <span class="mob-nav-label">Jewellery</span>
     </button>
 
@@ -6282,7 +6285,7 @@
           <div class="trust-badge"><span class="badge-dot" style="background:#66BB6A;"></span>100% Safe Fabrics</div>
           <div class="trust-badge"><span class="badge-dot" style="background:#EC407A;"></span>Skin-Friendly Dyes</div>
           <div class="trust-badge"><span class="badge-dot" style="background:#42A5F5;"></span>Durable & Washable</div>
-          <div class="trust-badge"><span class="badge-dot" style="background:#FFD54F;"></span>Affordable Pricing</div>
+          <div class="trust-badge"><span class="badge-dot" style="background:#A8C5A0;"></span>Affordable Pricing</div>
         </div>
       </div>
     </div>
@@ -6293,10 +6296,8 @@
     <div class="ig-ticker-strip" onclick="window.open('https://www.instagram.com/tinythreadskidswear/','_blank')"
       role="button" aria-label="Follow us on Instagram and get a free season cap">
       <div class="ig-ticker-track">
-        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span
-            class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
-        <span class="ig-ticker-item">📸 Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span
-            class="ig-tk-badge">🧢 FREE Season Cap</span> with your next order!</span>
+        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
+        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
       </div>
     </div>
 
@@ -6305,72 +6306,104 @@
       <h2 class="section-title">Shop by <span class="red">Category</span></h2>
       <p class="section-sub">Find the perfect look for every little one in your life</p>
       <div class="cat-grid">
-        <div class="cat-card boys" onclick="showPage('boys')"><span class="cat-count" id="cnt-boys">0 products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">👦</span></div><span class="cat-age">Ages 3-13
-            Years</span>
-          <h3>Boys</h3>
-          <p>Bold, playful & built to last</p>
+        <div class="cat-card boys" onclick="showPage('boys')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Boys Kidswear" loading="lazy">
+          <span class="cat-count" id="cnt-boys">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">Ages 3–13 Years</span>
+            <h3>Boys</h3>
+            <p>Bold, playful & built to last</p>
+          </div>
         </div>
-        <div class="cat-card girls" onclick="showPage('girls')"><span class="cat-count" id="cnt-girls">0 products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">👧</span></div><span class="cat-age">Ages 3-13
-            Years</span>
-          <h3>Girls</h3>
-          <p>Sweet, vibrant & comfortable</p>
+        <div class="cat-card girls" onclick="showPage('girls')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Girls Kidswear" loading="lazy">
+          <span class="cat-count" id="cnt-girls">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">Ages 3–13 Years</span>
+            <h3>Girls</h3>
+            <p>Sweet, vibrant & comfortable</p>
+          </div>
         </div>
-        <div class="cat-card babies" onclick="showPage('babies')"><span class="cat-count" id="cnt-babies">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">👶</span></div><span class="cat-age">Ages 0-3
-            Years</span>
-          <h3>Babies</h3>
-          <p>Impossibly soft, gentle on skin</p>
+        <div class="cat-card babies" onclick="showPage('babies')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Babies Clothing" loading="lazy">
+          <span class="cat-count" id="cnt-babies">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">Ages 0–3 Years</span>
+            <h3>Babies</h3>
+            <p>Impossibly soft, gentle on skin</p>
+          </div>
         </div>
-        <div class="cat-card nightwear" onclick="showPage('nightwear')"><span class="cat-count" id="cnt-nightwear">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">🌙</span></div><span class="cat-age">All Ages</span>
-          <h3>Nightwear</h3>
-          <p>Cozy sleepwear & pyjamas</p>
+        <div class="cat-card nightwear" onclick="showPage('nightwear')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Nightwear" loading="lazy">
+          <span class="cat-count" id="cnt-nightwear">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Nightwear</h3>
+            <p>Cozy sleepwear & pyjamas</p>
+          </div>
         </div>
-        <div class="cat-card accessories" onclick="showPage('accessories')"><span class="cat-count"
-            id="cnt-accessories">0 products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">💎</span></div><span class="cat-age">All Ages</span>
-          <h3>Accessories</h3>
-          <p>Hairbands, clips & belts</p>
+        <div class="cat-card accessories" onclick="showPage('accessories')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Accessories" loading="lazy">
+          <span class="cat-count" id="cnt-accessories">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Accessories</h3>
+            <p>Hairbands, clips & belts</p>
+          </div>
         </div>
-        <div class="cat-card toys" onclick="showPage('toys')"><span class="cat-count" id="cnt-toys">0 products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">🧸</span></div><span class="cat-age">All Ages</span>
-          <h3>Toys</h3>
-          <p>Fun educational play toys</p>
+        <div class="cat-card toys" onclick="showPage('toys')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Toys" loading="lazy">
+          <span class="cat-count" id="cnt-toys">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Toys</h3>
+            <p>Fun educational play toys</p>
+          </div>
         </div>
-        <div class="cat-card twinning" onclick="showPage('twinning')"><span class="cat-count" id="cnt-twinning">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">👨‍👧</span></div><span class="cat-age">Parent &
-            Child</span>
-          <h3>Twinning</h3>
-          <p>Twining parent-child or Sibling sets</p>
+        <div class="cat-card twinning" onclick="showPage('twinning')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Twinning Sets" loading="lazy">
+          <span class="cat-count" id="cnt-twinning">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">Parent & Child</span>
+            <h3>Twinning</h3>
+            <p>Matching parent-child & sibling sets</p>
+          </div>
         </div>
-        <div class="cat-card kidscare" onclick="showPage('kidscare')"><span class="cat-count" id="cnt-kidscare">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">🧴</span></div><span class="cat-age">All Ages</span>
-          <h3>Kids Care</h3>
-          <p>Gentle skincare & grooming</p>
+        <div class="cat-card kidscare" onclick="showPage('kidscare')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Care" loading="lazy">
+          <span class="cat-count" id="cnt-kidscare">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Kids Care</h3>
+            <p>Gentle skincare & grooming</p>
+          </div>
         </div>
-        <div class="cat-card school" onclick="showPage('school')"><span class="cat-count" id="cnt-school">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">🎒</span></div><span class="cat-age">3-13 Years</span>
-          <h3>School</h3>
-          <p>Bags, stationery & essentials</p>
+        <div class="cat-card school" onclick="showPage('school')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="School Essentials" loading="lazy">
+          <span class="cat-count" id="cnt-school">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">3–13 Years</span>
+            <h3>School</h3>
+            <p>Bags, stationery & essentials</p>
+          </div>
         </div>
-        <div class="cat-card learning" onclick="showPage('learning')"><span class="cat-count" id="cnt-learning">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">📚</span></div><span class="cat-age">All Ages</span>
-          <h3>Learning</h3>
-          <p>Books, puzzles & kits</p>
+        <div class="cat-card learning" onclick="showPage('learning')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Learning & Books" loading="lazy">
+          <span class="cat-count" id="cnt-learning">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Learning</h3>
+            <p>Books, puzzles & kits</p>
+          </div>
         </div>
-        <div class="cat-card footwear" onclick="showPage('footwear')"><span class="cat-count" id="cnt-footwear">0
-            products</span>
-          <div class="cat-icon-wrap"><span class="cat-big-icon">👟</span></div><span class="cat-age">All Ages</span>
-          <h3>Footwear</h3>
-          <p>Sneakers, sandals & shoes</p>
+        <div class="cat-card footwear" onclick="showPage('footwear')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Kids Footwear" loading="lazy">
+          <span class="cat-count" id="cnt-footwear">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Footwear</h3>
+            <p>Sneakers, sandals & shoes</p>
+          </div>
         </div>
       </div>
     </div>
