@@ -7535,10 +7535,12 @@
 
     async function loadProducts() {
       // 1. Try Supabase (primary)
+      var SUPABASE_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
+      var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0';
       var loaded = false;
       try {
         var res = await fetch(
-          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors,created_by&order=sort_order.asc.nullslast&order=created_at.desc',
+          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors&order=sort_order.asc.nullslast&order=created_at.desc',
           { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
         );
         if (!res.ok) throw new Error('Supabase ' + res.status);
@@ -8822,7 +8824,9 @@
         </button>
       </div>
     </div>
-  </d  <script>
+  </div>
+
+  <script>
     // ═══════════════════════════════════════════════════════════
     // SHIPPING MODAL -- basket checkout
     // Session key 'tt_ship' is shared with product pages so the
