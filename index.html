@@ -1098,7 +1098,8 @@
     .cat-card.kidscare,
     .cat-card.school,
     .cat-card.learning,
-    .cat-card.footwear {
+    .cat-card.footwear,
+    .cat-card.celebration {
       background: #1A1A2E;
     }
 
@@ -6130,11 +6131,12 @@
       <li><a href="#" onclick="showPage('nightwear');return false;">Nightwear</a></li>
       <li><a href="#" onclick="showPage('footwear');return false;">Footwear</a></li>
       <!-- <li><a href="#" onclick="showPage('accessories');return false;">Accessories</a></li>-->
-      <li><a href="tinystone.html">Jewellery &amp; Accessories</a></li>
+      <li><a href="tinystone.html">Jewellery</a></li>
       <li><a href="#" onclick="showPage('toys');return false;">Toys</a></li>
       <li><a href="#" onclick="showPage('twinning');return false;">Twinning</a></li>
       <li><a href="#" onclick="showPage('school');return false;">School</a></li>
       <li><a href="#" onclick="showPage('learning');return false;">Learning</a></li>
+      <li><a href="#" onclick="showPage('celebration');return false;">Celebration</a></li>
     </ul>
     <div class="nav-right">
       <button class="basket-nav-btn" onclick="openBasket()">
@@ -6180,6 +6182,7 @@
         <li><a href="#" onclick="showPage('kidscare');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Kids Care</a></li>
         <li><a href="#" onclick="showPage('school');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>School</a></li>
         <li><a href="#" onclick="showPage('learning');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Learning</a></li>
+        <li><a href="#" onclick="showPage('celebration');closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>celebration</a></li>
         <li><a href="#" onclick="openBasket();closeMobMenu();return false;"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>My Basket</a></li>
         <li><a href="https://www.instagram.com/tinythreadskidswear/" target="_blank" onclick="closeMobMenu()"><span class="mn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></span>Follow on Instagram</a></li>
       </ul>
@@ -6258,6 +6261,11 @@
     <button class="mob-nav-item" id="mn-learning" onclick="showPage('learning')">
       <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
       <span class="mob-nav-label">Learning</span>
+    </button>
+
+    <button class="mob-nav-item" id="mn-celebration" onclick="showPage('celebration')">
+      <span class="mob-nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+      <span class="mob-nav-label">Celebration</span>
     </button>
 
     <button class="mob-nav-item" id="mn-jewellery" onclick="window.location.href='tinystone.html'">
@@ -6394,6 +6402,15 @@
             <span class="cat-age">All Ages</span>
             <h3>Learning</h3>
             <p>Books, puzzles & kits</p>
+          </div>
+        </div>
+               <div class="cat-card celebration" onclick="showPage('celebration')">
+          <img class="cat-card-img" src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,w_600,h_450,g_auto,q_auto,f_auto/v1776510180/Firefly_GeminiFlash_ic3nbt.png" alt="Celebration" loading="lazy">
+          <span class="cat-count" id="cnt-celebration">0 products</span>
+          <div class="cat-card-body">
+            <span class="cat-age">All Ages</span>
+            <h3>Celebration</h3>
+            <p>Cake, Gifts & Decorations</p>
           </div>
         </div>
         <div class="cat-card footwear" onclick="showPage('footwear')">
@@ -7046,7 +7063,7 @@
         </div>
       </div>
     </div>
-    <div class="filter-bar" id="filter-bar-learning">
+    <div class="filter-bar" id="filter-bar-toys">
       <div class="filter-bar-inner">
         <div class="fb-row"><span class="filter-label">Filter</span>
           <div class="filter-scroll-wrap">
@@ -7065,9 +7082,49 @@
       </div>
     </div>
     <div class="section products-section">
-      <h2 class="section-title">All <span class="red">Learning</span></h2>
+      <h2 class="section-title">All <span class="red">Learning</span> Items</h2>
       <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
       <div class="prod-grid" id="learning-grid">
+        <div class="loading-grid">
+          <div class="spinner"></div>Loading...
+        </div>
+      </div>
+    </div>
+  </div>  <div id="page-celebration" class="page">
+    <div class="breadcrumb"><a href="#" onclick="showPage('home');return false;">Home</a><span>›</span> Celebration</div>
+    <div id="cat-banner-celebration" class="cat-banner-wrap">
+      <div id="cat-banner-inner-celebration">
+        <div class="cat-hero" style="background:linear-gradient(135deg,#FFF3E0,#FFCC80);"
+          id="cat-hero-fallback-celebration">
+          <div style="font-size:52px;margin-bottom:8px;">🎉</div>
+          <h1>Celebration</h1>
+          <p style="color:#E65100;font-size:14px;margin-top:4px;">Cake, Gifts &amp; Decorations</p>
+        </div>
+      </div>
+    </div>
+    <div class="filter-bar" id="filter-bar-celebration">
+      <div class="filter-bar-inner">
+        <div class="fb-row"><span class="filter-label">Filter</span>
+          <div class="filter-scroll-wrap">
+            <div class="filter-scroll" id="filter-scroll-celebration"><button class="filter-btn active"
+                onclick="filterProducts('celebration','all',this)" data-all="1">All</button></div>
+          </div>
+        </div>
+        <div class="fb-row fb-sort-row"><span class="filter-label">Sort</span>
+          <div class="sort-chip-row" id="sort-chips-celebration"><button class="sort-chip  sort-chip-active"
+              onclick="applySort('celebration','default',this)">✨ Featured</button><button class="sort-chip"
+              onclick="applySort('celebration','price-asc',this)">↑ Price: Low to High</button><button class="sort-chip"
+              onclick="applySort('celebration','price-desc',this)">↓ Price: High to Low</button><button class="sort-chip"
+              onclick="applySort('celebration','new',this)">🆕 New Arrivals</button><button class="sort-chip"
+              onclick="applySort('celebration','az',this)">🔤 Name A-Z</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section products-section">
+      <h2 class="section-title">All <span class="red">Celebration</span></h2>
+      <p class="section-sub">Add items to your basket and checkout via WhatsApp</p>
+      <div class="prod-grid" id="celebration-grid">
         <div class="loading-grid">
           <div class="spinner"></div>Loading...
         </div>
@@ -7506,19 +7563,6 @@
         }
       } catch (e) { console.warn('Supabase failed, trying products.json:', e.message); }
 
-      // 2. Fallback: products.json
-      if (!loaded) {
-        try {
-          var base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-          var res2 = await fetch(base + 'products.json');
-          if (!res2.ok) throw new Error('fetch failed ' + res2.status);
-          var data = await res2.json();
-          allProducts = data.products || data;
-          loaded = true;
-          console.log('Products loaded from products.json:', allProducts.length);
-        } catch (e2) { console.warn('products.json failed, using built-in fallback:', e2.message); }
-      }
-
       // 3. Last-resort minimal fallback
       if (!loaded) allProducts = getFallbackProducts();
 
@@ -7526,7 +7570,7 @@
     }
 
     function renderAllGrids() {
-      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'];
       // renderGrid('featured-grid',allProducts.filter(p=>p.featured));
       renderGrid('featured-grid', allProducts.filter(p => p.featured).sort((a, b) => {
         const sa = a.sort_order == null ? Infinity : a.sort_order;
@@ -7547,7 +7591,7 @@
       traditional: '🧵 Traditional', summer: '☀️ Summer', winter: '🧥 Winter',
       nightwear: '🌙 Nightwear', undergarments: '🧸 Undergarments',
       accessories: '💎 Accessories', toys: '🧸 Toys', twinning: '👨‍👧 Twinning',
-      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning',
+      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning', celebration: '🎉 Celebration',
       // Footwear -- rename these keys to match whatever values you store
       // in products.subcategory for category='footwear' in Supabase
       sandals: '🩴 Sandals', sports: '👟 Sports Shoes',
@@ -7696,7 +7740,7 @@
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="size-pill" onclick="event.stopPropagation();selectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<span class="color-dot" title="${r.name}" style="background:${r.bg}"></span>`; }).join('') : '';
 
-      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning' }[p.subcategory] || p.subcategory || '';
+      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning', celebration: 'Celebration' }[p.subcategory] || p.subcategory || '';
       return `<div class="prod-card" id="card-${key}">
     <div class="prod-swiper-wrap">
       ${badgeHtml}
@@ -7999,7 +8043,7 @@
       const p = allProducts.find(p => p.id === key); if (!p) return;
       currentPDPCategory = p.category || 'home';
       currentPDPKey = key;
-      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' }[p.category] || 'Back';
+      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' , 'celebration': 'Celebration' }[p.category] || 'Back';
       document.getElementById('pdp-back-label').textContent = '← Back to ' + backLabel;
       // Build slides
       const hasImgs = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -8021,7 +8065,7 @@
       // Build info
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<div class="pdp-color-btn" title="${r.name}" style="background:${r.bg}" onclick="pdpSelectColor(this,'${r.name}')"></div>`; }).join('') : '';
-      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' }[p.category] || '📦';
+      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' , 'celebration':'📦' }[p.category] || '📦';
       document.getElementById('pdp-info').innerHTML = `
     <div class="pdp-category-tag">${catEmoji} ${backLabel}</div>
     <h1 class="pdp-name">${p.name}</h1>
@@ -8145,7 +8189,7 @@
       }
       // ── end ──
       if (prodId) { openPDP(prodId); return; }
-      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning' , 'celebration'];
       if (hash && validPages.includes(hash)) showPage(hash);
     }
 
@@ -8220,7 +8264,7 @@
     // Category swipers
     function initCatSwipers() {
       const catImages = {
-        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: []
+        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: [], celebration: []
       };
       allProducts.forEach(p => {
         if (catImages[p.category] !== undefined && p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME')) {
@@ -8229,7 +8273,7 @@
       });
       document.querySelectorAll('.cat-swiper').forEach(sw => {
         const card = sw.closest('.cat-card');
-        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'].includes(c));
+        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'].includes(c));
         if (!cat || !catImages[cat] || catImages[cat].length === 0) return;
         const wrapper = sw.querySelector('.swiper-wrapper');
         wrapper.innerHTML = catImages[cat].map(url => {
@@ -8341,7 +8385,7 @@
         .filter(Boolean);
       if (items.length < 2) { section.classList.remove('visible'); return; }
       section.classList.add('visible');
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
       track.innerHTML = items.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
         var imgHtml = hasImg
@@ -8622,7 +8666,7 @@
 
       if (pool.length === 0) { section.classList.remove('visible'); return; }
 
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
 
       track.innerHTML = pool.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -8780,9 +8824,7 @@
         </button>
       </div>
     </div>
-  </div>
-
-  <script>
+  </d  <script>
     // ═══════════════════════════════════════════════════════════
     // SHIPPING MODAL -- basket checkout
     // Session key 'tt_ship' is shared with product pages so the
@@ -9069,6 +9111,7 @@
     kidscare: { title: 'Kids Care', sub: 'Gentle skincare & grooming' },
     school: { title: 'School', sub: 'Bags, stationery & essentials' },
     learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' }
+    celebration: { title: 'Celebration', sub: 'Festive outfits for every occasion' }
     };
 
     /* ── Build a Cloudinary URL optimised for landscape banner dimensions ─ */
@@ -9298,7 +9341,8 @@
               twinning: { title: 'Twinning Sets', sub: 'Matching parent-child outfits' },
               kidscare: { title: 'Kids Care', sub: 'Gentle skincare & grooming' },
               school: { title: 'School', sub: 'Bags, stationery & essentials' },
-              learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' }
+              learning: { title: 'Learning', sub: 'Books, puzzles & educational tools' },
+              celebration: { title: 'Celebration', sub: 'Birthday outfits, Cakes, Return Gifts for every occasion' }
             };
 
             // Store Swiper instances so they can be destroyed before recreating
