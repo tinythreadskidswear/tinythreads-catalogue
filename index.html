@@ -7814,20 +7814,25 @@
       if (mbnBadge) { mbnBadge.textContent = totalItems; mbnBadge.style.display = totalItems > 0 ? 'flex' : 'none'; }
       const body = document.getElementById('basket-body');
       if (basket.length === 0) { body.innerHTML = `<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`; return; }
-      body.innerHTML = basket.map(item => `
+      body.innerHTML = basket.map(item => {
+        const escapedKey = item.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const escapedName = item.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        const escapedDesc = item.desc.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        return `
     <div class="basket-item">
       <div class="basket-item-info">
-        <div class="basket-item-name">${item.name}</div>
-        <div class="basket-item-desc">${item.desc}</div>
+        <div class="basket-item-name">${escapedName}</div>
+        <div class="basket-item-desc">${escapedDesc}</div>
         <div class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')} ${item.qty > 1 ? `<span style="font-size:11px;font-weight:400;color:var(--muted);">(₹${item.price} × ${item.qty})</span>` : ''}</div>
         <div class="basket-item-qty">
-          <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
+          <button class="qty-btn" onclick="changeQty('${escapedKey}',-1)">−</button>
           <span class="qty-val">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
+          <button class="qty-btn" onclick="changeQty('${escapedKey}',1)">+</button>
         </div>
       </div>
-      <button class="basket-remove" onclick="removeFromBasket('${item.key}')">✕</button>
-    </div>`).join('');
+      <button class="basket-remove" onclick="removeFromBasket('${escapedKey}')">✕</button>
+    </div>`;
+      }).join('');
     }
 
     function applyPromo() {
@@ -7929,25 +7934,7 @@
       } catch (e) { showShareToast('Copy this link: ' + url); }
     }
 
-    // Early stubs -- full definitions load later in script block 2
-    function openShipModal() {
-      const o = document.getElementById('shipOverlay');
-      if (o) o.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      if (typeof _shipRestore === 'function') setTimeout(_shipRestore, 60);
-    }
-    function closeShipModal() {
-      const o = document.getElementById('shipOverlay');
-      if (o) o.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    function shipOverlayClick(e) {
-      if (e.target === document.getElementById('shipOverlay')) closeShipModal();
-    }
-    function shipSkip() {
-      closeShipModal();
-      if (typeof _doCheckoutWA === 'function') _doCheckoutWA(null);
-    }
+
 
     function checkoutWhatsApp() {
       if (basket.length === 0) return;
