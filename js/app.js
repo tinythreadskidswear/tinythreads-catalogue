@@ -303,6 +303,8 @@
     // MAIN CATALOGUE JS
     // =============================================
     const WA_NUMBER = '917879976016';
+    const SUPABASE_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0c3p1aG1mcHl3cXdkZXRvcXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MzU5ODcsImV4cCI6MjA5NTIxMTk4N30.-LVroO9ReQEjlLO1XQ3pTrijydMBNH739k05ixo3ZE0';
     let allProducts = [];
     let PROMO_CODES = {};          // populated from Supabase at boot via loadPromoCodes()
     let basket = [];
@@ -399,26 +401,14 @@
               category: r.category, subcategory: r.subcategory || '',
               images: Array.isArray(r.images) ? r.images : [],
               sizes: Array.isArray(r.sizes) ? r.sizes : [],
-              colors: Array.isArray(r.colors) ? r.colors : []
+              colors: Array.isArray(r.colors) ? r.colors : [],
+              created_by: r.created_by || null
             };
           });
           loaded = true;
           console.log('Products loaded from Supabase:', allProducts.length);
         }
       } catch (e) { console.warn('Supabase failed, trying products.json:', e.message); }
-
-      // 2. Fallback: products.json
-      if (!loaded) {
-        try {
-          var base = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-          var res2 = await fetch(base + 'products.json');
-          if (!res2.ok) throw new Error('fetch failed ' + res2.status);
-          var data = await res2.json();
-          allProducts = data.products || data;
-          loaded = true;
-          console.log('Products loaded from products.json:', allProducts.length);
-        } catch (e2) { console.warn('products.json failed, using built-in fallback:', e2.message); }
-      }
 
       // 3. Last-resort minimal fallback
       if (!loaded) allProducts = getFallbackProducts();
@@ -427,7 +417,7 @@
     }
 
     function renderAllGrids() {
-      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const ALL_CATS = ['boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'];
       // renderGrid('featured-grid',allProducts.filter(p=>p.featured));
       renderGrid('featured-grid', allProducts.filter(p => p.featured).sort((a, b) => {
         const sa = a.sort_order == null ? Infinity : a.sort_order;
@@ -448,7 +438,7 @@
       traditional: '🧵 Traditional', summer: '☀️ Summer', winter: '🧥 Winter',
       nightwear: '🌙 Nightwear', undergarments: '🧸 Undergarments',
       accessories: '💎 Accessories', toys: '🧸 Toys', twinning: '👨‍👧 Twinning',
-      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning',
+      kidscare: '🧴 Kids Care', school: '🎒 School', learning: '📚 Learning', celebration: '🎉 Celebration',
       // Footwear -- rename these keys to match whatever values you store
       // in products.subcategory for category='footwear' in Supabase
       sandals: '🩴 Sandals', sports: '👟 Sports Shoes',
@@ -597,7 +587,7 @@
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="size-pill" onclick="event.stopPropagation();selectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<span class="color-dot" title="${r.name}" style="background:${r.bg}"></span>`; }).join('') : '';
 
-      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning' }[p.subcategory] || p.subcategory || '';
+      const subcatLabel = { traditional: 'Traditional', summer: 'Summer', winter: 'Winter', nightwear: 'Nightwear', undergarments: 'Undergarments', accessories: 'Accessories', toys: 'Toys', twinning: 'Twinning', kidscare: 'Kids Care', school: 'School', learning: 'Learning', celebration: 'Celebration' }[p.subcategory] || p.subcategory || '';
       return `<div class="prod-card" id="card-${key}">
     <div class="prod-swiper-wrap">
       ${badgeHtml}
@@ -852,7 +842,7 @@
       const p = allProducts.find(p => p.id === key); if (!p) return;
       currentPDPCategory = p.category || 'home';
       currentPDPKey = key;
-      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' }[p.category] || 'Back';
+      const backLabel = { 'boys': 'Boys', 'girls': 'Girls', 'babies': 'Babies', 'nightwear': 'Nightwear', 'footwear': 'Footwear', 'accessories': 'Accessories', 'toys': 'Toys', 'twinning': 'Twinning', 'kidscare': 'Kids Care', 'school': 'School', 'learning': 'Learning' , 'celebration': 'Celebration' }[p.category] || 'Back';
       document.getElementById('pdp-back-label').textContent = '← Back to ' + backLabel;
       // Build slides
       const hasImgs = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
@@ -874,7 +864,7 @@
       // Build info
       const sizesHtml = p.sizes ? p.sizes.map(s => `<button type="button" class="pdp-size-btn" onclick="pdpSelectSize(this,'${key}')">${s}</button>`).join('') : '';
       const colorsHtml = p.colors && p.colors.length ? p.colors.slice(0, 6).map(c => { const r = resolveColor(c); return `<div class="pdp-color-btn" title="${r.name}" style="background:${r.bg}" onclick="pdpSelectColor(this,'${r.name}')"></div>`; }).join('') : '';
-      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' }[p.category] || '📦';
+      const catEmoji = { 'boys': '👦', 'girls': '👧', 'babies': '👶', 'nightwear': '🌙', 'footwear': '👟', 'accessories': '💎', 'toys': '🧸', 'twinning': '👨‍👧', 'kidscare': '🧴', 'school': '🎒', 'learning': '📚' , 'celebration':'📦' }[p.category] || '📦';
       document.getElementById('pdp-info').innerHTML = `
     <div class="pdp-category-tag">${catEmoji} ${backLabel}</div>
     <h1 class="pdp-name">${p.name}</h1>
@@ -998,7 +988,7 @@
       }
       // ── end ──
       if (prodId) { openPDP(prodId); return; }
-      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'];
+      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning' , 'celebration'];
       if (hash && validPages.includes(hash)) showPage(hash);
     }
 
@@ -1073,7 +1063,7 @@
     // Category swipers
     function initCatSwipers() {
       const catImages = {
-        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: []
+        boys: [], girls: [], babies: [], accessories: [], toys: [], twinning: [], kidscare: [], school: [], learning: [], celebration: []
       };
       allProducts.forEach(p => {
         if (catImages[p.category] !== undefined && p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME')) {
@@ -1082,7 +1072,7 @@
       });
       document.querySelectorAll('.cat-swiper').forEach(sw => {
         const card = sw.closest('.cat-card');
-        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning'].includes(c));
+        const cat = Array.from(card.classList).find(c => ['boys', 'girls', 'babies', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration'].includes(c));
         if (!cat || !catImages[cat] || catImages[cat].length === 0) return;
         const wrapper = sw.querySelector('.swiper-wrapper');
         wrapper.innerHTML = catImages[cat].map(url => {
@@ -1194,7 +1184,7 @@
         .filter(Boolean);
       if (items.length < 2) { section.classList.remove('visible'); return; }
       section.classList.add('visible');
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
       track.innerHTML = items.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
         var imgHtml = hasImg
@@ -1475,7 +1465,7 @@
 
       if (pool.length === 0) { section.classList.remove('visible'); return; }
 
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚' };
+      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
 
       track.innerHTML = pool.map(function (p) {
         var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
