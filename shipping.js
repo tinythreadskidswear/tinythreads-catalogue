@@ -194,7 +194,6 @@
           headers: {
             'Content-Type': 'application/json',
             'apikey': _SB_KEY_S,
-            'Authorization': 'Bearer ' + _SB_KEY_S,
             'Prefer': 'return=representation'
           },
           body: JSON.stringify({
@@ -237,8 +236,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'apikey': _SB_KEY_S,
-            'Authorization': 'Bearer ' + _SB_KEY_S
+            'apikey': _SB_KEY_S
           },
           body: JSON.stringify({
             customer_name: 'Guest (Skipped)', mobile: 'unknown',
