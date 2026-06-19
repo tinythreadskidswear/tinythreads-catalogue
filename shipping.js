@@ -194,7 +194,7 @@
           headers: {
             'Content-Type': 'application/json',
             'apikey': _SB_KEY_S,
-            'Prefer': 'return=representation'
+            
           },
           body: JSON.stringify({
             customer_name: ship.name, mobile: ship.mobile,
@@ -208,7 +208,7 @@
               size: i.size
             })),
             subtotal: subtotal,
-            "Total": total,
+            total: total,
             promocode: appliedPromo ? appliedPromo.code : null,
             status: 'pending', wa_sent: true
           })
