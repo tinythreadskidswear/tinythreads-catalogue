@@ -22,8 +22,7 @@ AGENTS.md
 DEPLOY.md
 README.md
 OPTIMIZATION_REPORT.md
-netlify.toml
-tinythreads.properties
+
 
 # Test files
 *.spec.js
