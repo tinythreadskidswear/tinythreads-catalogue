@@ -58,10 +58,10 @@
 
     .logo-text {
       font-family: 'Fraunces', serif;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 21px;
+      font-weight: 750;
       color: var(--red-dark);
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
     .logo-text span {

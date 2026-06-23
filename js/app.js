@@ -387,7 +387,7 @@
       var loaded = false;
       try {
         var res = await fetch(
-          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=id,name,description,price,badge,fabric,featured,category,subcategory,images,sizes,colors&order=sort_order.asc.nullslast&order=created_at.desc',
+          SUPABASE_URL + '/rest/v1/products?active=eq.true&select=*&order=sort_order.asc.nullslast&order=created_at.desc',
           { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
         );
         if (!res.ok) throw new Error('Supabase ' + res.status);
@@ -402,6 +402,9 @@
               images: Array.isArray(r.images) ? r.images : [],
               sizes: Array.isArray(r.sizes) ? r.sizes : [],
               colors: Array.isArray(r.colors) ? r.colors : [],
+              age: r.age || r.ages || r.age_group || r.age_range || r.ageRange || '',
+              sort_order: r.sort_order == null ? null : Number(r.sort_order),
+              created_at: r.created_at || '',
               created_by: r.created_by || null
             };
           });
@@ -425,8 +428,8 @@
         return sa - sb;
       }));
       ALL_CATS.forEach(cat => {
-        renderGrid(cat + '-grid', allProducts.filter(p => p.category === cat));
         buildFilterBar(cat); // build filter chips based on actual products
+        applyFilterAndSort(cat);
         const cnt = document.getElementById('cnt-' + cat);
         if (cnt) { const n = allProducts.filter(p => p.category === cat).length; cnt.textContent = n + (n === 1 ? ' product' : ' products'); }
       });
@@ -447,12 +450,22 @@
     };
 
     function getState(cat) {
-      if (!categoryState[cat]) categoryState[cat] = { filter: 'all', sort: 'default' };
+      if (!categoryState[cat]) categoryState[cat] = { filter: 'all', subcategories: [], ages: [], priceMin: 100, priceMax: 3000, sort: 'default' };
       return categoryState[cat];
     }
 
     function buildFilterBar(cat) {
       const scroll = document.getElementById('filter-scroll-' + cat);
+      if (window.TTFilterTray) {
+        window.TTFilterTray.initCategory({
+          cat: cat,
+          products: allProducts,
+          state: getState(cat),
+          labels: SUBCAT_LABELS,
+          onApply: applyFilterAndSort
+        });
+        return;
+      }
       if (!scroll) return;
       const prods = allProducts.filter(p => p.category === cat);
       const subs = [...new Set(prods.map(p => p.subcategory).filter(Boolean))];
@@ -505,14 +518,16 @@
         moreBtn.classList.toggle('has-active', inDrop && sub !== 'all');
       }
 
-      getState(cat).filter = sub;
+      var state = getState(cat);
+      state.filter = sub;
+      state.subcategories = sub === 'all' ? [] : [sub];
       applyFilterAndSort(cat);
     }
 
     function applySort(cat, sort, btn) {
       const row = document.getElementById('sort-chips-' + cat);
       if (row) row.querySelectorAll('.sort-chip').forEach(b => b.classList.remove('sort-chip-active'));
-      btn.classList.add('sort-chip-active');
+      if (btn) btn.classList.add('sort-chip-active');
       getState(cat).sort = sort;
       applyFilterAndSort(cat);
     }
@@ -520,11 +535,20 @@
     function applyFilterAndSort(cat) {
       const state = getState(cat);
       let prods = allProducts.filter(p => p.category === cat);
-      if (state.filter !== 'all') prods = prods.filter(p => p.subcategory === state.filter);
+      if (window.TTFilterTray) {
+        prods = prods.filter(p => window.TTFilterTray.productMatches(p, state));
+      } else if (state.filter !== 'all') {
+        prods = prods.filter(p => p.subcategory === state.filter);
+      }
       switch (state.sort) {
         case 'price-asc': prods = [...prods].sort((a, b) => a.price - b.price); break;
         case 'price-desc': prods = [...prods].sort((a, b) => b.price - a.price); break;
-        case 'new': prods = [...prods].sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0)); break;
+        case 'new': prods = [...prods].sort((a, b) => {
+          const bd = Date.parse(b.created_at || '') || 0;
+          const ad = Date.parse(a.created_at || '') || 0;
+          if (bd !== ad) return bd - ad;
+          return (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0);
+        }); break;
         case 'az': prods = [...prods].sort((a, b) => a.name.localeCompare(b.name)); break;
         default: prods = [...prods].sort((a, b) => {
           const sa = a.sort_order == null ? Infinity : a.sort_order;
