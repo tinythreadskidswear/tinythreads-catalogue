@@ -1,0 +1,607 @@
+/* ════════════════════════════════════════════════════════════
+   TINY THREADS — basket.css
+   All basket drawer styles, isolated for easier future changes.
+   Load AFTER components.css (and after filter.css) so it wins
+   any cascade conflicts cleanly.
+
+   STRUCTURE
+   ─────────
+   Desktop (>700px): unchanged behaviour — basket-drawer is a
+   right-side panel; the checkout panel (promo/total/WA-info/
+   checkout button) sits inline inside the footer exactly like
+   before.
+
+   Mobile (≤700px): basket-drawer is a bottom sheet (unchanged).
+   NEW: the footer is split into —
+     1. .basket-sticky-bar  — slim bar always visible at the
+        bottom of the item list (Preview screen), shows total +
+        "Checkout" tap target.
+     2. .basket-checkout-panel — becomes a NESTED bottom tray
+        that slides up *over* the basket sheet when the sticky
+        bar (or checkout button) is tapped. Contains promo code,
+        discount, total, WA info and the actual checkout button.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── BASKET DRAWER + OVERLAY (unchanged) ── */
+.basket-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .4);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.basket-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.basket-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: min(420px, 100vw);
+  height: 100%;
+  background: white;
+  z-index: 10001;
+  transition: right .35s cubic-bezier(.4, 0, .2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, .15);
+}
+
+.basket-drawer.open {
+  right: 0;
+}
+
+.basket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1.5px solid var(--red-light);
+  background: var(--red-light);
+}
+
+.basket-header h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: var(--red-dark);
+}
+
+.basket-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--red-dark);
+  padding: 4px;
+  border-radius: 6px;
+  transition: background .2s;
+}
+
+.basket-close:hover {
+  background: rgba(0, 0, 0, .05);
+}
+
+.basket-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
+.basket-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+.basket-empty-icon {
+  font-size: 52px;
+  display: block;
+  margin-bottom: .8rem;
+}
+
+.basket-empty p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── BASKET ITEM ROW ── */
+.basket-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #F5ECEC;
+}
+
+.basket-item:last-child {
+  border-bottom: none;
+}
+
+.basket-item-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--red-light);
+}
+
+.basket-item-thumb--ph {
+  display: block;
+}
+
+.basket-item-info {
+  flex: 1;
+}
+
+.basket-item-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.basket-item-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.basket-item-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.basket-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.qty-btn {
+  background: var(--red-light);
+  border: 1px solid var(--red-light);
+  color: var(--red);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+  line-height: 1;
+}
+
+.qty-btn:hover {
+  background: var(--red);
+  color: white;
+}
+
+.qty-val {
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.basket-remove {
+  background: none;
+  border: none;
+  color: #CCC;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color .15s;
+  flex-shrink: 0;
+}
+
+.basket-remove:hover {
+  color: var(--red);
+}
+
+/* ── FOOTER (wraps sticky bar + checkout panel) ── */
+.basket-footer {
+  border-top: 1.5px solid var(--red-light);
+  background: #FFFAFA;
+  flex-shrink: 0;
+}
+
+.basket-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .8rem;
+}
+
+.basket-total-label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.basket-total-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--red-dark);
+}
+
+.basket-item-count {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.promo-wrap {
+  margin: .8rem 0;
+}
+
+.promo-row {
+  display: flex;
+  gap: 8px;
+}
+
+.promo-input {
+  flex: 1;
+  padding: 9px 14px;
+  border: 1.5px solid #E8DED4;
+  border-radius: 12px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.promo-input:focus {
+  border-color: var(--red);
+}
+
+.promo-input.valid {
+  border-color: #25D366;
+}
+
+.promo-input.invalid {
+  border-color: #E53935;
+}
+
+.promo-apply-btn {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .18s;
+}
+
+.promo-apply-btn:hover {
+  background: var(--red-dark);
+}
+
+.promo-apply-btn.applied {
+  background: #25D366;
+}
+
+.promo-msg {
+  font-size: 11.5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: none;
+}
+
+.promo-msg.success {
+  display: block;
+  background: #F0FFF5;
+  color: #1B5E20;
+  border: 1px solid #A5D6A7;
+}
+
+.promo-msg.error {
+  display: block;
+  background: #FFF5F5;
+  color: #B71C1C;
+  border: 1px solid #EF9A9A;
+}
+
+.discount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #25D366;
+  font-weight: 600;
+  margin-bottom: .4rem;
+  padding: 6px 10px;
+  background: #F0FFF5;
+  border-radius: 10px;
+  border: 1px solid #A5D6A7;
+}
+
+.discount-remove {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+}
+
+.discount-remove:hover {
+  color: var(--red);
+}
+
+.basket-divider {
+  height: 1px;
+  background: #F5ECEC;
+  margin: .8rem 0;
+}
+
+.checkout-wa-btn {
+  width: 100%;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.checkout-wa-btn:hover {
+  background: #1da556;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, .4);
+}
+
+.checkout-wa-btn:disabled {
+  background: #CCC;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.basket-continue-btn {
+  width: 100%;
+  background: none;
+  border: 1.5px solid var(--red-light);
+  color: var(--red);
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.basket-continue-btn:hover {
+  background: var(--red-light);
+}
+
+/* Desktop: preview-only continue button + sticky bar + tray chrome
+   are all irrelevant — checkout panel just sits inline as before. */
+.basket-sticky-bar,
+.basket-continue-btn--preview,
+.checkout-tray-overlay,
+.checkout-tray-handle,
+.checkout-tray-head {
+  display: none;
+}
+
+.basket-checkout-panel {
+  padding: 1rem 1.5rem;
+}
+
+.checkout-tray-body {
+  padding: 0;
+}
+
+.checkout-tray-foot {
+  padding: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE (≤700px) — bottom sheet basket + nested checkout tray
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+
+  /* Basket drawer → bottom sheet (unchanged behaviour) */
+  .basket-drawer {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 90vh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    transition: transform .32s cubic-bezier(.32, .72, 0, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .basket-drawer.open {
+    transform: translateY(0);
+  }
+
+  .basket-header {
+    flex-shrink: 0;
+  }
+
+  .basket-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: 0;
+  }
+
+  /* Drag handle pill on the basket sheet itself */
+  .basket-drawer::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--border, #e0e0e0);
+    border-radius: 2px;
+    margin: 10px auto 0;
+    flex-shrink: 0;
+  }
+
+  /* ── Preview screen: slim sticky summary bar ── */
+  .basket-sticky-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .basket-sticky-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .basket-sticky-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--red-dark);
+  }
+
+  .basket-sticky-count {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+
+  .basket-sticky-cta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--red);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 18px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .basket-sticky-arrow {
+    transition: transform .2s;
+  }
+
+  /* Preview-screen Continue Shopping (sits below sticky bar) */
+  .basket-continue-btn--preview {
+    display: block;
+    margin: 0 16px 14px;
+    width: calc(100% - 32px);
+  }
+
+  /* ── Nested checkout tray ── */
+  .checkout-tray-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 10002;
+    background: rgba(0, 0, 0, .4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+
+  .checkout-tray-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .basket-checkout-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10003;
+    width: 100%;
+    max-height: 85vh;
+    background: #FFFAFA;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, .18);
+    transform: translateY(100%);
+    transition: transform .32s cubic-bezier(.32, .72, 0, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .basket-checkout-panel.open {
+    transform: translateY(0);
+  }
+
+  .checkout-tray-handle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--border, #e0e0e0);
+    border-radius: 2px;
+    margin: 10px auto 0;
+    flex-shrink: 0;
+  }
+
+  .checkout-tray-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .checkout-tray-head h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: var(--red-dark);
+  }
+
+  .checkout-tray-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--red-dark);
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  .checkout-tray-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 1.5rem;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .checkout-tray-foot {
+    flex-shrink: 0;
+    padding: 12px 1.5rem 1.2rem;
+  }
+}
