@@ -682,6 +682,10 @@
       document.getElementById('basket-total').textContent = '₹' + total.toLocaleString('en-IN');
       document.getElementById('basket-item-count').textContent = totalItems > 0 ? `${totalItems} item${totalItems > 1 ? 's' : ''} in your basket` : '';
       document.getElementById('checkout-btn').disabled = basket.length === 0;
+      var stickyTotal = document.getElementById('basket-sticky-total');
+      var stickyCount = document.getElementById('basket-sticky-count');
+      if (stickyTotal) stickyTotal.textContent = '₹' + total.toLocaleString('en-IN');
+      if (stickyCount) stickyCount.textContent = totalItems > 0 ? `${totalItems} item${totalItems > 1 ? 's' : ''}` : 'Your basket is empty';
       var waCard = document.getElementById('wa-how-it-works');
       if (waCard) { waCard.classList.toggle('dimmed', basket.length === 0); }
       const discRow = document.getElementById('discount-row');
@@ -767,7 +771,23 @@
     }
 
     function openBasket() { document.getElementById('basket-drawer').classList.add('open'); document.getElementById('basket-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeBasket() { document.getElementById('basket-drawer').classList.remove('open'); document.getElementById('basket-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeBasket() {
+      document.getElementById('basket-drawer').classList.remove('open');
+      document.getElementById('basket-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      closeCheckoutTray(); // collapse nested tray too, so basket re-opens fresh on Preview screen
+    }
+
+    // Nested checkout tray (mobile only — CSS makes this a no-op on desktop
+    // since .basket-checkout-panel sits inline there already)
+    function openCheckoutTray() {
+      document.getElementById('basket-checkout-panel').classList.add('open');
+      document.getElementById('checkout-tray-overlay').classList.add('open');
+    }
+    function closeCheckoutTray() {
+      document.getElementById('basket-checkout-panel').classList.remove('open');
+      document.getElementById('checkout-tray-overlay').classList.remove('open');
+    }
 
     function getProductURL(id) {
       return 'https://mytinythreads.in/products/' + id;
