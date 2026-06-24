@@ -42,6 +42,26 @@
   <link rel="stylesheet" href="./css/filter.css">
 
   <!-- ═══════════════ 1. STYLES ═══════════════ -->
+  <style>
+    /* ── SPLASH MOBILE LAYOUT: branding top, Explore button bottom ──
+       Only active on screens ≤ 700px (same breakpoint as the splash
+       picture mobile/desktop image split). Desktop is untouched. */
+    @media (max-width: 700px) {
+      .splash-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;  /* stack brand/tagline/steps from top */
+        align-items: center;
+        padding-top: 2rem;            /* breathing room at the top */
+        padding-bottom: 1.5rem;       /* space above phone home bar */
+      }
+
+      /* Push Explore button to the very bottom of the card */
+      .splash-explore-btn {
+        margin-top: auto;
+      }
+    }
+  </style>
 
 </head>
 
