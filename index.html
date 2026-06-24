@@ -44,23 +44,147 @@
   <!-- ═══════════════ 1. STYLES ═══════════════ -->
   <style>
     /* ── SPLASH MOBILE LAYOUT: branding top, Explore button bottom ──
-       Only active on screens ≤ 700px (same breakpoint as the splash
-       picture mobile/desktop image split). Desktop is untouched. */
+       Only active on screens ≤ 700px. Desktop layout unchanged. */
     @media (max-width: 700px) {
       .splash-content {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;  /* stack brand/tagline/steps from top */
+        justify-content: flex-start;
         align-items: center;
-        padding-top: 2rem;            /* breathing room at the top */
-        padding-bottom: 1.5rem;       /* space above phone home bar */
+        padding-top: 2rem;
+        padding-bottom: 1.5rem;
       }
-
-      /* Push Explore button to the very bottom of the card */
       .splash-explore-btn {
         margin-top: auto;
       }
     }
+
+    /* ── BASKET ITEM THUMBNAIL ── */
+    .basket-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .basket-item-thumb {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--warm, #faf8f5);
+    }
+    .basket-item-thumb--ph {
+      background: var(--border, #ececec);
+    }
+    .basket-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ── WHATSAPP CHECKOUT REASSURANCE CARD ── */
+    .wa-how-it-works {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0 12px;
+      transition: opacity 0.3s;
+    }
+    .wa-how-it-works.dimmed {
+      opacity: 0.38;
+      pointer-events: none;
+    }
+    .wa-how-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #15803d;
+      margin-bottom: 5px;
+      letter-spacing: 0.01em;
+    }
+    .wa-how-sub {
+      font-size: 11.5px;
+      color: #374151;
+      margin: 0 0 8px;
+      line-height: 1.45;
+    }
+    .wa-how-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .wa-how-steps li {
+      font-size: 11.5px;
+      color: #374151;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.4;
+    }
+    .wa-how-steps li::before {
+      content: "✓";
+      color: #16a34a;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+  /* ── BASKET: BOTTOM SHEET ON MOBILE ──────────────────────────────────────
+     On desktop: drawer stays as a right-side panel (unchanged).
+     On mobile (≤ 700px): drawer becomes a bottom sheet — slides up from
+     the bottom, takes 90vh, header stays at top, footer stays at bottom,
+     basket-body fills all remaining space and scrolls independently.
+     Transition matches the existing .open class trigger so no JS needed.
+  ───────────────────────────────────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .basket-drawer {
+      /* Override side-panel positioning → bottom sheet */
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      height: 90vh;
+      border-radius: 20px 20px 0 0;
+      /* Slide up instead of slide in from right */
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .basket-drawer.open {
+      transform: translateY(0);
+    }
+    /* Make the drawer itself a flex column so body can fill remaining space */
+    .basket-drawer {
+      display: flex;
+      flex-direction: column;
+    }
+    .basket-header {
+      flex-shrink: 0;
+    }
+    .basket-body {
+      flex: 1;           /* fill all space between header and footer */
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* smooth inertia scroll on iOS */
+      min-height: 0;     /* critical — lets flex child shrink below content size */
+    }
+    .basket-footer {
+      flex-shrink: 0;
+    }
+    /* Drag handle pill — visual affordance that this sheet can be dismissed */
+    .basket-drawer::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: var(--border, #e0e0e0);
+      border-radius: 2px;
+      margin: 10px auto 0;
+      flex-shrink: 0;
+    }
+  }
   </style>
 
 </head>
@@ -496,6 +620,16 @@
           style="font-weight:700;color:var(--text);">Total</span><span class="basket-total-val"
           id="basket-total">₹0</span></div>
       <div class="basket-item-count" id="basket-item-count"></div>
+      <div class="wa-how-it-works" id="wa-how-it-works">
+        <div class="wa-how-title">💬 How WhatsApp Checkout works</div>
+        <p class="wa-how-sub">Tapping the button below simply sends your cart to our seller — no payment now.</p>
+        <ul class="wa-how-steps">
+          <li>Seller checks stock &amp; confirms availability</li>
+          <li>Discuss sizing, colours &amp; shipping options</li>
+          <li>Negotiate your best price — it&#39;s encouraged!</li>
+          <li>Pay directly via UPI or Cash on Delivery</li>
+        </ul>
+      </div>
       <button class="checkout-wa-btn" id="checkout-btn" onclick="checkoutWhatsApp()" disabled>
         <svg style="width:20px;height:20px;fill:white;" viewBox="0 0 24 24">
           <path
