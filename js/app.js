@@ -28,8 +28,15 @@
   'use strict';
 
   // ── CONFIG ────────────────────────────────────────────────────────────────
-  // Your Cloudinary video — with q_auto,vc_auto for best mobile compression
-  var SPLASH_VIDEO_URL = 'https://res.cloudinary.com/tinythreads/video/upload/q_auto,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
+  // Desktop video
+  var SPLASH_VIDEO_URL_DESKTOP = 'https://res.cloudinary.com/tinythreads/video/upload/q_auto,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
+
+  // Mobile video — portrait-optimised, replace with your actual Cloudinary URL
+  var SPLASH_VIDEO_URL_MOBILE  = 'https://res.cloudinary.com/tinythreads/video/upload/q_auto,vc_auto/v1782289816/gemini_generated_video_664377c6_tvfvpm.mp4'
+
+
+  // Pick video based on screen width: ≤768 px → mobile, wider → desktop
+  var SPLASH_VIDEO_URL = (window.innerWidth <= 768) ? SPLASH_VIDEO_URL_MOBILE : SPLASH_VIDEO_URL_DESKTOP;
 
   // Poster: first splash photo, portrait crop — shown instantly while video buffers
   // This is your existing splash slide 1 image, resized to mobile dimensions
