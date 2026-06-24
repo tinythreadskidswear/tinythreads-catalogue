@@ -657,7 +657,7 @@
       const bkey = key + '-' + size;
       const existing = basket.find(i => i.key === bkey);
       if (existing) { existing.qty += 1; }
-      else { basket.push({ key: bkey, id: key, name: p.name, desc: `${p.subcategory || ''} · Size: ${size || 'N/A'}`, price: p.price, qty: 1, size }); }
+      else { basket.push({ key: bkey, id: key, name: p.name, desc: `${p.subcategory || ''} · Size: ${size || 'N/A'}`, price: p.price, qty: 1, size, img: (p.images && p.images[0]) ? p.images[0] : '' }); }
       updateBasketUI(); showToast(`Added ${p.name} to basket 🛒`);
       const btn = document.getElementById('abtn-' + key);
       if (btn) { btn.classList.add('added'); btn.textContent = '✓ Added!'; setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = '🛒 Add'; }, 1400); }
@@ -682,6 +682,12 @@
       document.getElementById('basket-total').textContent = '₹' + total.toLocaleString('en-IN');
       document.getElementById('basket-item-count').textContent = totalItems > 0 ? `${totalItems} item${totalItems > 1 ? 's' : ''} in your basket` : '';
       document.getElementById('checkout-btn').disabled = basket.length === 0;
+      var stickyTotal = document.getElementById('basket-sticky-total');
+      var stickyCount = document.getElementById('basket-sticky-count');
+      if (stickyTotal) stickyTotal.textContent = '₹' + total.toLocaleString('en-IN');
+      if (stickyCount) stickyCount.textContent = totalItems > 0 ? `${totalItems} item${totalItems > 1 ? 's' : ''}` : 'Your basket is empty';
+      var waCard = document.getElementById('wa-how-it-works');
+      if (waCard) { waCard.classList.toggle('dimmed', basket.length === 0); }
       const discRow = document.getElementById('discount-row');
       if (appliedPromo && subtotal > 0) {
         discRow.style.display = 'flex';
@@ -692,20 +698,30 @@
       if (mbnBadge) { mbnBadge.textContent = totalItems; mbnBadge.style.display = totalItems > 0 ? 'flex' : 'none'; }
       const body = document.getElementById('basket-body');
       if (basket.length === 0) { body.innerHTML = `<div class="basket-empty"><span class="basket-empty-icon">🛍️</span><p>Your basket is empty.<br>Add items you love and checkout via WhatsApp!</p></div>`; return; }
-      body.innerHTML = basket.map(item => `
-    <div class="basket-item">
-      <div class="basket-item-info">
-        <div class="basket-item-name">${item.name}</div>
-        <div class="basket-item-desc">${item.desc}</div>
-        <div class="basket-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')} ${item.qty > 1 ? `<span style="font-size:11px;font-weight:400;color:var(--muted);">(₹${item.price} × ${item.qty})</span>` : ''}</div>
-        <div class="basket-item-qty">
-          <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
-          <span class="qty-val">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
-        </div>
-      </div>
-      <button class="basket-remove" onclick="removeFromBasket('${item.key}')">✕</button>
-    </div>`).join('');
+      body.innerHTML = basket.map(function(item) {
+        var thumbUrl = item.img
+          ? item.img.replace('/upload/', '/upload/c_fill,w_100,h_100,g_north,q_auto,f_auto/')
+          : '';
+        var thumbHtml = thumbUrl
+          ? '<img class="basket-item-thumb" src="' + thumbUrl + '" alt="' + item.name + '" loading="lazy" onerror="this.style.display=\'none\'">'
+          : '<div class="basket-item-thumb basket-item-thumb--ph"></div>';
+        return '<div class="basket-item">'
+          + thumbHtml
+          + '<div class="basket-item-info">'
+          + '<div class="basket-item-name">' + item.name + '</div>'
+          + '<div class="basket-item-desc">' + item.desc + '</div>'
+          + '<div class="basket-item-price">\u20B9' + (item.price * item.qty).toLocaleString('en-IN')
+          + (item.qty > 1 ? ' <span style="font-size:11px;font-weight:400;color:var(--muted);">(\u20B9' + item.price + ' \xd7 ' + item.qty + ')</span>' : '')
+          + '</div>'
+          + '<div class="basket-item-qty">'
+          + '<button class="qty-btn" onclick="changeQty(\'' + item.key + '\',-1)">−</button>'
+          + '<span class="qty-val">' + item.qty + '</span>'
+          + '<button class="qty-btn" onclick="changeQty(\'' + item.key + '\',1)">+</button>'
+          + '</div>'
+          + '</div>'
+          + '<button class="basket-remove" onclick="removeFromBasket(\'' + item.key + '\')">\u2715</button>'
+          + '</div>';
+      }).join('');
     }
 
     function applyPromo() {
@@ -755,7 +771,23 @@
     }
 
     function openBasket() { document.getElementById('basket-drawer').classList.add('open'); document.getElementById('basket-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeBasket() { document.getElementById('basket-drawer').classList.remove('open'); document.getElementById('basket-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeBasket() {
+      document.getElementById('basket-drawer').classList.remove('open');
+      document.getElementById('basket-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      closeCheckoutTray(); // collapse nested tray too, so basket re-opens fresh on Preview screen
+    }
+
+    // Nested checkout tray (mobile only — CSS makes this a no-op on desktop
+    // since .basket-checkout-panel sits inline there already)
+    function openCheckoutTray() {
+      document.getElementById('basket-checkout-panel').classList.add('open');
+      document.getElementById('checkout-tray-overlay').classList.add('open');
+    }
+    function closeCheckoutTray() {
+      document.getElementById('basket-checkout-panel').classList.remove('open');
+      document.getElementById('checkout-tray-overlay').classList.remove('open');
+    }
 
     function getProductURL(id) {
       return 'https://mytinythreads.in/products/' + id;
