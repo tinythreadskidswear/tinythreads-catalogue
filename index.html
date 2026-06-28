@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="./css/components.css">
   <link rel="stylesheet" href="./css/filter.css">
   <link rel="stylesheet" href="./css/basket.css">
+   <link rel="stylesheet" href="./css/partnerpopup.css">
 
   <!-- ═══════════════ 1. STYLES ═══════════════ -->
   <style>
@@ -746,6 +747,7 @@
       <li><a href="https://tinystone.in">Jewellery &amp; Accessories</a></li>
     </ul>
     <div class="nav-right">
+      <button id="tt-partner-chip" class="tt-partner-chip" style="display:none;"></button>
       <button class="basket-nav-btn" onclick="openBasket()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <span id="nav-basket-count" class="basket-count-badge">0</span>
@@ -1779,6 +1781,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="./js/filter_tray.js"></script>
   <script src="./js/app.js"></script>
+  <script src="./js/partnerpopup.js"></script>
   <script src="./js/features.js"></script>
 
   <!-- ══════════════════════════════════════════════
@@ -1892,7 +1895,96 @@
   </div>
 </div>
 
-<!-- ═══════════════ 4. SCRIPT ═══════════════ -->
+<!-- ============================================
+     TinyThreads — Society Partner Popup
+     Drop this block once in index.html (e.g. just
+     before </body>). Logic lives in partner-popup.js.
+     ============================================ -->
+
+<!-- Backdrop + Sheet (single reusable container, content swapped by JS) -->
+<div id="tt-sheet-backdrop" class="tt-sheet-backdrop"></div>
+<div id="tt-partner-sheet" class="tt-sheet" role="dialog" aria-modal="true">
+  <button class="tt-sheet-close" id="tt-sheet-close" aria-label="Close">✕</button>
+  <div id="tt-sheet-content">
+    <!-- JS injects one of: entry / found / not-found / become-partner -->
+  </div>
+</div>
+
+<!-- ====== Templates (hidden, cloned by JS) ====== -->
+
+<template id="tt-tpl-entry">
+  <div class="tt-sheet-icon-row">✨ 🏡 ✨</div>
+  <p class="tt-sheet-title">Psst... do we have a friend<br>in your building? 🏡</p>
+  <p class="tt-sheet-sub">Find your TinyThreads partner nearby</p>
+
+  <button class="tt-locate-btn" data-action="locate">📍 Use my location</button>
+
+  <div class="tt-society-input-wrap">
+    <input type="text" class="tt-society-input" id="tt-society-input"
+           placeholder="Enter your society name" autocomplete="off">
+    <div class="tt-autocomplete-list" id="tt-autocomplete-list"></div>
+  </div>
+
+  <button class="tt-btn-secondary" data-action="dismiss">Maybe later</button>
+</template>
+
+<template id="tt-tpl-found">
+  <div class="tt-photo-spacer"></div>
+  <p class="tt-sheet-title">Great news! You already<br>have a friend nearby 🎉</p>
+
+  <div class="tt-partner-card">
+    <div class="tt-partner-photo-wrap" id="tt-photo-wrap">
+      <div class="tt-confetti" id="tt-confetti">
+        <span class="tt-spark">✨</span>
+        <span class="tt-spark">⭐</span>
+        <span class="tt-spark">✨</span>
+        <span class="tt-spark">💫</span>
+        <span class="tt-spark">⭐</span>
+        <span class="tt-spark">✨</span>
+      </div>
+      <img class="tt-partner-photo" id="tt-partner-photo" src="" alt="Partner photo">
+    </div>
+    <p class="tt-partner-name" id="tt-partner-name"></p>
+    <p class="tt-partner-role">Your TinyThreads Partner</p>
+    <p class="tt-partner-location" id="tt-partner-location"></p>
+    <div class="tt-partner-badges">
+      <span class="tt-badge" id="tt-partner-rating">⭐ 4.9</span>
+      <span class="tt-badge">✅ Verified</span>
+    </div>
+    <p class="tt-partner-quote" id="tt-partner-quote"></p>
+
+    <a class="tt-btn-primary" id="tt-whatsapp-link" target="_blank" rel="noopener">
+      👋 Say Hi on WhatsApp
+    </a>
+    <button class="tt-btn-secondary" data-action="dismiss">Continue Shopping</button>
+  </div>
+</template>
+
+<template id="tt-tpl-not-found">
+  <div class="tt-sheet-icon-row">🌟 🏡 🌟</div>
+  <p class="tt-sheet-title">We don't have a friend in<br><span id="tt-society-name-echo"></span>... yet!</p>
+  <p class="tt-sheet-sub">Want to be the first? 🌱</p>
+
+  <button class="tt-btn-primary tt-accent" data-action="become-partner">🤝 Become Our Partner</button>
+  <button class="tt-btn-primary" style="background:#444;" data-action="dismiss">🛍️ No worries, shop now</button>
+  <button class="tt-btn-secondary" data-action="retry">Try another society</button>
+</template>
+
+<template id="tt-tpl-become-partner">
+  <div class="tt-sheet-icon-row">🎁 💼 🎁</div>
+  <p class="tt-sheet-title">Want to be <span id="tt-bp-society-name"></span>'s<br>TinyThreads Partner? 🤝</p>
+
+  <ul class="tt-benefit-list">
+    <li>Earn on every order you help bring in</li>
+    <li>Special perks &amp; rewards for your own kids</li>
+    <li>Be the trusted face of TinyThreads in your society</li>
+  </ul>
+
+  <a class="tt-btn-primary" id="tt-bp-whatsapp-link" target="_blank" rel="noopener">
+    📲 I'm Interested
+  </a>
+  <button class="tt-btn-secondary" data-action="dismiss">Maybe later</button>
+</template>
 
 </body>
 
