@@ -282,12 +282,20 @@
       els.chip.parentNode.insertBefore(wrap, els.chip);
       wrap.appendChild(els.chip);
     }
-    wrap.style.display = "inline-flex";
 
-    // Avatar only — no name text, size matches nav logo
-    els.chip.style.display = "inline-flex";
-    els.chip.innerHTML = `<img src="${matchData.photo || "/assets/default-partner.png"}" alt="${matchData.name}">`;
-    els.chip.onclick = () => reopenFromCache(matchData);
+    if (matchData) {
+      // Partner matched — show avatar, remove default class
+      els.chip.classList.remove("tt-partner-chip--default");
+      els.chip.innerHTML = `<img src="${matchData.photo || "/assets/default-partner.png"}" alt="${matchData.name}">`;
+      els.chip.title = matchData.name + " · Your TinyThreads Partner";
+      els.chip.onclick = () => reopenFromCache(matchData);
+    } else {
+      // No match yet — show store icon, keep default class
+      els.chip.classList.add("tt-partner-chip--default");
+      els.chip.innerHTML = "🏪";
+      els.chip.title = "Find your TinyThreads Partner";
+      els.chip.onclick = () => { showEntry(); openSheet(); };
+    }
   }
 
   function reopenFromCache(matchData) {
@@ -306,10 +314,13 @@
         const matchData = JSON.parse(cached);
         renderChip(matchData);
       } catch (e) {
+        renderChip(null);
         showEntry();
         openSheet();
       }
     } else {
+      // No match yet — chip shows 🏪 icon; sheet auto-opens after brief delay
+      renderChip(null);
       showEntry();
       setTimeout(openSheet, 600);
     }
