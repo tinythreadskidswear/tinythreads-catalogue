@@ -878,11 +878,28 @@ footer { background: var(--red-dark); color: #FFCDD2; padding: 2.5rem 2rem 1.5re
   height: 66px;
   box-shadow: 0 -2px 16px rgba(0,0,0,.06);
   overflow: hidden;
+  align-items: stretch;
+  padding-left: 8px;
+}
+
+/* Pinned Account tab — sits outside the scroll track, never moves */
+.mob-nav-item--pinned {
+  flex: 0 0 calc((100% - 16px) / 5);
+  position: relative;
+}
+.mob-nav-item--pinned::after {
+  content: '';
+  position: absolute;
+  top: 10px; bottom: 10px; right: 0;
+  width: 1px;
+  background: #F0E8E8;
 }
 
 .mob-nav-track {
   display: flex; align-items: center; gap: 0;
   height: 100%;
+  flex: 1;
+  min-width: 0;
   padding: 0 8px;
   overflow-x: auto; overflow-y: hidden;
   scroll-behavior: smooth;
@@ -1336,7 +1353,7 @@ footer { background: var(--red-dark); color: #FFCDD2; padding: 2.5rem 2rem 1.5re
   .basket-drawer.open { bottom: 0; }
 
   /* Mobile bottom nav — show */
-  .mobile-bottom-nav { display: block; }
+  .mobile-bottom-nav { display: flex; }
   body { padding-bottom: 66px; }
 
   /* Lightbox arrows */

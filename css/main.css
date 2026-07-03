@@ -395,6 +395,50 @@ nav {
   background: var(--red-dark);
 }
 
+/* Partner button — stacked icon + label, sits beside the basket button */
+.tt-partner-navbtn {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid #E0D8D6;
+  padding: 5px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.tt-partner-navbtn:hover {
+  border-color: var(--red);
+  box-shadow: 0 2px 8px rgba(192,57,43,.12);
+}
+
+.tt-partner-navbtn-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tt-partner-navbtn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.tt-partner-navbtn-icon img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 /* WhatsApp / Instagram links */
 .wa-btn {
   background: transparent;
@@ -867,6 +911,10 @@ nav {
 
   /* Cart button tighter on mobile */
   .basket-nav-btn { padding: 6px 12px; font-size: 12px; gap: 5px; }
+
+  /* Partner button tighter on mobile */
+  .tt-partner-navbtn { padding: 4px 9px; }
+  .tt-partner-navbtn-label { font-size: 8.5px; }
 
   /* Hero responsive */
   .hero { padding: 2rem 1.25rem 1.8rem; min-height: auto; }

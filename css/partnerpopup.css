@@ -137,21 +137,21 @@
 /* Spacer reserves flow-space so the photo's dip into the sheet
    never overlaps the title/name text below it */
 .tt-photo-spacer {
-  height: 80px;
+  height: var(--tt-photo-spacer, 80px);
 }
 
 .tt-partner-photo-wrap {
   position: absolute;       /* positions relative to #tt-partner-sheet (fixed ancestor) */
-  top: -210px;
+  top: calc(-1 * var(--tt-photo-rise, 210px));
   left: 50%;
   transform: translateX(-50%) translateY(0);
-  width: 280px;
-  height: 280px;
+  width: var(--tt-photo-size, 280px);
+  height: var(--tt-photo-size, 280px);
   z-index: 5;
   pointer-events: none;
   /* Hidden by default — only visible when the sheet is open */
   opacity: 0;
-  transition: opacity .2s ease, transform .35s cubic-bezier(.2,.8,.2,1);
+  transition: opacity .2s ease, transform .35s cubic-bezier(.2,.8,.2,1), top .2s ease, width .2s ease, height .2s ease;
 }
 
 /* Slide the photo in sync with the sheet: when sheet is open, photo is visible */
@@ -378,6 +378,30 @@
   display: block;
 }
 
+/* Nav-bar context: strip the floating-FAB chrome (border, fill,
+   shadow, fixed 54px circle) — the nav button should show just the
+   circular photo + label text, no surrounding ring or background. */
+.tt-partner-navbtn.tt-partner-chip {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+.tt-partner-navbtn.tt-partner-chip:hover {
+  box-shadow: none;
+  transform: none;
+}
+/* Higher specificity than ".tt-partner-chip img" so the small avatar
+   size actually wins instead of being stretched to fill 54px. */
+.tt-partner-chip .tt-partner-navbtn-avatar {
+  width: 26px;
+  height: 26px;
+}
+
 /* CSS tooltip — appears above the chip on hover */
 .tt-partner-chip-wrap::after {
   content: "TinyThreads Partner";
@@ -421,6 +445,38 @@
 
 @media (max-width: 380px) {
   .tt-sheet { padding: 16px 16px 22px; }
+}
+
+/* ============================================
+   Nav partner button — "identified" state
+   Swaps the generic icon for the partner's photo
+   once a partner has been found. Just the circular
+   photo + label — no extra ring or background circle.
+   ============================================ */
+
+.tt-partner-navbtn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tt-partner-navbtn-avatar {
+  display: none;           /* hidden until identified */
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;    /* crop from the top down — face stays visible */
+  border: 2px solid var(--tt-accent);
+  background: #fff;
+}
+
+.tt-partner-chip--identified .tt-partner-navbtn-icon svg {
+  display: none;
+}
+
+.tt-partner-chip--identified .tt-partner-navbtn-avatar {
+  display: block;
 }
 /* --- Autocomplete: richer item layout (name + area/pin meta) --- */
 .tt-autocomplete-item {
