@@ -1,8 +1,13 @@
 // ════════════════════════════════════════════════════════════
-// TINY THREADS — account.js
+// TINY THREADS — account.js (Account V2)
 // Customer account: session management, login modal, OTP flow,
-// order history, order detail. Pure plug-in — no existing JS touched.
+// account dashboard, order history, order detail.
+// Pure plug-in — no existing JS touched.
 // Load this AFTER app.js in index.html.
+//
+// NOTE: All Supabase calls, session logic, OTP logic, order
+// fetching, and public function names are UNCHANGED from the
+// previous version. Only rendering / UI layer was modernized.
 // ════════════════════════════════════════════════════════════
 
 (function () {
@@ -25,6 +30,7 @@
   let _resendSeconds = 0;
   let _currentOrders = [];     // cached order list
   let _currentOrder  = null;   // order being viewed in detail
+  let _customerName  = '';     // best-known display name, derived from latest order
 
   // ── SUPABASE HELPERS ──────────────────────────────────────
   async function sbFetch(path, opts = {}) {
@@ -75,52 +81,75 @@
   function clearSession() {
     localStorage.removeItem(SESS_KEY);
     _session = null;
+    _customerName = '';
     updateNavAvatar();
   }
 
-  // ── NAV AVATAR ────────────────────────────────────────────
-  // Kids avatar SVG — cheerful child face
-  function kidsAvatarSVG(size = 36) {
-    return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Head -->
-      <circle cx="32" cy="30" r="18" fill="#FFCC8A"/>
-      <!-- Hair -->
-      <path d="M14 24C14 24 16 10 32 10C48 10 50 24 50 24" fill="#5C3317"/>
-      <ellipse cx="14" cy="26" rx="4" ry="6" fill="#5C3317"/>
-      <ellipse cx="50" cy="26" rx="4" ry="6" fill="#5C3317"/>
-      <!-- Eyes -->
-      <circle cx="24" cy="28" r="3" fill="#3D2B1F"/>
-      <circle cx="40" cy="28" r="3" fill="#3D2B1F"/>
-      <circle cx="25" cy="27" r="1" fill="white"/>
-      <circle cx="41" cy="27" r="1" fill="white"/>
-      <!-- Cheeks -->
-      <ellipse cx="20" cy="34" rx="4" ry="2.5" fill="#FFB3A0" opacity=".6"/>
-      <ellipse cx="44" cy="34" rx="4" ry="2.5" fill="#FFB3A0" opacity=".6"/>
-      <!-- Smile -->
-      <path d="M24 37 Q32 44 40 37" stroke="#C0392B" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <!-- Body -->
-      <path d="M16 54 Q20 46 32 46 Q44 46 48 54" fill="#C0392B"/>
-      <!-- Collar dots -->
-      <circle cx="29" cy="48" r="1.5" fill="white" opacity=".7"/>
-      <circle cx="32" cy="47" r="1.5" fill="white" opacity=".7"/>
-      <circle cx="35" cy="48" r="1.5" fill="white" opacity=".7"/>
-    </svg>`;
+  // ── AVATAR (initials, gradient generated from mobile number) ──
+  // Per design spec: no SVG avatar — initials in a gradient circle,
+  // with the gradient derived deterministically from the phone number
+  // so the same customer always sees the same colours.
+  function hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash);
   }
 
+  function avatarGradient(mobile) {
+    const h = hashString(mobile || '0000000000');
+    const hue1 = h % 360;
+    const hue2 = (hue1 + 46) % 360;
+    return `linear-gradient(135deg, hsl(${hue1} 78% 60%), hsl(${hue2} 82% 52%))`;
+  }
+
+  function getInitials(name, mobile) {
+    if (name && name.trim()) {
+      const parts = name.trim().split(/\s+/).filter(Boolean);
+      if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    }
+    if (mobile) return mobile.slice(-2);
+    return 'TT';
+  }
+
+  // size: pixel size of the circle. extraClass: additional class names.
+  function avatarHTML(mobile, name, size, extraClass) {
+    const initials = getInitials(name, mobile);
+    const gradient = avatarGradient(mobile || '');
+    const fontSize = Math.round(size * 0.4);
+    return `<div class="acc-avatar-initials ${extraClass || ''}" style="width:${size}px;height:${size}px;font-size:${fontSize}px;background:${gradient};">${initials}</div>`;
+  }
+
+  // ── NAV AVATAR ────────────────────────────────────────────
+  // Account access lives only inside the mob-menu drawer (mmh-account-row),
+  // not the top nav bar. This keeps the guest/logged-in card in sync with _session.
   function updateNavAvatar() {
-    const btn = document.getElementById('mn-account');
-    if (!btn) return;
-    const icon = btn.querySelector('.mob-nav-icon');
-    if (!icon) return;
+    const guestEl  = document.getElementById('mmh-guest');
+    const userEl   = document.getElementById('mmh-user');
+    const avatarEl = document.getElementById('mmh-user-avatar');
+    const mobileEl = document.getElementById('mmh-user-mobile');
+    if (!guestEl || !userEl) return;
 
     if (_session) {
-      icon.innerHTML = `<div class="acc-nav-avatar logged-in">${kidsAvatarSVG(22)}</div>`;
-      btn.classList.add('logged-in');
+      guestEl.style.display = 'none';
+      userEl.style.display  = 'flex';
+      if (avatarEl) avatarEl.innerHTML = avatarHTML(_session.mobile, _customerName, 30);
+      if (mobileEl) mobileEl.textContent = formatMobile(_session.mobile);
     } else {
-      icon.innerHTML = `<div class="acc-nav-avatar">${kidsAvatarSVG(22)}</div>`;
-      btn.classList.remove('logged-in');
+      guestEl.style.display = 'flex';
+      userEl.style.display  = 'none';
     }
   }
+
+  // Tap target for the logged-in card in the drawer — closes the drawer
+  // then opens the account menu sheet.
+  window._mmhOpenAccount = function () {
+    if (typeof closeMobMenu === 'function') closeMobMenu();
+    setTimeout(openAccountMenu, 200);
+  };
 
   // ── OTP OPERATIONS ────────────────────────────────────────
   async function sendOTP(mobile) {
@@ -235,6 +264,12 @@
     return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
+  function formatDateShort(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+  }
+
   function formatMobile(m) {
     return '+91 ' + m.replace(/(\d{5})(\d{5})/, '$1 $2');
   }
@@ -256,6 +291,34 @@
       cancelled: 'This order was cancelled per your request.'
     }[s] || '';
   }
+
+  function greetingText() {
+    const h = new Date().getHours();
+    if (h < 5)  return 'Good night';
+    if (h < 12) return 'Good morning';
+    if (h < 17) return 'Good afternoon';
+    if (h < 21) return 'Good evening';
+    return 'Good night';
+  }
+
+  function itemThumbURL(item) {
+    return item && (item.image || item.image_url || item.img || item.thumbnail || item.photo) || '';
+  }
+
+  // ── SIMPLE TOAST (used only if app.js's own showToast is unavailable) ──
+  function toast(msg) {
+    if (typeof showToast === 'function') { showToast(msg); return; }
+    const t = document.createElement('div');
+    t.className = 'acc-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 2200);
+  }
+
+  window._accComingSoon = function (label) {
+    toast((label || 'This feature') + ' is coming soon ✨');
+  };
 
   // ── RESEND TIMER ──────────────────────────────────────────
   function startResendTimer() {
@@ -280,7 +343,7 @@
   window._accResend = async function () {
     if (!_currentMobile) return;
     const btn = document.getElementById('acc-resend-btn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; btn.classList.add('acc-btn-sending'); }
     clearMsg('acc-otp-msg');
     try {
       await sendOTP(_currentMobile);
@@ -288,7 +351,7 @@
       startResendTimer();
     } catch(e) {
       showMsg('acc-otp-msg', 'error', 'Could not resend. Please try again.');
-      if (btn) { btn.disabled = false; btn.textContent = 'Resend OTP'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Resend OTP'; btn.classList.remove('acc-btn-sending'); }
     }
   };
 
@@ -301,9 +364,15 @@
   function closeOverlay() {
     document.getElementById('acc-overlay').classList.remove('open');
     document.getElementById('acc-login-sheet').classList.remove('open');
-    document.getElementById('acc-menu-sheet').classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  // ── KEYBOARD / FOCUS ACCESSIBILITY ────────────────────────
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    const overlay = document.getElementById('acc-overlay');
+    if (overlay && overlay.classList.contains('open')) closeOverlay();
+  });
 
   // ── LOGIN SHEET ───────────────────────────────────────────
   function openLoginSheet() {
@@ -331,12 +400,14 @@
     if (!/^\d{10}$/.test(mobile)) {
       showMsg('acc-mobile-msg', 'error', 'Please enter a valid 10-digit mobile number.');
       inp && inp.focus();
+      inp && inp.classList.add('acc-shake');
+      setTimeout(() => inp && inp.classList.remove('acc-shake'), 500);
       return;
     }
 
     clearMsg('acc-mobile-msg');
     const btn = document.getElementById('acc-send-otp-btn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; btn.classList.add('acc-btn-sending'); }
 
     try {
       const result = await sendOTP(mobile);
@@ -345,6 +416,11 @@
       // Update OTP step header
       const numDisplay = document.getElementById('acc-otp-number');
       if (numDisplay) numDisplay.textContent = formatMobile(mobile);
+
+      // Clear any stale OTP box values from a previous attempt
+      document.querySelectorAll('.acc-otp-box').forEach(function (b) {
+        b.value = ''; b.classList.remove('filled');
+      });
 
       showStep('acc-step-otp');
       startResendTimer();
@@ -364,7 +440,7 @@
     } catch(e) {
       showMsg('acc-mobile-msg', 'error', 'Could not send OTP. Please try again.');
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = 'Send OTP'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Send OTP via WhatsApp'; btn.classList.remove('acc-btn-sending'); }
     }
   };
 
@@ -393,7 +469,7 @@
 
     clearMsg('acc-otp-msg');
     const btn = document.getElementById('acc-verify-btn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Verifying...'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Verifying...'; btn.classList.add('acc-btn-sending'); }
 
     try {
       const result = await verifyOTP(_currentMobile, code);
@@ -401,6 +477,11 @@
       if (!result.success) {
         showMsg('acc-otp-msg', 'error', result.reason || 'Verification failed.');
         // Shake OTP boxes
+        const wrap = document.querySelector('.acc-otp-wrap');
+        if (wrap) {
+          wrap.classList.add('acc-shake');
+          setTimeout(function () { wrap.classList.remove('acc-shake'); }, 500);
+        }
         boxes.forEach(function (b) {
           b.style.borderColor = '#E53935';
           setTimeout(function () { b.style.borderColor = ''; }, 1200);
@@ -418,13 +499,13 @@
 
       setTimeout(function () {
         closeOverlay();
-        openAccountMenu();
-      }, 900);
+        showWelcomeBack(result.mobile);
+      }, 700);
 
     } catch(e) {
       showMsg('acc-otp-msg', 'error', 'Something went wrong. Please try again.');
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = 'Verify & Login'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Verify & Login'; btn.classList.remove('acc-btn-sending'); }
     }
   };
 
@@ -462,18 +543,160 @@
     });
   }
 
-  // ── ACCOUNT MENU SHEET ────────────────────────────────────
+  // ── WELCOME BACK TRANSITION ───────────────────────────────
+  function showWelcomeBack(mobile) {
+    const el = document.getElementById('acc-welcome-screen');
+    if (!el) { openAccountMenu(); return; }
+
+    el.querySelector('.acc-welcome-avatar').innerHTML = avatarHTML(mobile, _customerName, 84);
+    el.classList.add('open');
+
+    setTimeout(function () {
+      el.classList.remove('open');
+      openAccountMenu();
+    }, 1400);
+  }
+
+  // ── ACCOUNT DASHBOARD (formerly a small menu sheet — now a full page) ──
   function openAccountMenu() {
     if (!_session) { openLoginSheet(); return; }
 
-    // Populate profile info
-    const nameEl   = document.getElementById('acc-menu-name');
-    const mobileEl = document.getElementById('acc-menu-mobile-display');
-    if (nameEl)   nameEl.textContent   = 'My Account';
-    if (mobileEl) mobileEl.textContent = formatMobile(_session.mobile);
+    if (typeof showPage === 'function') showPage('account');
+    renderDashboardSkeleton();
+    loadDashboard();
+  }
 
-    openOverlay();
-    document.getElementById('acc-menu-sheet').classList.add('open');
+  function renderDashboardSkeleton() {
+    const el = document.getElementById('acc-dashboard-content');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="acc-profile-hero">
+        <div class="acc-skel acc-skel-avatar"></div>
+        <div class="acc-skel acc-skel-line" style="width:60%;margin-top:18px;"></div>
+        <div class="acc-skel acc-skel-line" style="width:40%;margin-top:10px;height:26px;"></div>
+      </div>
+      <div class="acc-stats">
+        <div class="acc-skel acc-skel-card"></div>
+        <div class="acc-skel acc-skel-card"></div>
+        <div class="acc-skel acc-skel-card"></div>
+      </div>
+      <div class="acc-skel acc-skel-block" style="margin:20px;"></div>`;
+  }
+
+  async function loadDashboard() {
+    const orders = await fetchOrders(_session.mobile);
+    _currentOrders = orders;
+
+    // Derive best-known display name from most recent order that has one
+    const named = orders.find(function (o) { return o.customer_name && o.customer_name.trim(); });
+    _customerName = named ? named.customer_name.trim() : '';
+    updateNavAvatar();
+
+    renderDashboard(orders);
+  }
+
+  function renderDashboard(orders) {
+    const el = document.getElementById('acc-dashboard-content');
+    if (!el) return;
+
+    const memberSince = orders.length
+      ? formatDate(orders[orders.length - 1].created_at)
+      : null;
+
+    el.innerHTML =
+      renderHero() +
+      renderStats(orders, memberSince) +
+      renderRecentOrder(orders[0]) +
+      renderQuickActions() +
+      `<div class="acc-logout" onclick="window._accLogout()">Logout</div>`;
+  }
+
+  function renderHero() {
+    return `
+      <div class="acc-profile-hero">
+        ${avatarHTML(_session.mobile, _customerName, 82)}
+        <div class="acc-greeting">${greetingText()}${_customerName ? ',' : ''}</div>
+        <div class="acc-name">${_customerName || 'My Account'}</div>
+        <div class="acc-mobile">📱 ${formatMobile(_session.mobile)}</div>
+        <div class="acc-verified">✓ Verified Customer</div>
+      </div>`;
+  }
+
+  function renderStats(orders, memberSince) {
+    return `
+      <div class="acc-stats">
+        <div class="acc-stat">
+          <div class="acc-stat-value">${orders.length}</div>
+          <div class="acc-stat-label">Orders</div>
+        </div>
+        <div class="acc-stat">
+          <div class="acc-stat-value">${orders.length ? '🎉' : '👋'}</div>
+          <div class="acc-stat-label">${memberSince ? 'Since ' + memberSince : 'New Member'}</div>
+        </div>
+        <div class="acc-stat">
+          <div class="acc-stat-value">24/7</div>
+          <div class="acc-stat-label">Support</div>
+        </div>
+      </div>`;
+  }
+
+  function renderRecentOrder(order) {
+    if (!order) {
+      return `
+        <div class="acc-last-order acc-empty-inline">
+          <span class="acc-empty-inline-icon">🛍️</span>
+          <div class="acc-empty-inline-text">
+            <div class="acc-empty-inline-title">No orders yet</div>
+            <div class="acc-empty-inline-sub">Your first order will show up here.</div>
+          </div>
+        </div>`;
+    }
+
+    const items  = Array.isArray(order.cart_detail) ? order.cart_detail : [];
+    const status = (order.status || 'pending').toLowerCase();
+    const total  = parseFloat(order.total || order.subtotal || 0);
+    const thumb  = itemThumbURL(items[0]);
+    const shortId = order.id ? String(order.id).slice(0, 8).toUpperCase() : 'ORDER';
+
+    return `
+      <div class="acc-section-title">Recent Order</div>
+      <div class="acc-last-order" onclick="window._accOpenOrderDetail('${order.id}')">
+        <div class="acc-last-order-row">
+          <div class="acc-last-order-thumb">${thumb ? `<img src="${thumb}" alt="" loading="lazy">` : '👕'}</div>
+          <div class="acc-last-order-info">
+            <div class="acc-last-order-top">
+              <span class="order-status ${status}">${statusLabel(status)}</span>
+              <span class="acc-last-order-date">${formatDateShort(order.created_at)}</span>
+            </div>
+            <div class="acc-last-order-id">#${shortId} · ${items.length} item${items.length !== 1 ? 's' : ''}</div>
+            <div class="acc-last-order-price">₹${total.toLocaleString('en-IN')}</div>
+          </div>
+        </div>
+        <button class="acc-secondary-btn" onclick="event.stopPropagation(); window._accOpenOrderDetail('${order.id}')">View Order</button>
+      </div>`;
+  }
+
+  function renderQuickActions() {
+    const actions = [
+      { icon: '📦', title: 'Orders',    sub: 'Track and view your orders',   onclick: "window._accOpenOrders()" },
+      { icon: '💛', title: 'Wishlist',  sub: 'Coming Soon',                  onclick: "window._accComingSoon('Wishlist')", soon: true },
+      { icon: '📍', title: 'Addresses', sub: 'Coming Soon',                  onclick: "window._accComingSoon('Addresses')", soon: true },
+      { icon: '🎁', title: 'Offers',    sub: 'Season caps & deals',          onclick: "window._accComingSoon('Offers')", soon: true },
+      { icon: '💬', title: 'Support',   sub: 'Chat with us on WhatsApp',     onclick: "window.open('https://wa.me/917879976016?text=Hi%20Tiny%20Threads!','_blank')" },
+      { icon: '⚙️', title: 'Settings',  sub: 'Coming Soon',                  onclick: "window._accComingSoon('Settings')", soon: true }
+    ];
+
+    return `
+      <div class="acc-section-title">Quick Actions</div>
+      <div class="acc-menu-grid">
+        ${actions.map(function (a) {
+          return `<div class="acc-menu-card" onclick="${a.onclick}">
+            <div class="acc-icon">${a.icon}</div>
+            <div class="acc-menu-title">${a.title}${a.soon ? ' <span class=\"acc-soon-badge\">Soon</span>' : ''}</div>
+            <div class="acc-menu-sub">${a.sub}</div>
+          </div>`;
+        }).join('')}
+      </div>`;
   }
 
   // ── LOGOUT ────────────────────────────────────────────────
@@ -485,7 +708,8 @@
     }
     clearSession();
     closeOverlay();
-    if (typeof showToast === 'function') showToast('Logged out successfully');
+    if (typeof showPage === 'function') showPage('home');
+    toast('Logged out successfully');
   };
 
   // ── ORDER HISTORY PAGE ────────────────────────────────────
@@ -497,12 +721,21 @@
     if (typeof showPage === 'function') showPage('orders');
 
     const body = document.getElementById('orders-body-content');
-    if (body) body.innerHTML = '<div class="orders-loading"><div class="spinner"></div>Loading your orders...</div>';
+    if (body) body.innerHTML = ordersSkeletonHTML();
 
-    const orders = await fetchOrders(_session.mobile);
+    // Reuse cached orders if we already have them from the dashboard load,
+    // otherwise fetch fresh.
+    const orders = _currentOrders.length ? _currentOrders : await fetchOrders(_session.mobile);
     _currentOrders = orders;
     renderOrderList(orders);
   };
+
+  function ordersSkeletonHTML() {
+    return `
+      <div class="acc-skel acc-skel-block" style="margin-bottom:14px;"></div>
+      <div class="acc-skel acc-skel-block" style="margin-bottom:14px;"></div>
+      <div class="acc-skel acc-skel-block"></div>`;
+  }
 
   function renderOrderList(orders) {
     const body = document.getElementById('orders-body-content');
@@ -527,6 +760,7 @@
       const moreCount = items.length - 2;
       const status   = (order.status || 'pending').toLowerCase();
       const total    = parseFloat(order.total || order.subtotal || 0);
+      const thumb    = itemThumbURL(items[0]);
 
       const previewHTML = preview.map(function (item) {
         return `<div class="order-item-preview-row">
@@ -547,11 +781,15 @@
           <span class="order-status ${status}">${statusLabel(status)}</span>
         </div>
         <div class="order-card-body">
+          ${thumb ? `<div class="order-card-thumb"><img src="${thumb}" alt="" loading="lazy"></div>` : ''}
           <div class="order-card-date">📅 ${formatDate(order.created_at)}</div>
           <div class="order-items-preview">${previewHTML}${moreHTML}</div>
           <div class="order-card-foot">
             <div class="order-card-total">₹${total.toLocaleString('en-IN')} <span>· ${items.length} item${items.length !== 1 ? 's' : ''}</span></div>
-            <div class="order-card-arrow">View details ›</div>
+            <div class="order-card-actions">
+              <button class="acc-secondary-btn acc-buy-again-btn" onclick="event.stopPropagation(); window._accComingSoon('Buy Again')">Buy Again</button>
+              <div class="order-card-arrow">View details ›</div>
+            </div>
           </div>
         </div>
       </div>`;
@@ -575,24 +813,40 @@
 
   // ── ORDER DETAIL ──────────────────────────────────────────
   window._accOpenOrderDetail = function (orderId) {
-    console.log('Opening order detail for ID:', orderId);
     const order = _currentOrders.find(function (o) { return String(o.id) === String(orderId); });
     if (!order) {
       console.error('Order not found:', orderId);
       return;
     }
     _currentOrder = order;
-    console.log('Found order:', order);
 
     // Show the page
     showPage('order-detail');
-    
+
     // Render the detail
     setTimeout(function () {
       renderOrderDetail(order);
       window.scrollTo(0, 0);
     }, 100);
   };
+
+  const TIMELINE_STEPS = ['pending', 'confirmed', 'shipped', 'delivered'];
+  const TIMELINE_LABELS = { pending: 'Placed', confirmed: 'Confirmed', shipped: 'Shipped', delivered: 'Delivered' };
+
+  function renderTimeline(status) {
+    if (status === 'cancelled') return '';
+    const currentIdx = TIMELINE_STEPS.indexOf(status);
+    return `
+      <div class="order-timeline">
+        ${TIMELINE_STEPS.map(function (step, idx) {
+          const state = idx < currentIdx ? 'done' : idx === currentIdx ? 'current' : 'upcoming';
+          return `<div class="order-timeline-step ${state}">
+            <div class="order-timeline-dot"></div>
+            <div class="order-timeline-label">${TIMELINE_LABELS[step]}</div>
+          </div>`;
+        }).join('<div class="order-timeline-connector"></div>')}
+      </div>`;
+  }
 
   function renderOrderDetail(order) {
     const body   = document.getElementById('order-detail-body-content');
@@ -612,8 +866,9 @@
     // Items HTML
     const itemsHTML = items.map(function (item, idx) {
       const itemTotal = parseFloat(item.price || 0) * (parseInt(item.quantity) || 1);
+      const thumb = itemThumbURL(item);
       return `<div class="order-detail-item">
-        <div class="order-detail-item-num">${idx + 1}</div>
+        ${thumb ? `<div class="order-detail-item-thumb"><img src="${thumb}" alt="" loading="lazy"></div>` : `<div class="order-detail-item-num">${idx + 1}</div>`}
         <div class="order-detail-item-info">
           <div class="order-detail-item-name">${item.product_name || item.name || 'Item'}</div>
           <div class="order-detail-item-meta">
@@ -636,7 +891,7 @@
           ${order.area ? order.area + ', ' : ''}${order.city || ''} — ${order.pincode || ''}<br>
           ${order.state || ''}
         </p>
-      </div>` : `<div class="order-detail-address"><p style="color:var(--muted);font-size:13px;">Address not provided at checkout.</p></div>`;
+      </div>` : `<div class="order-detail-address"><p style="color:var(--acc-muted);font-size:13px;">Address not provided at checkout.</p></div>`;
 
     // WA help message
     const waMsg = encodeURIComponent(
@@ -654,6 +909,8 @@
           <div class="order-status-desc">${statusDesc(status)}</div>
         </div>
       </div>
+
+      ${renderTimeline(status)}
 
       <!-- Order meta -->
       <div class="order-detail-section">
@@ -717,6 +974,9 @@
           </svg>
           Need help with this order?
         </a>
+        <button class="acc-secondary-btn acc-invoice-btn" onclick="window._accComingSoon('Invoice download')">
+          🧾 Download Invoice
+        </button>
       </div>`;
   }
 
@@ -740,6 +1000,9 @@
     const loginSheet = document.createElement('div');
     loginSheet.id = 'acc-login-sheet';
     loginSheet.className = 'acc-login-sheet';
+    loginSheet.setAttribute('role', 'dialog');
+    loginSheet.setAttribute('aria-modal', 'true');
+    loginSheet.setAttribute('aria-label', 'Sign in to Tiny Threads');
     loginSheet.innerHTML = `
       <div class="acc-sheet-handle"></div>
       <div class="acc-sheet-head">
@@ -748,28 +1011,34 @@
       </div>
 
       <div class="acc-login-avatar">
-        ${kidsAvatarSVG(80)}
+        ${avatarHTML('0000000000', '', 80, 'acc-login-illustration')}
         <p class="acc-login-tagline">Sign in to track your orders and get a personalised shopping experience.</p>
       </div>
 
+      <ul class="acc-login-benefits">
+        <li><span class="acc-benefit-icon">📦</span> Track every order in real time</li>
+        <li><span class="acc-benefit-icon">⚡</span> Faster checkout next time</li>
+        <li><span class="acc-benefit-icon">🎁</span> Early access to offers &amp; drops</li>
+      </ul>
+
       <div class="acc-login-body">
-        ${OTP_DEV_MODE ? '<div class="acc-dev-badge">🛠 Dev Mode — use code ' + DEV_OTP_CODE + '</div>' : ''}
+       <!-- ${OTP_DEV_MODE ? '<div class="acc-dev-badge">🛠 Dev Mode — use code ' + DEV_OTP_CODE + '</div>' : ''} -->
 
         <!-- Step 1: Mobile number -->
         <div class="acc-step active" id="acc-step-mobile">
-          <div id="acc-mobile-msg" class="acc-msg"></div>
+          <div id="acc-mobile-msg" class="acc-msg" aria-live="polite"></div>
           <label class="acc-field-label" for="acc-mobile-input">Mobile Number</label>
           <div class="acc-mobile-wrap">
             <span class="acc-mobile-prefix">🇮🇳 +91</span>
             <input class="acc-mobile-input" id="acc-mobile-input" type="tel"
               inputmode="numeric" maxlength="10" placeholder="10-digit number"
-              autocomplete="tel"
+              autocomplete="tel" aria-label="Mobile number"
               onkeydown="if(event.key==='Enter') window._accSendOTP()">
           </div>
           <button class="acc-primary-btn" id="acc-send-otp-btn" onclick="window._accSendOTP()">
             Send OTP via WhatsApp
           </button>
-          <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.5;">
+          <p style="font-size:11.5px;color:var(--acc-muted);text-align:center;margin-top:8px;line-height:1.5;">
             We'll send a verification code to your WhatsApp
           </p>
         </div>
@@ -780,13 +1049,13 @@
             Code sent to <strong id="acc-otp-number"></strong>
             <button onclick="window._accChangeNumber()">Change</button>
           </div>
-          <div id="acc-otp-msg" class="acc-msg"></div>
+          <div id="acc-otp-msg" class="acc-msg" aria-live="polite"></div>
           <label class="acc-field-label">Enter 4-digit OTP</label>
           <div class="acc-otp-wrap">
-            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
-            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1">
-            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1">
-            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1">
+            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="OTP digit 1">
+            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 2">
+            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 3">
+            <input class="acc-otp-box" type="tel" inputmode="numeric" maxlength="1" aria-label="OTP digit 4">
           </div>
           <button class="acc-primary-btn" id="acc-verify-btn" onclick="window._accVerifyOTP()">
             Verify & Login
@@ -798,46 +1067,36 @@
       </div>`;
     document.body.appendChild(loginSheet);
 
-    // 3. Account menu sheet
-    const menuSheet = document.createElement('div');
-    menuSheet.id = 'acc-menu-sheet';
-    menuSheet.className = 'acc-menu-sheet';
-    menuSheet.innerHTML = `
-      <div class="acc-sheet-handle"></div>
-      <div class="acc-sheet-head" style="padding-bottom:0;">
-        <div class="acc-sheet-title">My Account</div>
-        <button class="acc-sheet-close" onclick="document.getElementById('acc-overlay').click()" aria-label="Close">✕</button>
-      </div>
-      <div class="acc-menu-profile">
-        <div class="acc-menu-avatar">${kidsAvatarSVG(36)}</div>
-        <div class="acc-menu-info">
-          <div class="acc-menu-name" id="acc-menu-name">My Account</div>
-          <div class="acc-menu-mobile">
-            <span id="acc-menu-mobile-display"></span>
-            <span class="acc-verified-chip">✓ Verified</span>
-          </div>
-        </div>
-      </div>
-      <ul class="acc-menu-list">
-        <li class="acc-menu-item" onclick="window._accOpenOrders()">
-          <div class="acc-menu-item-icon orders">📦</div>
-          <div class="acc-menu-item-text">
-            <div class="acc-menu-item-label">My Orders</div>
-            <div class="acc-menu-item-sub">Track and view your past orders</div>
-          </div>
-          <span class="acc-menu-item-arrow">›</span>
-        </li>
-        <li class="acc-menu-item logout" onclick="window._accLogout()">
-          <div class="acc-menu-item-icon logout">🚪</div>
-          <div class="acc-menu-item-text">
-            <div class="acc-menu-item-label">Logout</div>
-            <div class="acc-menu-item-sub">Sign out of your account</div>
-          </div>
-        </li>
-      </ul>`;
-    document.body.appendChild(menuSheet);
+    // 3. Welcome-back transition screen
+    const welcome = document.createElement('div');
+    welcome.id = 'acc-welcome-screen';
+    welcome.className = 'acc-welcome-screen';
+    welcome.innerHTML = `
+      <div class="acc-welcome-avatar"></div>
+      <div class="acc-welcome-title">Welcome Back!</div>
+      <div class="acc-welcome-sub">Taking you to your account…</div>`;
+    document.body.appendChild(welcome);
 
-    // 4. Orders page
+    // 4. Account dashboard page
+    const accountPage = document.createElement('div');
+    accountPage.id = 'page-account';
+    accountPage.className = 'page';
+    accountPage.innerHTML = `
+      <div class="orders-header">
+        <button class="orders-back-btn" onclick="if(typeof showPage==='function')showPage('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Back
+        </button>
+        <div class="orders-title">My Account</div>
+      </div>
+      <div class="orders-body">
+        <div id="acc-dashboard-content"></div>
+      </div>`;
+    document.body.appendChild(accountPage);
+
+    // 5. Orders page
     const ordersPage = document.createElement('div');
     ordersPage.id = 'page-orders';
     ordersPage.className = 'page';
@@ -853,12 +1112,13 @@
       </div>
       <div class="orders-body">
         <div id="orders-body-content">
-          <div class="orders-loading"><div class="spinner"></div>Loading...</div>
+          <div class="acc-skel acc-skel-block" style="margin-bottom:14px;"></div>
+          <div class="acc-skel acc-skel-block"></div>
         </div>
       </div>`;
     document.body.appendChild(ordersPage);
 
-    // 5. Order detail page
+    // 6. Order detail page
     const detailPage = document.createElement('div');
     detailPage.id = 'page-order-detail';
     detailPage.className = 'page';
@@ -879,28 +1139,6 @@
 
     // Wire OTP box keyboard behaviour
     wireOTPBoxes();
-  }
-
-  // ── INJECT ACCOUNT BUTTON INTO BOTTOM NAV ─────────────────
-  function injectNavButton() {
-    const navRight = document.querySelector('.nav-right');
-    if (!navRight) return;
-
-    const btn = document.createElement('button');
-    btn.className = 'nav-account-btn';
-    btn.id = 'mn-account';
-    btn.setAttribute('aria-label', 'Account');
-    btn.innerHTML = `
-      <span class="mob-nav-icon">
-        <div class="acc-nav-avatar">${kidsAvatarSVG(22)}</div>
-      </span>
-      <span class="nav-account-label">Account</span>`;
-    btn.addEventListener('click', function () {
-      if (_session) { openAccountMenu(); }
-      else { openLoginSheet(); }
-    });
-
-    navRight.insertBefore(btn, navRight.firstChild);
   }
 
   // ── SUPABASE TABLE SETUP CHECK ────────────────────────────
@@ -945,11 +1183,20 @@ CREATE POLICY "anon all customer_sessions" ON customer_sessions FOR ALL TO anon 
   // ── INIT ──────────────────────────────────────────────────
   function init() {
     buildDOM();
-    injectNavButton();
 
     // Restore session from localStorage
     _session = loadSession();
     updateNavAvatar();
+
+    // If we already have a session, warm the customer name in the background
+    // so the nav avatar shows real initials without waiting for a dashboard visit.
+    if (_session) {
+      fetchOrders(_session.mobile).then(function (orders) {
+        _currentOrders = orders;
+        const named = orders.find(function (o) { return o.customer_name && o.customer_name.trim(); });
+        if (named) { _customerName = named.customer_name.trim(); updateNavAvatar(); }
+      }).catch(function () {});
+    }
 
     // Print SQL reminder in console (dev only)
     if (OTP_DEV_MODE) logTableSQL();

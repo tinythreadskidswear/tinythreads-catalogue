@@ -627,7 +627,7 @@
   </a>
   <div class="float-wa-tooltip">Chat with us on WhatsApp</div> -->
 
-  <!-- Partner button is a floating action button for mobile and desktop. -->
+  <!-- Partner button now lives in the top nav (nav-right), beside the basket button. -->
 
   <!-- NAV -->
   <nav>
@@ -653,7 +653,6 @@
       <li><a href="https://tinystone.in">Jewellery &amp; Accessories</a></li>
     </ul>
     <div class="nav-right">
-      <button id="tt-partner-chip" class="tt-partner-chip" style="display:none;"></button>
       <button class="basket-nav-btn" onclick="openBasket()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <span id="nav-basket-count" class="basket-count-badge">0</span>
@@ -665,18 +664,14 @@
         </svg>
         Follow
       </a>-->
-      <button class="mob-ham-btn" onclick="openMobMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2.2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg></button>
+      <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="TinyThreads Partner" title="Your Partner">
+        <span class="tt-partner-navbtn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>
+        </span>
+        <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">TinyThreads Partner</span>
+      </button>
     </div>
   </nav>
-
-  <div id="tt-partner-chip-wrap" class="tt-partner-chip-wrap">
-    <button id="tt-partner-chip" class="tt-partner-chip tt-partner-chip--default" aria-label="TinyThreads Partner" title="TinyThreads Partner">🏪</button>
-  </div>
 
   <!-- MOBILE MENU -->
   <div class="mob-menu-overlay" id="mob-menu-overlay" onclick="closeMobMenu()"></div>
@@ -703,24 +698,43 @@
   <div class="mmh-account-row" id="mmh-account-row">
 
     <!-- LOGGED OUT STATE -->
-    <div class="mmh-guest" id="mmh-guest">
-      <div class="mmh-guest-text">
-        <span class="mmh-guest-label">Welcome!</span>
-        <span class="mmh-guest-sub">Sign in to track your orders</span>
+    <div class="mmh-guest" id="mmh-guest" role="button" tabindex="0"
+      onclick="closeMobMenu(); setTimeout(openLoginSheet, 200);">
+      <div class="mmh-guest-icon">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
       </div>
-      <button class="mmh-signin-btn" onclick="closeMobMenu(); setTimeout(openLoginSheet, 200);">
+      <div class="mmh-guest-text">
+        <span class="mmh-guest-label">Welcome to TinyThreads! 👋</span>
+        <span class="mmh-guest-sub">Sign in for faster checkout &amp; order tracking</span>
+      </div>
+      <button class="mmh-signin-btn" onclick="event.stopPropagation(); closeMobMenu(); setTimeout(openLoginSheet, 200);">
         Sign In
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
       </button>
     </div>
 
     <!-- LOGGED IN STATE -->
-    <div class="mmh-user" id="mmh-user" style="display:none;">
+    <div class="mmh-user" id="mmh-user" style="display:none;" role="button" tabindex="0"
+      onclick="window._mmhOpenAccount()">
       <div class="mmh-user-avatar" id="mmh-user-avatar"></div>
       <div class="mmh-user-info">
-        <span class="mmh-user-name">My Account</span>
+        <span class="mmh-user-name"><span class="mmh-user-name-text">My Account</span> <span class="mmh-verified-chip">✓ Verified</span></span>
         <span class="mmh-user-mobile" id="mmh-user-mobile"></span>
       </div>
-      <span class="mmh-verified-chip">✓</span>
+      <div class="mmh-user-actions">
+        <span class="mmh-orders-pill">📦 Orders</span>
+        <svg class="mmh-user-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </div>
     </div>
 
   </div>
@@ -760,73 +774,72 @@
   </div>
 
   <!-- MOBILE BOTTOM NAV -->
-  <!-- ==================== MOBILE BOTTOM NAV — scrolling category strip ==================== -->
+  <!-- ==================== MOBILE BOTTOM NAV — Account pinned left, rest scrolls ==================== -->
     <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <button class="mob-nav-item mob-nav-item--pinned" id="mn-account" onclick="openAccountMenu()">
+    <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3"/><path d="M6.5 19a6 6 0 0 1 11 0"/></svg></span>
+    <span class="mob-nav-label">Account</span>
+  </button>
   <div class="mob-nav-track" id="mob-nav-track">
     
-    <button class="mob-nav-item active" id="mn-home" onclick="showPage('home')">
-      <span class="mob-nav-icon" style="font-size:20px;">🏠</span>
-      <span class="mob-nav-label">Home</span>
-    </button>
-    
     <button class="mob-nav-item" id="mn-boys" onclick="showPage('boys')">
-      <span class="mob-nav-icon" style="font-size:20px;">👦</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
       <span class="mob-nav-label">Boys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-girls" onclick="showPage('girls')">
-      <span class="mob-nav-icon" style="font-size:20px;">👧</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
       <span class="mob-nav-label">Girls</span>
     </button>
     
     <button class="mob-nav-item" id="mn-babies" onclick="showPage('babies')">
-      <span class="mob-nav-icon" style="font-size:20px;">👶</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="8"/><path d="M9 12h.01M15 12h.01M10 16s1 1 2 1 2-1 2-1"/></svg></span>
       <span class="mob-nav-label">Babies</span>
     </button>
     
     <button class="mob-nav-item" id="mn-nightwear" onclick="showPage('nightwear')">
-      <span class="mob-nav-icon" style="font-size:20px;">🌙</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
       <span class="mob-nav-label">Nightwear</span>
     </button>
     
     <button class="mob-nav-item" id="mn-footwear" onclick="showPage('footwear')">
-      <span class="mob-nav-icon" style="font-size:20px;">👟</span>
+      <span class="mob-nav-icon"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c0-.6.4-1 1-1h1.2c.5 0 1-.2 1.3-.6l3-3.4c.4-.4.9-.6 1.5-.6H14a2 2 0 0 1 1.6.8l2.1 2.8c.3.4.8.7 1.3.7H21a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M8 13.4V17"/></svg></span>
       <span class="mob-nav-label">Footwear</span>
     </button>
     
    
     <button class="mob-nav-item" id="mn-toys" onclick="showPage('toys')">
-      <span class="mob-nav-icon" style="font-size:20px;">🧸</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg></span>
       <span class="mob-nav-label">Toys</span>
     </button>
     
     <button class="mob-nav-item" id="mn-twinning" onclick="showPage('twinning')">
-      <span class="mob-nav-icon" style="font-size:20px;">👯</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
       <span class="mob-nav-label">Twins</span>
     </button>
     
     <button class="mob-nav-item" id="mn-kidscare" onclick="showPage('kidscare')">
-      <span class="mob-nav-icon" style="font-size:20px;">💕</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
       <span class="mob-nav-label">Care</span>
     </button>
     
     <button class="mob-nav-item" id="mn-school" onclick="showPage('school')">
-      <span class="mob-nav-icon" style="font-size:20px;">🎓</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
       <span class="mob-nav-label">School</span>
     </button>
     
 <button class="mob-nav-item" id="mn-learning" onclick="showPage('learning')">
-  <span class="mob-nav-icon" style="font-size:20px;">📚</span>
+  <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
   <span class="mob-nav-label">Learning</span>
 </button>
 
 <button class="mob-nav-item" id="mn-celebration" onclick="showPage('celebration')">
-  <span class="mob-nav-icon" style="font-size:20px;">🎉</span>
+  <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 3 12 8 12 8"/></svg></span>
   <span class="mob-nav-label">Celebration</span>
 </button>
 
     <button class="mob-nav-item" id="mn-jewellery" onclick="window.location.href='https://tinystone.in'">
-      <span class="mob-nav-icon" style="font-size:20px;">💎</span>
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
       <span class="mob-nav-label">Jewellery</span>
     </button>
 
@@ -1844,12 +1857,10 @@
 
 <template id="tt-tpl-entry">
   <div class="tt-sheet-icon-row">✨ 🏡 ✨</div>
-  <p class="tt-sheet-title">Psst... do we have a friend<br>in your building? 🏡</p>
+  <p class="tt-sheet-title">Do you have a friend<br>in your Society? 🏡</p>
   <p class="tt-sheet-sub">Find your TinyThreads partner nearby</p>
 
-  <button class="tt-locate-btn" data-action="locate">📍 Use my location</button>
-
-  <div class="tt-society-input-wrap">
+    <div class="tt-society-input-wrap">
     <input type="text" class="tt-society-input" id="tt-society-input"
            placeholder="Enter your society name" autocomplete="off">
     <div class="tt-autocomplete-list" id="tt-autocomplete-list"></div>

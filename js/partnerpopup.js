@@ -26,6 +26,8 @@
   let els = {};
   let currentSocietyName = "";
 
+  const DEFAULT_ICON_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>';
+
   function cacheEls() {
     els.backdrop = document.getElementById("tt-sheet-backdrop");
     els.sheet = document.getElementById("tt-partner-sheet");
@@ -41,6 +43,38 @@
   function closeSheet() {
     els.backdrop.classList.remove("tt-open");
     els.sheet.classList.remove("tt-open");
+  }
+
+  // ---------- Keep the partner cutout photo from clipping off the top ----------
+  // Base numbers match the original fixed design: a 280px photo that rises
+  // 210px above the sheet's top edge, with an 80px flow-spacer underneath
+  // (280 - 210 + 10 = 80, so at full scale nothing visually changes).
+  const PHOTO_BASE_SIZE = 280;
+  const PHOTO_BASE_RISE = 210;
+  const PHOTO_MIN_SCALE = 0.55;
+
+  function fitPartnerPhoto() {
+    if (!els.sheet || !document.getElementById("tt-photo-wrap")) return;
+
+    // Space available above the sheet, minus whatever fixed header
+    // (nav bar / promo ticker) sits at the very top of the viewport.
+    const navEl = document.querySelector("nav");
+    const safeTop = (navEl ? navEl.getBoundingClientRect().bottom : 0) + 12;
+
+    // Bottom sheet is anchored to the bottom of the viewport, so its resting
+    // top edge is simply viewport height minus its own rendered height —
+    // true even mid-animation, since offsetHeight isn't affected by transform.
+    const sheetTop = window.innerHeight - els.sheet.offsetHeight;
+    const available = sheetTop - safeTop;
+
+    const scale = Math.max(PHOTO_MIN_SCALE, Math.min(1, available / PHOTO_BASE_RISE));
+    const size = Math.round(PHOTO_BASE_SIZE * scale);
+    const rise = Math.round(PHOTO_BASE_RISE * scale);
+    const spacer = size - rise + 10;
+
+    els.sheet.style.setProperty("--tt-photo-size", size + "px");
+    els.sheet.style.setProperty("--tt-photo-rise", rise + "px");
+    els.sheet.style.setProperty("--tt-photo-spacer", spacer + "px");
   }
 
   function renderTemplate(id) {
@@ -237,6 +271,7 @@
     renderChip(matchData);
 
     openSheet();
+    fitPartnerPhoto();
 
     // trigger one-time sparkle burst around the photo
     const photoWrap = document.getElementById("tt-photo-wrap");
@@ -272,28 +307,37 @@
   }
 
   // ---------- Returning-visit badge ----------
+  // The chip now lives permanently in the top nav (index.html .nav-right,
+  // beside the basket button) — it is never floated or moved. We only ever
+  // swap its icon between the default store icon and the matched partner's
+  // photo, and swap the label between "TinyThreads Partner" and
+  // "Chat with <PartnerName>" once a match is found.
   function renderChip(matchData) {
-    // Wrap the chip button in a tooltip wrapper (inserted once, then reused)
-    let wrap = document.getElementById("tt-partner-chip-wrap");
-    if (!wrap) {
-      wrap = document.createElement("div");
-      wrap.id = "tt-partner-chip-wrap";
-      wrap.className = "tt-partner-chip-wrap";
-      els.chip.parentNode.insertBefore(wrap, els.chip);
-      wrap.appendChild(els.chip);
-    }
+    const iconEl = els.chip.querySelector(".tt-partner-navbtn-icon");
+    const labelEl = els.chip.querySelector(".tt-partner-navbtn-label");
 
     if (matchData) {
-      // Partner matched — show avatar, remove default class
+      // Partner matched — show avatar (face anchored to top), swap label
       els.chip.classList.remove("tt-partner-chip--default");
-      els.chip.innerHTML = `<img src="${matchData.photo || "/assets/default-partner.png"}" alt="${matchData.name}">`;
+      els.chip.classList.add("tt-partner-chip--identified");
+      if (iconEl) {
+        iconEl.innerHTML = `<img class="tt-partner-navbtn-avatar" src="${matchData.photo || "/assets/default-partner.png"}" alt="${matchData.name}">`;
+      }
+      const firstName = (matchData.name || "").trim().split(" ")[0];
+      if (labelEl) labelEl.textContent = firstName ? `Chat with ${firstName}` : "Chat with your Partner";
       els.chip.title = matchData.name + " · Your TinyThreads Partner";
+      els.chip.setAttribute("aria-label", "Chat with " + matchData.name + ", your TinyThreads Partner");
       els.chip.onclick = () => reopenFromCache(matchData);
     } else {
-      // No match yet — show store icon, keep default class
+      // No match yet — show store icon, keep default class + label
       els.chip.classList.add("tt-partner-chip--default");
-      els.chip.innerHTML = "🏪";
+      els.chip.classList.remove("tt-partner-chip--identified");
+      if (iconEl) {
+        iconEl.innerHTML = DEFAULT_ICON_SVG;
+      }
+      if (labelEl) labelEl.textContent = "TinyThreads Partner";
       els.chip.title = "Find your TinyThreads Partner";
+      els.chip.setAttribute("aria-label", "TinyThreads Partner");
       els.chip.onclick = () => { showEntry(); openSheet(); };
     }
   }
@@ -307,6 +351,18 @@
     cacheEls();
     els.closeBtn.addEventListener("click", closeSheet);
     els.backdrop.addEventListener("click", closeSheet);
+
+    // Re-fit the partner photo if the viewport height changes while the
+    // "found" sheet is open (orientation change, mobile address-bar show/hide)
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (els.sheet.classList.contains("tt-open") && document.getElementById("tt-photo-wrap")) {
+          fitPartnerPhoto();
+        }
+      }, 150);
+    });
 
     const cached = localStorage.getItem(STORAGE_KEY);
     if (cached) {
