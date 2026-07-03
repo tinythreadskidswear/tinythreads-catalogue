@@ -137,16 +137,16 @@
 /* Spacer reserves flow-space so the photo's dip into the sheet
    never overlaps the title/name text below it */
 .tt-photo-spacer {
-  height: 60px;
+  height: 80px;
 }
 
 .tt-partner-photo-wrap {
   position: absolute;       /* positions relative to #tt-partner-sheet (fixed ancestor) */
-  top: -160px;
+  top: -210px;
   left: 50%;
   transform: translateX(-50%) translateY(0);
-  width: 220px;
-  height: 220px;
+  width: 280px;
+  height: 280px;
   z-index: 5;
   pointer-events: none;
   /* Hidden by default — only visible when the sheet is open */
@@ -238,17 +238,38 @@
   color: var(--tt-muted);
   margin: 0 0 4px;
 }
-.tt-partner-location {
+.tt-partner-location-btn,
+.tt-society-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: var(--tt-accent);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+.tt-partner-location-btn {
   font-size: 13px;
+  margin: 0 auto 10px;
+}
+.tt-society-link {
+  font-size: inherit;
+  font-weight: 700;
+}
+.tt-partner-change-note {
+  font-size: 12px;
   color: var(--tt-muted);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+  text-align: center;
 }
 .tt-partner-badges {
   display: flex;
   justify-content: center;
   gap: 8px;
   font-size: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  margin-top: 4px;
 }
 .tt-badge {
   background: var(--tt-accent-soft);
@@ -261,7 +282,7 @@
   font-size: 13px;
   font-style: italic;
   color: var(--tt-muted);
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   padding: 0 8px;
 }
 
@@ -319,26 +340,31 @@
 
 /* Wrapper needed for tooltip positioning */
 .tt-partner-chip-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.tt-partner-chip {
-  /* Pure circular avatar — same visual weight as the nav logo */
+  position: fixed;
+  right: 20px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  z-index: 10002;
+}
+
+.tt-partner-chip {
+  /* Floating action button style */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
   padding: 0;
   border-radius: 50%;
   background: var(--tt-accent-soft);
-  border: 2.5px solid var(--tt-accent);
+  border: 3px solid var(--tt-accent);
   cursor: pointer;
   overflow: hidden;
   transition: box-shadow .18s ease, transform .15s ease;
   flex-shrink: 0;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.14);
 }
 .tt-partner-chip:hover {
   box-shadow: 0 0 0 4px rgba(255,140,105,0.22);
@@ -354,7 +380,7 @@
 
 /* CSS tooltip — appears above the chip on hover */
 .tt-partner-chip-wrap::after {
-  content: "Want to talk to our Partner? 💬";
+  content: "TinyThreads Partner";
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
@@ -365,13 +391,13 @@
   font-weight: 500;
   font-family: inherit;
   white-space: nowrap;
-  padding: 6px 11px;
-  border-radius: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
   pointer-events: none;
   opacity: 0;
   transition: opacity .18s ease, transform .18s ease;
   z-index: 10000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.16);
 }
 /* Caret */
 .tt-partner-chip-wrap::before {

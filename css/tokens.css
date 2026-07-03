@@ -1,370 +1,301 @@
 /* ════════════════════════════════════════════════════════════
-   TINY THREADS — tokens.css
+   TINY THREADS — tokens.css  (Theme v2 — matches screenshot)
    Design tokens (:root variables), global reset, splash screen
    Load order: 1st of 3 CSS files (tokens → main → components)
    ════════════════════════════════════════════════════════════ */
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    :root {
-      /* Brand accent — desaturated brick red */
-      --red: #C0392B;
-      --red-dark: #922B21;
-      --red-light: #FDECEA;
-      --red-mid: #E74C3C;
+:root {
+  /* ── Brand red — rich brick ── */
+  --red:        #C0392B;
+  --red-dark:   #922B21;
+  --red-light:  #FDECEA;
+  --red-mid:    #E74C3C;
 
-      /* Neutral base */
-      --warm: #FAFAF8;
-      --cream: #F5F4F0;
+  /* ── Warm neutrals ── */
+  --warm:       #FAFAF8;
+  --cream:      #FFF8F3;          /* blush-cream, matches hero bg */
 
-      /* Typography */
-      --text: #1A1A2E;
-      --muted: #6B7280;
-      --muted-light: #9CA3AF;
+  /* ── Typography ── */
+  --text:       #1A1A2E;
+  --muted:      #6B7280;
+  --muted-light:#9CA3AF;
 
-      /* Accent pastels (replacing gold) */
-      --sage: #D1E8D5;
-      --blush: #FAE3E3;
-      --sky: #D6EAF8;
+  /* ── Accent pastels ── */
+  --sage:       #D1E8D5;
+  --blush:      #FAE3E3;
+  --sky:        #D6EAF8;
 
-      /* Shadow scale — all neutral */
-      --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
-      --shadow-md: 0 4px 16px rgba(0,0,0,.08);
-      --shadow-lg: 0 12px 32px rgba(0,0,0,.10);
+  /* ── Gold (promo bar accent) ── */
+  --gold:       #F4C430;
+  --gold-dark:  #D4A017;
 
-      /* Radius scale */
-      --r-sm: 8px;
-      --r-md: 12px;
-      --r-lg: 16px;
-      --r-xl: 24px;
+  /* ── Shadow scale ── */
+  --shadow-sm:  0 1px 4px rgba(0,0,0,.06);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:  0 12px 32px rgba(0,0,0,.10);
 
-      /* Kept for backward compat — maps to above */
-      --gold: #F4A261;
-    }
+  /* ── Radius scale ── */
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  24px;
+}
 
-    html {
-      overflow-x: hidden;
-      width: 100%;
-    }
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--warm);
-      color: var(--text);
-      width: 100%;
-      max-width: 100vw;
-      padding-top: 108px;
-    }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--warm);
+  color: var(--text);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  padding-top: 108px;
+}
 
-    a,
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
 
-    button {
-      font: inherit;
-    }
+button {
+  font: inherit;
+}
 
-    /* ── SPLASH ── */
-    /* body.splash-active hides ALL page content so nothing bleeds through */
-    body.splash-active {
-      overflow: hidden;
-      background: #0a0604;
-    }
+/* ══════════════════════════════════════════════
+   SPLASH
+   ══════════════════════════════════════════════ */
+body.splash-active {
+  overflow: hidden;
+  background: #0a0604;
+}
 
-    body.splash-active .page {
-      visibility: hidden;
-      pointer-events: none;
-    }
+body.splash-active .page,
+body.splash-active nav,
+body.splash-active .float-wa,
+body.splash-active .mobile-bottom-nav,
+body.splash-active #anim-canvas,
+body.splash-active .promo-popup-overlay {
+  visibility: hidden;
+  pointer-events: none;
+}
 
-    body.splash-active nav {
-      visibility: hidden;
-      pointer-events: none;
-    }
+body.splash-active .promo-ticker-strip,
+body.splash-active .ig-ticker-strip {
+  display: none;
+}
 
-    body.splash-active .float-wa {
-      visibility: hidden;
-      pointer-events: none;
-    }
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #0a0604;
+}
 
-    body.splash-active .mobile-bottom-nav {
-      visibility: hidden;
-      pointer-events: none;
-    }
+.splash-card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0a0604;
+}
 
-    body.splash-active .promo-ticker-strip {
-      display: none;
-    }
+.splash-slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #0a0604;
+}
 
-    body.splash-active .ig-ticker-strip {
-      display: none;
-    }
+.splash-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  will-change: opacity;
+}
 
-    body.splash-active .promo-popup-overlay {
-      display: none;
-    }
+.splash-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
 
-    body.splash-active #anim-canvas {
-      display: none;
-    }
+.splash-slide picture,
+.splash-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
 
-    /* Splash screen itself -- full-bleed, always on top */
-    #splash-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: #0a0604;
-    }
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.06) 0%,
+    rgba(0,0,0,.10) 40%,
+    rgba(0,0,0,.60) 70%,
+    rgba(0,0,0,.88) 100%
+  );
+  pointer-events: none;
+}
 
-    .splash-card {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      background: #0a0604;
-    }
+.splash-content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,.55) 0%,
+    rgba(0,0,0,.15) 70%,
+    transparent 100%
+  );
+}
 
-    /* Solid black fill on slides container -- eliminates any crossfade gap transparency */
-    .splash-slides {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: #0a0604;
-    }
+.splash-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  animation: spTxt .6s .2s ease both;
+}
 
-    /* Photo slides */
-    .splash-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 1.2s ease;
-      will-change: opacity;
-    }
+.splash-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.5);
+  box-shadow: 0 6px 24px rgba(0,0,0,.45);
+  display: block;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 
-    .splash-slide.active {
-      opacity: 1;
-      z-index: 1;
-    }
+.splash-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-    .splash-slide picture,
-    .splash-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
+.splash-welcome {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  line-height: 1;
+}
 
-    /* Dark gradient -- heavy at bottom where branding sits */
-    .slide-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, .06) 0%, rgba(0, 0, 0, .10) 40%, rgba(0, 0, 0, .60) 70%, rgba(0, 0, 0, .88) 100%);
-      pointer-events: none;
-    }
+.splash-brand-name {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  text-shadow: 0 2px 14px rgba(0,0,0,.35);
+}
 
-    /* Branding block -- pinned to bottom-left */
-    .splash-content {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .15) 70%, transparent 100%);
-    }
+.splash-tagline {
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  animation: spTxt .6s .38s ease both;
+  max-width: 320px;
+}
 
-    /* Logo + brand name row */
-    .splash-brand-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 10px;
-      animation: spTxt .6s .2s ease both;
-    }
+.splash-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,.38);
+  color: white;
+  padding: 13px 26px;
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .3px;
+  transition: background .25s, border-color .25s, transform .2s;
+  animation: spTxt .6s .52s ease both;
+}
 
-    .splash-logo {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, .5);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, .45);
-      display: block;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
+.splash-explore-btn:hover {
+  background: rgba(255,255,255,.26);
+  border-color: rgba(255,255,255,.6);
+  transform: translateY(-2px);
+}
 
-    .splash-brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+.splash-explore-btn:active {
+  transform: scale(.97);
+}
 
-    .splash-welcome {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .6);
-      line-height: 1;
-    }
+.splash-explore-arrow {
+  font-size: 16px;
+  transition: transform .2s;
+}
 
-    .splash-brand-name {
-      font-family: 'Fraunces', serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: white;
-      line-height: 1.1;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, .35);
-    }
+.splash-explore-btn:hover .splash-explore-arrow {
+  transform: translateX(4px);
+}
 
-    /* Tagline */
-    .splash-tagline {
-      font-size: 13px;
-      color: rgba(255, 255, 255, .75);
-      line-height: 1.55;
-      margin-bottom: 18px;
-      animation: spTxt .6s .38s ease both;
-      max-width: 320px;
-    }
+.splash-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  animation: spTxt .6s .44s ease both;
+}
 
-    /* Single CTA */
-    .splash-explore-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, .15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255, 255, 255, .38);
-      color: white;
-      padding: 13px 26px;
-      border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: .3px;
-      transition: background .25s, border-color .25s, transform .2s;
-      animation: spTxt .6s .52s ease both;
-    }
+.splash-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-    .splash-explore-btn:hover {
-      background: rgba(255, 255, 255, .26);
-      border-color: rgba(255, 255, 255, .6);
-      transform: translateY(-2px);
-    }
+.splash-step-icon  { font-size: 14px; line-height: 1; }
+.splash-step-text  { font-size: 11px; font-weight: 500; color: rgba(255,255,255,.88); letter-spacing: .2px; white-space: nowrap; }
+.splash-step-divider { font-size: 10px; color: rgba(255,255,255,.35); flex-shrink: 0; }
 
-    .splash-explore-btn:active {
-      transform: scale(.97);
-    }
+@keyframes spTxt {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
 
-    .splash-explore-arrow {
-      font-size: 16px;
-      transition: transform .2s;
-    }
+#splash-screen.splash-exit {
+  pointer-events: none;
+  animation: spOut .5s cubic-bezier(.4,0,1,1) forwards;
+}
 
-    .splash-explore-btn:hover .splash-explore-arrow {
-      transform: translateX(4px);
-    }
+@keyframes spOut { to { opacity: 0; } }
 
-    /* ── Splash trust steps ── */
-    .splash-steps {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      animation: spTxt .6s .44s ease both;
-    }
-
-    .splash-step {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .splash-step-icon {
-      font-size: 14px;
-      line-height: 1;
-    }
-
-    .splash-step-text {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, .88);
-      letter-spacing: .2px;
-      white-space: nowrap;
-    }
-
-    .splash-step-divider {
-      font-size: 10px;
-      color: rgba(255, 255, 255, .35);
-      flex-shrink: 0;
-    }
-
-    @keyframes spTxt {
-      from {
-        opacity: 0;
-        transform: translateY(14px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* Exit: fade the whole screen out, page stays hidden until display:none fires */
-    #splash-screen.splash-exit {
-      pointer-events: none;
-      animation: spOut .5s cubic-bezier(.4, 0, 1, 1) forwards;
-    }
-
-    @keyframes spOut {
-      to {
-        opacity: 0
-      }
-    }
-
-    /* Mobile adjustments */
-    @media(max-width:700px) {
-      .splash-content {
-        padding: 22px;
-      }
-
-      .splash-logo {
-        width: 50px;
-        height: 50px;
-      }
-
-      .splash-brand-name {
-        font-size: 19px;
-      }
-
-      .splash-tagline {
-        font-size: 12px;
-        margin-bottom: 14px;
-      }
-
-      .splash-steps {
-        gap: 6px;
-        margin-bottom: 20px;
-      }
-
-      .splash-step-text {
-        font-size: 10.5px;
-      }
-
-      .splash-explore-btn {
-        padding: 12px 22px;
-        font-size: 13px;
-      }
-    }
+@media (max-width: 700px) {
+  .splash-content { padding: 22px; }
+  .splash-logo    { width: 50px; height: 50px; }
+  .splash-brand-name { font-size: 19px; }
+  .splash-tagline { font-size: 12px; margin-bottom: 14px; }
+  .splash-steps   { gap: 6px; margin-bottom: 20px; }
+  .splash-step-text { font-size: 10.5px; }
+  .splash-explore-btn { padding: 12px 22px; font-size: 13px; }
+}
