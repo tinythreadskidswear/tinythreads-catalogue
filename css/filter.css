@@ -11,8 +11,14 @@
 #page-school,
 #page-learning,
 #page-celebration {
-  overflow-x: clip;
-  overflow-y: clip;
+  /* Both axes must be clipped (not just x). Setting overflow-x alone
+     leaves overflow-y unset, and per spec the browser then computes
+     overflow-y as auto — which makes this element a scroll container
+     and hijacks position:sticky descendants away from the real
+     viewport, so they never actually stick. clip on both axes avoids
+     this: unlike hidden/auto/scroll, clip never creates a scroll
+     container, so it can't break sticky no matter which axis it's on. */
+  overflow: clip;
 }
 
 @supports not (overflow: clip) {
@@ -32,12 +38,21 @@
   }
 }
 
-.filter-bar {
+/* .sticky-subnav wraps the breadcrumb + filter/sort bar as one unit.
+   On page load the banner shows first as normal; the breadcrumb and
+   filter-bar sit right after it in normal flow. Once the user scrolls
+   the banner out of view, this wrapper sticks directly below the fixed
+   nav and the breadcrumb + filter-bar stay pinned together — they never
+   sit on top of the banner because they only "activate" once the
+   banner has already scrolled past. */
+.sticky-subnav {
   position: sticky;
-  top: 108px;
+  top: 100px;
   z-index: 3900;
-  max-width: 1200px;
-  margin: 0 auto;
+}
+
+.filter-bar {
+  width: 100%;
   padding: 0 1rem;
   background: rgba(255, 255, 255, .96);
   border-bottom: 1px solid #efdcd7;
@@ -314,8 +329,16 @@ body.tt-tray-lock {
 }
 
 @media (max-width: 768px) {
+  .sticky-subnav {
+    top: 94px;
+  }
+
   .filter-bar {
-    top: 96px;
+    /* components.css sets .filter-bar to position:sticky on mobile —
+       that's now legacy since .sticky-subnav (the wrapper) handles
+       stickiness. Force it back to normal flow so it doesn't create
+       a nested sticky context inside its own sticky parent. */
+    position: static;
     padding: 0;
   }
 

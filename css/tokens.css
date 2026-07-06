@@ -56,10 +56,24 @@ body {
   font-family: 'DM Sans', sans-serif;
   background: var(--warm);
   color: var(--text);
-  overflow-x: hidden;
+  /* overflow: clip (not overflow-x: hidden) — body's height always
+     auto-matches its content exactly, so it never actually scrolls
+     on its own; the real page scroll happens on <html>. But
+     overflow-x: hidden still technically "qualifies" body as a
+     scroll container per spec, which makes it the (permanently
+     stuck-at-zero) reference point for every position:sticky
+     descendant instead of the real, actually-scrolling <html>. clip
+     opts body out of that qualification entirely — harmless here
+     since nothing legitimately overflows body's own box vertically —
+     so sticky elements correctly resolve against <html> instead. */
+  overflow: clip;
   width: 100%;
   max-width: 100vw;
-  padding-top: 108px;
+  padding-top: 100px;
+}
+
+@supports not (overflow: clip) {
+  body { overflow-x: hidden; overflow-y: visible; }
 }
 
 a, button {

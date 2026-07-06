@@ -484,7 +484,15 @@ nav {
   display: none;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
+  /* overflow: clip (not overflow-x: hidden) — see tokens.css html/body
+     comment. Using only overflow-x here would silently make overflow-y
+     compute to auto, turning every .page into a scroll container and
+     breaking position:sticky for any descendant, on every page. */
+  overflow: clip;
+}
+
+@supports not (overflow: clip) {
+  .page { overflow-x: hidden; overflow-y: visible; }
 }
 
 .page.active { display: block; }
@@ -890,7 +898,7 @@ nav {
    ══════════════════════════════════════════════ */
 @media (max-width: 700px) {
   /* Body padding accounts for fixed bars */
-  body { padding-top: 100px; }
+  body { padding-top: 94px; }
 
   /* Nav shrinks slightly on mobile */
   nav {
