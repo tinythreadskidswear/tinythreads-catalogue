@@ -1006,6 +1006,46 @@
       accessories: 'mn-accessories'
     };
 
+    // Clean URL + <title>/meta description per category — powers direct links
+    // like mytinythreads.in/boys (server-side rewrite lives in _worker.js) and
+    // keeps the address bar in sync when navigating inside the app.
+    const CATEGORY_PATHS = {
+      home: '/', boys: '/boys', girls: '/girls', babies: '/babies',
+      nightwear: '/nightwear', footwear: '/footwear', accessories: '/accessories',
+      toys: '/toys', twinning: '/twinning', kidscare: '/kidscare',
+      school: '/school', learning: '/learning', celebration: '/celebration',
+    };
+    const CATEGORY_TITLES = {
+      home: 'Tiny Threads Kidswear - Joyful Dailywear for Kids',
+      boys: 'Boys 3–13 Years · Tiny Threads Kidswear',
+      girls: 'Girls 3–13 Years · Tiny Threads Kidswear',
+      babies: 'Babies 0–3 Years · Tiny Threads Kidswear',
+      nightwear: 'Nightwear · Tiny Threads Kidswear',
+      footwear: 'Footwear · Tiny Threads Kidswear',
+      accessories: 'Accessories · Tiny Threads Kidswear',
+      toys: 'Toys · Tiny Threads Kidswear',
+      twinning: 'Twinning Sets · Tiny Threads Kidswear',
+      kidscare: 'Kids Care · Tiny Threads Kidswear',
+      school: 'School · Tiny Threads Kidswear',
+      learning: 'Learning · Tiny Threads Kidswear',
+      celebration: 'Celebration · Tiny Threads Kidswear',
+    };
+    const CATEGORY_DESCRIPTIONS = {
+      home: 'Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹99.',
+      boys: 'Shop boys\u2019 clothing 3\u201313 years \u2014 traditional, summer & winter wear at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      girls: 'Shop girls\u2019 clothing 3\u201313 years \u2014 traditional, summer & winter wear at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      babies: 'Shop baby clothing 0\u20133 years at Tiny Threads Kidswear. Soft, comfortable essentials. Checkout via WhatsApp.',
+      nightwear: 'Shop cosy kids\u2019 nightwear at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      footwear: 'Shop kids\u2019 footwear at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      accessories: 'Shop kids\u2019 accessories at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      toys: 'Shop toys for kids at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      twinning: 'Shop twinning sets for siblings at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      kidscare: 'Shop kids\u2019 care essentials at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      school: 'Shop school essentials for kids at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      learning: 'Shop learning products for kids at Tiny Threads Kidswear. Checkout via WhatsApp.',
+      celebration: 'Shop celebration wear for kids at Tiny Threads Kidswear. Checkout via WhatsApp.',
+    };
+
     // ─── PAGE NAVIGATION ─────────────────────────────────────────────────────────
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1025,7 +1065,19 @@
     // Swiper to re-measure now that it actually has real dimensions.
     window.dispatchEvent(new CustomEvent('tt:pageshown', { detail: { id } }));
 
-          // Sync desktop nav
+          // Update <title>/meta description and keep the address bar in sync for
+    // category (and home) pages. Skipped for ids like 'product' — PDP manages
+    // its own document.title in openPDP()/closePDP().
+    if (CATEGORY_PATHS.hasOwnProperty(id)) {
+      document.title = CATEGORY_TITLES[id];
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', CATEGORY_DESCRIPTIONS[id]);
+      if (!_suppressPush && window.location.pathname !== CATEGORY_PATHS[id]) {
+        history.pushState({ page: id }, '', CATEGORY_PATHS[id]);
+      }
+    }
+
+    // Sync desktop nav
     document.querySelectorAll('.nav-links li a').forEach(a => { a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")); });
      
     // Highlight + smooth-scroll active pill into centre of track
@@ -1047,6 +1099,7 @@
       const hash = window.location.hash.replace('#', '');
       const search = new URLSearchParams(window.location.search);
       const prodId = search.get('product');
+      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning' , 'celebration'];
       // ── handle direct /products/:id URLs served by _worker.js ──
       const pathMatch = window.location.pathname.match(/^\/products\/([^/.]+?)(?:\.html)?$/);
       if (pathMatch) {
@@ -1058,8 +1111,18 @@
         return;
       }
       // ── end ──
+      // ── handle direct /boys, /girls, etc. URLs served by _worker.js ──
+      const catSlug = window.location.pathname.replace(/^\/|\/$/g, '');
+      if (catSlug && validPages.includes(catSlug)) {
+        sessionStorage.setItem('tt_splash_seen', '1');
+        const splashEl = document.getElementById('splash-screen');
+        if (splashEl) { splashEl.style.display = 'none'; }
+        document.body.classList.remove('splash-active');
+        showPage(catSlug);
+        return;
+      }
+      // ── end ──
       if (prodId) { openPDP(prodId); return; }
-      const validPages = ['home', 'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories', 'toys', 'twinning', 'kidscare', 'school', 'learning' , 'celebration'];
       if (hash && validPages.includes(hash)) showPage(hash);
     }
 
