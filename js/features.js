@@ -126,6 +126,19 @@
               document.addEventListener('DOMContentLoaded', loadBanners);
             else
               loadBanners();
+
+            // The Swiper instance for a category was created while its
+            // page may have been display:none (0 width/height), so it
+            // never sized itself correctly and can show up blacked-out.
+            // When app.js's showPage() reveals that category again,
+            // force this banner's Swiper to re-measure now that it has
+            // real dimensions.
+            window.addEventListener('tt:pageshown', function (e) {
+              var cat = e.detail && e.detail.id;
+              var sw = cat && bannerSwipers[cat];
+              if (!sw) return;
+              requestAnimationFrame(function () { sw.update(); });
+            });
           }());
           (function () {
             var SB_URL = 'https://gtszuhmfpywqwdetoqqo.supabase.co';

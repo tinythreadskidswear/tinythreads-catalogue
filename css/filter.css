@@ -52,8 +52,7 @@
 }
 
 .filter-bar {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 0 1rem;
   background: rgba(255, 255, 255, .96);
   border-bottom: 1px solid #efdcd7;

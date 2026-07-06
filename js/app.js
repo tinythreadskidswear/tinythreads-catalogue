@@ -1017,6 +1017,14 @@
     pageEl.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    // Category banners are built once at load time via features.js's
+    // loadBanners(), including for pages that are display:none at that
+    // moment — so their Swiper instances measure 0 width/height and
+    // never recalculate on their own. Announce that this page just
+    // became visible so the banner module can force that category's
+    // Swiper to re-measure now that it actually has real dimensions.
+    window.dispatchEvent(new CustomEvent('tt:pageshown', { detail: { id } }));
+
           // Sync desktop nav
     document.querySelectorAll('.nav-links li a').forEach(a => { a.classList.toggle('active', a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")); });
      
