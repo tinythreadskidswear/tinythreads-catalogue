@@ -258,11 +258,35 @@ function buildHTML(product) {
   + '</html>';
 }
 
+// ── Category page slugs (for direct URLs like /boys, /girls, etc.) ────────
+const CATEGORY_SLUGS = [
+  'boys', 'girls', 'babies', 'nightwear', 'footwear', 'accessories',
+  'toys', 'twinning', 'kidscare', 'school', 'learning', 'celebration',
+];
+
 // ── Main Worker handler ────────────────────────────────────────────────────
 export default {
   async fetch(request, env) {
     var url = new URL(request.url);
     var ua  = request.headers.get('User-Agent') || '';
+
+    // Match /boys, /girls, etc. — serve index.html so the SPA loads.
+    // handleURLRouting() in app.js reads window.location.pathname and
+    // calls showPage() for the matching category. URL stays as /boys
+    // in the address bar (this is a rewrite, not a redirect).
+    var catSlug = url.pathname.replace(/^\/|\/$/g, '');
+    if (CATEGORY_SLUGS.includes(catSlug)) {
+      var catIndexRes = await env.ASSETS.fetch(
+        new Request(url.origin + '/index.html', { headers: request.headers })
+      );
+      return new Response(catIndexRes.body, {
+        status:  200,
+        headers: new Headers({
+          'Content-Type':  'text/html;charset=UTF-8',
+          'Cache-Control': 'no-store',
+        }),
+      });
+    }
 
     // Match /products/:id  (with or without .html extension)
     var match = url.pathname.match(/^\/products\/([^/.]+?)(?:\.html)?$/);
