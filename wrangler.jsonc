@@ -9,7 +9,12 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": ["/products/*"]
+    "run_worker_first": [
+      "/products/*",
+      "/boys", "/girls", "/babies", "/nightwear", "/footwear",
+      "/accessories", "/toys", "/twinning", "/kidscare",
+      "/school", "/learning", "/celebration"
+    ]
   },
   "compatibility_flags": [
     "nodejs_compat"
