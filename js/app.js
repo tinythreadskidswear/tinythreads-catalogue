@@ -316,6 +316,46 @@
     let PROMO_CODES = {};          // populated from Supabase at boot via loadPromoCodes()
     let basket = [];
     let appliedPromo = null;
+    const BASKET_SESSION_KEY = 'tt_basket';
+
+    function getBasketItems() {
+      return basket;
+    }
+
+    function saveBasketToSession() {
+      try {
+        sessionStorage.setItem(BASKET_SESSION_KEY, JSON.stringify(basket));
+      } catch (e) { }
+    }
+
+    function restoreBasketFromSession() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(BASKET_SESSION_KEY) || '[]');
+        if (!Array.isArray(saved)) return;
+
+        basket = saved
+          .filter(function (item) { return item && item.id && item.name; })
+          .map(function (item) {
+            return {
+              key: item.key || (item.id + '-' + (item.size || '')),
+              id: item.id,
+              name: item.name,
+              desc: item.desc || '',
+              price: Number(item.price) || 0,
+              qty: Math.max(1, Number(item.qty) || 1),
+              size: item.size || '',
+              img: item.img || ''
+            };
+          });
+      } catch (e) {
+        basket = [];
+      }
+    }
+
+    function syncCheckoutGlobals() {
+      window.getBasketItems = getBasketItems;
+      window.appliedPromo = appliedPromo;
+    }
 
     // Returns the actual rupee discount for a given subtotal, respecting max_upto cap
     function calcDiscount(subtotal) {
@@ -672,6 +712,9 @@
     }
 
     function updateBasketUI() {
+      saveBasketToSession();
+      syncCheckoutGlobals();
+
       const totalItems = basket.reduce((s, i) => s + i.qty, 0);
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
       const discountAmt = calcDiscount(subtotal);
@@ -750,6 +793,7 @@
       }
 
       appliedPromo = { ...pc };
+      syncCheckoutGlobals();
       const pct = Math.round(pc.discount * 100);
       let successMsg = `✓ Code applied! ${pct}% off your order.`;
       if (pc.max_upto) successMsg += ` (max discount ₹${pc.max_upto})`;
@@ -761,6 +805,7 @@
 
     function removePromo() {
       appliedPromo = null;
+      syncCheckoutGlobals();
       document.getElementById('promo-input').value = '';
       document.getElementById('promo-input').classList.remove('valid', 'invalid');
       document.getElementById('promo-apply-btn').textContent = 'Apply';
@@ -1674,6 +1719,9 @@
 
     // Init
     (async () => {
+      restoreBasketFromSession();
+      syncCheckoutGlobals();
+      updateBasketUI();
       await loadTinythreadsConfig();
       await loadProducts();
     })();
