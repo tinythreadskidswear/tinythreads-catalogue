@@ -154,11 +154,6 @@
   }
 
   function bindCheckoutImageTriggers() {
-    const stickyBar = document.getElementById("basket-sticky-bar");
-    if (stickyBar) {
-      stickyBar.onclick = openCheckoutImageOptions;
-    }
-
     const checkoutBtn = document.getElementById("checkout-btn");
     if (checkoutBtn) {
       checkoutBtn.onclick = function (event) {
