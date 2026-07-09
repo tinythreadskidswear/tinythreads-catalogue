@@ -1099,6 +1099,7 @@
 
     // ─── PAGE NAVIGATION ─────────────────────────────────────────────────────────
   function showPage(id) {
+    const prevMobBtn = document.querySelector('.mob-nav-track .mob-nav-item.active');
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-links li a').forEach(a => a.classList.remove('active'));
     document.querySelectorAll('.mob-nav-item').forEach(b => b.classList.remove('active'));
@@ -1137,11 +1138,26 @@
       mobBtn.classList.add('active');
       const track = document.getElementById('mob-nav-track');
       if (track) {
-        // Scroll so the active pill is centred in the track
-        const btnLeft   = mobBtn.offsetLeft;
-        const btnWidth  = mobBtn.offsetWidth;
-        const trackW    = track.offsetWidth;
-        track.scrollTo({ left: btnLeft - (trackW / 2) + (btnWidth / 2), behavior: 'smooth' });
+        // Treat the category nav like a 4-slot carousel. Each left/right
+        // category tap shifts the visible window by one icon.
+        const tabs = Array.from(track.querySelectorAll('.mob-nav-item'));
+        const itemW = mobBtn.offsetWidth || 1;
+        const visibleSlots = 4;
+        const idx = tabs.indexOf(mobBtn);
+        const prevIdx = prevMobBtn ? tabs.indexOf(prevMobBtn) : -1;
+        const currentFirst = Math.round(track.scrollLeft / itemW);
+        const maxFirst = Math.max(0, tabs.length - visibleSlots);
+        let nextFirst = currentFirst;
+
+        if (prevIdx >= 0 && idx > prevIdx) nextFirst = currentFirst + 1;
+        else if (prevIdx >= 0 && idx < prevIdx) nextFirst = currentFirst - 1;
+        else if (idx < currentFirst) nextFirst = idx;
+        else if (idx > currentFirst + visibleSlots - 1) nextFirst = idx - visibleSlots + 1;
+
+        nextFirst = Math.max(0, Math.min(nextFirst, maxFirst));
+        if (idx < nextFirst) nextFirst = idx;
+        if (idx > nextFirst + visibleSlots - 1) nextFirst = idx - visibleSlots + 1;
+        track.scrollTo({ left: nextFirst * itemW, behavior: 'smooth' });
       }
     }
   }
