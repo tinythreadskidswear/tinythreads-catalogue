@@ -2,6 +2,11 @@
   const TT_WA_NUMBER = "917879976016";
 
   function getBasketItems() {
+    if (typeof window.getBasketItems === "function") {
+      const items = window.getBasketItems();
+      return Array.isArray(items) ? items : [];
+    }
+
     return Array.isArray(window.basket) ? window.basket : [];
   }
 
