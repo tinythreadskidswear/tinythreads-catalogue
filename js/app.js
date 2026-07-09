@@ -711,9 +711,15 @@
       updateBasketUI();
     }
 
+    function setCheckoutButtonLabel() {
+      const label = document.getElementById('checkout-btn-label');
+      if (label) label.textContent = appliedPromo ? 'Checkout' : 'Checkout via WhatsApp';
+    }
+
     function updateBasketUI() {
       saveBasketToSession();
       syncCheckoutGlobals();
+      setCheckoutButtonLabel();
 
       const totalItems = basket.reduce((s, i) => s + i.qty, 0);
       const subtotal = basket.reduce((s, i) => s + i.qty * i.price, 0);
