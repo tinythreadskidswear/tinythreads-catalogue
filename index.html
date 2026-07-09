@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="./css/basket.css">
   <link rel="stylesheet" href="./css/partnerpopup.css">
   <link rel="stylesheet" href="./css/account.css">
+  <link rel="stylesheet" href="./css/checkout-options.css">
 
   <!-- ═══════════════ 1. STYLES ═══════════════ -->
   <style>
@@ -1753,6 +1754,7 @@
   <script src="./js/partnerpopup.js"></script>
   <script src="./js/features.js"></script>
 
+
   <!-- ══════════════════════════════════════════════
      SHIPPING MODAL -- basket checkout
      ══════════════════════════════════════════════ -->
@@ -1830,10 +1832,82 @@
           Confirm & Checkout on WhatsApp
         </button>
       </div>
+        </div>
+  </div>
+
+  <!-- CHECKOUT OPTIONS MODAL -->
+  <div class="ttco-overlay" id="ttcoOverlay" onclick="ttCheckoutOverlayClick(event)">
+    <div class="ttco-modal" role="dialog" aria-modal="true" aria-labelledby="ttcoTitle">
+      <button class="ttco-close" type="button" onclick="closeCheckoutOptions()" aria-label="Close">✕</button>
+
+      <div class="ttco-head">
+        <span class="ttco-tag">Tinythreads Checkout</span>
+        <h3 id="ttcoTitle">Choose how you'd like to receive your order</h3>
+        <p class="ttco-sub">Simple, convenient and stress-free shopping for your little one.</p>
+        <div class="ttco-summary" id="ttcoSummary">0 items · Total ₹0</div>
+      </div>
+
+      <div class="ttco-cards">
+
+        <article class="ttco-card">
+          <div class="ttco-hero">
+            <img
+              src="https://YOUR-CDN-LINK/cute_bear_promotes_whatsapp_shopping.png"
+              alt="Checkout via WhatsApp">
+            <div class="ttco-copy">
+              <p>
+                Our Tinythreads expert will personally verify your order and confirm
+                size, colour and availability before you pay.
+              </p>
+              <button class="ttco-btn ttco-btn--wa" type="button" onclick="selectCheckoutOption('whatsapp')">
+                Continue on WhatsApp
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ttco-card">
+          <div class="ttco-hero">
+            <img
+              src="https://YOUR-CDN-LINK/home_trials_delivery_moment.png"
+              alt="Home Trials">
+            <div class="ttco-copy">
+              <p>
+                A Tinythreads partner can bring selected items to your home so your child
+                can try them comfortably before you decide.
+              </p>
+              <button class="ttco-btn ttco-btn--home" type="button" onclick="selectCheckoutOption('home_trial')">
+                Book Home Trial
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ttco-card">
+          <div class="ttco-hero">
+            <img
+              src="https://YOUR-CDN-LINK/family_outing_at_tiny_threads_store.png"
+              alt="Walk-In and Collect">
+            <div class="ttco-copy">
+              <p>
+                Reserve your selected items and collect them at the nearest Tinythreads outlet
+                at your convenience for the best fitting experience.
+              </p>
+              <button class="ttco-btn ttco-btn--walkin" type="button" onclick="selectCheckoutOption('walkin')">
+                Reserve &amp; Collect
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
     </div>
   </div>
 
   <script src="./js/shipping.js"></script>
+   <script src="./js/checkout-options.js"></script>
+ 
+
 
   <!-- ── SUPABASE SPLASH SCREEN INTEGRATION ── -->
   <script src="./js/supabase-splash.js"></script>
