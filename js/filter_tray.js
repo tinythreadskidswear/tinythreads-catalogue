@@ -108,20 +108,35 @@
     }).join('') + '</div>';
   }
 
+  function renderSplitPanel(id, title, optionsHtml, active) {
+    return '<section class="tt-filter-panel' + (active ? ' active' : '') + '" data-filter-panel="' + id + '">'
+      + '<h4 class="tt-filter-heading">' + title + '</h4>'
+      + optionsHtml
+      + '</section>';
+  }
+
   function renderFilterTray(ctx, subcategories, ages) {
     const state = ensureState(ctx.state);
     return [
       '<aside class="tt-tray tt-tray-left" id="tt-filter-tray-' + ctx.cat + '" aria-hidden="true">',
       '<div class="tt-tray-head"><h3 class="tt-tray-title">Filter</h3><button class="tt-tray-close" type="button" data-close-tray aria-label="Close filter">x</button></div>',
       '<div class="tt-tray-body">',
-      '<section class="tt-filter-section"><h4 class="tt-filter-heading">Age</h4>' + renderOptions(ages, 'age', state.ages, ctx.labels) + '</section>',
-      '<section class="tt-filter-section"><h4 class="tt-filter-heading">Subcategory</h4>' + renderOptions(subcategories, 'subcategory', state.subcategories, ctx.labels) + '</section>',
-      '<section class="tt-filter-section"><h4 class="tt-filter-heading">Price Range</h4>',
+      '<section class="tt-filter-section tt-filter-price-section"><h4 class="tt-filter-heading">Price Range</h4>',
       '<div class="tt-price-values"><span id="tt-price-min-' + ctx.cat + '">Rs ' + state.priceMin + '</span><span id="tt-price-max-' + ctx.cat + '">Rs ' + state.priceMax + '</span></div>',
       '<div class="tt-range-stack">',
       '<label class="tt-range-row"><span>Min</span><input type="range" min="' + PRICE_MIN + '" max="' + PRICE_MAX + '" step="50" value="' + state.priceMin + '" data-price-min></label>',
       '<label class="tt-range-row"><span>Max</span><input type="range" min="' + PRICE_MIN + '" max="' + PRICE_MAX + '" step="50" value="' + state.priceMax + '" data-price-max></label>',
       '</div></section>',
+      '<div class="tt-filter-split">',
+      '<div class="tt-filter-nav" role="tablist" aria-label="Filter groups">',
+      '<button type="button" role="tab" aria-selected="true" class="tt-filter-nav-btn active" data-filter-tab="age">Age</button>',
+      '<button type="button" role="tab" aria-selected="false" class="tt-filter-nav-btn" data-filter-tab="subcategory">Subcategory</button>',
+      '</div>',
+      '<div class="tt-filter-panels">',
+      renderSplitPanel('age', 'Age', renderOptions(ages, 'age', state.ages, ctx.labels), true),
+      renderSplitPanel('subcategory', 'Subcategory', renderOptions(subcategories, 'subcategory', state.subcategories, ctx.labels), false),
+      '</div>',
+      '</div>',
       '</div>',
       '<div class="tt-tray-foot"><button class="tt-clear-btn" type="button" data-clear-filters>Clear</button><button class="tt-apply-btn" type="button" data-apply-filters>Apply</button></div>',
       '</aside>'
@@ -174,6 +189,19 @@
     const tray = document.getElementById('tt-filter-tray-' + ctx.cat);
     if (!tray) return;
     tray.querySelectorAll('[data-close-tray]').forEach(function (btn) { btn.addEventListener('click', closeTray); });
+    tray.querySelectorAll('[data-filter-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const target = btn.getAttribute('data-filter-tab');
+        tray.querySelectorAll('[data-filter-tab]').forEach(function (tab) {
+          const isActive = tab === btn;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+        });
+        tray.querySelectorAll('[data-filter-panel]').forEach(function (panel) {
+          panel.classList.toggle('active', panel.getAttribute('data-filter-panel') === target);
+        });
+      });
+    });
     tray.querySelectorAll('input[type="range"]').forEach(function (input) {
       input.addEventListener('input', function () { updatePriceLabels(ctx.cat, tray); });
     });
