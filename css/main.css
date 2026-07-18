@@ -138,10 +138,12 @@
 
 @media (max-width: 700px) {
   .ig-ticker-strip {
-    width: calc(100% - 1.5rem);
+    width: 100%;
     height: 30px;
     margin-top: .7rem;
-    border-radius: 10px;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
   }
 
   .ig-ticker-item {
@@ -277,8 +279,8 @@
    NAV — matches screenshot: white, logo+wordmark, cart pill, hamburger
    ══════════════════════════════════════════════ */
 .site-nav {
-  background: rgba(255,255,255,.96);
-  border-bottom: 1px solid #F4DEDA;
+  background: rgba(255,255,255,.88);
+  border-bottom: 1px solid rgba(222, 215, 223, .72);
   padding: 0 1.25rem;
   position: fixed;
   top: 36px;
@@ -289,64 +291,71 @@
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  box-shadow: 0 5px 20px rgba(73,38,47,.08);
+  box-shadow: 0 10px 30px rgba(46, 31, 43, .08);
   width: 100%;
   max-width: 100vw;
   overflow: hidden;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px) saturate(1.25);
+  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+}
+
+.site-nav::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f0527d 0 38%, #2aa8bd 38% 72%, #f2c94c 72% 100%);
+  opacity: .72;
 }
 
 .logo-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
   cursor: pointer;
   text-decoration: none;
 }
 
 /* Logo circle — matches screenshot's round logo with subtle border */
-.logo-svg-wrap {
-  width: 46px;
-  height: 46px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid rgba(192,57,43,.18);
-  box-shadow: 0 2px 8px rgba(192,57,43,.12);
-  transition: transform .25s;
-}
-
-.logo-svg-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
-
-.logo-wrap:hover .logo-svg-wrap {
-  transform: scale(1.08) rotate(-3deg);
-}
-
 /* Wordmark — "Tiny Threads" bold dark, "KIDSWEAR" small caps muted */
 .logo-text {
   font-family: 'DM Sans', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  color: #E74C70;
+  min-width: 0;
   line-height: 1.1;
+  letter-spacing: 0;
 }
 
-.logo-text span {
+.logo-wordmark {
+  display: flex;
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.logo-wordmark b {
+  font: inherit;
+}
+
+.logo-wordmark b:first-child {
+  color: #e63d72;
+}
+
+.logo-wordmark b:last-child {
+  color: #187fb1;
+}
+
+.logo-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 9.5px;
-  font-weight: 600;
-  color: var(--muted);
+  font-size: 8px;
+  font-weight: 750;
+  color: #6c7287;
   display: block;
-  letter-spacing: 2px;
+  letter-spacing: 0;
   text-transform: uppercase;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .nav-links {
@@ -382,25 +391,27 @@
 /* Cart button — white pill with border, red badge — matches screenshot */
 .basket-nav-btn {
   position: relative;
-  background: white;
-  color: var(--text);
-  border: 1.5px solid #E0D8D6;
+  background: rgba(255, 247, 250, .94);
+  color: #cf3268;
+  border: 1px solid #f7dbe4;
   width: 44px;
   height: 44px;
   padding: 0;
-  border-radius: 13px;
+  border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color .2s, box-shadow .2s;
+  box-shadow: 0 5px 15px rgba(63, 37, 50, .08), inset 0 1px 0 rgba(255,255,255,.9);
+  transition: background .2s, color .2s, transform .2s;
 }
 
 .basket-nav-btn:hover {
-  border-color: var(--red);
-  box-shadow: 0 2px 8px rgba(192,57,43,.12);
+  background: #ffe3ec;
+  color: #b82455;
+  transform: translateY(-1px);
 }
 
 /* Count badge — matches screenshot's red circle with "0" */
@@ -408,13 +419,14 @@
   position: absolute;
   top: -5px;
   right: -5px;
-  background: var(--red);
+  background: #17213d;
   color: white;
   font-size: 10.5px;
   font-weight: 700;
   min-width: 18px;
   height: 18px;
-  border-radius: 9px;
+  border: 2px solid #fff;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -430,33 +442,34 @@
   position: relative;
   width: auto;
   height: 46px;
-  background: #FFF3EF;
-  color: #71352A;
-  border: 1.5px solid #F2AE9D;
-  padding: 4px 13px 4px 5px;
-  border-radius: 14px;
+  background: transparent;
+  color: #17213d;
+  border: 0;
+  padding: 5px 7px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
   line-height: 1;
   overflow: visible;
-  box-shadow: 0 6px 16px rgba(231,76,112,.10);
-  transition: border-color .2s, box-shadow .2s, transform .2s;
+  box-shadow: none;
+  transition: background .2s, border-color .2s, transform .2s;
 }
 
 .site-nav .tt-partner-navbtn.tt-partner-chip:hover {
-  border-color: #E97D67;
-  box-shadow: 0 8px 20px rgba(231,76,112,.18);
+  background: #fff3f7;
+  border-color: transparent;
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
 .tt-partner-navbtn-copy {
   display: flex;
   min-width: 0;
-  max-width: 124px;
+  max-width: 160px;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
@@ -467,51 +480,28 @@
   max-width: 100%;
   overflow: hidden;
   font-size: 11.5px;
-  font-weight: 800;
+  font-weight: 850;
+  color: #17213d;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.tt-partner-chip--default .tt-partner-navbtn-label {
+  line-height: 1.08;
+  text-align: left;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.tt-partner-chip--identified .tt-partner-navbtn-label {
+  font-weight: 900;
+}
+
 .tt-partner-navbtn-sub {
-  color: #9B6258;
+  color: #c7335e;
   font-size: 8.5px;
   font-weight: 650;
   white-space: nowrap;
-}
-
-.site-nav .tt-partner-navbtn-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  border-radius: 10px;
-  background: #F07B65;
-  color: white;
-}
-
-.site-nav .tt-partner-navbtn-icon::after {
-  content: "";
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: 9px;
-  height: 9px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background: #22C55E;
-}
-
-.site-nav .tt-partner-navbtn-icon img,
-.site-nav .tt-partner-chip .tt-partner-navbtn-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
 }
 
 /* WhatsApp / Instagram links */
@@ -982,10 +972,9 @@
     top: 36px;
   }
 
-  .logo-wrap { gap: 7px; flex-shrink: 0; }
-  .logo-svg-wrap { width: 38px; height: 38px; }
-  .logo-text      { font-size: 14px; }
-  .logo-text span { font-size: 8.5px; letter-spacing: 1.5px; }
+  .logo-wrap { gap: 0; flex-shrink: 0; }
+  .logo-wordmark { font-size: 15px; }
+  .logo-sub { font-size: 7.5px; }
 
   /* Hide desktop nav links */
   .nav-links, .wa-btn { display: none; }
@@ -1000,18 +989,8 @@
   /* Partner button tighter on mobile */
   .site-nav .tt-partner-navbtn.tt-partner-chip {
     height: 44px;
-    padding: 4px 9px 4px 5px;
-    gap: 7px;
-  }
-  .site-nav .tt-partner-navbtn-icon {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
-  }
-  .site-nav .tt-partner-navbtn-icon img,
-  .site-nav .tt-partner-chip .tt-partner-navbtn-avatar {
-    width: 32px;
-    height: 32px;
+    padding: 4px 6px;
+    gap: 0;
   }
   .tt-partner-navbtn-label { font-size: 10.5px; }
   .tt-partner-navbtn-sub { font-size: 7.8px; }
@@ -1098,8 +1077,56 @@
 }
 
 @media (max-width: 390px) {
-  .site-nav { padding: 0 .6rem; }
-  .logo-text { display: none; }
-  .nav-right { flex: 1; justify-content: flex-end; }
-  .site-nav .tt-partner-navbtn.tt-partner-chip { flex: 1; max-width: 168px; }
+  .site-nav {
+    gap: .35rem;
+    padding: 0 .45rem;
+  }
+
+  .logo-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 0;
+  }
+
+  .logo-text {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .logo-wordmark { font-size: 14px; }
+  .logo-sub { font-size: 7px; }
+
+  .nav-right {
+    flex: 0 0 auto;
+    gap: 4px;
+    margin-left: 0;
+  }
+
+  .site-nav .tt-partner-navbtn.tt-partner-chip {
+    flex: 0 1 112px;
+    width: auto;
+    max-width: 112px;
+    height: 38px;
+    gap: 0;
+    padding: 4px 5px;
+    border-radius: 8px;
+  }
+
+  .tt-partner-navbtn-copy {
+    max-width: 96px;
+  }
+
+  .tt-partner-navbtn-label {
+    font-size: 8.8px;
+  }
+
+  .tt-partner-navbtn-sub {
+    display: none;
+  }
+
+  .basket-nav-btn {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
 }

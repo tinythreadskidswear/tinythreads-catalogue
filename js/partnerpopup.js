@@ -26,8 +26,6 @@
   let els = {};
   let currentSocietyName = "";
 
-  const DEFAULT_ICON_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>';
-
   function cacheEls() {
     els.backdrop = document.getElementById("tt-sheet-backdrop");
     els.sheet = document.getElementById("tt-partner-sheet");
@@ -313,18 +311,16 @@
   // photo, and swap the label between "Chat with a Partner" and
   // "Chat with <PartnerName>" once a match is found.
   function renderChip(matchData) {
-    const iconEl = els.chip.querySelector(".tt-partner-navbtn-icon");
     const labelEl = els.chip.querySelector(".tt-partner-navbtn-label");
+    const subEl = els.chip.querySelector(".tt-partner-navbtn-sub");
 
     if (matchData) {
       // Partner matched — show avatar (face anchored to top), swap label
       els.chip.classList.remove("tt-partner-chip--default");
       els.chip.classList.add("tt-partner-chip--identified");
-      if (iconEl) {
-        iconEl.innerHTML = `<img class="tt-partner-navbtn-avatar" src="${matchData.photo || "/assets/default-partner.png"}" alt="${matchData.name}">`;
-      }
       const firstName = (matchData.name || "").trim().split(" ")[0];
-      if (labelEl) labelEl.textContent = firstName ? `Chat with ${firstName}` : "Chat with your Partner";
+      if (labelEl) labelEl.textContent = firstName || "Your Partner";
+      if (subEl) subEl.textContent = "Your nearest Partner";
       els.chip.title = matchData.name + " · Your TinyThreads Partner";
       els.chip.setAttribute("aria-label", "Chat with " + matchData.name + ", your TinyThreads Partner");
       els.chip.onclick = () => reopenFromCache(matchData);
@@ -332,12 +328,10 @@
       // No match yet — show store icon, keep default class + label
       els.chip.classList.add("tt-partner-chip--default");
       els.chip.classList.remove("tt-partner-chip--identified");
-      if (iconEl) {
-        iconEl.innerHTML = DEFAULT_ICON_SVG;
-      }
-      if (labelEl) labelEl.textContent = "Chat with a Partner";
-      els.chip.title = "Chat with a TinyThreads Partner";
-      els.chip.setAttribute("aria-label", "Chat with a TinyThreads Partner");
+      if (labelEl) labelEl.textContent = "Chat with your nearest Partner";
+      if (subEl) subEl.textContent = "Size & style help";
+      els.chip.title = "Chat with your nearest TinyThreads Partner";
+      els.chip.setAttribute("aria-label", "Chat with your nearest TinyThreads Partner");
       els.chip.onclick = () => { showEntry(); openSheet(); };
     }
   }
