@@ -1274,6 +1274,21 @@
     padding-bottom: .3rem;
   }
 
+  .tt-home-discovery-sticky.is-engaged .tt-home-section-head h2 {
+    font-size: 19px;
+  }
+
+  .tt-home-discovery-sticky.is-engaged .tt-need-track {
+    gap: .5rem;
+    padding: .4rem .2rem .3rem;
+  }
+
+  .tt-home-discovery-sticky.is-engaged .tt-need-card {
+    width: 22vw;
+    min-width: 76px;
+    max-width: 88px;
+  }
+
   .tt-home-product-strip {
     gap: .75rem;
     overflow-x: auto;
