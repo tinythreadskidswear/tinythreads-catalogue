@@ -1148,7 +1148,7 @@
         // neighbouring choices in both directions.
         const tabs = Array.from(track.querySelectorAll('.mob-nav-item'));
         const itemW = mobBtn.offsetWidth || 1;
-        const visibleSlots = 4;
+        const visibleSlots = 5;
         const idx = tabs.indexOf(mobBtn);
         const prevIdx = prevMobBtn ? tabs.indexOf(prevMobBtn) : -1;
         const maxFirst = Math.max(0, tabs.length - visibleSlots);

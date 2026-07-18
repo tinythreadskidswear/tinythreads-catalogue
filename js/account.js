@@ -124,8 +124,8 @@
   }
 
   // ── NAV AVATAR ────────────────────────────────────────────
-  // Account access lives only inside the mob-menu drawer (mmh-account-row),
-  // not the top nav bar. This keeps the guest/logged-in card in sync with _session.
+  // Keep the guest/logged-in card inside the mobile drawer in sync with _session.
+  // The compact top-nav account icon opens the same account menu.
   function updateNavAvatar() {
     const guestEl  = document.getElementById('mmh-guest');
     const userEl   = document.getElementById('mmh-user');

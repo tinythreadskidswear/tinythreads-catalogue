@@ -299,57 +299,63 @@
   -webkit-backdrop-filter: blur(20px) saturate(1.25);
 }
 
+.site-nav::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f0527d 0 38%, #2aa8bd 38% 72%, #f2c94c 72% 100%);
+  opacity: .72;
+}
+
 .logo-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
   cursor: pointer;
   text-decoration: none;
 }
 
 /* Logo circle — matches screenshot's round logo with subtle border */
-.logo-svg-wrap {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid rgba(227, 82, 119, .16);
-  box-shadow: 0 4px 14px rgba(89, 38, 57, .09);
-  transition: transform .25s;
-}
-
-.logo-svg-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
-
-.logo-wrap:hover .logo-svg-wrap {
-  transform: scale(1.08) rotate(-3deg);
-}
-
 /* Wordmark — "Tiny Threads" bold dark, "KIDSWEAR" small caps muted */
 .logo-text {
   font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 850;
-  color: #17213d;
+  min-width: 0;
   line-height: 1.1;
   letter-spacing: 0;
 }
 
-.logo-text span {
+.logo-wordmark {
+  display: flex;
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.logo-wordmark b {
+  font: inherit;
+}
+
+.logo-wordmark b:first-child {
+  color: #e63d72;
+}
+
+.logo-wordmark b:last-child {
+  color: #187fb1;
+}
+
+.logo-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 9.5px;
-  font-weight: 600;
-  color: #d63b6e;
+  font-size: 8px;
+  font-weight: 750;
+  color: #6c7287;
   display: block;
   letter-spacing: 0;
   text-transform: uppercase;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .nav-links {
@@ -385,7 +391,7 @@
 /* Cart button — white pill with border, red badge — matches screenshot */
 .basket-nav-btn {
   position: relative;
-  background: #fff1f5;
+  background: rgba(255, 247, 250, .94);
   color: #cf3268;
   border: 1px solid #f7dbe4;
   width: 44px;
@@ -398,7 +404,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+  box-shadow: 0 5px 15px rgba(63, 37, 50, .08), inset 0 1px 0 rgba(255,255,255,.9);
   transition: background .2s, color .2s, transform .2s;
 }
 
@@ -436,26 +442,26 @@
   position: relative;
   width: auto;
   height: 46px;
-  background: #effaf3;
-  color: #155b34;
-  border: 1px solid #ccebd8;
-  padding: 4px 12px 4px 5px;
-  border-radius: 12px;
+  background: transparent;
+  color: #17213d;
+  border: 0;
+  padding: 5px 7px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
   line-height: 1;
   overflow: visible;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+  box-shadow: none;
   transition: background .2s, border-color .2s, transform .2s;
 }
 
 .site-nav .tt-partner-navbtn.tt-partner-chip:hover {
-  background: #e2f7e9;
-  border-color: #9bd8b2;
+  background: #fff3f7;
+  border-color: transparent;
   box-shadow: none;
   transform: translateY(-1px);
 }
@@ -463,7 +469,7 @@
 .tt-partner-navbtn-copy {
   display: flex;
   min-width: 0;
-  max-width: 124px;
+  max-width: 160px;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
@@ -475,50 +481,27 @@
   overflow: hidden;
   font-size: 11.5px;
   font-weight: 850;
+  color: #17213d;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.tt-partner-chip--default .tt-partner-navbtn-label {
+  line-height: 1.08;
+  text-align: left;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.tt-partner-chip--identified .tt-partner-navbtn-label {
+  font-weight: 900;
+}
+
 .tt-partner-navbtn-sub {
-  color: #568069;
+  color: #c7335e;
   font-size: 8.5px;
   font-weight: 650;
   white-space: nowrap;
-}
-
-.site-nav .tt-partner-navbtn-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  border-radius: 9px;
-  background: #20ad5b;
-  color: white;
-}
-
-.site-nav .tt-partner-navbtn-icon::after {
-  content: "";
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: 9px;
-  height: 9px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background: #22C55E;
-}
-
-.site-nav .tt-partner-navbtn-icon img,
-.site-nav .tt-partner-chip .tt-partner-navbtn-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
 }
 
 /* WhatsApp / Instagram links */
@@ -989,10 +972,9 @@
     top: 36px;
   }
 
-  .logo-wrap { gap: 7px; flex-shrink: 0; }
-  .logo-svg-wrap { width: 38px; height: 38px; }
-  .logo-text      { font-size: 14px; }
-  .logo-text span { font-size: 8.5px; letter-spacing: 1.5px; }
+  .logo-wrap { gap: 0; flex-shrink: 0; }
+  .logo-wordmark { font-size: 15px; }
+  .logo-sub { font-size: 7.5px; }
 
   /* Hide desktop nav links */
   .nav-links, .wa-btn { display: none; }
@@ -1007,18 +989,8 @@
   /* Partner button tighter on mobile */
   .site-nav .tt-partner-navbtn.tt-partner-chip {
     height: 44px;
-    padding: 4px 9px 4px 5px;
-    gap: 7px;
-  }
-  .site-nav .tt-partner-navbtn-icon {
-    width: 32px;
-    height: 32px;
-    flex-basis: 32px;
-  }
-  .site-nav .tt-partner-navbtn-icon img,
-  .site-nav .tt-partner-chip .tt-partner-navbtn-avatar {
-    width: 32px;
-    height: 32px;
+    padding: 4px 6px;
+    gap: 0;
   }
   .tt-partner-navbtn-label { font-size: 10.5px; }
   .tt-partner-navbtn-sub { font-size: 7.8px; }
@@ -1113,27 +1085,16 @@
   .logo-wrap {
     flex: 1 1 auto;
     min-width: 0;
-    gap: 4px;
-  }
-
-  .logo-svg-wrap {
-    width: 32px;
-    height: 32px;
+    gap: 0;
   }
 
   .logo-text {
-    display: block;
     min-width: 0;
     overflow: hidden;
-    font-size: 11px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
-  .logo-text span {
-    font-size: 6.5px;
-    letter-spacing: .8px;
-  }
+  .logo-wordmark { font-size: 14px; }
+  .logo-sub { font-size: 7px; }
 
   .nav-right {
     flex: 0 0 auto;
@@ -1142,33 +1103,21 @@
   }
 
   .site-nav .tt-partner-navbtn.tt-partner-chip {
-    flex: 0 1 104px;
+    flex: 0 1 112px;
     width: auto;
-    max-width: 104px;
+    max-width: 112px;
     height: 38px;
-    gap: 4px;
-    padding: 3px 6px 3px 3px;
-    border-radius: 11px;
-  }
-
-  .site-nav .tt-partner-navbtn-icon {
-    width: 28px;
-    height: 28px;
-    flex-basis: 28px;
-  }
-
-  .site-nav .tt-partner-navbtn-icon img,
-  .site-nav .tt-partner-chip .tt-partner-navbtn-avatar {
-    width: 28px;
-    height: 28px;
+    gap: 0;
+    padding: 4px 5px;
+    border-radius: 8px;
   }
 
   .tt-partner-navbtn-copy {
-    max-width: 62px;
+    max-width: 96px;
   }
 
   .tt-partner-navbtn-label {
-    font-size: 8.5px;
+    font-size: 8.8px;
   }
 
   .tt-partner-navbtn-sub {

@@ -3,6 +3,7 @@
   const ASSET_BASE = './assets/home-revive/mockup/';
   let activeCollectionKey = null;
   let chapterObserver = null;
+  let productRailChapterLock = false;
 
   const NEEDS = [
     { key: 'school_ready', title: 'School Ready', img: 'need-school-ready.png', fallback: p => p.category === 'school' },
@@ -247,6 +248,67 @@
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
 
+  function moveFromProductRail(direction) {
+    if (productRailChapterLock) return;
+
+    const strip = document.getElementById('tt-home-collection-products');
+    const chapter = strip && strip.closest('[data-home-chapter]');
+    if (!chapter) return;
+
+    const target = direction > 0
+      ? chapter.nextElementSibling
+      : document.querySelector('.tt-home-hero');
+    if (!target) return;
+
+    productRailChapterLock = true;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.setTimeout(function () {
+      productRailChapterLock = false;
+    }, 650);
+  }
+
+  function bindProductRailNavigation() {
+    const strip = document.getElementById('tt-home-collection-products');
+    if (!strip || strip.dataset.chapterSwipeBound === 'true') return;
+
+    strip.dataset.chapterSwipeBound = 'true';
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchHandled = false;
+
+    strip.addEventListener('touchstart', function (event) {
+      if (event.touches.length !== 1) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      touchHandled = false;
+    }, { passive: true });
+
+    strip.addEventListener('touchmove', function (event) {
+      if (touchHandled || event.touches.length !== 1) return;
+      const deltaX = touchStartX - event.touches[0].clientX;
+      const deltaY = touchStartY - event.touches[0].clientY;
+
+      if (Math.abs(deltaY) < 36 || Math.abs(deltaY) <= Math.abs(deltaX) * 1.15) return;
+      event.preventDefault();
+      touchHandled = true;
+      moveFromProductRail(deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    strip.addEventListener('touchend', function () {
+      touchHandled = false;
+    }, { passive: true });
+
+    strip.addEventListener('touchcancel', function () {
+      touchHandled = false;
+    }, { passive: true });
+
+    strip.addEventListener('wheel', function (event) {
+      if (Math.abs(event.deltaY) < 8 || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      event.preventDefault();
+      moveFromProductRail(event.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+  }
+
   function syncHomeSnapMode(pageId) {
     const home = document.getElementById('page-home');
     const homeActive = pageId ? pageId === 'home' : Boolean(home && home.classList.contains('active'));
@@ -281,6 +343,7 @@
 
   function render() {
     if (!products().length) return;
+    bindProductRailNavigation();
     renderNeeds();
     if (activeCollectionKey) {
       openCollection(activeCollectionKey);
@@ -290,6 +353,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', render);
+  document.addEventListener('DOMContentLoaded', bindProductRailNavigation);
   document.addEventListener('DOMContentLoaded', initHomeChapters);
   window.addEventListener('tt:productsloaded', render);
   window.addEventListener('tt:pageshown', function (event) {

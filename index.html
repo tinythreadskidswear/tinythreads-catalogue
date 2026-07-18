@@ -635,11 +635,11 @@
 
   <!-- NAV -->
   <nav class="site-nav" aria-label="Primary navigation">
-    <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0">
-      <div class="logo-svg-wrap"><img
-          src="./assets/logo-96.png"
-          alt="Tiny Threads Logo"></div>
-      <div class="logo-text">TinyThreads <span>Kidswear</span></div>
+    <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0" aria-label="Tiny Threads Kidswear home">
+      <div class="logo-text">
+        <span class="logo-wordmark"><b>Tiny</b><b>Threads</b></span>
+        <span class="logo-sub">Kidswear</span>
+      </div>
     </div>
     <ul class="nav-links">
       <li><a href="#" class="active" onclick="showPage('home');return false;">Home</a></li>
@@ -664,18 +664,18 @@
         </svg>
         Follow
       </a>-->
-      <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="Chat with a TinyThreads Partner" title="Chat with a Partner">
-        <span class="tt-partner-navbtn-icon">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
-        </span>
+      <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="Chat with your nearest TinyThreads Partner" title="Chat with your nearest Partner">
         <span class="tt-partner-navbtn-copy">
-          <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">Chat Partner</span>
+          <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">Chat with your nearest Partner</span>
           <span class="tt-partner-navbtn-sub">Size &amp; style help</span>
         </span>
       </button>
       <button class="basket-nav-btn" onclick="openBasket()" aria-label="Open basket">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 13H5L6 8z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
         <span id="nav-basket-count" class="basket-count-badge">0</span>
+      </button>
+      <button class="basket-nav-btn account-nav-btn" type="button" onclick="openAccountMenu()" aria-label="Open My Account" title="My Account">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3"/><path d="M6.5 19a6 6 0 0 1 11 0"/></svg>
       </button>
     </div>
   </nav>
@@ -781,7 +781,7 @@
   </div>
 
   <!-- MOBILE BOTTOM NAV -->
-  <!-- ==================== MOBILE BOTTOM NAV — Account pinned left, rest scrolls ==================== -->
+  <!-- ==================== MOBILE BOTTOM NAV — five visible categories, rest scrolls ==================== -->
     <div class="mobile-bottom-nav has-right-overflow" id="mobile-bottom-nav">
   <div class="mob-nav-track" id="mob-nav-track">
 
@@ -852,10 +852,6 @@
     </button>
 
   </div>
-  <button class="mob-nav-item mob-nav-item--pinned" id="mn-account" onclick="openAccountMenu()">
-    <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3"/><path d="M6.5 19a6 6 0 0 1 11 0"/></svg></span>
-    <span class="mob-nav-label">Account</span>
-  </button>
 </div>
 
   <!-- HOME PAGE -->
@@ -1268,20 +1264,26 @@
               </div>
             </section>
 
-            <div class="tt-about-actions" aria-label="Connect with Tiny Threads">
+            <section class="tt-about-connect-card" aria-labelledby="tt-about-connect-title">
+              <div class="tt-about-connect-copy">
+                <span>Stay connected</span>
+                <h3 id="tt-about-connect-title">Keep up with Tiny Threads</h3>
+              </div>
+              <div class="tt-about-actions" aria-label="Connect with Tiny Threads">
               <a class="tt-about-action tt-about-action--wa"
                 href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%2C%20I%20would%20like%20to%20know%20more."
-                target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26 9.9 9.9 0 0 1 9.89-9.88 9.82 9.82 0 0 1 6.99 2.9 9.83 9.83 0 0 1 2.89 6.99 9.9 9.9 0 0 1-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41z"/></svg>
-                WhatsApp
+                target="_blank" rel="noopener" aria-label="Chat with Tiny Threads on WhatsApp" title="WhatsApp">
+                <span class="tt-about-action-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26 9.9 9.9 0 0 1 9.89-9.88 9.82 9.82 0 0 1 6.99 2.9 9.83 9.83 0 0 1 2.89 6.99 9.9 9.9 0 0 1-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41z"/></svg></span>
+                <span class="tt-about-action-copy">Connect with us</span>
               </a>
               <a class="tt-about-action tt-about-action--ig"
                 href="https://www.instagram.com/tinythreadskidswear/"
-                target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.02 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85c.15-3.23 1.66-4.77 4.92-4.92 1.27-.05 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 2.69.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.31.27 16.95.07 15.67.01 15.26 0 12 0m0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88"/></svg>
-                Instagram
+                target="_blank" rel="noopener" aria-label="Follow Tiny Threads on Instagram" title="Instagram">
+                <span class="tt-about-action-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.02 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85c.15-3.23 1.66-4.77 4.92-4.92 1.27-.05 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 2.69.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.31.27 16.95.07 15.67.01 15.26 0 12 0m0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88"/></svg></span>
+                <span class="tt-about-action-copy">Follow on Instagram</span>
               </a>
-            </div>
+              </div>
+            </section>
 
             <div class="tt-about-rights">
               <span>&copy; 2026 Tiny Threads Kidswear</span>
