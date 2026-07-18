@@ -4,6 +4,8 @@ wrangler.jsonc
 wrangler.toml
 
 # Build & dev tools
+.git
+.wrangler
 node_modules
 package.json
 package-lock.json
