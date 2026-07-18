@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="./css/partnerpopup.css">
   <link rel="stylesheet" href="./css/account.css">
   <link rel="stylesheet" href="./css/checkout-options.css">
+  <link rel="stylesheet" href="./css/home-revive.css">
 
   <!-- ═══════════════ 1. STYLES ═══════════════ -->
   <style>
@@ -850,25 +851,13 @@
 
   <!-- HOME PAGE -->
   <div id="page-home" class="page active">
-    <div class="hero">
-      <div class="hero-blob1"></div>
-      <div class="hero-blob2"></div>
-      <div class="hero-content">
-         <div class="hero-logo-wrap" onclick="openGiftPopup()" role="button" tabindex="0"
-         onkeydown="if(event.key==='Enter'||event.key===' ')openGiftPopup()"
-         aria-label="Tap for a surprise gift"><img
-        src="./assets/logo-200.png"
-        alt="Tiny Threads Logo"></div>
-        <div class="tagline">For the little birds in your nest:<br><span>threads of pure joy.</span></div>
-        <p>Playful, comfortable & beautiful dailywear for every little adventure -- from sunrise to bedtime.</p>
-        <div class="trust-badges">
-          <div class="trust-badge"><span class="badge-dot" style="background:#66BB6A;"></span>100% Safe Fabrics</div>
-          <div class="trust-badge"><span class="badge-dot" style="background:#EC407A;"></span>Skin-Friendly Dyes</div>
-          <div class="trust-badge"><span class="badge-dot" style="background:#42A5F5;"></span>Durable & Washable</div>
-          <div class="trust-badge"><span class="badge-dot" style="background:#A8C5A0;"></span>Affordable Pricing</div>
-        </div>
-      </div>
-    </div>
+    <section class="tt-home-hero tt-home-hero--mockup" aria-label="Tinythreads new arrivals">
+      <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
+        alt="Cute, comfy and celebration-ready kidswear" loading="eager">
+      <button type="button" class="tt-home-hero-hotspot tt-home-hero-girls" onclick="showPage('girls')" aria-label="Shop Girls"></button>
+      <button type="button" class="tt-home-hero-hotspot tt-home-hero-boys" onclick="showPage('boys')" aria-label="Shop Boys"></button>
+      <button type="button" class="tt-home-hero-hotspot tt-home-hero-trial" onclick="ttHomeTrialCTA()" aria-label="Home Trial"></button>
+    </section>
 
     <!-- Offer ticker strip is fixed at top -- no block needed here -->
 
@@ -882,6 +871,84 @@
     </div>
 
     <!-- ══ SHOP BY CATEGORY TILES -- hidden via flag; set SHOW_CAT_TILES=true to re-enable ══ -->
+    <section class="tt-home-search-wrap tt-home-search-art" aria-label="Search products">
+      <img class="tt-home-search-img" src="./assets/home-revive/mockup/home-search-strip.png" alt="Tinythreads search" loading="eager">
+      <div class="tt-home-search">
+        <input id="tt-home-search-input" type="search" placeholder="Search adorable outfits..."
+          onkeydown="if(event.key==='Enter')ttHomeSearch(this.value)">
+        <button type="button" onclick="ttHomeSearch(document.getElementById('tt-home-search-input').value)" aria-label="Search"></button>
+      </div>
+    </section>
+
+    <section class="tt-home-section tt-home-needs">
+      <div class="tt-home-section-head">
+        <h2>Shop by Need</h2>
+        <p>Quick shortcuts parents actually shop by.</p>
+      </div>
+      <div class="tt-need-track" id="tt-need-track"></div>
+    </section>
+
+    <section class="tt-home-section tt-home-fresh tt-home-fresh-art">
+      <button type="button" class="tt-image-card tt-image-card--full" onclick="ttOpenCollection('fresh_picks')">
+        <img src="./assets/home-revive/mockup/fresh-picks-band.png" alt="Fresh Picks for Your Little Star" loading="lazy">
+      </button>
+    </section>
+
+    <section class="tt-home-section tt-home-collection-results" id="tt-home-collection-results" hidden>
+      <div class="tt-home-section-head tt-home-section-row">
+        <div>
+          <h2 id="tt-home-collection-title">Collection picks</h2>
+          <p id="tt-home-collection-sub">Curated Tinythreads styles.</p>
+        </div>
+        <button type="button" onclick="ttClearHomeCollection()">Clear</button>
+      </div>
+      <div class="tt-home-product-strip" id="tt-home-collection-products"></div>
+    </section>
+
+    <section class="tt-home-section tt-home-offers">
+      <button type="button" class="tt-image-card" onclick="ttOpenCollection('daily_wear')">
+        <img src="./assets/home-revive/mockup/offer-3-for-999.png" alt="Mix Match Save Big offer" loading="lazy">
+      </button>
+      <button type="button" class="tt-image-card" onclick="ttOpenCollection('clearance')">
+        <img src="./assets/home-revive/mockup/offer-clearance-299.png" alt="Stock clearance from Rs 299" loading="lazy">
+      </button>
+      <button type="button" class="tt-image-card" onclick="ttHomeTrialCTA()">
+        <img src="./assets/home-revive/mockup/offer-home-trial.png" alt="Try at home before you decide" loading="lazy">
+      </button>
+    </section>
+
+    <section class="tt-home-section tt-home-promise">
+      <img src="./assets/home-revive/mockup/parents-promise.png" alt="Why parents choose Tinythreads" loading="lazy">
+      <div class="tt-promise-grid">
+        <span>Size help before payment</span>
+        <span>WhatsApp confirmation</span>
+        <span>Budget-friendly styles</span>
+        <span>Home Trial &amp; Walk-In options</span>
+      </div>
+    </section>
+
+    <section class="tt-home-section tt-home-collections">
+      <button type="button" class="tt-image-card" onclick="showPage('girls')">
+        <img src="./assets/home-revive/mockup/girls-collection.png" alt="Girls Collection" loading="lazy">
+      </button>
+      <button type="button" class="tt-image-card" onclick="showPage('boys')">
+        <img src="./assets/home-revive/mockup/boys-collection.png" alt="Boys Collection" loading="lazy">
+      </button>
+      <button type="button" class="tt-image-card" onclick="showPage('babies')">
+        <img src="./assets/home-revive/mockup/baby-softwear.png" alt="Baby Softwear Collection" loading="lazy">
+      </button>
+    </section>
+
+    <section class="tt-home-section tt-home-how">
+      <img src="./assets/home-revive/mockup/how-shopping-works.png" alt="How shopping works at Tinythreads" loading="lazy">
+      <div class="tt-how-steps">
+        <span>Add favourites</span>
+        <span>Confirm on WhatsApp</span>
+        <span>Pay after confirmation</span>
+        <span>Deliver, try at home, or collect</span>
+      </div>
+    </section>
+
     <div class="section" id="cat-tiles-section" style="display:none;/* FLAG: SHOW_CAT_TILES=false */">
       <h2 class="section-title">Shop by <span class="red">Category</span></h2>
       <p class="section-sub">Find the perfect look for every little one in your life</p>
@@ -1752,6 +1819,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="./js/filter_tray.js"></script>
   <script src="./js/app.js"></script>
+  <script src="./js/home-revive.js"></script>
   <script src="./js/partnerpopup.js"></script>
   <script src="./js/features.js"></script>
 
