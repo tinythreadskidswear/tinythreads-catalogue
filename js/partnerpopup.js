@@ -26,7 +26,7 @@
   let els = {};
   let currentSocietyName = "";
 
-  const DEFAULT_ICON_SVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>';
+  const DEFAULT_ICON_SVG = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>';
 
   function cacheEls() {
     els.backdrop = document.getElementById("tt-sheet-backdrop");
@@ -335,7 +335,7 @@
       if (iconEl) {
         iconEl.innerHTML = DEFAULT_ICON_SVG;
       }
-      if (labelEl) labelEl.textContent = "Chat with a Partner";
+      if (labelEl) labelEl.textContent = "Chat Partner";
       els.chip.title = "Chat with a TinyThreads Partner";
       els.chip.setAttribute("aria-label", "Chat with a TinyThreads Partner");
       els.chip.onclick = () => { showEntry(); openSheet(); };

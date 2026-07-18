@@ -666,15 +666,15 @@
       </a>-->
       <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="Chat with a TinyThreads Partner" title="Chat with a Partner">
         <span class="tt-partner-navbtn-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
         </span>
         <span class="tt-partner-navbtn-copy">
-          <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">Chat with a Partner</span>
+          <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">Chat Partner</span>
           <span class="tt-partner-navbtn-sub">Size &amp; style help</span>
         </span>
       </button>
       <button class="basket-nav-btn" onclick="openBasket()" aria-label="Open basket">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1 13H5L6 8z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
         <span id="nav-basket-count" class="basket-count-badge">0</span>
       </button>
     </div>
@@ -867,23 +867,14 @@
           <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
             alt="Cute, comfy and celebration-ready kidswear" loading="eager" fetchpriority="high" decoding="async">
         </picture>
-        <video id="tt-home-hero-video" class="tt-home-hero-video" muted playsinline loop preload="none" aria-hidden="true"></video>
       </div>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-girls" onclick="showPage('girls')" aria-label="Shop Girls"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-boys" onclick="showPage('boys')" aria-label="Shop Boys"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-trial" onclick="ttHomeTrialCTA()" aria-label="Home Trial"></button>
     </section>
 
-    <!-- Offer ticker strip is fixed at top -- no block needed here -->
-
-    <!-- ── INSTAGRAM TICKER STRIP ── -->
-    <div class="ig-ticker-strip" onclick="window.open('https://www.instagram.com/tinythreadskidswear/','_blank')"
-      role="button" aria-label="Follow us on Instagram and get a free season cap">
-      <div class="ig-ticker-track">
-        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
-        <span class="ig-ticker-item"><svg style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> Follow <strong>@tinythreadskidswear</strong> on Instagram &amp; get a <span class="ig-tk-badge">FREE Season Cap</span> with your next order!</span>
-      </div>
-    </div>
+    <div class="tt-home-chapters">
+      <div class="tt-home-chapter tt-home-chapter--discover" data-home-chapter aria-label="Discover Tinythreads products">
 
     <!-- ══ SHOP BY CATEGORY TILES -- hidden via flag; set SHOW_CAT_TILES=true to re-enable ══ -->
     <div class="tt-home-discovery-sticky" id="tt-home-discovery">
@@ -901,7 +892,9 @@
           <h2>Shop by Need</h2>
           <p>Quick shortcuts parents actually shop by.</p>
         </div>
-        <div class="tt-need-track" id="tt-need-track"></div>
+        <div class="tt-need-carousel">
+          <div class="tt-need-track" id="tt-need-track"></div>
+        </div>
       </section>
 
     </div>
@@ -918,6 +911,9 @@
         <div class="loading-grid"><div class="spinner"></div>Loading featured products...</div>
       </div>
     </section>
+
+      </div>
+      <div class="tt-home-chapter tt-home-chapter--explore" data-home-chapter aria-label="Offers and collections">
 
     <section class="tt-home-section tt-home-offers">
       <button type="button" class="tt-image-card" onclick="ttOpenCollection('daily_wear')">
@@ -1069,6 +1065,9 @@
       </div>
     </div>
 
+      </div>
+      <div class="tt-home-chapter tt-home-chapter--loved" data-home-chapter aria-label="Loved by parents">
+
     <!-- RECENTLY VIEWED rendered by JS here via rv-section global div -->
 
     <!-- TESTIMONIALS -->
@@ -1217,10 +1216,90 @@
       </div>
     </div>
 
-    <footer>
+      </div>
+      <div class="tt-home-chapter tt-home-chapter--about" data-home-chapter aria-label="About Tinythreads">
+        <footer class="tt-about-footer">
+          <div class="tt-about-shell">
+            <header class="tt-about-brand">
+              <img src="./assets/logo-96.png" alt="Tiny Threads Kidswear logo">
+              <div>
+                <span>Our story</span>
+                <strong>Tiny Threads</strong>
+                <small>Kidswear with craft, care and community</small>
+              </div>
+            </header>
+
+            <section class="tt-about-founder" aria-labelledby="tt-about-founder-title">
+              <figure class="tt-about-founder-media">
+                <img
+                  src="https://res.cloudinary.com/tinythreads/image/upload/c_fill,g_auto,w_520,h_640,q_auto,f_auto/v1782643131/file_000000002fe8720896f46411b2264e84_ayy6go.png"
+                  alt="Uma Gangrade, Founder of Tiny Threads Kidswear"
+                  loading="lazy" decoding="async">
+                <figcaption>
+                  <strong>Uma Gangrade</strong>
+                  <span>Founder, Tiny Threads</span>
+                </figcaption>
+              </figure>
+
+              <div class="tt-about-story">
+                <span class="tt-about-story-kicker">40 years of boutique and stitching experience</span>
+                <h2 id="tt-about-founder-title">Crafted with experience. Growing with purpose.</h2>
+                <p>Uma Gangrade brings four decades of hands-on boutique work, garment stitching and a deep understanding of what families value in children's clothing.</p>
+                <p>Today, she is building Tiny Threads to help women in local communities become independent kidswear reselling partners, creating flexible income opportunities through trusted neighbourhood relationships.</p>
+
+                <div class="tt-about-proof" aria-label="Tiny Threads values">
+                  <span><strong>40</strong>Years of craft</span>
+                  <span><strong>Women</strong>Led growth</span>
+                  <span><strong>Local</strong>Personal support</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="tt-about-vision" aria-label="Our vision">
+              <span class="tt-about-vision-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.8-7.7 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"/>
+                </svg>
+              </span>
+              <div>
+                <span>Our vision</span>
+                <h3>Women-powered neighbourhood businesses.</h3>
+                <p>Enable community women to build meaningful income as Tiny Threads reselling partners while giving parents a friendly, personal way to shop for their children.</p>
+              </div>
+            </section>
+
+            <div class="tt-about-actions" aria-label="Connect with Tiny Threads">
+              <a class="tt-about-action tt-about-action--wa"
+                href="https://wa.me/917879976016?text=Hi%20Tiny%20Threads%2C%20I%20would%20like%20to%20know%20more."
+                target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26 9.9 9.9 0 0 1 9.89-9.88 9.82 9.82 0 0 1 6.99 2.9 9.83 9.83 0 0 1 2.89 6.99 9.9 9.9 0 0 1-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41z"/></svg>
+                WhatsApp
+              </a>
+              <a class="tt-about-action tt-about-action--ig"
+                href="https://www.instagram.com/tinythreadskidswear/"
+                target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.02 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85c.15-3.23 1.66-4.77 4.92-4.92 1.27-.05 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 2.69.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.31.27 16.95.07 15.67.01 15.26 0 12 0m0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88"/></svg>
+                Instagram
+              </a>
+            </div>
+
+            <div class="tt-about-rights">
+              <span>&copy; 2026 Tiny Threads Kidswear</span>
+              <a href="https://mytinythreads.in">mytinythreads.in</a>
+              <span>All rights reserved</span>
+            </div>
+          </div>
+        </footer>
+
+    <footer hidden aria-hidden="true">
       <div class="footer-inner">
+        <section class="tt-home-about-intro" aria-labelledby="tt-home-about-title">
+          <span>About us</span>
+          <h2 id="tt-home-about-title">Little styles for life's happiest moments.</h2>
+          <p>Tiny Threads brings parents joyful, comfortable and budget-friendly kidswear, with personal help whenever fit or styling feels uncertain.</p>
+        </section>
         <div class="footer-grid">
-          <div>
+          <div class="footer-connect">
             <div class="footer-brand"><img class="footer-logo"
                 src="./assets/logo-96.png"
                 alt="Logo">
@@ -1238,34 +1317,6 @@
                   d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg> Follow on Instagram</a>
           </div>
-          <div class="footer-col">
-            <h4>Shop</h4>
-            <ul>
-              <li><a href="#" onclick="showPage('boys');return false;">Boys 3-13y</a></li>
-              <li><a href="#" onclick="showPage('girls');return false;">Girls 3-13y</a></li>
-              <li><a href="#" onclick="showPage('babies');return false;">Babies 0-3y</a></li>
-              <li><a href="#">New Arrivals</a></li>
-              <li><a href="#">Festive Collection</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Collections</h4>
-            <ul>
-              <li><a href="#">Traditional Wear</a></li>
-              <li><a href="#">Summer Wear</a></li>
-              <li><a href="#">Winter Wear</a></li>
-              <li><a href="#">Nightwear</a></li>
-              <li><a href="#">Undergarments</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Contact</h4>
-            <p>WhatsApp / Call:<br><strong style="color:white;">+91 78799 76016</strong></p>
-            <p style="margin-top:.8rem;">Website:<br><a href="https://mytinythreads.in"
-                style="color:rgba(255,255,255,.7);">mytinythreads.in</a></p>
-            <p style="margin-top:.8rem;">Instagram:<br><a href="https://www.instagram.com/tinythreadskidswear/"
-                target="_blank" style="color:rgba(255,255,255,.7);">@tinythreadskidswear</a></p>
-          </div>
         </div>
         <div class="footer-bottom">
           <p>© 2025 Tiny Threads Kidswear · <a href="https://mytinythreads.in">mytinythreads.in</a> · All rights
@@ -1273,6 +1324,8 @@
         </div>
       </div>
     </footer>
+      </div>
+    </div>
   </div>
 
   <!-- CATEGORY PAGES -->
