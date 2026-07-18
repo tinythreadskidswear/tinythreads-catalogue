@@ -4,10 +4,10 @@
  * CF Worker with static assets.
  *
  * HOW IT WORKS:
- *   wrangler.jsonc sets "run_worker_first": ["/products/*"]
- *   So ONLY /products/:id requests hit this worker.
- *   Everything else (index.html, JS, CSS, images) is served directly
- *   from static assets — this worker is never called for them.
+ *   wrangler.jsonc sets "run_worker_first" for product and category paths.
+ *   Product pages hit this worker for crawler-specific OG HTML.
+ *   Category paths like /boys and /babies are rewritten to index.html so the
+ *   SPA can route them client-side while keeping the clean URL.
  *
  * FOR /products/:id:
  *   • Social crawlers (WhatsApp, Facebook, Telegram etc.)
