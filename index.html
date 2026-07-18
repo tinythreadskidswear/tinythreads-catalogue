@@ -10,6 +10,7 @@
     content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹99.">
   <link rel="canonical" href="https://mytinythreads.in/">
   <link rel="preload" as="image" href="./assets/logo-96.png">
+  <link rel="preload" as="image" href="./assets/home-revive/mockup/home-hero.webp" type="image/webp" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tiny Threads Kidswear">
   <meta property="og:url" content="https://mytinythreads.in/">
@@ -184,7 +185,7 @@
   ║  Desktop <source srcset> = landscape (w_900,h_580)          ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
-  <div id="splash-screen" aria-modal="true" role="dialog" aria-label="Welcome to Tiny Threads">
+  <template id="legacy-splash-screen">
     <div class="splash-card" id="splash-card">
       <div class="splash-slides" aria-hidden="true">
 
@@ -297,7 +298,7 @@
       </div>
 
     </div><!-- /splash-card -->
-  </div><!-- /splash-screen -->
+  </template><!-- Legacy splash retained inert for rollback; its media is not requested. -->
 
   <div class="toast" id="toast"></div>
   <div class="share-toast" id="share-toast"></div>
@@ -860,8 +861,14 @@
   <!-- HOME PAGE -->
   <div id="page-home" class="page active">
     <section class="tt-home-hero tt-home-hero--mockup" aria-label="Tinythreads new arrivals">
-      <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
-        alt="Cute, comfy and celebration-ready kidswear" loading="eager">
+      <div class="tt-home-hero-media">
+        <picture>
+          <source srcset="./assets/home-revive/mockup/home-hero.webp" type="image/webp">
+          <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
+            alt="Cute, comfy and celebration-ready kidswear" loading="eager" fetchpriority="high" decoding="async">
+        </picture>
+        <video id="tt-home-hero-video" class="tt-home-hero-video" muted playsinline loop preload="none" aria-hidden="true"></video>
+      </div>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-girls" onclick="showPage('girls')" aria-label="Shop Girls"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-boys" onclick="showPage('boys')" aria-label="Shop Boys"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-trial" onclick="ttHomeTrialCTA()" aria-label="Home Trial"></button>
@@ -1944,8 +1951,6 @@
 
 
   <!-- ── SUPABASE SPLASH SCREEN INTEGRATION ── -->
-  <script src="./js/supabase-splash.js"></script>
-  <script src="./js/splash-init.js"></script>
 <!-- as per the last comment from claud  on 4th June 11 AM-->
 
         <!-- new code -->

@@ -1,7 +1,11 @@
 (function () {
   const WA_NUMBER = '917879976016';
   const ASSET_BASE = './assets/home-revive/mockup/';
+  const HERO_VIDEO_MOBILE = 'https://res.cloudinary.com/tinythreads/video/upload/g_auto/c_fill,ar_952:414,w_640,so_0,du_5,q_auto:eco,br_900k,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
+  const HERO_VIDEO_DESKTOP = 'https://res.cloudinary.com/tinythreads/video/upload/g_auto/c_fill,ar_952:414,w_1280,so_0,du_5,q_auto:good,br_1800k,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
   let activeCollectionKey = null;
+  let heroVideoRequested = false;
+  let heroVideoScheduled = false;
 
   const NEEDS = [
     { key: 'school_ready', title: 'School Ready', img: 'need-school-ready.png', fallback: p => p.category === 'school' },
@@ -207,6 +211,78 @@
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
 
+  function canUseHeroVideo() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!connection) return true;
+    if (connection.saveData) return false;
+    return !['slow-2g', '2g'].includes(String(connection.effectiveType || '').toLowerCase());
+  }
+
+  function initHeroVideo() {
+    heroVideoScheduled = false;
+    if (heroVideoRequested || !canUseHeroVideo()) return;
+
+    const home = document.getElementById('page-home');
+    const video = document.getElementById('tt-home-hero-video');
+    if (!home || !home.classList.contains('active') || !video) return;
+
+    heroVideoRequested = true;
+    video.src = window.matchMedia('(max-width: 700px)').matches
+      ? HERO_VIDEO_MOBILE
+      : HERO_VIDEO_DESKTOP;
+
+    video.addEventListener('playing', function () {
+      video.classList.add('is-playing');
+    });
+    video.addEventListener('error', function () {
+      video.classList.remove('is-playing');
+    }, { once: true });
+
+    video.load();
+    const playback = video.play();
+    if (playback && playback.catch) {
+      playback.catch(function () {
+        video.classList.remove('is-playing');
+      });
+    }
+  }
+
+  function scheduleHeroVideo() {
+    if (heroVideoRequested || heroVideoScheduled || !canUseHeroVideo()) return;
+    heroVideoScheduled = true;
+
+    const startWhenIdle = function () {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(initHeroVideo, { timeout: 2500 });
+      } else {
+        window.setTimeout(initHeroVideo, 800);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      startWhenIdle();
+    } else {
+      window.addEventListener('load', startWhenIdle, { once: true });
+    }
+  }
+
+  function syncHeroVideo(pageId) {
+    const video = document.getElementById('tt-home-hero-video');
+    if (!video) return;
+
+    if (pageId === 'home') {
+      if (!heroVideoRequested) {
+        scheduleHeroVideo();
+      } else if (document.visibilityState === 'visible') {
+        const playback = video.play();
+        if (playback && playback.catch) playback.catch(function () {});
+      }
+    } else {
+      video.pause();
+    }
+  }
+
   function render() {
     if (!products().length) return;
     renderNeeds();
@@ -218,7 +294,20 @@
   }
 
   document.addEventListener('DOMContentLoaded', render);
-  window.addEventListener('tt:productsloaded', render);
+  window.addEventListener('tt:productsloaded', function () {
+    render();
+    scheduleHeroVideo();
+  });
+  window.addEventListener('load', function () {
+    window.setTimeout(scheduleHeroVideo, 1200);
+  }, { once: true });
+  window.addEventListener('tt:pageshown', function (event) {
+    syncHeroVideo(event.detail && event.detail.id);
+  });
+  document.addEventListener('visibilitychange', function () {
+    const home = document.getElementById('page-home');
+    syncHeroVideo(home && home.classList.contains('active') && document.visibilityState === 'visible' ? 'home' : 'hidden');
+  });
 
   window.ttOpenCollection = openCollection;
   window.ttClearHomeCollection = clearCollection;

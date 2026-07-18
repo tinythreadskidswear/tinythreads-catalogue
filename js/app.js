@@ -27,6 +27,8 @@
 (function () {
   'use strict';
 
+  if (!document.getElementById('splash-screen')) return;
+
   // ── CONFIG ────────────────────────────────────────────────────────────────
   // Desktop video
   var SPLASH_VIDEO_URL_DESKTOP = 'https://res.cloudinary.com/tinythreads/video/upload/q_auto,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
