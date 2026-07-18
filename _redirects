@@ -1,0 +1,30 @@
+# Clean category URLs should load the SPA entrypoint, then js/app.js routes
+# the preserved path to the matching category page.
+/boys /index.html 200
+/boys/ /index.html 200
+/girls /index.html 200
+/girls/ /index.html 200
+/babies /index.html 200
+/babies/ /index.html 200
+/nightwear /index.html 200
+/nightwear/ /index.html 200
+/footwear /index.html 200
+/footwear/ /index.html 200
+/accessories /index.html 200
+/accessories/ /index.html 200
+/toys /index.html 200
+/toys/ /index.html 200
+/twinning /index.html 200
+/twinning/ /index.html 200
+/kidscare /index.html 200
+/kidscare/ /index.html 200
+/school /index.html 200
+/school/ /index.html 200
+/learning /index.html 200
+/learning/ /index.html 200
+/celebration /index.html 200
+/celebration/ /index.html 200
+
+# Product pages keep working as SPA routes when the Worker is not invoked.
+# When the Worker is active, /products/* is still handled first for crawler OG tags.
+/products/* /index.html 200

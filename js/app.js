@@ -446,6 +446,7 @@
               price: parseFloat(r.price) || 0, badge: r.badge || '',
               fabric: r.fabric || '', featured: !!r.featured,
               category: r.category, subcategory: r.subcategory || '',
+              collections: Array.isArray(r.collections) ? r.collections : [],
               images: Array.isArray(r.images) ? r.images : [],
               sizes: Array.isArray(r.sizes) ? r.sizes : [],
               colors: Array.isArray(r.colors) ? r.colors : [],
@@ -463,7 +464,9 @@
       // 3. Last-resort minimal fallback
       if (!loaded) allProducts = getFallbackProducts();
 
+      window.allProducts = allProducts;
       renderAllGrids(); initTestimonialSwiper(); handleURLRouting();
+      window.dispatchEvent(new CustomEvent('tt:productsloaded', { detail: { products: allProducts } }));
     }
 
     function renderAllGrids() {
@@ -1317,10 +1320,10 @@
     // Fallback products
     function getFallbackProducts() {
       return [
-        { id: 'b001', name: 'Cotton Kurta Set', category: 'boys', subcategory: 'traditional', price: 699, badge: 'Bestseller', featured: true, fabric: 'Cotton', description: 'Comfortable everyday kurta set with matching pyjama.', sizes: ['3-4Y', '5-6Y', '7-8Y', '9-10Y', '11-12Y'], colors: ['White', 'Blue', 'Cream'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777128347/tinythreads/IMG-20250927-WA0043_ulau1j.jpg'] },
-        { id: 'g001', name: 'Floral Frock', category: 'girls', subcategory: 'summer', price: 549, badge: 'New', featured: true, fabric: 'Cotton', description: 'Light and breezy floral frock for summer days.', sizes: ['3-4Y', '5-6Y', '7-8Y'], colors: ['Pink', 'Yellow', 'Lavender'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777267316/tinythreads/1773835328475_e1a5lf.png'] },
-        { id: 'bb001', name: 'Baby Onesie 3-Pack', category: 'babies', subcategory: 'summer', price: 499, badge: 'Value Pack', featured: true, fabric: 'Soft Cotton', description: 'Ultra-soft onesies for your newborn. Gentle on delicate skin.', sizes: ['0-3M', '3-6M', '6-9M', '9-12M'], colors: ['White', 'Mint', 'Blush'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777201920/tinythreads/IMG-20240409-WA0025_gaqztv.jpg'] },
-        { id: 'g014', name: 'Sharara Set', category: 'girls', subcategory: 'traditional', price: 899, badge: 'Festive', featured: true, fabric: 'Georgette', description: 'Stunning sharara set for festive occasions.', sizes: ['4-5Y', '6-7Y', '8-9Y', '10-11Y'], colors: ['Red', 'Maroon', 'Gold'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777272488/tinythreads/IMG-20260117-WA0008_ds6761.jpg'] }
+        { id: 'b001', name: 'Cotton Kurta Set', category: 'boys', subcategory: 'traditional', collections: ['fresh_picks', 'birthday_looks'], price: 699, badge: 'Bestseller', featured: true, fabric: 'Cotton', description: 'Comfortable everyday kurta set with matching pyjama.', sizes: ['3-4Y', '5-6Y', '7-8Y', '9-10Y', '11-12Y'], colors: ['White', 'Blue', 'Cream'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777128347/tinythreads/IMG-20250927-WA0043_ulau1j.jpg'] },
+        { id: 'g001', name: 'Floral Frock', category: 'girls', subcategory: 'summer', collections: ['fresh_picks', 'daily_wear', 'birthday_looks'], price: 549, badge: 'New', featured: true, fabric: 'Cotton', description: 'Light and breezy floral frock for summer days.', sizes: ['3-4Y', '5-6Y', '7-8Y'], colors: ['Pink', 'Yellow', 'Lavender'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777267316/tinythreads/1773835328475_e1a5lf.png'] },
+        { id: 'bb001', name: 'Baby Onesie 3-Pack', category: 'babies', subcategory: 'summer', collections: ['baby_softwear', 'daily_wear'], price: 499, badge: 'Value Pack', featured: true, fabric: 'Soft Cotton', description: 'Ultra-soft onesies for your newborn. Gentle on delicate skin.', sizes: ['0-3M', '3-6M', '6-9M', '9-12M'], colors: ['White', 'Mint', 'Blush'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777201920/tinythreads/IMG-20240409-WA0025_gaqztv.jpg'] },
+        { id: 'g014', name: 'Sharara Set', category: 'girls', subcategory: 'traditional', collections: ['fresh_picks', 'birthday_looks'], price: 899, badge: 'Festive', featured: true, fabric: 'Georgette', description: 'Stunning sharara set for festive occasions.', sizes: ['4-5Y', '6-7Y', '8-9Y', '10-11Y'], colors: ['Red', 'Maroon', 'Gold'], images: ['https://res.cloudinary.com/tinythreads/image/upload/v1777272488/tinythreads/IMG-20260117-WA0008_ds6761.jpg'] }
       ];
     }
 
