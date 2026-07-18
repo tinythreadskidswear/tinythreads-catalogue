@@ -10,6 +10,7 @@
     content="Playful, comfortable & beautiful kidswear for boys, girls and babies. Shop traditional, summer, winter & nightwear. Checkout via WhatsApp. Prices from ₹99.">
   <link rel="canonical" href="https://mytinythreads.in/">
   <link rel="preload" as="image" href="./assets/logo-96.png">
+  <link rel="preload" as="image" href="./assets/home-revive/mockup/home-hero.webp" type="image/webp" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tiny Threads Kidswear">
   <meta property="og:url" content="https://mytinythreads.in/">
@@ -184,7 +185,7 @@
   ║  Desktop <source srcset> = landscape (w_900,h_580)          ║
   ╚══════════════════════════════════════════════════════════════╝
 -->
-  <div id="splash-screen" aria-modal="true" role="dialog" aria-label="Welcome to Tiny Threads">
+  <template id="legacy-splash-screen">
     <div class="splash-card" id="splash-card">
       <div class="splash-slides" aria-hidden="true">
 
@@ -297,7 +298,7 @@
       </div>
 
     </div><!-- /splash-card -->
-  </div><!-- /splash-screen -->
+  </template><!-- Legacy splash retained inert for rollback; its media is not requested. -->
 
   <div class="toast" id="toast"></div>
   <div class="share-toast" id="share-toast"></div>
@@ -633,7 +634,7 @@
   <!-- Partner button now lives in the top nav (nav-right), beside the basket button. -->
 
   <!-- NAV -->
-  <nav>
+  <nav class="site-nav" aria-label="Primary navigation">
     <div class="logo-wrap" onclick="showPage('home')" role="button" tabindex="0">
       <div class="logo-svg-wrap"><img
           src="./assets/logo-96.png"
@@ -656,10 +657,6 @@
       <li><a href="https://tinystone.in">Jewellery &amp; Accessories</a></li>
     </ul>
     <div class="nav-right">
-      <button class="basket-nav-btn" onclick="openBasket()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span id="nav-basket-count" class="basket-count-badge">0</span>
-      </button>
        <!--<a class="ig-btn" href="https://www.instagram.com/tinythreadskidswear/" target="_blank" rel="noopener">
         <svg style="width:16px;height:16px;fill:white;" viewBox="0 0 24 24">
           <path
@@ -667,11 +664,18 @@
         </svg>
         Follow
       </a>-->
-      <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="TinyThreads Partner" title="Your Partner">
+      <button id="tt-partner-chip" class="tt-partner-chip tt-partner-navbtn tt-partner-chip--default" aria-label="Chat with a TinyThreads Partner" title="Chat with a Partner">
         <span class="tt-partner-navbtn-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 20v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/><path d="M3 9h18"/></svg>
         </span>
-        <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">TinyThreads Partner</span>
+        <span class="tt-partner-navbtn-copy">
+          <span class="tt-partner-navbtn-label" id="tt-partner-navbtn-label">Chat with a Partner</span>
+          <span class="tt-partner-navbtn-sub">Size &amp; style help</span>
+        </span>
+      </button>
+      <button class="basket-nav-btn" onclick="openBasket()" aria-label="Open basket">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span id="nav-basket-count" class="basket-count-badge">0</span>
       </button>
     </div>
   </nav>
@@ -778,8 +782,13 @@
 
   <!-- MOBILE BOTTOM NAV -->
   <!-- ==================== MOBILE BOTTOM NAV — Account pinned left, rest scrolls ==================== -->
-    <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <div class="mobile-bottom-nav has-right-overflow" id="mobile-bottom-nav">
   <div class="mob-nav-track" id="mob-nav-track">
+
+    <button class="mob-nav-item" id="mn-home" onclick="showPage('home')">
+      <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg></span>
+      <span class="mob-nav-label">Home</span>
+    </button>
     
     <button class="mob-nav-item" id="mn-boys" onclick="showPage('boys')">
       <span class="mob-nav-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></span>
@@ -852,8 +861,14 @@
   <!-- HOME PAGE -->
   <div id="page-home" class="page active">
     <section class="tt-home-hero tt-home-hero--mockup" aria-label="Tinythreads new arrivals">
-      <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
-        alt="Cute, comfy and celebration-ready kidswear" loading="eager">
+      <div class="tt-home-hero-media">
+        <picture>
+          <source srcset="./assets/home-revive/mockup/home-hero.webp" type="image/webp">
+          <img class="tt-home-hero-img" src="./assets/home-revive/mockup/home-hero.png"
+            alt="Cute, comfy and celebration-ready kidswear" loading="eager" fetchpriority="high" decoding="async">
+        </picture>
+        <video id="tt-home-hero-video" class="tt-home-hero-video" muted playsinline loop preload="none" aria-hidden="true"></video>
+      </div>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-girls" onclick="showPage('girls')" aria-label="Shop Girls"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-boys" onclick="showPage('boys')" aria-label="Shop Boys"></button>
       <button type="button" class="tt-home-hero-hotspot tt-home-hero-trial" onclick="ttHomeTrialCTA()" aria-label="Home Trial"></button>
@@ -871,38 +886,37 @@
     </div>
 
     <!-- ══ SHOP BY CATEGORY TILES -- hidden via flag; set SHOW_CAT_TILES=true to re-enable ══ -->
-    <section class="tt-home-search-wrap tt-home-search-art" aria-label="Search products">
-      <img class="tt-home-search-img" src="./assets/home-revive/mockup/home-search-strip.png" alt="Tinythreads search" loading="eager">
-      <div class="tt-home-search">
-        <input id="tt-home-search-input" type="search" placeholder="Search adorable outfits..."
-          onkeydown="if(event.key==='Enter')ttHomeSearch(this.value)">
-        <button type="button" onclick="ttHomeSearch(document.getElementById('tt-home-search-input').value)" aria-label="Search"></button>
-      </div>
-    </section>
+    <div class="tt-home-discovery-sticky" id="tt-home-discovery">
+      <section class="tt-home-search-wrap tt-home-search-art" aria-label="Search products">
+        <img class="tt-home-search-img" src="./assets/home-revive/mockup/home-search-strip-clean.png" alt="" aria-hidden="true" loading="eager">
+        <div class="tt-home-search">
+          <input id="tt-home-search-input" type="search" placeholder="Search adorable outfits..."
+            onkeydown="if(event.key==='Enter')ttHomeSearch(this.value)">
+          <button type="button" onclick="ttHomeSearch(document.getElementById('tt-home-search-input').value)" aria-label="Search"></button>
+        </div>
+      </section>
 
-    <section class="tt-home-section tt-home-needs">
-      <div class="tt-home-section-head">
-        <h2>Shop by Need</h2>
-        <p>Quick shortcuts parents actually shop by.</p>
-      </div>
-      <div class="tt-need-track" id="tt-need-track"></div>
-    </section>
+      <section class="tt-home-section tt-home-needs">
+        <div class="tt-home-section-head">
+          <h2>Shop by Need</h2>
+          <p>Quick shortcuts parents actually shop by.</p>
+        </div>
+        <div class="tt-need-track" id="tt-need-track"></div>
+      </section>
 
-    <section class="tt-home-section tt-home-fresh tt-home-fresh-art">
-      <button type="button" class="tt-image-card tt-image-card--full" onclick="ttOpenCollection('fresh_picks')">
-        <img src="./assets/home-revive/mockup/fresh-picks-band.png" alt="Fresh Picks for Your Little Star" loading="lazy">
-      </button>
-    </section>
+    </div>
 
-    <section class="tt-home-section tt-home-collection-results" id="tt-home-collection-results" hidden>
+    <section class="tt-home-section tt-home-collection-results" id="tt-home-collection-results">
       <div class="tt-home-section-head tt-home-section-row">
         <div>
-          <h2 id="tt-home-collection-title">Collection picks</h2>
-          <p id="tt-home-collection-sub">Curated Tinythreads styles.</p>
+          <h2 id="tt-home-collection-title">Featured This Season</h2>
+          <p id="tt-home-collection-sub">Our most-loved Tinythreads styles.</p>
         </div>
-        <button type="button" onclick="ttClearHomeCollection()">Clear</button>
+        <button id="tt-home-collection-reset" type="button" onclick="ttClearHomeCollection()" hidden>Featured</button>
       </div>
-      <div class="tt-home-product-strip" id="tt-home-collection-products"></div>
+      <div class="tt-home-product-strip" id="tt-home-collection-products">
+        <div class="loading-grid"><div class="spinner"></div>Loading featured products...</div>
+      </div>
     </section>
 
     <section class="tt-home-section tt-home-offers">
@@ -1051,16 +1065,6 @@
             <h3>Footwear</h3>
             <p>Sneakers, sandals & shoes</p>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 class="section-title">Featured <span class="red">This Season</span></h2>
-      <p class="section-sub">Our most loved pieces -- add to basket & checkout via WhatsApp</p>
-      <div class="prod-grid" id="featured-grid">
-        <div class="loading-grid">
-          <div class="spinner"></div>Loading products...
         </div>
       </div>
     </div>
@@ -1947,8 +1951,6 @@
 
 
   <!-- ── SUPABASE SPLASH SCREEN INTEGRATION ── -->
-  <script src="./js/supabase-splash.js"></script>
-  <script src="./js/splash-init.js"></script>
 <!-- as per the last comment from claud  on 4th June 11 AM-->
 
         <!-- new code -->

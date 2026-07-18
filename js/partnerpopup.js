@@ -310,7 +310,7 @@
   // The chip now lives permanently in the top nav (index.html .nav-right,
   // beside the basket button) — it is never floated or moved. We only ever
   // swap its icon between the default store icon and the matched partner's
-  // photo, and swap the label between "TinyThreads Partner" and
+  // photo, and swap the label between "Chat with a Partner" and
   // "Chat with <PartnerName>" once a match is found.
   function renderChip(matchData) {
     const iconEl = els.chip.querySelector(".tt-partner-navbtn-icon");
@@ -335,9 +335,9 @@
       if (iconEl) {
         iconEl.innerHTML = DEFAULT_ICON_SVG;
       }
-      if (labelEl) labelEl.textContent = "TinyThreads Partner";
-      els.chip.title = "Find your TinyThreads Partner";
-      els.chip.setAttribute("aria-label", "TinyThreads Partner");
+      if (labelEl) labelEl.textContent = "Chat with a Partner";
+      els.chip.title = "Chat with a TinyThreads Partner";
+      els.chip.setAttribute("aria-label", "Chat with a TinyThreads Partner");
       els.chip.onclick = () => { showEntry(); openSheet(); };
     }
   }

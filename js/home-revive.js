@@ -1,6 +1,11 @@
 (function () {
   const WA_NUMBER = '917879976016';
   const ASSET_BASE = './assets/home-revive/mockup/';
+  const HERO_VIDEO_MOBILE = 'https://res.cloudinary.com/tinythreads/video/upload/g_auto/c_fill,ar_952:414,w_640,so_0,du_5,q_auto:eco,br_900k,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
+  const HERO_VIDEO_DESKTOP = 'https://res.cloudinary.com/tinythreads/video/upload/g_auto/c_fill,ar_952:414,w_1280,so_0,du_5,q_auto:good,br_1800k,vc_auto/v1781069775/WhatsApp_Video_2026-06-10_at_9.55.04_AM_lva3a6.mp4';
+  let activeCollectionKey = null;
+  let heroVideoRequested = false;
+  let heroVideoScheduled = false;
 
   const NEEDS = [
     { key: 'school_ready', title: 'School Ready', img: 'need-school-ready.png', fallback: p => p.category === 'school' },
@@ -69,17 +74,54 @@
     track.innerHTML = NEEDS.map(need => {
       const count = byCollection(need.key, 50, need.fallback).length;
       if (!count) return '';
-      return '<button type="button" class="tt-need-card" onclick="ttOpenCollection(\'' + need.key + '\')">'
+      const selected = activeCollectionKey === need.key;
+      return '<button type="button" class="tt-need-card" data-collection="' + need.key + '" aria-pressed="' + selected + '" onclick="ttOpenCollection(\'' + need.key + '\', this)">'
         + '<img src="' + ASSET_BASE + need.img + '" alt="' + need.title + '" loading="lazy">'
         + '<span class="tt-need-count">' + count + ' styles</span>'
         + '</button>';
     }).join('');
   }
 
-  function renderFresh() {
-    const grid = document.getElementById('tt-fresh-picks');
-    if (!grid) return;
-    grid.innerHTML = byCollection('fresh_picks', 8).map(productCard).join('');
+  function featuredProducts(limit) {
+    let featured = products().filter(p => p.featured);
+    featured.sort((a, b) => {
+      const first = a.sort_order == null ? Infinity : Number(a.sort_order);
+      const second = b.sort_order == null ? Infinity : Number(b.sort_order);
+      return first - second;
+    });
+    if (!featured.length) featured = byCollection('fresh_picks', limit || 10);
+    return featured.slice(0, limit || 10);
+  }
+
+  function setNeedSelection(key, selectedCard) {
+    const track = document.getElementById('tt-need-track');
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll('.tt-need-card'));
+    cards.forEach(card => card.setAttribute('aria-pressed', 'false'));
+    const card = selectedCard || cards.find(item => item.dataset.collection === key);
+    if (!card) return;
+
+    card.setAttribute('aria-pressed', 'true');
+    const targetLeft = card.offsetLeft - ((track.clientWidth - card.offsetWidth) / 2);
+    track.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+  }
+
+  function showFeatured() {
+    const section = document.getElementById('tt-home-collection-results');
+    const title = document.getElementById('tt-home-collection-title');
+    const sub = document.getElementById('tt-home-collection-sub');
+    const grid = document.getElementById('tt-home-collection-products');
+    const reset = document.getElementById('tt-home-collection-reset');
+    if (!section || !title || !sub || !grid) return;
+
+    activeCollectionKey = null;
+    title.textContent = 'Featured This Season';
+    sub.textContent = 'Our most-loved Tinythreads styles.';
+    grid.innerHTML = featuredProducts(10).map(productCard).join('');
+    section.hidden = false;
+    if (reset) reset.hidden = true;
+    setNeedSelection(null);
   }
 
   function collectionLabel(key) {
@@ -90,28 +132,54 @@
     return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  function openCollection(key) {
+  function focusDiscovery() {
+    const discovery = document.getElementById('tt-home-discovery');
+    if (!discovery) return;
+
+    discovery.classList.add('is-engaged');
+    const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 94 : 100;
+
+    window.requestAnimationFrame(function () {
+      let documentTop = 0;
+      let element = discovery;
+      while (element) {
+        documentTop += element.offsetTop;
+        element = element.offsetParent;
+      }
+      const top = documentTop - stickyOffset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    });
+  }
+
+  function openCollection(key, selectedCard) {
     const section = document.getElementById('tt-home-collection-results');
     const title = document.getElementById('tt-home-collection-title');
     const sub = document.getElementById('tt-home-collection-sub');
     const grid = document.getElementById('tt-home-collection-products');
+    const reset = document.getElementById('tt-home-collection-reset');
     if (!section || !title || !sub || !grid) return;
 
+    activeCollectionKey = key;
     title.textContent = collectionLabel(key);
     sub.textContent = 'Curated Tinythreads styles matched to this need.';
     grid.innerHTML = byCollection(key, 10).map(productCard).join('');
     section.hidden = false;
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (reset) reset.hidden = false;
+    focusDiscovery();
+    setNeedSelection(key, selectedCard);
   }
 
   function clearCollection() {
-    const section = document.getElementById('tt-home-collection-results');
-    if (section) section.hidden = true;
+    showFeatured();
+    focusDiscovery();
   }
 
   function homeSearch(query) {
     const q = String(query || '').trim().toLowerCase();
-    if (!q) return;
+    if (!q) {
+      focusDiscovery();
+      return;
+    }
     const matches = products().filter(p => {
       return [p.name, p.description, p.category, p.subcategory, p.badge].join(' ').toLowerCase().includes(q);
     }).slice(0, 10);
@@ -120,13 +188,17 @@
     const title = document.getElementById('tt-home-collection-title');
     const sub = document.getElementById('tt-home-collection-sub');
     const grid = document.getElementById('tt-home-collection-products');
+    const reset = document.getElementById('tt-home-collection-reset');
     if (!section || !title || !sub || !grid) return;
 
+    activeCollectionKey = null;
     title.textContent = 'Search results';
     sub.textContent = matches.length ? 'Showing matches for "' + q + '".' : 'No matching products yet. Try girls, boys, school or nightwear.';
     grid.innerHTML = matches.length ? matches.map(productCard).join('') : '';
     section.hidden = false;
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (reset) reset.hidden = false;
+    setNeedSelection(null);
+    focusDiscovery();
   }
 
   function homeTrialCTA() {
@@ -139,28 +211,103 @@
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
 
-  function ensureChatCTA() {
-    if (document.getElementById('tt-home-chat-cta')) return;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.id = 'tt-home-chat-cta';
-    btn.className = 'tt-home-chat-cta';
-    btn.textContent = 'Need size help? Chat on WhatsApp';
-    btn.onclick = function () {
-      window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent('Hi Tinythreads, I need size help.'), '_blank');
+  function canUseHeroVideo() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!connection) return true;
+    if (connection.saveData) return false;
+    return !['slow-2g', '2g'].includes(String(connection.effectiveType || '').toLowerCase());
+  }
+
+  function initHeroVideo() {
+    heroVideoScheduled = false;
+    if (heroVideoRequested || !canUseHeroVideo()) return;
+
+    const home = document.getElementById('page-home');
+    const video = document.getElementById('tt-home-hero-video');
+    if (!home || !home.classList.contains('active') || !video) return;
+
+    heroVideoRequested = true;
+    video.src = window.matchMedia('(max-width: 700px)').matches
+      ? HERO_VIDEO_MOBILE
+      : HERO_VIDEO_DESKTOP;
+
+    video.addEventListener('playing', function () {
+      video.classList.add('is-playing');
+    });
+    video.addEventListener('error', function () {
+      video.classList.remove('is-playing');
+    }, { once: true });
+
+    video.load();
+    const playback = video.play();
+    if (playback && playback.catch) {
+      playback.catch(function () {
+        video.classList.remove('is-playing');
+      });
+    }
+  }
+
+  function scheduleHeroVideo() {
+    if (heroVideoRequested || heroVideoScheduled || !canUseHeroVideo()) return;
+    heroVideoScheduled = true;
+
+    const startWhenIdle = function () {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(initHeroVideo, { timeout: 2500 });
+      } else {
+        window.setTimeout(initHeroVideo, 800);
+      }
     };
-    document.body.appendChild(btn);
+
+    if (document.readyState === 'complete') {
+      startWhenIdle();
+    } else {
+      window.addEventListener('load', startWhenIdle, { once: true });
+    }
+  }
+
+  function syncHeroVideo(pageId) {
+    const video = document.getElementById('tt-home-hero-video');
+    if (!video) return;
+
+    if (pageId === 'home') {
+      if (!heroVideoRequested) {
+        scheduleHeroVideo();
+      } else if (document.visibilityState === 'visible') {
+        const playback = video.play();
+        if (playback && playback.catch) playback.catch(function () {});
+      }
+    } else {
+      video.pause();
+    }
   }
 
   function render() {
     if (!products().length) return;
     renderNeeds();
-    renderFresh();
-    ensureChatCTA();
+    if (activeCollectionKey) {
+      openCollection(activeCollectionKey);
+    } else {
+      showFeatured();
+    }
   }
 
   document.addEventListener('DOMContentLoaded', render);
-  window.addEventListener('tt:productsloaded', render);
+  window.addEventListener('tt:productsloaded', function () {
+    render();
+    scheduleHeroVideo();
+  });
+  window.addEventListener('load', function () {
+    window.setTimeout(scheduleHeroVideo, 1200);
+  }, { once: true });
+  window.addEventListener('tt:pageshown', function (event) {
+    syncHeroVideo(event.detail && event.detail.id);
+  });
+  document.addEventListener('visibilitychange', function () {
+    const home = document.getElementById('page-home');
+    syncHeroVideo(home && home.classList.contains('active') && document.visibilityState === 'visible' ? 'home' : 'hidden');
+  });
 
   window.ttOpenCollection = openCollection;
   window.ttClearHomeCollection = clearCollection;
