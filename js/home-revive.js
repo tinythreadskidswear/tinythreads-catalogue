@@ -55,30 +55,6 @@
     carousel.classList.toggle('has-right-overflow', track.scrollLeft < maxScroll - 4);
   }
 
-  function productEnquiry(productId) {
-    const product = products().find(item => String(item.id) === String(productId));
-    if (!product) return;
-
-    if (typeof window.waEnquire === 'function') {
-      window.waEnquire(product.name || 'Tinythreads product', product.price || 0);
-      return;
-    }
-
-    const msg = 'Hi Tiny Threads! I am interested in "' + (product.name || 'this product')
-      + '" priced at ' + money(product.price) + '. Please share available sizes and colours.';
-    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-  }
-
-  function updateNeedOverflow(track) {
-    if (!track) return;
-    const carousel = track.closest('.tt-need-carousel');
-    if (!carousel) return;
-
-    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-    carousel.classList.toggle('has-left-overflow', track.scrollLeft > 4);
-    carousel.classList.toggle('has-right-overflow', track.scrollLeft < maxScroll - 4);
-  }
-
   function renderNeeds() {
     const track = document.getElementById('tt-need-track');
     if (!track) return;
@@ -387,6 +363,7 @@
       collectionCarouselVisible = true;
       startCollectionCarousel();
     }
+  }
 
   function syncHomeSnapMode(pageId) {
     const home = document.getElementById('page-home');
@@ -455,5 +432,4 @@
   window.ttClearHomeCollection = clearCollection;
   window.ttHomeSearch = homeSearch;
   window.ttHomeTrialCTA = homeTrialCTA;
-  window.ttHomeProductEnquiry = productEnquiry;
 })();
