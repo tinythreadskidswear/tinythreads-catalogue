@@ -163,6 +163,46 @@ test.describe('revived home product card', () => {
     await expect(sheet).toHaveAttribute('aria-hidden', 'true');
   });
 
+  test('changes only the product carousel when a Shop by Need tile is selected', async ({ page }) => {
+    const discovery = page.locator('#tt-home-discovery');
+    const tile = page.locator('#tt-need-track [data-collection="school_ready"]');
+
+    await discovery.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+
+    const before = await page.evaluate(() => {
+      const panel = document.getElementById('tt-home-discovery');
+      const search = panel.querySelector('.tt-home-search-wrap');
+      const card = document.querySelector('#tt-need-track .tt-need-card');
+      return {
+        scrollY: window.scrollY,
+        searchTop: search.getBoundingClientRect().top,
+        cardWidth: card.getBoundingClientRect().width
+      };
+    });
+
+    await tile.click();
+    await expect(tile).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#tt-home-collection-title')).toHaveText('School Ready');
+    await expect(discovery).not.toHaveClass(/is-engaged/);
+    await page.waitForTimeout(350);
+
+    const after = await page.evaluate(() => {
+      const panel = document.getElementById('tt-home-discovery');
+      const search = panel.querySelector('.tt-home-search-wrap');
+      const card = document.querySelector('#tt-need-track .tt-need-card');
+      return {
+        scrollY: window.scrollY,
+        searchTop: search.getBoundingClientRect().top,
+        cardWidth: card.getBoundingClientRect().width
+      };
+    });
+
+    expect(Math.abs(after.scrollY - before.scrollY)).toBeLessThanOrEqual(2);
+    expect(Math.abs(after.searchTop - before.searchTop)).toBeLessThanOrEqual(2);
+    expect(Math.abs(after.cardWidth - before.cardWidth)).toBeLessThanOrEqual(1);
+  });
+
   test('auto-advances the Chapter Two collection carousel', async ({ page }) => {
     const rail = page.locator('.tt-home-collections');
     await rail.scrollIntoViewIfNeeded();
