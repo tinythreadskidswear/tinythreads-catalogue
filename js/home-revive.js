@@ -163,7 +163,6 @@
     renderHomeProducts(grid, byCollection(key, 10));
     section.hidden = false;
     if (reset) reset.hidden = false;
-    focusDiscovery();
     setNeedSelection(key, selectedCard);
   }
 
