@@ -1,0 +1,161 @@
+.tt-about-action--partner {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.tt-about-action--partner .tt-about-action-icon {
+  border-color: #bde7cd;
+  color: #159447;
+}
+
+.tt-partner-opportunity-sheet .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.tt-partner-opportunity-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10040;
+  background: rgba(29, 22, 27, .58);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+
+.tt-partner-opportunity-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tt-partner-opportunity-sheet {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10041;
+  display: flex;
+  width: min(100%, 540px);
+  max-height: 94vh;
+  margin: 0 auto;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 8px 8px 0 0;
+  background: #fff;
+  box-shadow: 0 -20px 60px rgba(32, 20, 27, .24);
+  transform: translateY(100%);
+  transition: transform .34s cubic-bezier(.32, .72, 0, 1);
+}
+
+.tt-partner-opportunity-sheet.open {
+  transform: translateY(0);
+}
+
+.tt-partner-opportunity-handle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 3;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(75, 53, 63, .28);
+  transform: translateX(-50%);
+}
+
+.tt-partner-opportunity-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 4;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(214, 183, 193, .8);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .95);
+  color: #8f2848;
+  box-shadow: 0 7px 20px rgba(51, 31, 40, .16);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tt-partner-opportunity-media {
+  min-height: 0;
+  overflow-y: auto;
+  background: #fff8f5;
+}
+
+.tt-partner-opportunity-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tt-partner-opportunity-footer {
+  flex-shrink: 0;
+  padding: 10px 14px max(12px, env(safe-area-inset-bottom));
+  border-top: 1px solid #f0d9df;
+  background: #fff;
+}
+
+.tt-partner-opportunity-cta {
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 8px;
+  background: #20b858;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(25, 160, 75, .2);
+  font: 800 14px/1 "DM Sans", sans-serif;
+  text-decoration: none;
+}
+
+.tt-partner-opportunity-cta svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+@media (max-width: 700px) {
+  .tt-about-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .tt-about-action {
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .tt-about-action-copy {
+    display: block;
+    max-width: 92px;
+    line-height: 1.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-partner-opportunity-overlay,
+  .tt-partner-opportunity-sheet {
+    transition: none;
+  }
+}
