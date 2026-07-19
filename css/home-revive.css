@@ -1155,6 +1155,24 @@
     padding-inline: .55rem;
   }
 
+  .tt-home-needs {
+    margin-top: .35rem;
+    padding-inline: .55rem;
+  }
+
+  .tt-home-needs .tt-home-section-head {
+    margin-bottom: .1rem;
+  }
+
+  .tt-home-needs .tt-home-section-head h2 {
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .tt-home-needs .tt-home-section-head p {
+    display: none;
+  }
+
   .tt-need-track {
     --tt-need-gap: .4rem;
     display: flex;
