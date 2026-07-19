@@ -130,25 +130,6 @@
     return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  function focusDiscovery() {
-    const discovery = document.getElementById('tt-home-discovery');
-    if (!discovery) return;
-
-    discovery.classList.add('is-engaged');
-    const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 88 : 94;
-
-    window.requestAnimationFrame(function () {
-      let documentTop = 0;
-      let element = discovery;
-      while (element) {
-        documentTop += element.offsetTop;
-        element = element.offsetParent;
-      }
-      const top = documentTop - stickyOffset;
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-    });
-  }
-
   function openCollection(key, selectedCard) {
     const section = document.getElementById('tt-home-collection-results');
     const title = document.getElementById('tt-home-collection-title');
@@ -168,15 +149,11 @@
 
   function clearCollection() {
     showFeatured();
-    focusDiscovery();
   }
 
   function homeSearch(query) {
     const q = String(query || '').trim().toLowerCase();
-    if (!q) {
-      focusDiscovery();
-      return;
-    }
+    if (!q) return;
     const matches = products().filter(p => {
       return [p.name, p.description, p.category, p.subcategory, p.badge].join(' ').toLowerCase().includes(q);
     }).slice(0, 10);
@@ -196,7 +173,6 @@
     section.hidden = false;
     if (reset) reset.hidden = false;
     setNeedSelection(null);
-    focusDiscovery();
   }
 
   function homeTrialCTA() {
