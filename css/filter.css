@@ -424,7 +424,7 @@ body.tt-tray-lock {
 
 @media (max-width: 768px) {
   .sticky-subnav {
-    top: 94px;
+    top: 88px;
   }
 
   .filter-bar {

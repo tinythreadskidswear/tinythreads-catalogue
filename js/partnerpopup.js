@@ -320,7 +320,7 @@
       els.chip.classList.add("tt-partner-chip--identified");
       const firstName = (matchData.name || "").trim().split(" ")[0];
       if (labelEl) labelEl.textContent = firstName || "Your Partner";
-      if (subEl) subEl.textContent = "Your nearest Partner";
+      if (subEl) subEl.textContent = "Chat with Partner";
       els.chip.title = matchData.name + " · Your TinyThreads Partner";
       els.chip.setAttribute("aria-label", "Chat with " + matchData.name + ", your TinyThreads Partner");
       els.chip.onclick = () => reopenFromCache(matchData);

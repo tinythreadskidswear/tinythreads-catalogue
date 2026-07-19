@@ -4,6 +4,9 @@
   let activeCollectionKey = null;
   let chapterObserver = null;
   let productRailChapterLock = false;
+  let collectionCarouselTimer = null;
+  let collectionCarouselResumeTimer = null;
+  let collectionCarouselVisible = false;
 
   const NEEDS = [
     { key: 'school_ready', title: 'School Ready', img: 'need-school-ready.png', fallback: p => p.category === 'school' },
@@ -33,41 +36,23 @@
     return found.slice(0, limit || 8);
   }
 
-  function money(value) {
-    return '₹' + Number(value || 0).toLocaleString('en-IN');
+  function renderHomeProducts(grid, items) {
+    if (!grid) return;
+    if (window.TTProductCard && typeof window.TTProductCard.renderInto === 'function') {
+      window.TTProductCard.renderInto(grid, items, { context: 'home' });
+      return;
+    }
+    grid.innerHTML = '<div class="loading-grid">Products are loading...</div>';
   }
 
-  function transformImage(url, width) {
-    if (!url) return '';
-    const targetWidth = Math.max(180, Math.round(width || 320));
-    return url.includes('res.cloudinary.com')
-      ? url.replace('/upload/', '/upload/c_fill,ar_3:4,g_north,w_' + targetWidth + ',q_auto,f_auto/')
-      : url;
-  }
+  function updateNeedOverflow(track) {
+    if (!track) return;
+    const carousel = track.closest('.tt-need-carousel');
+    if (!carousel) return;
 
-  function productCard(p) {
-    const renderWidth = window.matchMedia && window.matchMedia('(max-width: 700px)').matches ? 240 : 360;
-    const img = p.images && p.images[0] ? transformImage(p.images[0], renderWidth) : '';
-    const meta = [p.age, p.subcategory].filter(Boolean).join(' · ');
-    const id = String(p.id || '').replace(/'/g, "\\'");
-    const imageHtml = img
-      ? '<img src="' + img + '" alt="' + p.name + '" loading="lazy">'
-      : '<div class="slide-ph" style="height:100%;display:grid;place-items:center;">' + (p.name || 'Tinythreads') + '</div>';
-
-    return '<article class="tt-home-mini-product">'
-      + '<div class="tt-home-mini-img" onclick="openPDP(\'' + id + '\')">' + imageHtml + '</div>'
-      + '<div class="tt-home-mini-body">'
-      + '<h3 onclick="openPDP(\'' + id + '\')">' + (p.name || 'Tinythreads pick') + '</h3>'
-      + '<div class="tt-home-mini-meta">' + meta + '</div>'
-      + '<div class="tt-home-mini-foot">'
-      + '<span class="tt-home-mini-price">' + money(p.price) + '</span>'
-      + '</div>'
-      + '<div class="tt-home-mini-actions">'
-      + '<button type="button" class="tt-home-mini-add" onclick="addToBasket(\'' + id + '\')">Add to cart</button>'
-      + '<button type="button" class="tt-home-mini-wa" onclick="ttHomeProductEnquiry(\'' + id + '\')" aria-label="Ask about this product on WhatsApp" title="Ask on WhatsApp">'
-      + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26 9.9 9.9 0 0 1 9.89-9.88 9.82 9.82 0 0 1 6.99 2.9 9.83 9.83 0 0 1 2.89 6.99 9.9 9.9 0 0 1-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41z"/></svg>'
-      + '</button>'
-      + '</div></div></article>';
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    carousel.classList.toggle('has-left-overflow', track.scrollLeft > 4);
+    carousel.classList.toggle('has-right-overflow', track.scrollLeft < maxScroll - 4);
   }
 
   function productEnquiry(productId) {
@@ -155,7 +140,7 @@
     activeCollectionKey = null;
     title.textContent = 'Featured This Season';
     sub.textContent = 'Our most-loved Tinythreads styles.';
-    grid.innerHTML = featuredProducts(10).map(productCard).join('');
+    renderHomeProducts(grid, featuredProducts(10));
     section.hidden = false;
     if (reset) reset.hidden = true;
     setNeedSelection(null);
@@ -174,7 +159,7 @@
     if (!discovery) return;
 
     discovery.classList.add('is-engaged');
-    const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 94 : 100;
+    const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 88 : 94;
 
     window.requestAnimationFrame(function () {
       let documentTop = 0;
@@ -199,7 +184,7 @@
     activeCollectionKey = key;
     title.textContent = collectionLabel(key);
     sub.textContent = 'Curated Tinythreads styles matched to this need.';
-    grid.innerHTML = byCollection(key, 10).map(productCard).join('');
+    renderHomeProducts(grid, byCollection(key, 10));
     section.hidden = false;
     if (reset) reset.hidden = false;
     focusDiscovery();
@@ -231,7 +216,8 @@
     activeCollectionKey = null;
     title.textContent = 'Search results';
     sub.textContent = matches.length ? 'Showing matches for "' + q + '".' : 'No matching products yet. Try girls, boys, school or nightwear.';
-    grid.innerHTML = matches.length ? matches.map(productCard).join('') : '';
+    if (matches.length) renderHomeProducts(grid, matches);
+    else grid.innerHTML = '';
     section.hidden = false;
     if (reset) reset.hidden = false;
     setNeedSelection(null);
@@ -255,13 +241,23 @@
     const chapter = strip && strip.closest('[data-home-chapter]');
     if (!chapter) return;
 
-    const target = direction > 0
-      ? chapter.nextElementSibling
-      : document.querySelector('.tt-home-hero');
+    const mobileHeaderOffset = 88;
+    const chapterTop = chapter.getBoundingClientRect().top;
+    const chapterIsAligned = Math.abs(chapterTop - mobileHeaderOffset) < 12;
+    const target = direction > 0 && !chapterIsAligned
+      ? chapter
+      : direction > 0
+        ? chapter.nextElementSibling
+        : document.querySelector('.tt-home-hero');
     if (!target) return;
 
     productRailChapterLock = true;
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (target === chapter) {
+      const targetTop = window.scrollY + chapterTop - mobileHeaderOffset + 2;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     window.setTimeout(function () {
       productRailChapterLock = false;
     }, 650);
@@ -309,6 +305,89 @@
     }, { passive: false });
   }
 
+  function stopCollectionCarousel() {
+    if (collectionCarouselTimer) window.clearInterval(collectionCarouselTimer);
+    collectionCarouselTimer = null;
+  }
+
+  function chapterTwoCarouselCanRun() {
+    const rail = document.querySelector('.tt-home-collections');
+    const home = document.getElementById('page-home');
+    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return Boolean(
+      rail &&
+      collectionCarouselVisible &&
+      !reducedMotion &&
+      document.visibilityState === 'visible' &&
+      (!home || home.classList.contains('active')) &&
+      rail.scrollWidth > rail.clientWidth + 4
+    );
+  }
+
+  function advanceCollectionCarousel() {
+    const rail = document.querySelector('.tt-home-collections');
+    if (!rail) return;
+    const cards = Array.from(rail.querySelectorAll('.tt-image-card'));
+    if (cards.length < 2) return;
+
+    const maxScroll = Math.max(0, rail.scrollWidth - rail.clientWidth);
+    if (rail.scrollLeft >= maxScroll - 6) {
+      rail.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const firstLeft = cards[0].offsetLeft;
+    const next = cards.find(function (card) {
+      return card.offsetLeft - firstLeft > rail.scrollLeft + 6;
+    });
+    rail.scrollTo({
+      left: next ? next.offsetLeft - firstLeft : 0,
+      behavior: 'smooth'
+    });
+  }
+
+  function startCollectionCarousel() {
+    stopCollectionCarousel();
+    if (!chapterTwoCarouselCanRun()) return;
+    const delay = (window.tinythreadsConfig && window.tinythreadsConfig.autoPlayInterval) || 3000;
+    collectionCarouselTimer = window.setInterval(advanceCollectionCarousel, delay);
+  }
+
+  function resumeCollectionCarouselSoon() {
+    if (collectionCarouselResumeTimer) window.clearTimeout(collectionCarouselResumeTimer);
+    collectionCarouselResumeTimer = window.setTimeout(startCollectionCarousel, 1800);
+  }
+
+  function bindChapterTwoCarousel() {
+    const rail = document.querySelector('.tt-home-collections');
+    if (!rail || rail.dataset.autoplayBound === 'true') return;
+    rail.dataset.autoplayBound = 'true';
+
+    ['pointerdown', 'mouseenter', 'focusin'].forEach(function (eventName) {
+      rail.addEventListener(eventName, stopCollectionCarousel, { passive: true });
+    });
+    ['pointerup', 'pointercancel', 'mouseleave', 'focusout'].forEach(function (eventName) {
+      rail.addEventListener(eventName, resumeCollectionCarouselSoon, { passive: true });
+    });
+    rail.addEventListener('wheel', function () {
+      stopCollectionCarousel();
+      resumeCollectionCarouselSoon();
+    }, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        collectionCarouselVisible = entries.some(function (entry) {
+          return entry.isIntersecting && entry.intersectionRatio >= .35;
+        });
+        if (collectionCarouselVisible) startCollectionCarousel();
+        else stopCollectionCarousel();
+      }, { threshold: [.35] });
+      observer.observe(rail);
+    } else {
+      collectionCarouselVisible = true;
+      startCollectionCarousel();
+    }
+
   function syncHomeSnapMode(pageId) {
     const home = document.getElementById('page-home');
     const homeActive = pageId ? pageId === 'home' : Boolean(home && home.classList.contains('active'));
@@ -335,7 +414,7 @@
       });
     }, {
       threshold: .16,
-      rootMargin: '-94px 0px -18% 0px'
+      rootMargin: '-88px 0px -18% 0px'
     });
 
     chapters.forEach(chapter => chapterObserver.observe(chapter));
@@ -354,14 +433,22 @@
 
   document.addEventListener('DOMContentLoaded', render);
   document.addEventListener('DOMContentLoaded', bindProductRailNavigation);
+  document.addEventListener('DOMContentLoaded', bindChapterTwoCarousel);
   document.addEventListener('DOMContentLoaded', initHomeChapters);
   window.addEventListener('tt:productsloaded', render);
   window.addEventListener('tt:pageshown', function (event) {
     syncHomeSnapMode(event.detail && event.detail.id);
+    if (event.detail && event.detail.id === 'home') startCollectionCarousel();
+    else stopCollectionCarousel();
   });
   window.addEventListener('resize', function () {
     updateNeedOverflow(document.getElementById('tt-need-track'));
     syncHomeSnapMode();
+    startCollectionCarousel();
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') startCollectionCarousel();
+    else stopCollectionCarousel();
   });
 
   window.ttOpenCollection = openCollection;

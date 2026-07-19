@@ -1318,7 +1318,7 @@ footer { background: var(--red-dark); color: #FFCDD2; padding: 1.6rem 2rem 1.1re
   /* Filter bar — sticky below nav on mobile */
   .filter-bar {
     position: sticky;
-    top: 94px;
+    top: 88px;
     background: rgba(255,255,255,.97);
     backdrop-filter: blur(8px);
     z-index: 950;

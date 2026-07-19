@@ -467,8 +467,8 @@
       if (!loaded) allProducts = getFallbackProducts();
 
       window.allProducts = allProducts;
-      renderAllGrids(); initTestimonialSwiper(); handleURLRouting();
       window.dispatchEvent(new CustomEvent('tt:productsloaded', { detail: { products: allProducts } }));
+      renderAllGrids(); initTestimonialSwiper(); handleURLRouting();
     }
 
     function renderAllGrids() {
@@ -619,22 +619,11 @@
     function renderGrid(id, products) {
       const grid = document.getElementById(id); if (!grid) return;
       if (products.length === 0) { grid.innerHTML = '<div class="loading-grid" style="grid-column:1/-1;">No products found in this category yet.</div>'; return; }
-      grid.innerHTML = products.map(p => productCard(p)).join('');
-      grid.querySelectorAll('.prod-swiper').forEach(el => {
-        const count = el.querySelectorAll('.swiper-slide').length;
-        // Enable loop only if we have enough slides for proper looping (minimum 3)
-        // Swiper needs at least slidesPerView + slidesPerGroup slides to loop properly
-        const canLoop = count >= 3;
-        new Swiper(el, {
-          loop: canLoop,
-          autoplay: canLoop ? { delay: tinythreadsConfig.autoPlayInterval || 3000, disableOnInteraction: false } : false,
-          pagination: canLoop ? { el: el.querySelector('.swiper-pagination'), clickable: true, type: 'bullets' } : false,
-          navigation: false,
-          simulateTouch: canLoop,   // only allow swipe if multiple slides; single-image taps go to card onclick
-          allowTouchMove: canLoop,
-          speed: 600
-        });
-      });
+      if (window.TTProductCard && typeof window.TTProductCard.renderInto === 'function') {
+        window.TTProductCard.renderInto(grid, products, { context: 'category' });
+        return;
+      }
+      grid.innerHTML = '<div class="loading-grid" style="grid-column:1/-1;">Products are loading...</div>';
     }
 
     const selectedSizes = {};
@@ -696,13 +685,15 @@
   </div>`;
     }
 
-    function addToBasket(key) {
+    function addToBasket(key, options) {
       const p = allProducts.find(p => p.id === key); if (!p) return;
-      const size = selectedSizes[key] || (p.sizes && p.sizes.length > 0 ? '(size not selected)' : '');
-      const bkey = key + '-' + size;
+      const opts = options && typeof options === 'object' ? options : {};
+      const size = opts.size || selectedSizes[key] || (p.sizes && p.sizes.length > 0 ? '(size not selected)' : '');
+      const color = opts.color || '';
+      const bkey = key + '-' + size + (color ? '-' + color : '');
       const existing = basket.find(i => i.key === bkey);
       if (existing) { existing.qty += 1; }
-      else { basket.push({ key: bkey, id: key, name: p.name, desc: `${p.subcategory || ''} · Size: ${size || 'N/A'}`, price: p.price, qty: 1, size, img: (p.images && p.images[0]) ? p.images[0] : '' }); }
+      else { basket.push({ key: bkey, id: key, name: p.name, desc: `${p.subcategory || ''} · Size: ${size || 'N/A'}${color ? ' · Color: ' + color : ''}`, price: p.price, qty: 1, size, color, img: (p.images && p.images[0]) ? p.images[0] : '' }); }
       updateBasketUI(); showToast(`Added ${p.name} to basket 🛒`);
       const btn = document.getElementById('abtn-' + key);
       if (btn) { btn.classList.add('added'); btn.textContent = '✓ Added!'; setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = '🛒 Add'; }, 1400); }
@@ -1673,25 +1664,11 @@
 
       if (pool.length === 0) { section.classList.remove('visible'); return; }
 
-      var catIcons = { boys: '👦', girls: '👧', babies: '👶', footwear: '👟', accessories: '💎', toys: '🧸', twinning: '👨‍👧', kidscare: '🧴', school: '🎒', learning: '📚', celebration: '🎉' };
-
-      track.innerHTML = pool.map(function (p) {
-        var hasImg = p.images && p.images.length > 0 && !p.images[0].includes('YOUR_CLOUD_NAME');
-        var imgHtml = hasImg
-          ? '<img src="' + p.images[0].replace('/upload/', '/upload/c_fill,w_320,h_427,g_north,q_auto,f_auto/') + '" alt="' + p.name + '" loading="lazy" onerror="this.style.display=\'none\'">'
-          : '<div class="sim-img-ph">' + (catIcons[p.category] || '📦') + '</div>';
-        var badgeHtml = p.badge ? '<span class="sim-badge">' + p.badge + '</span>' : '';
-        var subLabel = p.subcategory ? p.subcategory.charAt(0).toUpperCase() + p.subcategory.slice(1) : '';
-        return '<div class="sim-card" onclick="openPDP(\'' + p.id + '\')" title="' + p.name + '">'
-          + '<div class="sim-img-wrap">' + imgHtml + badgeHtml + '</div>'
-          + '<div class="sim-card-body">'
-          + '<div class="sim-card-name">' + p.name + '</div>'
-          + '<div class="sim-card-sub">' + subLabel + '</div>'
-          + '<div class="sim-card-price">₹' + p.price.toLocaleString('en-IN')
-          + '<button class="sim-add" onclick="event.stopPropagation();addToBasket(\'' + p.id + '\')" type="button">+ Basket</button>'
-          + '</div>'
-          + '</div></div>';
-      }).join('');
+      if (window.TTProductCard && typeof window.TTProductCard.renderInto === 'function') {
+        window.TTProductCard.renderInto(track, pool, { context: 'similar' });
+      } else {
+        track.innerHTML = '<div class="loading-grid">Products are loading...</div>';
+      }
 
       countEl.textContent = pool.length + ' item' + (pool.length !== 1 ? 's' : '');
       section.classList.add('visible');

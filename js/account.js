@@ -679,7 +679,7 @@
   function renderQuickActions() {
     const actions = [
       { icon: '📦', title: 'Orders',    sub: 'Track and view your orders',   onclick: "window._accOpenOrders()" },
-      { icon: '💛', title: 'Wishlist',  sub: 'Coming Soon',                  onclick: "window._accComingSoon('Wishlist')", soon: true },
+      { icon: '♡', title: 'Wishlist',   sub: 'View your saved styles',       onclick: "window.openWishlist()" },
       { icon: '📍', title: 'Addresses', sub: 'Coming Soon',                  onclick: "window._accComingSoon('Addresses')", soon: true },
       { icon: '🎁', title: 'Offers',    sub: 'Season caps & deals',          onclick: "window._accComingSoon('Offers')", soon: true },
       { icon: '💬', title: 'Support',   sub: 'Chat with us on WhatsApp',     onclick: "window.open('https://wa.me/917879976016?text=Hi%20Tiny%20Threads!','_blank')" },

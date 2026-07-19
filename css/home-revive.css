@@ -69,7 +69,7 @@
   isolation: isolate;
   width: 100%;
   padding: .45rem 0 1.5rem;
-  scroll-margin-top: 100px;
+  scroll-margin-top: 94px;
 }
 
 .tt-home-chapter--discover { background: #fff; }
@@ -104,7 +104,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 94px);
   margin: 0;
   padding: clamp(1.5rem, 4vw, 3rem) 1.25rem 1.2rem;
   background: #fff;
@@ -494,7 +494,7 @@
 
 .tt-home-discovery-sticky {
   position: sticky;
-  top: 100px;
+  top: 94px;
   z-index: 3900;
   display: flow-root;
   padding-bottom: .7rem;
@@ -517,7 +517,7 @@
 }
 
 .tt-home-discovery-sticky.is-engaged .tt-home-needs {
-  margin-top: .35rem;
+  margin-top: .2rem;
 }
 
 .tt-home-discovery-sticky.is-engaged .tt-home-section-head {
@@ -681,7 +681,7 @@
 }
 
 .tt-need-card,
-.tt-home-mini-product,
+.tt-home-product-strip .tt-product-card,
 .tt-image-card {
   flex: 0 0 auto;
   scroll-snap-align: start;
@@ -783,103 +783,6 @@
   display: none;
 }
 
-.tt-home-mini-product {
-  width: min(44vw, 190px);
-  min-width: min(44vw, 190px);
-  background: #fff;
-  border: 1px solid #f4e4e8;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 12px 28px rgba(36, 23, 31, .08);
-}
-
-.tt-home-mini-img {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  background: #fff5f7;
-}
-
-.tt-home-mini-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.tt-home-mini-body {
-  display: flex;
-  flex-direction: column;
-  padding: .6rem;
-}
-
-.tt-home-mini-body h3 {
-  margin: 0 0 .25rem;
-  min-height: 32px;
-  overflow: hidden;
-  font-size: 13px;
-  line-height: 1.25;
-  color: #20263a;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.tt-home-mini-meta {
-  color: #7b8092;
-  font-size: 11px;
-  min-height: 15px;
-}
-
-.tt-home-mini-foot {
-  display: flex;
-  align-items: center;
-  margin-top: .35rem;
-}
-
-.tt-home-mini-price {
-  font-weight: 900;
-  color: #c0392b;
-}
-
-.tt-home-mini-actions {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 34px;
-  gap: 5px;
-  margin-top: .45rem;
-}
-
-.tt-home-mini-actions button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  height: 34px;
-  border: 0;
-  border-radius: 9px;
-  cursor: pointer;
-}
-
-.tt-home-mini-add {
-  padding: 0 7px;
-  background: #ec407a;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.tt-home-mini-wa {
-  background: #e8f9ee;
-  color: #159447;
-  box-shadow: inset 0 0 0 1px #bdeacb;
-}
-
-.tt-home-mini-wa svg {
-  width: 17px;
-  height: 17px;
-  fill: currentColor;
-}
-
 .tt-home-offers .tt-image-card {
   width: clamp(220px, 72vw, 305px);
   aspect-ratio: 305 / 157;
@@ -944,16 +847,27 @@
 
 @media (max-width: 700px) {
   html.tt-home-snap {
-    scroll-padding-top: 94px;
+    scroll-padding-top: 88px;
     scroll-snap-type: y mandatory;
   }
 
+  .tt-home-hero {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
   .tt-home-chapter {
-    min-height: calc(100svh - 94px - 78px);
-    padding: .2rem 0 1rem;
+    min-height: calc(100svh - 88px - 68px - env(safe-area-inset-bottom));
+    padding: .1rem 0 .35rem;
     scroll-margin-top: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+  }
+
+  .tt-home-chapter--discover {
+    height: calc(100svh - 88px - 68px - env(safe-area-inset-bottom));
+    max-height: calc(100svh - 88px - 68px - env(safe-area-inset-bottom));
+    overflow: hidden;
   }
 
   .tt-home-chapter--loved,
@@ -977,7 +891,7 @@
     flex: 1 0 auto;
     align-items: center;
     width: 100%;
-    min-height: calc(100svh - 94px - 78px);
+    min-height: calc(100svh - 88px - 68px - env(safe-area-inset-bottom));
     padding: .8rem .7rem .65rem;
   }
 
@@ -1156,8 +1070,14 @@
   }
 
   .tt-home-discovery-sticky {
-    top: 94px;
-    padding-bottom: .35rem;
+    position: relative;
+    top: 0;
+    padding-bottom: .12rem;
+  }
+
+  .tt-home-discovery-sticky.is-engaged {
+    position: sticky;
+    top: 88px;
   }
 
   .tt-home-hero {
@@ -1179,7 +1099,7 @@
 
   .tt-home-search-wrap,
   .tt-home-section {
-    margin-top: .7rem;
+    margin-top: .45rem;
     padding: 0 .75rem;
     overflow: hidden;
   }
@@ -1226,8 +1146,13 @@
 
   .tt-home-section-row button {
     flex-shrink: 0;
-    padding: 9px 12px;
-    font-size: 12px;
+    padding: 6px 9px;
+    font-size: 10px;
+  }
+
+  .tt-home-needs {
+    margin-top: .2rem;
+    padding-inline: .55rem;
   }
 
   .tt-home-needs {
@@ -1253,7 +1178,7 @@
     display: flex;
     gap: var(--tt-need-gap);
     overflow-x: auto;
-    padding: .25rem .3rem .35rem;
+    padding: .12rem .3rem .2rem;
     scroll-padding-inline: .3rem;
   }
 
@@ -1266,21 +1191,12 @@
   }
 
   .tt-home-discovery-sticky.is-engaged .tt-home-section-head h2 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .tt-home-discovery-sticky.is-engaged .tt-need-track {
-    padding-top: .2rem;
-    padding-bottom: .3rem;
-  }
-
-  .tt-home-discovery-sticky.is-engaged .tt-home-section-head h2 {
-    font-size: 19px;
-  }
-
-  .tt-home-discovery-sticky.is-engaged .tt-need-track {
-    gap: .5rem;
-    padding: .4rem .2rem .3rem;
+    gap: .4rem;
+    padding: .12rem .2rem .18rem;
   }
 
   .tt-home-discovery-sticky.is-engaged .tt-need-card {
@@ -1293,45 +1209,36 @@
     gap: .75rem;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: .55rem;
+    padding-bottom: .25rem;
   }
 
-  .tt-home-mini-product {
-    width: 46vw;
-    min-width: 46vw;
-    max-width: 180px;
-    border-radius: 14px;
+  .tt-home-collection-results {
+    margin-top: .12rem;
   }
 
-  .tt-home-mini-body {
-    padding: .5rem;
+  .tt-home-collection-results .tt-home-section-head {
+    margin-bottom: .15rem;
   }
 
-  .tt-home-mini-body h3 {
-    min-height: 29px;
-    font-size: 11.5px;
+  .tt-home-collection-results .tt-home-section-head h2 {
+    font-size: 17px;
+    line-height: 1.08;
   }
 
-  .tt-home-mini-meta {
-    font-size: 9.5px;
+  .tt-home-collection-results .tt-home-section-head p {
+    margin-top: .04rem;
+    font-size: 10px;
+    line-height: 1.1;
   }
 
-  .tt-home-mini-price {
-    font-size: 12px;
-  }
+  @media (max-height: 700px) {
+    .tt-home-collection-results .tt-home-section-head p {
+      display: none;
+    }
 
-  .tt-home-mini-actions {
-    grid-template-columns: minmax(0, 1fr) 32px;
-    gap: 4px;
-    margin-top: .35rem;
-  }
-
-  .tt-home-mini-actions button {
-    height: 32px;
-  }
-
-  .tt-home-mini-add {
-    font-size: 9.5px;
+    .tt-home-collection-results .tt-home-section-head {
+      margin-bottom: .08rem;
+    }
   }
 
   .tt-home-offers,
